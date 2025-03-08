@@ -4,13 +4,7 @@
 
 	const { splitName, caption, splitDescription, logo } = config.site;
 
-    const onclick = () => {
-        const container = document.getElementById('container');
-        if (container) {
-            container.classList.add('animate-ping');
-            goto('/about');
-        }
-    }
+    const onclick = () => goto('/login');
 </script>
 
 <div class="flex h-screen w-screen flex-col items-center justify-center">
