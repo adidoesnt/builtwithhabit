@@ -1,8 +1,6 @@
 <script lang="ts">
-	import config from '$lib/config';
+	import AuthFormHeader from '$lib/components/AuthFormHeader.svelte';
 	import type { ActionData } from './$types';
-
-	const { splitName, caption, logo } = config.site;
 
 	type FormErrors = {
 		email?: string[];
@@ -46,22 +44,9 @@
 <div class="flex h-screen w-screen flex-col items-center justify-center">
 	<div
 		id="container"
-		class="bg-beige flex h-full w-full min-w-[300px] flex-col items-center justify-center gap-2 overflow-y-hidden rounded-sm p-8 py-4 md:h-fit md:w-fit md:py-8"
+		class="bg-beige flex h-full w-full min-w-[300px] flex-col items-center justify-center gap-2 overflow-y-auto md:overflow-y-visible rounded-sm p-8 py-4 md:h-fit md:w-fit md:py-8"
 	>
-		<div
-			class="mb-8 flex w-full flex-col items-start justify-center md:mb-0 md:w-fit md:flex-row md:items-center md:gap-4"
-		>
-			<img src={logo} alt="logo" class="flex h-auto w-36 self-center mix-blend-multiply md:w-40" />
-			<div class="border-light-brown hidden h-full border-l-2 md:block"></div>
-			<div class="flex flex-col gap-2">
-				<h1 class="font-headings text-2xl font-bold md:text-4xl">
-					<span class="text-dark-brown">{splitName[0]}</span><span class="text-light-brown"
-						>{splitName[1]}</span
-					><span class="text-dark-brown">{splitName[2]}.</span>
-				</h1>
-				<p class="font-body text-light-brown flex self-start text-sm">{caption}</p>
-			</div>
-		</div>
+		<AuthFormHeader />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-2 overflow-visible"
 			action="/login"
