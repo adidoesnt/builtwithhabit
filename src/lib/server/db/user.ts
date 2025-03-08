@@ -1,3 +1,4 @@
+import { eq } from 'drizzle-orm';
 import { database } from '.';
 import { users } from './schema';
 
@@ -8,6 +9,17 @@ export const createUser = async (attributes: UserCreateAttributes) => {
 
 	if (!result) {
 		throw new Error('Failed to create user');
+	}
+
+	const user = result[0];
+	return user;
+};
+
+export const getUserById = async (id: string) => {
+	const result = await database.select().from(users).where(eq(users.id, id));
+
+	if (!result) {
+		throw new Error('Failed to get user');
 	}
 
 	const user = result[0];

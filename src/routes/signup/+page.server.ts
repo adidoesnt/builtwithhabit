@@ -9,7 +9,7 @@ const schema = z.object({
 	middleName: z.string().optional(),
 	lastName: z.string().min(1, 'Last name is required'),
 	email: z.string().email('Invalid email address'),
-	password: z.string().min(8, 'Password must be at least 8 characters long'),
+	password: z.string().min(8, 'Password must be at least 8 characters long')
 });
 
 export const actions = {
@@ -24,14 +24,20 @@ export const actions = {
 				error: 'Invalid form data',
 				errors: result.error.flatten().fieldErrors,
 				data: {
-					username: data.username,
-					rememberMe: formData.has('remember-me')
+					firstName: data.firstName,
+					lastName: data.lastName,
+					email: data.email,
+                    password: data.password
 				}
 			});
 		}
 
 		try {
-			const { user: authUser, session } = await signupWithEmail(result.data.email, result.data.password);
+            // TODO: use session object?
+			const { user: authUser, session } = await signupWithEmail(
+				result.data.email,
+				result.data.password
+			);
 
 			if (!authUser) {
 				throw new Error('Failed to create user');
@@ -46,20 +52,19 @@ export const actions = {
 
 			return {
 				success: true,
-                user,
+				user
 			};
 		} catch (error) {
 			console.error(error);
 
 			return fail(500, {
-				error: 'Failed to login',
-				errors: {
-					username: 'Invalid username or password',
-					password: 'Invalid username or password'
-				},
+				error: 'Failed to signup',
+				errors: {},
 				data: {
-					username: data.username,
-					rememberMe: formData.has('remember-me')
+					firstName: data.firstName,
+					lastName: data.lastName,
+					email: data.email,
+                    password: data.password
 				}
 			});
 		}

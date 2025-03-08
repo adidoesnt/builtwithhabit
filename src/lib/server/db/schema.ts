@@ -1,6 +1,7 @@
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
+export type UserFindAttributes = typeof users.$inferSelect;
 
 export const users = pgTable('users', {
 	id: uuid('id').primaryKey(),
