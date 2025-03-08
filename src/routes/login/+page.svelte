@@ -53,7 +53,7 @@
                     <p class="text-sm text-light-brown">Don't have an account? <a href="/signup" class="text-sm text-light-brown hover:text-dark-brown transition-all duration-300">Sign up!</a></p>
                     <a href="/forgot-password" class="text-sm text-light-brown hover:text-dark-brown transition-all duration-300">Forgot password?</a>
                 </div>
-                <button class="flex self-end bg-dark-brown h-fit hover:scale-110 transition-all duration-300 hover:opacity-80 text-beige rounded-sm px-8 py-2 font-body" type="submit">Login</button>
+                <button class="flex self-end bg-dark-brown h-fit hover:scale-110 transition-all duration-300 hover:opacity-80 text-beige rounded-sm px-8 py-2 font-body" type="submit">Log in</button>
             </div>
 		</form>
 	</div>

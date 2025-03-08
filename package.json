@@ -12,6 +12,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check .",
+		"db:pull": "drizzle-kit pull",
 		"db:generate": "drizzle-kit generate",
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
