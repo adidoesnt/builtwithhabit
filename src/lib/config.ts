@@ -16,7 +16,7 @@ const config = {
 			name: 'Ishita R. Mahajan',
 			image: '/headshot.png',
 			tagline: 'NASM-Certified Personal Trainer',
-			callToAction: 'View pricing',
+			callToAction: 'View packages',
 			email: 'admin@boh-services.com',
 			phone: '+65 9233 4061',
 			instagram: {

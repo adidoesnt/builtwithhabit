@@ -16,6 +16,13 @@
 	const scrollToAbout = () => {
 		document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
 	};
+
+	let activeIndex = $state(0);
+
+	const handleScroll = (index: number) => {
+		activeIndex = index;
+		document.getElementById(`plan-${index}`)?.scrollIntoView({ behavior: 'smooth' });
+	};
 </script>
 
 <section
@@ -35,16 +42,18 @@
 		</p>
 	</button>
 	<button
-		class="relative z-10 font-body bg-dark-brown text-beige mt-4 rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
+		class="font-body bg-dark-brown text-beige relative z-10 mt-4 rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
 		onclick={scrollToAbout}
 	>
 		Learn More
 	</button>
 </section>
 
-<section id="about" class="md:h-screen w-full">
-	<div class="md:grid h-full w-full md:grid-rows-1 md:grid-cols-2">
-		<div class="bg-light-green flex w-full flex-col items-center justify-center gap-6 md:gap-10 p-8">
+<section id="about" class="w-full md:h-screen">
+	<div class="h-full w-full md:grid md:grid-cols-2 md:grid-rows-1">
+		<div
+			class="bg-light-green flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
+		>
 			<img
 				src={contact.image}
 				alt={contact.name}
@@ -73,7 +82,7 @@
 					</div>
 				</div>
 				<button
-					class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 transition-all duration-300 hover:scale-110 hover:opacity-80"
+					class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
 					onclick={scrollToPricing}>{contact.callToAction}</button
 				>
 			</div>
@@ -81,7 +90,7 @@
 		<div class="bg-beige flex w-full flex-col justify-center gap-6 p-8 md:gap-8 md:p-18">
 			<div class="flex flex-col">
 				{#each mission.title as title}
-					<h2 class="font-headings text-dark-brown text-3xl md:text-5xl font-semibold">{title}</h2>
+					<h2 class="font-headings text-dark-brown text-3xl font-semibold md:text-5xl">{title}</h2>
 				{/each}
 			</div>
 			{#each mission.content as content}
@@ -91,31 +100,42 @@
 	</div>
 </section>
 
-<section
-	id="pricing"
-	class="bg-light-brown flex h-screen w-full flex-col items-center justify-center p-8"
->
-	<h2 class="font-headings text-dark-brown mb-8 text-center text-3xl font-bold">
+<section id="pricing" class="bg-light-brown flex h-screen flex-col items-center justify-center p-8">
+	<h2 class="font-headings text-dark-brown mb-8 text-center text-3xl font-bold md:text-5xl">
 		{config.site.pricing.title}
 	</h2>
-	<div class="flex overflow-x-auto pb-4 gap-4 md:grid md:grid-cols-3">
-		{#each config.site.pricing.plans as plan}
+	<div id="plan-container" class="flex w-full gap-4 overflow-x-auto md:justify-center">
+		{#each config.site.pricing.plans as plan, index}
 			<div
-				class="bg-beige flex-shrink-0 w-80 flex flex-col items-center rounded-lg p-6 shadow-lg transition-transform duration-300 hover:scale-105 md:w-auto"
+				id={`plan-${index}`}
+				class="bg-beige flex min-w-full flex-col items-center rounded-lg p-6 px-16 shadow-lg transition-transform duration-300 md:min-w-fit gap-6"
 			>
-				<h3 class="font-headings text-light-brown mb-4 text-2xl font-semibold">{plan.name}</h3>
-				<p class="font-body text-dark-brown mb-4 text-xl">{plan.sessions}</p>
-				<p class="font-body text-dark-brown mb-4 text-xl">
-					<span class="text-gray-500 line-through">${plan.discountPrice}</span>
-					<span class="text-dark-brown">${plan.price}</span>
-				</p>
-				<p class="font-body mb-4 text-gray-600">{plan.description}</p>
+				<div class="flex flex-col items-center">
+					<h3 class="font-headings text-dark-brown mb-4 text-2xl md:text-4xl font-semibold">{plan.name}</h3>
+					<p class="font-body text-dark-brown mb-4 text-lg md:text-2xl">{plan.sessions}</p>
+					<p class="font-body text-dark-brown mb-4 text-lg md:text-2xl">
+						<span class="text-gray-500 line-through">${plan.discountPrice}</span>
+						<span class="text-dark-brown">${plan.price}</span>
+					</p>
+					<p class="font-body text-sm md:text-base  mb-4 text-center text-gray-600">{plan.description}</p>
+				</div>
 				<button
-					class="bg-dark-brown text-beige rounded-sm p-2 transition-all duration-300 hover:scale-110"
+					class="bg-dark-brown font-body text-beige rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
 				>
 					{plan.buttonText}
 				</button>
 			</div>
+		{/each}
+	</div>
+	<div class="mt-4 flex justify-center md:hidden">
+		{#each config.site.pricing.plans as _, index}
+			<button
+				aria-label={`Plan ${index + 1}`}
+				class="mx-1 h-3 w-3 rounded-full transition-all duration-300"
+				class:bg-dark-brown={activeIndex === index}
+				class:bg-gray-300={activeIndex !== index}
+				onclick={() => handleScroll(index)}
+			></button>
 		{/each}
 	</div>
 </section>
