@@ -54,6 +54,7 @@
 					<a
 						href={link.href}
 						class={`hover:text-dark-brown py-2 transition-colors ${currentPath === link.href ? 'underline hover:opacity-100' : ''} hover:opacity-80 transition-opacity duration-300`}
+						onclick={toggleSidebar}
 					>
 						{link.label}
 					</a>
