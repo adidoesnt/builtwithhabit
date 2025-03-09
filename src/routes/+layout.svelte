@@ -26,10 +26,26 @@
 			});
 		});
 	});
+
+	const getSidebarBgColor = $derived(() => {
+		switch (page.url.pathname) {
+			case '/bookings':
+				return 'beige';
+			default:
+				return 'light-green';
+		}
+	});
+
+	const getSidebarTextColor = $derived(() => {
+		switch (page.url.pathname) {
+			default:
+				return 'dark-brown';
+		}
+	});
 </script>
 
 {#if isAuthenticated && !isLandingPage}
-	<Sidebar />
+	<Sidebar bgColor={getSidebarBgColor()} textColor={getSidebarTextColor()} />
 {/if}
 
 <div class="bg-dark-brown font-old-standard flex min-h-screen w-full flex-col">

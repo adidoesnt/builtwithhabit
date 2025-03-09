@@ -78,6 +78,8 @@ const config = {
 				}
 			]
 		}
+	}, bookings: {
+		description: "Please select one of the packages below to proceed with your booking. Do note that bookings cannot be cancelled, but can be postponed to a later date."
 	}
 };
 
