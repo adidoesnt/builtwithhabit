@@ -1,12 +1,16 @@
 # Built with Habit
 
+*A **beingsofhabit** venture*.
+
+![Built with Habit](./static/boh-logo.svg)
+
 ## Overview
 
-A booking portal for **builtwithhabit**, a platform that provides fitness and nutrition coaching.  
+This project is a booking portal for **builtwithhabit**, a platform that provides fitness and nutrition coaching.  
 
-The platform aims to feature user authentication, a user dashboard and a bookings page complete with payment integration.
+The platform aims to feature user authentication, a user and admin dashboards and a bookings page complete with payment integration.
 
-This project is currently under development.
+*This project is currently under development.*
 
 ## Tech Stack
 
