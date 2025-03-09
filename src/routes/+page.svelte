@@ -57,13 +57,13 @@
 			<img
 				src={contact.image}
 				alt={contact.name}
-				class="h-60 w-60 rounded-sm mix-blend-multiply md:h-72 md:w-72"
+				class="h-60 w-60 rounded-sm shadow-xl md:h-72 md:w-72"
 			/>
 			<div class="flex flex-col text-center">
 				<h2 class="font-headings text-dark-brown text-4xl font-semibold">{contact.name}</h2>
 				<p class="font-body text-dark-brown">{contact.tagline}</p>
 			</div>
-			<div class="bg-beige flex flex-col gap-6 rounded-sm p-4 px-12">
+			<div class="bg-beige flex flex-col gap-6 rounded-sm p-4 px-12 shadow-2xl">
 				<h1 class="font-headings text-dark-brown flex self-center text-xl font-semibold">
 					Contact
 				</h1>
@@ -108,16 +108,20 @@
 		{#each config.site.pricing.plans as plan, index}
 			<div
 				id={`plan-${index}`}
-				class="bg-beige flex min-w-full flex-col items-center rounded-lg p-6 px-16 shadow-lg transition-transform duration-300 md:min-w-fit gap-6"
+				class="bg-beige flex min-w-full flex-col items-center gap-6 rounded-lg p-6 px-16 shadow-2xl transition-transform duration-300 md:min-w-fit"
 			>
 				<div class="flex flex-col items-center">
-					<h3 class="font-headings text-dark-brown mb-4 text-2xl md:text-4xl font-semibold">{plan.name}</h3>
+					<h3 class="font-headings text-dark-brown mb-4 text-2xl font-semibold md:text-4xl">
+						{plan.name}
+					</h3>
 					<p class="font-body text-dark-brown mb-4 text-lg md:text-2xl">{plan.sessions}</p>
 					<p class="font-body text-dark-brown mb-4 text-lg md:text-2xl">
 						<span class="text-gray-500 line-through">${plan.discountPrice}</span>
 						<span class="text-dark-brown">${plan.price}</span>
 					</p>
-					<p class="font-body text-sm md:text-base  mb-4 text-center text-gray-600">{plan.description}</p>
+					<p class="font-body mb-4 text-center text-sm text-gray-600 md:text-base">
+						{plan.description}
+					</p>
 				</div>
 				<button
 					class="bg-dark-brown font-body text-beige rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
