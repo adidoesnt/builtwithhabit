@@ -25,7 +25,7 @@
 	);
 </script>
 
-<div class="flex h-screen w-screen flex-col items-center justify-start overflow-y-auto md:p-4">
+<div class="flex h-screen w-screen flex-col items-center justify-center overflow-y-auto md:p-4">
 	<div
 		id="container"
 		class="bg-beige flex min-w-[300px] flex-col items-center justify-start gap-2 overflow-y-auto rounded-sm p-8 md:justify-center md:overflow-y-visible"
@@ -38,7 +38,6 @@
 		>
 			<h1 class="text-2xl">Sign up</h1>
 			<p class="text-light-brown text-sm">Enter your details below to create an account.</p>
-			<br />
 			<div class="flex flex-col gap-4 overflow-y-auto">
 				<div class="flex flex-wrap gap-4">
 					<div class="flex flex-col gap-2">
