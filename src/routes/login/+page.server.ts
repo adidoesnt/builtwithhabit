@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { getUserById } from '$lib/server/db/user';
 import { loginWithEmail } from '$lib/server/auth/email/login';
@@ -31,62 +31,15 @@ export const actions = {
 				}
 			});
 		}
+		const {
+			user: authUser,
+			session,
+			weakPassword
+		} = await loginWithEmail(result.data.email, result.data.password);
 
-		try {
-			const {
-				user: authUser,
-				session,
-				weakPassword
-			} = await loginWithEmail(result.data.email, result.data.password);
-
-			if (!authUser) {
-				throw new Error('Failed to create user');
-			}
-
-			cookies.set('access_token', session.access_token, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				maxAge: session.expires_in
-			});
-
-			cookies.set('refresh_token', session.refresh_token, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				maxAge: 60 * 60 * 24 * 30 // Default Supabase refresh token expiry
-			});
-
-			if (weakPassword) {
-				fail(400, {
-					error: 'Weak password',
-					errors: {
-						password: weakPassword.reasons?.[0] ?? 'Weak password'
-					},
-					data: {
-						email: data.email,
-						password: data.password
-					}
-				});
-			}
-
-			const user = await getUserById(authUser.id);
-			setUser(user);
-
-			console.log('Logged in successfully', {
-				user,
-				session
-			});
-
-			return {
-				success: true,
-				user
-			};
-		} catch (error) {
-			console.error(error);
-
-			return fail(500, {
-				error: (error as Error).message ?? 'Failed to login',
+		if (!authUser) {
+			throw fail(400, {
+				error: 'Failed to log in',
 				errors: {},
 				data: {
 					email: data.email,
@@ -94,5 +47,42 @@ export const actions = {
 				}
 			});
 		}
+
+		cookies.set('access_token', session.access_token, {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'lax',
+			maxAge: session.expires_in
+		});
+
+		cookies.set('refresh_token', session.refresh_token, {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'lax',
+			maxAge: 60 * 60 * 24 * 30 // Default Supabase refresh token expiry
+		});
+
+		if (weakPassword) {
+			return fail(400, {
+				error: 'Weak password',
+				errors: {
+					password: weakPassword.reasons?.[0] ?? 'Weak password'
+				},
+				data: {
+					email: data.email,
+					password: data.password
+				}
+			});
+		}
+
+		const user = await getUserById(authUser.id);
+		setUser(user);
+
+		console.log('Logged in successfully', {
+			user,
+			session
+		});
+
+		throw redirect(303, '/dashboard');
 	}
 } satisfies Actions;
