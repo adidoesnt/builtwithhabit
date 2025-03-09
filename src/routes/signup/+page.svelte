@@ -28,7 +28,7 @@
 <div class="flex h-screen w-screen flex-col items-center justify-center overflow-y-auto md:p-4">
 	<div
 		id="container"
-		class="bg-beige flex min-w-[300px] flex-col items-center justify-start gap-2 overflow-y-auto rounded-sm p-8 md:justify-center md:overflow-y-visible"
+		class="bg-beige flex min-w-[300px] flex-col items-center justify-start gap-8 overflow-y-auto rounded-sm p-8 md:justify-center md:overflow-y-visible"
 	>
 		<AuthFormHeader />
 		<form

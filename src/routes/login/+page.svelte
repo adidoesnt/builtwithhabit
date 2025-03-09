@@ -44,7 +44,7 @@
 <div class="flex h-screen w-screen flex-col items-center justify-center">
 	<div
 		id="container"
-		class="bg-beige flex h-full w-full min-w-[300px] flex-col items-center justify-center gap-2 overflow-y-auto rounded-sm p-8 py-4 md:h-fit md:w-fit md:overflow-y-visible md:py-8"
+		class="bg-beige flex h-full w-full min-w-[300px] flex-col items-center justify-center gap-8 overflow-y-auto rounded-sm p-8 py-4 md:h-fit md:w-fit md:overflow-y-visible md:py-8"
 	>
 		<AuthFormHeader />
 		<form
