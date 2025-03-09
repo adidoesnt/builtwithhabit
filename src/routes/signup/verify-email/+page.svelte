@@ -1,6 +1,6 @@
 <script lang="ts">
 	import AuthFormHeader from '$lib/components/AuthFormHeader.svelte';
-	import { user } from '../../../stores/auth';
+	import { user } from '../../../lib/stores/auth';
 </script>
 
 <div class="flex h-screen w-screen flex-col items-center justify-center">

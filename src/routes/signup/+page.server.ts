@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { signupWithEmail } from '$lib/server/auth/email/signup';
 import { createUser } from '$lib/server/db/user';
-import { setUser } from '../../stores/auth';
+import { setUser } from '../../lib/stores/auth';
 
 const schema = z.object({
 	firstName: z.string().min(1, 'First name is required'),

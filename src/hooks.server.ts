@@ -1,5 +1,5 @@
 import { redirect, type Handle } from '@sveltejs/kit';
-import { setUser } from './stores/auth';
+import { setUser } from './lib/stores/auth';
 import { supabase } from '$lib/server/auth';
 import { getUserById } from '$lib/server/db/user';
 
