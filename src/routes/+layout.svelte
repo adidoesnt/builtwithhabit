@@ -15,6 +15,6 @@
 	});
 </script>
 
-<div class="flex min-h-screen w-screen bg-dark-brown font-old-standard">
+<div class="flex flex-col min-h-screen w-full bg-dark-brown font-old-standard">
 	{@render children()}
 </div>
