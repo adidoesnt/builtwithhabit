@@ -4,7 +4,7 @@ const config = {
 		logo: '/bwh-logo-cropped.svg',
 		caption: 'by beingsofhabit',
 		splitName: ['built', 'with', 'habit'],
-		splitDescription: ['Click here to start your journey to a', 'healthier, happier', 'you.'],
+		splitDescription: ['Click here to embark on a personalised fitness journey that works', 'for you.'],
 		mission: {
 			title: ['Mission and', 'Training Philosophy'],
 			content: [
