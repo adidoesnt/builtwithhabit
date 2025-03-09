@@ -5,6 +5,31 @@ const config = {
 		caption: 'by beingsofhabit',
 		splitName: ['built', 'with', 'habit'],
 		splitDescription: ['Click here to embark on a personalised fitness journey that works', 'for you.'],
+		navBar: {
+			title: 'Menu',
+			links: [
+				{
+					label: 'Home',
+					href: '/'
+				},
+				{
+					label: 'Dashboard',
+					href: '/dashboard'
+				},
+				{
+					label: 'Bookings',
+					href: '/bookings'
+				},
+				{
+					label: 'Profile',
+					href: '/profile'
+				},
+				{
+					label: 'Settings',
+					href: '/settings'
+				}
+			]
+		},
 		mission: {
 			title: ['Mission and', 'Training Philosophy'],
 			content: [

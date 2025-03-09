@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import AuthFormHeader from '$lib/components/AuthFormHeader.svelte';
+	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import config from '$lib/config';
 	import InstagramIcon from '$lib/icons/Instagram.svelte';
 	import MobileIcon from '$lib/icons/Mobile.svelte';
@@ -34,7 +34,7 @@
 		id="container"
 		class="bg-beige relative z-20 m-4 flex cursor-pointer flex-col items-center justify-center gap-4 rounded-sm p-8 shadow-2xl transition-all duration-300 hover:scale-110 hover:animate-[pulse_3s_ease-in-out_infinite]"
 	>
-		<AuthFormHeader linkToHome={false} />
+		<LogoHeader linkToHome={false} />
 		<p class="font-body text-dark-brown text-lg">
 			<span class="text-light-brown">{splitDescription[0]}</span>
 			<span class="text-dark-brown">{splitDescription[1]}</span>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AuthFormHeader from '$lib/components/AuthFormHeader.svelte';
+	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { ActionData } from './$types';
 
 	type FormErrors = {
@@ -25,12 +25,14 @@
 	);
 </script>
 
-<div class="flex h-screen w-screen flex-col items-center justify-center overflow-y-auto md:p-4 md:bg-[url(/hut-with-mountains-1.jpg)] bg-cover bg-center">
+<div
+	class="flex h-screen w-screen flex-col items-center justify-center overflow-y-auto bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
+>
 	<div
 		id="container"
 		class="bg-beige flex min-w-[300px] flex-col items-center justify-start gap-8 overflow-y-auto rounded-sm p-8 md:justify-center md:overflow-y-visible"
 	>
-		<AuthFormHeader />
+		<LogoHeader />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-2 overflow-visible"
 			action="/signup"
