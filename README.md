@@ -1,38 +1,53 @@
-# sv
+# Built with Habit
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Overview
 
-## Creating a project
+A booking portal for **builtwithhabit**, a platform that provides fitness and nutrition coaching.  
 
-If you're seeing this, you've probably already done this step. Congrats!
+The platform aims to feature user authentication, a user dashboard and a bookings page complete with payment integration.
 
-```bash
-# create a new project in the current directory
-npx sv create
+This project is currently under development.
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Tech Stack
 
-## Developing
+- Bun
+- SvelteKit
+- TailwindCSS
+- TypeScript
+- Drizzle ORM
+- Supabase
+- Stripe
+- Vercel
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Development
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+Configure the environment variables:
 
 ```bash
-npm run build
+# Edit the .env file with your own values
+cp .env.example .env
 ```
 
-You can preview the production build with `npm run preview`.
+Migrate the database:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```bash
+bun run db:generate
+bun run db:migrate
+
+# Or, if one liners are your thing
+bun run db:push
+```
+
+Install the dependencies:
+
+```bash
+bun install
+```
+
+Run the development server:
+
+```bash
+bun run dev
+```
+
+Go to [http://localhost:5173](http://localhost:5173) to view the application.
