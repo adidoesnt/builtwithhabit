@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import config from '$lib/config';
 	import { page } from '$app/state';
 
@@ -8,34 +7,14 @@
 	const currentPath = $derived(page.url.pathname);
 
 	let isOpen = $state(false);
-	let sidebarElement: HTMLElement | null = $state(null);
 
 	const toggleSidebar = () => {
 		isOpen = !isOpen;
 	};
-
-	const handleClickOutside = (event: MouseEvent) => {
-		if (
-			sidebarElement &&
-			!sidebarElement.contains(event.target as Node) &&
-			!(event.target as HTMLElement).closest('.sidebar-tab')
-		) {
-			isOpen = false;
-		}
-	};
-
-	$effect(() => {
-		window?.addEventListener('click', handleClickOutside);
-	});
-
-	onDestroy(() => {
-		window?.removeEventListener('click', handleClickOutside);
-	});
 </script>
 
 <div class="relative text-${textColor} z-50">
 	<div
-		bind:this={sidebarElement}
 		class={`sidebar fixed top-0 left-0 h-full w-64 bg-${bgColor} shadow-lg transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
 	>
 		<button
