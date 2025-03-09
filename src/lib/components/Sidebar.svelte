@@ -33,13 +33,13 @@
 	});
 </script>
 
-<div class="relative text-${textColor}">
+<div class="relative text-${textColor} z-50">
 	<div
 		bind:this={sidebarElement}
 		class={`sidebar fixed top-0 left-0 h-full w-64 bg-${bgColor} shadow-lg transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
 	>
 		<button
-			class={`sidebar-tab absolute top-1/2 right-0 z-10 translate-x-full -translate-y-1/2 transform cursor-pointer rounded-r-md bg-${bgColor} p-2 opacity-10 shadow-md transition-opacity duration-300 hover:opacity-100`}
+			class={`sidebar-tab absolute top-4 right-0 z-10 translate-x-full transform cursor-pointer rounded-r-md bg-${bgColor} p-2 opacity-30 shadow-md transition-opacity duration-300 hover:opacity-100`}
 			onclick={toggleSidebar}
 		>
 			<span class={`text-${textColor}`}>☰</span>
