@@ -29,6 +29,20 @@
       "when": 1741642128384,
       "tag": "0003_add_not_null_for_bookings_tables_references",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1741642759876,
+      "tag": "0004_add_discount__for_packages",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1741642975951,
+      "tag": "0005_seed_packages",
+      "breakpoints": true
     }
   ]
 }

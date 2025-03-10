@@ -51,32 +51,10 @@ const config = {
 		},
 		pricing: {
 			title: 'Packages',
-			plans: [
-				{
-					name: 'Discover',
-					sessions: '1 session',
-					price: 50,
-					discountPrice: 40,
-					description: 'Perfect for a trial session.',
-					buttonText: 'Book Now'
-				},
-				{
-					name: 'Build',
-					sessions: '5 sessions',
-					price: 225,
-					discountPrice: 200,
-					description: 'Save $25 with this package!',
-					buttonText: 'Book Now'
-				},
-				{
-					name: 'Transform',
-					sessions: '10 sessions',
-					price: 400,
-					discountPrice: 350,
-					description: 'Save $50 with this package!',
-					buttonText: 'Book Now'
-				}
-			]
+			plans: {
+				buttonText: 'Book Now'
+			},
+			currency: 'SG$'
 		}
 	}, packages: {
 		description: "Please select one of the packages below to proceed with your booking. Do note that bookings cannot be cancelled, but can be postponed to a later date."
