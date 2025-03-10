@@ -40,8 +40,8 @@ export const packages = pgTable('packages', {
  */
 export const purchases = pgTable('purchases', {
 	id: serial('id').primaryKey(),
-	userId: uuid('user_id').references(() => users.id),
-	packageId: integer('package_id').references(() => packages.id),
+	userId: uuid('user_id').references(() => users.id).notNull(),
+	packageId: integer('package_id').references(() => packages.id).notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
@@ -55,8 +55,8 @@ export const purchases = pgTable('purchases', {
  */
 export const bookings = pgTable('bookings', {
 	id: serial('id').primaryKey(),
-	userId: uuid('user_id').references(() => users.id),
-	purchaseId: integer('purchase_id').references(() => purchases.id),
+	userId: uuid('user_id').references(() => users.id).notNull(),
+	purchaseId: integer('purchase_id').references(() => purchases.id).notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
