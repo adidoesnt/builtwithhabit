@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import config from '$lib/config';
+	import { goto } from '$app/navigation';
 
 	const { pricing } = config.site;
 	const { description = null } = $props();
@@ -99,6 +100,7 @@
 				<p class="font-body mb-4 text-gray-600">{plan.description}</p>
 				<button
 					class="bg-dark-brown text-beige font-body rounded-sm p-2 transition-all duration-300 hover:scale-110"
+					onclick={() => goto(`/packages/${plan.name.toLowerCase()}/book`)}
 				>
 					{plan.buttonText}
 				</button>

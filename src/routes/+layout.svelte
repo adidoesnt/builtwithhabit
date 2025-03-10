@@ -29,7 +29,7 @@
 
 	const getSidebarBgColor = $derived(() => {
 		switch (page.url.pathname) {
-			case '/bookings':
+			case '/packages':
 				return 'beige';
 			default:
 				return 'light-green';
