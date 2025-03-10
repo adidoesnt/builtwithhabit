@@ -6,8 +6,11 @@
 	import MobileIcon from '$lib/icons/Mobile.svelte';
 	import EmailIcon from '$lib/icons/Email.svelte';
 	import Packages from '$lib/components/Packages.svelte';
+	import type { PageServerData } from './$types';
 
 	const { splitDescription, mission, contact } = config.site;
+	const { data }: { data: PageServerData } = $props();
+	const { packages } = data;
 
 	const onclick = () => goto('/login');
 	const scrollToPricing = () => {
@@ -93,4 +96,4 @@
 	</div>
 </section>
 
-<Packages />
+<Packages {packages} />

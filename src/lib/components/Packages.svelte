@@ -6,7 +6,7 @@
 
 	const { pricing } = config.site;
 
-	const { packages, description = null }: { packages: Package[]; description: string | null } =
+	const { packages, description }: { packages: Package[]; description?: string } =
 		$props();
 
 	let activeIndex = $state(0);
