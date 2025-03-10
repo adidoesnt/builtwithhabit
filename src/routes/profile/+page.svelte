@@ -97,6 +97,7 @@
 						<button
 							class="text-dark-brown font-body cursor-pointer rounded-sm bg-[#A0D2EB] px-6 py-2 transition-all duration-300 hover:opacity-80"
 						>
+							<!-- TODO: Add edit profile popup -->
 							Edit Profile
 						</button>
 
