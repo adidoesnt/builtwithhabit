@@ -1,6 +1,8 @@
 <script lang="ts">
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { ActionData } from './$types';
+	import { enhance } from '$app/forms';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	type FormErrors = {
 		email?: string[];
@@ -13,6 +15,8 @@
 		email: '',
 		password: ''
 	});
+
+	let isLoading = $state(false);
 
 	$effect(() => {
 		if (formValues.email && form?.errors?.email) {
@@ -53,6 +57,14 @@
 			class="font-body flex w-full flex-col justify-start gap-2 overflow-visible"
 			action="/login"
 			method="POST"
+			use:enhance={() => {
+				isLoading = true;
+
+				return async ({ update }) => {
+					isLoading = false;
+					await update();
+				};
+			}}
 		>
 			<h1 class="text-2xl">Log in</h1>
 			<p class="text-light-brown text-sm">Enter your email and password to login.</p>
@@ -102,7 +114,13 @@
 				<button
 					class="bg-dark-brown text-beige font-body flex h-fit w-fit rounded-sm px-8 py-2 transition-all duration-300 hover:scale-110 hover:opacity-80 disabled:scale-100 disabled:cursor-not-allowed disabled:opacity-50 md:self-end"
 					type="submit"
-					disabled={!!form?.errors?.email || !!form?.errors?.password}>Log in</button
+					disabled={!!form?.errors?.email || !!form?.errors?.password || isLoading}
+					>{#if isLoading}
+						<LoadingSpinner size="20px" color="#F5F5DC" />
+						<span class="ml-2">Logging in...</span>
+					{:else}
+						Log in
+					{/if}</button
 				>
 			</div>
 			{#if form?.error}

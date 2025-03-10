@@ -1,7 +1,8 @@
 <script lang="ts">
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { ActionData } from './$types';
-
+	import { enhance } from '$app/forms';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	type FormErrors = {
 		firstName?: string[];
 		middleName?: string[];
@@ -20,8 +21,10 @@
 		password: ''
 	});
 
+	let isLoading = $state(false);
+
 	let submitDisabled = $derived(
-		Object.values(form?.errors ?? {}).some((error) => error !== undefined)
+		Object.values(form?.errors ?? {}).some((error) => error !== undefined) || isLoading
 	);
 </script>
 
@@ -37,6 +40,14 @@
 			class="font-body flex w-full flex-col justify-start gap-2 overflow-visible"
 			action="/signup"
 			method="POST"
+			use:enhance={() => {
+				isLoading = true;
+
+				return async ({ update }) => {
+					isLoading = false;
+					await update();
+				};
+			}}
 		>
 			<h1 class="text-2xl">Sign up</h1>
 			<p class="text-light-brown text-sm">Enter your details below to create an account.</p>
@@ -125,7 +136,12 @@
 					type="submit"
 					disabled={submitDisabled}
 				>
-					Sign up
+					{#if isLoading}
+						<LoadingSpinner size="20px" color="#F5F5DC" />
+						<span class="ml-2">Signing up...</span>
+					{:else}
+						Sign up
+					{/if}
 				</button>
 			</div>
 		</form>
