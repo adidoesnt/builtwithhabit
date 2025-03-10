@@ -7,11 +7,11 @@
 	const { dashboard } = config;
 </script>
 
-<div class="bg-beige min-h-screen p-4 md:p-8">
+<div class="bg-beige min-h-screen p-8">
 	<div class="mx-auto max-w-4xl">
 		<LogoHeader />
 
-		<div class="mt-8 mb-12">
+		<div class="mt-8 mb-12 md:text-start text-center">
 			<h1 class="font-body text-dark-brown text-3xl font-bold">
 				{dashboard.greeting}, {$user?.firstName || 'there'}!
 			</h1>

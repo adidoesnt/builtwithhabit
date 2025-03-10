@@ -20,16 +20,16 @@ const config = {
 					href: '/dashboard'
 				},
 				{
-					label: 'Packages',
-					href: '/packages'
-				},
-				{
 					label: 'Profile',
 					href: '/profile'
 				},
 				{
-					label: 'Settings',
-					href: '/settings'
+					label: 'Packages',
+					href: '/packages'
+				},
+				{
+					label: 'Bookings',
+					href: '/bookings'
 				}
 			]
 		},

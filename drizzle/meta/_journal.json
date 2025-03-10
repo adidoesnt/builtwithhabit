@@ -43,6 +43,13 @@
       "when": 1741642975951,
       "tag": "0005_seed_packages",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741645632129,
+      "tag": "0006_sour_zodiak",
+      "breakpoints": true
     }
   ]
 }

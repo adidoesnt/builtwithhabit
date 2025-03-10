@@ -1,5 +1,9 @@
-import type { UserFindAttributes as User } from '$lib/server/db/schema';
+import type { UserFindAttributes } from '$lib/server/db/schema';
 import { writable } from 'svelte/store';
+
+export type User = UserFindAttributes & {
+	createdAt: Date;
+};
 
 export const user = writable<User | null>(null);
 

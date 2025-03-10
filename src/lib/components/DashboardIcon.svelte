@@ -35,7 +35,7 @@
 				{@html icons[icon as keyof typeof icons] || ''}
 			</svg>
 		</div>
-		<h3 class="font-body text-dark-brown text-lg font-semibold">{name}</h3>
+		<h3 class="font-body text-dark-brown text-lg font-semibold text-center">{name}</h3>
 		<p class="font-body text-light-brown text-center text-sm">{description}</p>
 	</div>
 </a>
