@@ -1,6 +1,9 @@
 <script lang="ts">
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
-	import { user } from '../../../lib/stores/auth';
+	import type { PageData } from './$types';
+	
+	const { data }: { data: PageData } = $props();
+	const { user } = data;
 </script>
 
 <div class="flex h-screen w-screen flex-col items-center justify-center">
@@ -16,7 +19,7 @@
 			</p>
 			<p class="text-light-brown text-sm">
 				We've sent a verification email to <span class="font-bold"
-					>{$user?.email ?? 'your email'}</span
+					>{user?.email ?? 'your email'}</span
 				>. Please check your inbox.
 			</p>
 		</div>
