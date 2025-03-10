@@ -2,7 +2,7 @@
 
 *A **beingsofhabit** venture*.
 
-![Built with Habit](./static/boh-logo.svg)
+![Built with Habit](./static/bwh-logo.svg)
 
 ## Overview
 
