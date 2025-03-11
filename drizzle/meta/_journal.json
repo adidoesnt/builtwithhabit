@@ -50,6 +50,27 @@
       "when": 1741645632129,
       "tag": "0006_sour_zodiak",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1741713219366,
+      "tag": "0007_add_locations",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1741713238634,
+      "tag": "0008_add_location_values",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1741720932649,
+      "tag": "0009_remove_online_location_option",
+      "breakpoints": true
     }
   ]
 }

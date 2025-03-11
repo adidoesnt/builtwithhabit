@@ -28,8 +28,9 @@
 	});
 
 	const getSidebarBgColor = $derived(() => {
+		if (page.url.pathname.includes('/packages/')) return 'beige';
+
 		switch (page.url.pathname) {
-			case '/packages':
 			case '/bookings':
 				return 'beige';
 			default:

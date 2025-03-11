@@ -36,6 +36,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@aws-sdk/client-location": "^3.758.0",
 		"@supabase/supabase-js": "^2.49.1",
 		"drizzle-orm": "^0.40.0",
 		"postgres": "^3.4.5",

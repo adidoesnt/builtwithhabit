@@ -58,12 +58,27 @@ const config = {
 				buttonText: 'Book Now'
 			},
 			currency: 'SG$',
-			earlyBirdDiscount: 'Early Bird Discount',
+			earlyBirdDiscount: 'Early Bird Discount'
 		}
 	},
 	packages: {
+		disclaimer: {
+			message: 'By checking this box, you agree to the following',
+			buttonText: 'disclaimer',
+			warning: 'Please read the disclaimer carefully before proceeding.',
+			content: [
+				'I understand that it is my responsibility to inform the trainer of any medical conditions, injuries, or health concerns that may affect my ability to participate in training sessions.',
+				'I understand that in the event of undisclosed medical concerns, the trainer will not be held liable for any injuries or damages that may occur.',
+				'I acknowledge that booked sessions cannot be cancelled. Sessions may be postponed once, provided that the request is made at least 24 hours before the scheduled session time.',
+				'I understand that failure to provide 24 hours notice for postponement will result in the session being forfeited with no option for rescheduling.',
+				'I commit to arriving on time for all sessions. Late arrivals will be accommodated with a 15-minute grace period, after which the session duration will be reduced accordingly.',
+				'If a session extends up to 15 minutes beyond the scheduled time, no additional charges will apply, provided the session began at the scheduled start time.',
+				'I understand that it is my responsibility to ensure that commercial trainers are permitted to train at my selected location prior to booking.',
+				'I acknowledge that if my selected location (such as a condominium gym) does not permit external trainers, the trainer will not be liable for any issues that arise and the session may be forfeited.'
+			]
+		},
 		description:
-			'Please select one of the packages below to proceed with your booking. Do note that bookings cannot be cancelled, but can be postponed to a later date.',
+			'Please select one of the packages below to proceed with your booking. Do note that bookings cannot be cancelled, but can be postponed to a later date.'
 	},
 	dashboard: {
 		greeting: 'Welcome back',

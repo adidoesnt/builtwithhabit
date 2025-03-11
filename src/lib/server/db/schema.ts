@@ -1,4 +1,4 @@
-import { decimal, pgTable, serial, text, timestamp, uuid, integer } from 'drizzle-orm/pg-core';
+import { decimal, pgTable, serial, text, timestamp, uuid, integer, boolean } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
 export type UserFindAttributes = typeof users.$inferSelect;
@@ -55,12 +55,21 @@ export const purchases = pgTable('purchases', {
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
 
+export const locations = pgTable('locations', {
+	id: serial('id').primaryKey(),
+	address: text('address').notNull(),
+	postalCode: text('postal_code').notNull(),
+	createdAt: timestamp('created_at').notNull().defaultNow(),
+	updatedAt: timestamp('updated_at').notNull().defaultNow()
+});
+
 /**
  * Bookings table - represents individual sessions from purchased packages
  *
  * Each booking corresponds to a single session that a user schedules
  * from their purchased package allocation
  * Contains start and end times for the session and links to the user and purchase
+ * Location will be used to check distance from available locations
  */
 export const bookings = pgTable('bookings', {
 	id: serial('id').primaryKey(),
@@ -72,6 +81,8 @@ export const bookings = pgTable('bookings', {
 		.notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
+	address: text('address').notNull(),
+	postalCode: text('postal_code').notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
