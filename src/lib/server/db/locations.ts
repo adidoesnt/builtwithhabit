@@ -6,7 +6,7 @@ export const getLocations = async () => {
 	return locations;
 };
 
-export const isValidLocation = async (postalCode: string) => {
+export const getAddressAndValidityFromPostalCode = async (postalCode: string) => {
 	const locations = await getLocations();
 
 	const resolutions = await Promise.all(
