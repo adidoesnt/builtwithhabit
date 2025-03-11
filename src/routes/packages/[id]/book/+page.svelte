@@ -300,6 +300,9 @@
 									{/if}
 								</div>
 							</div>
+							<p class="font-body mt-2 text-xs text-gray-500 italic">
+								Enter your postal code and we'll automatically populate your address.
+							</p>
 						</div>
 
 						<div class="rounded-md border border-gray-100 bg-gray-50 p-4">
