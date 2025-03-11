@@ -82,7 +82,7 @@ const config = {
 				color: 'bg-green-500'
 			},
 			{
-				name: 'Purchase History',
+				name: 'Purchases',
 				description: 'View your past purchases',
 				icon: 'receipt',
 				href: '/purchases',

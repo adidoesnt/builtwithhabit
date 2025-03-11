@@ -18,7 +18,7 @@
 			<p class="font-body text-light-brown mt-2">What would you like to do today?</p>
 		</div>
 
-		<div class="grid grid-cols-2 gap-6 md:grid-cols-4">
+		<div class="grid grid-cols-2 gap-6 md:gap-y-6 gap-y-10 md:grid-cols-4">
 			{#each dashboard.icons as icon}
 				<DashboardIcon
 					name={icon.name}
