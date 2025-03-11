@@ -7,6 +7,7 @@
 	import EmailIcon from '$lib/icons/Email.svelte';
 	import Packages from '$lib/components/Packages.svelte';
 	import type { PageServerData } from './$types';
+	import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
 
 	const { splitDescription, mission, contact } = config.site;
 	const { data }: { data: PageServerData } = $props();
@@ -97,3 +98,5 @@
 </section>
 
 <Packages {packages} />
+
+<Testimonials />
