@@ -244,11 +244,13 @@
 							<h3 class="font-body text-dark-brown mb-3 text-lg font-semibold">Location Details</h3>
 							<p class="font-body text-light-brown mb-3 text-sm">
 								Please note that we only provide services in areas near our available locations:
-								{availableLocations.map((loc, index) => 
-									index === availableLocations.length - 1 && index !== 0
-										? `and ${loc.address}`
-										: loc.address
-								).join(', ')}.
+								<span class="font-body text-dark-brown">
+									{availableLocations.map((loc, index) => 
+										index === availableLocations.length - 1 && index !== 0
+											? `and ${loc.address}`
+											: loc.address
+									).join(', ')}.
+								</span>
 							</p>
 							<div class="flex flex-col gap-4 md:flex-row">
 								<div class="flex-1">
