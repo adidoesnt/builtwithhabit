@@ -45,7 +45,7 @@ const config = {
 			image: '/headshot.svg',
 			tagline: 'NASM-Certified Personal Trainer',
 			callToAction: 'View packages',
-			email: 'admin@boh-services.com',
+			email: 'ishita@boh-services.com',
 			phone: '+65 9233 4061',
 			instagram: {
 				handle: '@builtwithhabit',
