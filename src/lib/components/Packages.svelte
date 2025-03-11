@@ -13,9 +13,18 @@
 	let touchStartX = 0;
 	let touchEndX = 0;
 
-	const handleScroll = (index: number) => {
+	const handleScroll = (index: number, event?: Event) => {
+		if (event) event.preventDefault();
 		activeIndex = index;
-		document.getElementById(`plan-${index}`)?.scrollIntoView({ behavior: 'smooth' });
+
+		if (packagesContainer) {
+			const cardWidth = packagesContainer.querySelector(`#plan-${index}`)?.clientWidth || 0;
+			const cardGap = 16;
+			packagesContainer.scrollTo({
+				left: index * (cardWidth + cardGap),
+				behavior: 'smooth'
+			});
+		}
 	};
 
 	const preventScroll = (event: WheelEvent | TouchEvent) => {
@@ -47,6 +56,11 @@
 			}
 		}
 	};
+
+	function handleDotClick(index: number, event: MouseEvent) {
+		event.preventDefault();
+		handleScroll(index, event);
+	}
 
 	onMount(() => {
 		if (packagesContainer) {
@@ -88,19 +102,19 @@
 
 	<div
 		bind:this={packagesContainer}
-		class="flex w-full gap-4 overflow-hidden pb-4 md:grid md:grid-cols-3 md:overflow-visible"
+		class="flex w-full gap-4 overflow-hidden pb-4 md:grid md:grid-cols-3 md:overflow-visible md:px-4"
 	>
 		{#each packages as plan, index}
 			<div
 				id={`plan-${index}`}
-				class="bg-beige relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 shadow-lg transition-transform duration-300 md:hover:scale-105"
-				class:opacity-70={index !== activeIndex}
-				class:opacity-100={index === activeIndex}
-				class:md:opacity-100={true}
+				class="bg-beige relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-lg transition-transform duration-300 {index ===
+				activeIndex
+					? 'opacity-100'
+					: 'opacity-70'} md:opacity-100 md:hover:scale-105"
 			>
 				{#if pricing.earlyBirdDiscount}
 					<div
-						class="font-body absolute -top-2 right-2 z-10 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-md"
+						class="font-body absolute top-0 right-0 z-10 rounded-tr-lg rounded-bl-lg bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-md"
 					>
 						{pricing.earlyBirdDiscount}
 					</div>
@@ -113,9 +127,9 @@
 						{plan.sessions}
 						{plan.sessions === 1 ? 'session' : 'sessions'}
 					</p>
-					<p class="font-body text-gray-600">{plan.description}</p>
+					<p class="font-body text-center text-gray-600">{plan.description}</p>
 				</div>
-				<div class="flex flex-col items-center justify-center">
+				<div class="flex flex-col items-center justify-center text-center">
 					<p class="font-body text-dark-brown text-xl">
 						<span class="text-gray-500 line-through">{pricing.currency}{plan.price}</span>
 						<span class="text-dark-brown"
@@ -147,7 +161,7 @@
 				class="mx-1 h-3 w-3 rounded-full transition-all duration-300"
 				class:bg-dark-brown={activeIndex === index}
 				class:bg-gray-300={activeIndex !== index}
-				onclick={() => handleScroll(index)}
+				onclick={(e) => handleDotClick(index, e)}
 			></button>
 		{/each}
 	</div>
