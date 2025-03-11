@@ -37,7 +37,7 @@
 			<div class="overflow-hidden rounded-lg bg-white shadow-md">
 				<div class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row">
 					<div
-						class="text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+						class="font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
 					>
 						{$user.firstName[0]}{$user.lastName[0]}
 					</div>
