@@ -47,7 +47,7 @@
 			</h2>
 			<p class="font-body text-light-brown mx-auto mt-4 max-w-3xl">
 				Real stories from women who have transformed their relationship with fitness through our
-				personalized approach.
+				personalised approach.
 			</p>
 		</div>
 
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="relative">
 				<div
 					class="from-beige absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r to-transparent"

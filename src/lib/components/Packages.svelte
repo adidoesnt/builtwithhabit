@@ -6,8 +6,7 @@
 
 	const { pricing } = config.site;
 
-	const { packages, description }: { packages: Package[]; description?: string } =
-		$props();
+	const { packages, description }: { packages: Package[]; description?: string } = $props();
 
 	let activeIndex = $state(0);
 	let packagesContainer: HTMLElement;
@@ -68,7 +67,10 @@
 	});
 </script>
 
-<section id="pricing" class="bg-light-brown flex h-screen flex-col items-center justify-center p-8 gap-8">
+<section
+	id="pricing"
+	class="bg-light-brown flex h-screen flex-col items-center justify-center gap-8 p-8"
+>
 	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
 		{pricing.title}
 	</h2>
@@ -91,22 +93,43 @@
 		{#each packages as plan, index}
 			<div
 				id={`plan-${index}`}
-				class="bg-beige flex w-full flex-shrink-0 flex-col items-center rounded-lg p-6 shadow-lg transition-transform duration-300 md:hover:scale-105"
+				class="bg-beige relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 shadow-lg transition-transform duration-300 md:hover:scale-105"
 				class:opacity-70={index !== activeIndex}
 				class:opacity-100={index === activeIndex}
 				class:md:opacity-100={true}
 			>
-				<h3 class="font-headings text-dark-brown mb-4 text-2xl md:text-4xl font-semibold">{plan.name}</h3>
-				<p class="font-body text-dark-brown mb-4 text-xl">{plan.sessions} sessions</p>
-				<p class="font-body text-dark-brown mb-4 text-xl">
-					<span class="text-gray-500 line-through"
-						>{pricing.currency}{parseFloat(plan.price) - parseFloat(plan.discount ?? '0.00')}</span
+				{#if pricing.earlyBirdDiscount}
+					<div
+						class="font-body absolute -top-2 right-2 z-10 rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-md"
 					>
-					<span class="text-dark-brown">{pricing.currency}{plan.price}
-						<span class="text-gray-500">in total</span>
-					</span>
-				</p>
-				<p class="font-body mb-4 text-gray-600">{plan.description}</p>
+						{pricing.earlyBirdDiscount}
+					</div>
+				{/if}
+				<h3 class="font-body text-dark-brown text-2xl font-semibold uppercase md:text-3xl">
+					{plan.name}
+				</h3>
+				<div class="flex flex-col items-center justify-center">
+					<p class="font-body text-dark-brown text-xl">
+						{plan.sessions}
+						{plan.sessions === 1 ? 'session' : 'sessions'}
+					</p>
+					<p class="font-body text-gray-600">{plan.description}</p>
+				</div>
+				<div class="flex flex-col items-center justify-center">
+					<p class="font-body text-dark-brown text-xl">
+						<span class="text-gray-500 line-through">{pricing.currency}{plan.price}</span>
+						<span class="text-dark-brown"
+							>{pricing.currency}{parseFloat(plan.price) - parseFloat(plan.discount ?? '0.00')}
+							<span class="text-gray-500">in total</span>
+						</span>
+					</p>
+					<p class="font-body text-light-brown text-md mb-4">
+						{pricing.currency}{(
+							(parseFloat(plan.price) - parseFloat(plan.discount ?? '0.00')) /
+							plan.sessions
+						).toFixed(2)} per session
+					</p>
+				</div>
 				<button
 					class="bg-dark-brown text-beige font-body rounded-sm p-2 transition-all duration-300 hover:scale-110"
 					onclick={() => goto(`/packages/${plan.id}/book`)}

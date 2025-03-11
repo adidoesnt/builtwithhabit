@@ -84,7 +84,7 @@
 				>
 			</div>
 		</div>
-		<div class="bg-beige flex w-full flex-col justify-center gap-6 p-8 md:gap-8 md:p-18">
+		<div class="bg-beige flex w-full flex-col justify-center gap-6 p-8 md:gap-8 md:p-24">
 			<div class="flex flex-col">
 				{#each mission.title as title}
 					<h2 class="font-headings text-dark-brown text-3xl font-semibold md:text-5xl">{title}</h2>

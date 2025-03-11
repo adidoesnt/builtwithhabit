@@ -15,7 +15,7 @@ export const testimonials: Testimonial[] = [
 		role: 'Working Professional',
 		image: '/testimonials/person1.jpg',
 		quote:
-			"Ishita's approach to strength training completely changed my relationship with fitness. Her personalized program fits perfectly into my busy schedule!",
+			"Ishita's approach to strength training completely changed my relationship with fitness. Her personalised program fits perfectly into my busy schedule!",
 		rating: 5
 	},
 	{
@@ -51,7 +51,7 @@ export const testimonials: Testimonial[] = [
 		role: 'Healthcare Worker',
 		image: '/testimonials/person5.jpg',
 		quote:
-			'As someone who stands all day at work, the personalized strength program has been life-changing for my back pain and overall energy levels.',
+			'As someone who stands all day at work, the personalised strength program has been life-changing for my back pain and overall energy levels.',
 		rating: 5
 	},
 	{

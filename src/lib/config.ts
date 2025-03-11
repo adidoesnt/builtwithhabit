@@ -36,13 +36,13 @@ const config = {
 		mission: {
 			title: ['Mission and', 'Training Philosophy'],
 			content: [
-				'Strength training is truly one of the most powerful tools for south asian women to build confidence, longevity, and resilience at any stage of life!',
+				'Strength training is truly one of the most powerful tools for South Asian women to build confidence, longevity, and resilience at any stage of life!',
 				'My approach combines science-backed resistance training, whole-food nutrition, and mindful living—cutting through misinformation to create personalised, sustainable, and iterative fitness plans that work for you. I believe fitness should feel intuitive - not restrictive - and I work closely with each client to build strength in a way that feels natural, empowering, and lasting!'
 			]
 		},
 		contact: {
 			name: 'Ishita R. Mahajan',
-			image: '/headshot.png',
+			image: '/headshot.svg',
 			tagline: 'NASM-Certified Personal Trainer',
 			callToAction: 'View packages',
 			email: 'admin@boh-services.com',
@@ -57,12 +57,13 @@ const config = {
 			plans: {
 				buttonText: 'Book Now'
 			},
-			currency: 'SG$'
+			currency: 'SG$',
+			earlyBirdDiscount: 'Early Bird Discount',
 		}
 	},
 	packages: {
 		description:
-			'Please select one of the packages below to proceed with your booking. Do note that bookings cannot be cancelled, but can be postponed to a later date.'
+			'Please select one of the packages below to proceed with your booking. Do note that bookings cannot be cancelled, but can be postponed to a later date.',
 	},
 	dashboard: {
 		greeting: 'Welcome back',
