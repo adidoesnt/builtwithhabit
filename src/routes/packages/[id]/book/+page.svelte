@@ -39,7 +39,7 @@
 		disclaimerOpen = !disclaimerOpen;
 	};
 
-    // TODO: validate form schema on submission
+	// TODO: validate form schema on submission
 	const formSchema = z.object({
 		address: z.string().min(1),
 		postalCode: z.string().min(1),
@@ -155,10 +155,32 @@
 		<LogoHeader />
 
 		<div class="mt-8 mb-8 text-center md:text-start">
-			<h1 class="font-body text-dark-brown text-3xl font-bold">Book Your Package</h1>
-			<p class="font-body text-light-brown mt-2">
-				Complete the form below to book the {fetchedPackage.name} package.
-			</p>
+			<div class="flex flex-col md:flex-row md:items-center md:justify-between">
+				<div>
+					<h1 class="font-body text-dark-brown text-3xl font-bold">Book Your Package</h1>
+					<p class="font-body text-light-brown mt-2">
+						Complete the form below to book the {fetchedPackage.name} package.
+					</p>
+				</div>
+				<a
+					href="/packages"
+					class="font-body text-dark-brown mt-4 flex items-center gap-2 self-center hover:underline md:mt-0 md:self-start"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+					Back to Packages
+				</a>
+			</div>
 		</div>
 
 		<div class="rounded-lg bg-white p-6 shadow-md md:p-8">
@@ -189,7 +211,7 @@
 									<input
 										type="text"
 										id="packageName"
-										class="focus:ring-dark-brown font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none disabled:text-gray-400"
+										class="focus:ring-dark-brown font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-400"
 										value={fetchedPackage.name}
 										disabled
 									/>
@@ -202,7 +224,7 @@
 									<input
 										type="text"
 										id="packageDescription"
-										class="font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none disabled:text-gray-400"
+										class="font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-400"
 										value={fetchedPackage.sessions}
 										disabled
 									/>
@@ -214,13 +236,13 @@
 							<h3 class="font-body text-dark-brown mb-3 text-lg font-semibold">Location Details</h3>
 							<div class="flex flex-col gap-4 md:flex-row">
 								<div class="flex-1">
-									<label for="address" class="font-body mb-1 block text-gray-500">Address</label>
+									<label for="address" class="font-body text-dark-brown mb-1 block">Address</label>
 									<div class="relative">
 										<input
 											type="textarea"
 											id="address"
-											class="font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none
-												{postalCodeValidationInProgress ? 'bg-gray-100' : ''}
+											class="font-body w-full rounded-md border border-gray-300 bg-white p-2 focus:ring-2 focus:outline-none
+												{postalCodeValidationInProgress ? 'cursor-not-allowed bg-gray-100' : 'cursor-text'}
 												{!postalCodeStatus.isValid && !postalCodeValidationInProgress ? 'border-red-500' : ''}
 												{postalCodeStatus.isValid && formValues.address ? 'border-green-500' : ''}"
 											disabled={postalCodeValidationInProgress}
@@ -237,7 +259,7 @@
 								</div>
 
 								<div class="md:w-1/3">
-									<label for="postalCode" class="font-body mb-1 block text-gray-500"
+									<label for="postalCode" class="font-body text-dark-brown mb-1 block"
 										>Postal Code</label
 									>
 									<div class="relative">
@@ -245,7 +267,7 @@
 											type="text"
 											id="postalCode"
 											class="font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none
-												{postalCodeValidationInProgress ? 'bg-gray-100' : ''}
+												{postalCodeValidationInProgress ? 'cursor-not-allowed bg-gray-100' : 'cursor-text'}
 												{!postalCodeStatus.isValid && !postalCodeValidationInProgress ? 'border-red-500' : ''}
 												{postalCodeStatus.isValid && formValues.address ? 'border-green-500' : ''}"
 											bind:value={formValues.postalCode}
