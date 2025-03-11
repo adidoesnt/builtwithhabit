@@ -1,3 +1,4 @@
+import { getLocations } from '$lib/server/db/locations.js';
 import { getPackageById } from '$lib/server/db/packages';
 import { error } from '@sveltejs/kit';
 
@@ -20,7 +21,10 @@ export const load = async ({ params }) => {
 		throw error(404, 'Package not found');
 	}
 
+	const locations = await getLocations();
+
 	return {
-		package: fetchedPackage
+		package: fetchedPackage,
+		locations
 	};
 };

@@ -7,7 +7,7 @@
 	import config from '$lib/config';
 
 	const { data }: { data: PageServerData } = $props();
-	const { package: fetchedPackage } = data;
+	const { package: fetchedPackage, locations: availableLocations } = data;
 	const { disclaimer } = config.packages;
 
 	let page = $state(0);
@@ -242,6 +242,14 @@
 
 						<div class="rounded-md border border-gray-100 bg-gray-50 p-4">
 							<h3 class="font-body text-dark-brown mb-3 text-lg font-semibold">Location Details</h3>
+							<p class="font-body text-light-brown mb-3 text-sm">
+								Please note that we only provide services in areas near our available locations:
+								{availableLocations.map((loc, index) => 
+									index === availableLocations.length - 1 && index !== 0
+										? `and ${loc.address}`
+										: loc.address
+								).join(', ')}.
+							</p>
 							<div class="flex flex-col gap-4 md:flex-row">
 								<div class="flex-1">
 									<label for="address" class="font-body text-dark-brown mb-1 block">Address</label>
