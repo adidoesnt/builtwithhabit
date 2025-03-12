@@ -55,6 +55,8 @@ export const purchases = pgTable('purchases', {
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
 
+export type Location = typeof locations.$inferSelect;
+
 export const locations = pgTable('locations', {
 	id: serial('id').primaryKey(),
 	address: text('address').notNull(),

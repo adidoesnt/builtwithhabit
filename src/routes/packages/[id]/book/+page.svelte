@@ -3,20 +3,16 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
-	import { z } from 'zod';
-	import config from '$lib/config';
-
+	import Disclaimer from './components/packageAndLocationDetails/Disclaimer.svelte';
+	import { address, disclaimerChecked, isValid } from './components/packageAndLocationDetails/formState';
+	import PackageDetails from './components/packageAndLocationDetails/PackageDetails.svelte';
+	import LocationDetails from './components/packageAndLocationDetails/LocationDetails.svelte';
+	import ProgressBar from './components/ProgressBar.svelte';
 	const { data }: { data: PageServerData } = $props();
 	const { package: fetchedPackage, locations: availableLocations } = data;
-	const { disclaimer } = config.packages;
 
 	let page = $state(0);
-	let disclaimerOpen = $state(false);
 	let postalCodeValidationInProgress = $state(false);
-	let postalCodeStatus = $state({
-		isValid: true,
-		message: ''
-	});
 
 	const nextPage = () => {
 		if (page < 2) {
@@ -37,128 +33,13 @@
 		alert('Booking completed!');
 	};
 
-	const toggleDisclaimer = () => {
-		disclaimerOpen = !disclaimerOpen;
-	};
-
-	// TODO: validate form schema on submission
-	const formSchema = z.object({
-		address: z.string().min(1),
-		postalCode: z.string().min(1),
-		disclaimer: z.boolean().refine((val) => val, {
-			message: disclaimer.warning
-		})
-	});
-
-	const formValues = $state({
-		address: '',
-		postalCode: '',
-		disclaimer: false
-	});
-
 	const firstPageNextDisabled = $derived(
 		page === 0 &&
-			(formValues.address?.length === 0 || !postalCodeStatus.isValid || !formValues.disclaimer)
+			($address.length === 0 || !$isValid || !$disclaimerChecked)
 	);
-
-	const validatePostalCode = async () => {
-		postalCodeValidationInProgress = true;
-		postalCodeStatus = { isValid: true, message: 'Validating postal code...' };
-
-		// TODO: remove mocking - saving API calls since we already tested this and it works
-		formValues.address = '123 Main St, Anytown, USA';
-		postalCodeStatus = { isValid: true, message: 'Address found' };
-		postalCodeValidationInProgress = false;
-		return;
-
-		// if (formValues.postalCode.length !== 6) {
-		// 	postalCodeStatus = {
-		// 		isValid: false,
-		// 		message: 'Postal code must be 6 characters (e.g., 123456)'
-		// 	};
-		// 	postalCodeValidationInProgress = false;
-		// 	return;
-		// }
-
-		// try {
-		// 	const response = await fetch(`/location/${formValues.postalCode}/address`);
-
-		// 	if (response.ok) {
-		// 		const data = await response.json();
-		// 		const { address, isValid } = data;
-
-		// 		if (data.isValid && data.address) {
-		// 			formValues.address =
-		// 				address.label ||
-		// 				`${address.street || ''}, ${address.municipality || ''}, ${address.region || ''}`;
-
-		// 			postalCodeStatus = {
-		// 				isValid,
-		// 				message: 'Address found'
-		// 			};
-		// 		} else {
-		// 			postalCodeStatus = {
-		// 				isValid,
-		// 				message: data.message || 'Could not find address for this postal code'
-		// 			};
-		// 		}
-		// 	} else {
-		// 		postalCodeStatus = {
-		// 			isValid: false,
-		// 			message: 'Postal code is invalid or too far away'
-		// 		};
-		// 	}
-		// } catch (error) {
-		// 	console.error('Error validating postal code:', error);
-		// 	postalCodeStatus = {
-		// 		isValid: false,
-		// 		message: 'Error connecting to validation service'
-		// 	};
-		// } finally {
-		// 	postalCodeValidationInProgress = false;
-		// }
-	};
 </script>
 
 <div class="bg-beige min-h-screen p-4 md:p-8">
-	{#if disclaimerOpen}
-		<div
-			class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center shadow-2xl backdrop-blur-xl"
-		>
-			<div class="mx-4 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
-				<div class="mb-4 flex items-center justify-between">
-					<h2 class="font-body text-dark-brown text-xl font-bold">Disclaimer</h2>
-					<button
-						onclick={toggleDisclaimer}
-						class="hover:text-dark-brown text-gray-500 transition-colors"
-						aria-label="Close disclaimer"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						</svg>
-					</button>
-				</div>
-
-				<div
-					class="font-body text-dark-brown mb-6 max-h-[60dvh] overflow-y-auto whitespace-pre-line"
-				>
-					{disclaimer.content.join('\n\n')}
-				</div>
-			</div>
-		</div>
-	{/if}
-
 	<div class="mx-auto max-w-4xl">
 		<LogoHeader />
 
@@ -192,159 +73,13 @@
 		</div>
 
 		<div class="rounded-lg bg-white p-6 shadow-md md:p-8">
-			<div class="mb-8">
-				<div class="mb-2 flex justify-between">
-					<span class="font-body text-light-brown text-sm">Questions</span>
-					<span class="font-body text-light-brown text-sm">Select Dates</span>
-					<span class="font-body text-light-brown text-sm">Payment</span>
-				</div>
-				<div class="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-					<div
-						class="bg-dark-brown h-full transition-all duration-300"
-						style="width: {(page + 1) * 33.33}%"
-					></div>
-				</div>
-			</div>
-
+			<ProgressBar {page} />
 			<form class="flex flex-col" {onsubmit}>
 				{#if page === 0}
 					<div class="space-y-4">
-						<div class="rounded-md border border-gray-100 bg-gray-50 p-4">
-							<h3 class="font-body text-dark-brown mb-3 text-lg font-semibold">Package Details</h3>
-							<div class="space-y-3">
-								<div>
-									<label for="packageName" class="font-body mb-1 block text-gray-500"
-										>Package Name</label
-									>
-									<input
-										type="text"
-										id="packageName"
-										class="focus:ring-dark-brown font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-400"
-										value={fetchedPackage.name}
-										disabled
-									/>
-								</div>
-
-								<div>
-									<label for="packageDescription" class="font-body mb-1 block text-gray-500"
-										>Number of Sessions</label
-									>
-									<input
-										type="text"
-										id="packageDescription"
-										class="font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-400"
-										value={fetchedPackage.sessions}
-										disabled
-									/>
-								</div>
-							</div>
-						</div>
-
-						<div class="rounded-md border border-gray-100 bg-gray-50 p-4">
-							<h3 class="font-body text-dark-brown mb-3 text-lg font-semibold">Location Details</h3>
-							<p class="font-body text-light-brown mb-3 text-sm">
-								Please note that we only provide services in areas near our available locations:
-								<span class="font-body text-dark-brown">
-									{availableLocations.map((loc, index) => 
-										index === availableLocations.length - 1 && index !== 0
-											? `and ${loc.address}`
-											: loc.address
-									).join(', ')}.
-								</span>
-							</p>
-							<div class="flex flex-col gap-4 md:flex-row">
-								<div class="flex-1">
-									<label for="address" class="font-body text-dark-brown mb-1 block">Address</label>
-									<div class="relative">
-										<input
-											type="textarea"
-											id="address"
-											class="font-body w-full rounded-md border border-gray-300 bg-white p-2 focus:ring-2 focus:outline-none
-												{postalCodeValidationInProgress ? 'cursor-not-allowed bg-gray-100' : 'cursor-text'}
-												{!postalCodeStatus.isValid && !postalCodeValidationInProgress ? 'border-red-500' : ''}
-												{postalCodeStatus.isValid && formValues.address ? 'border-green-500' : ''}"
-											disabled={postalCodeValidationInProgress}
-											bind:value={formValues.address}
-										/>
-										{#if postalCodeValidationInProgress}
-											<div class="absolute top-1/2 right-3 -translate-y-1/2">
-												<div
-													class="border-t-dark-brown h-5 w-5 animate-spin rounded-full border-2 border-gray-300"
-												></div>
-											</div>
-										{/if}
-									</div>
-								</div>
-
-								<div class="md:w-1/3">
-									<label for="postalCode" class="font-body text-dark-brown mb-1 block"
-										>Postal Code</label
-									>
-									<div class="relative">
-										<input
-											type="text"
-											id="postalCode"
-											class="font-body w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:outline-none
-												{postalCodeValidationInProgress ? 'cursor-not-allowed bg-gray-100' : 'cursor-text'}
-												{!postalCodeStatus.isValid && !postalCodeValidationInProgress ? 'border-red-500' : ''}
-												{postalCodeStatus.isValid && formValues.address ? 'border-green-500' : ''}"
-											bind:value={formValues.postalCode}
-											disabled={postalCodeValidationInProgress}
-											oninput={validatePostalCode}
-											placeholder="123456"
-										/>
-										{#if postalCodeValidationInProgress}
-											<div class="absolute top-1/2 right-3 -translate-y-1/2">
-												<div
-													class="border-t-dark-brown h-5 w-5 animate-spin rounded-full border-2 border-gray-300"
-												></div>
-											</div>
-										{/if}
-									</div>
-									{#if postalCodeStatus.message}
-										<p
-											class="mt-1 text-sm {postalCodeStatus.isValid
-												? 'text-green-600'
-												: 'text-red-500'}"
-										>
-											{postalCodeStatus.message}
-										</p>
-									{/if}
-								</div>
-							</div>
-							<p class="font-body mt-2 text-xs text-gray-500 italic">
-								Enter your postal code and we'll automatically populate your address.
-							</p>
-						</div>
-
-						<div class="rounded-md border border-gray-100 bg-gray-50 p-4">
-							<h3 class="font-body text-dark-brown mb-3 text-lg font-semibold">Disclaimer</h3>
-							<div class="flex items-center gap-2">
-								<input
-									type="checkbox"
-									id="disclaimer"
-									class="focus:ring-dark-brown h-5 w-5 rounded border border-gray-300 focus:ring-2 focus:outline-none"
-									bind:checked={formValues.disclaimer}
-								/>
-								<div>
-									<p class="font-body text-sm text-gray-500">
-										{disclaimer.message}
-										<button
-											type="button"
-											onclick={toggleDisclaimer}
-											class="text-dark-brown font-semibold hover:underline"
-										>
-											{disclaimer.buttonText}
-										</button>
-									</p>
-									{#if !formValues.disclaimer}
-										<p class="font-body mt-1 text-xs text-red-500">
-											{disclaimer.warning}
-										</p>
-									{/if}
-								</div>
-							</div>
-						</div>
+						<PackageDetails package={fetchedPackage} />
+						<LocationDetails {availableLocations} />
+						<Disclaimer />
 					</div>
 				{/if}
 
