@@ -1,6 +1,6 @@
 <script lang="ts">
 	import config from '$lib/config';
-	import { disclaimerChecked } from './formState';
+	import { disclaimerChecked } from '../formState';
 
 	const { disclaimer } = config.packages;
 

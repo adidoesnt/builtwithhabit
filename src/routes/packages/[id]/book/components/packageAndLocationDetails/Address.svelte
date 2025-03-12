@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { address, validationInProgress, isValid } from './formState';
+	import { address, validationInProgress, isValid } from '../formState';
 </script>
 
 <div class="flex-1">

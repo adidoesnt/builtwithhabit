@@ -27,3 +27,13 @@ export let address = writable('');
 export const setAddress = (v: string) => {
 	address.set(v);
 };
+
+// Reset all form state
+export const resetFormState = () => {
+	disclaimerChecked.set(false);
+	postalCode.set('');
+	address.set('');
+	isValid.set(false);
+	validationInProgress.set(false);
+	message.set('');
+};

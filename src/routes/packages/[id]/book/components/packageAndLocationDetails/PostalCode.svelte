@@ -9,7 +9,7 @@
 		setAddress,
 		setMessage,
 		setValidationInProgress
-	} from './formState';
+	} from '../formState';
 
 	const validatePostalCode = async () => {
 		if ($postalCode.length !== 6) {
