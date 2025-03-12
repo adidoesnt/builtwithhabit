@@ -1,5 +1,3 @@
-<!-- TODO: add date selection -->
-<!-- TODO: add payment -->
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
