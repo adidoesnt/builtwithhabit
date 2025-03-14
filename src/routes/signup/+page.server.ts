@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { signupWithEmail } from '$lib/server/auth/email/signup';
 import { createUser } from '$lib/server/db/user';
-import { setUser } from '../../lib/stores/auth';
+import { setUser, type User } from '$lib/stores/auth';
 
 const schema = z.object({
 	firstName: z.string().min(1, 'First name is required'),
@@ -71,7 +71,7 @@ export const actions = {
 			email: result.data.email,
 			id: authUser.id
 		});
-		setUser(user);
+		setUser(user as User);
 
 		console.log('Signed up successfully, pending email verification', {
 			user,
