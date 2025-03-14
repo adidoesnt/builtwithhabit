@@ -3,7 +3,6 @@
 	import { user as currentUser } from '$lib/stores/auth';
 	import EditModal from './EditModal.svelte';
 	import DeleteModal from './DeleteModal.svelte';
-	import { invalidateAll } from '$app/navigation';
 
 	let { users: initialUsers }: { users: User[] } = $props();
 
@@ -13,9 +12,24 @@
 	let totalPages = $derived(Math.ceil(users.length / pageSize));
 	let userToEdit = $state<User | null>(null);
 	let userToDelete = $state<User | null>(null);
+	let searchTerm = $state('');
 
 	let paginatedUsers = $derived(
-		users.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
+		users
+			.filter((user) => {
+				if (searchTerm.trim().length === 0) return true;
+				return (
+					user.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					(user.middleName
+						? `${user.firstName} ${user.middleName} ${user.lastName}`
+						: `${user.firstName} ${user.lastName}`
+					)
+						.toLowerCase()
+						.includes(searchTerm.toLowerCase())
+				);
+			})
+			.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
 	);
 
 	function formatDate(date: Date) {
@@ -41,6 +55,10 @@
 	function closeDeleteModal() {
 		userToDelete = null;
 	}
+
+	function handleSearch(event: Event) {
+		searchTerm = (event.target as HTMLInputElement).value;
+	}
 </script>
 
 {#if userToEdit}
@@ -54,6 +72,14 @@
 <div class="overflow-hidden rounded-lg bg-white shadow-md">
 	<div class="flex items-center justify-between border-b p-4">
 		<h2 class="font-body text-dark-brown text-xl font-semibold">User Management</h2>
+		<div class="flex items-center gap-2 flex-grow justify-end">
+			<input
+				type="text"
+				placeholder="Search"
+				class="rounded-md border-gray-300 p-2 font-body text-dark-brown w-1/2"
+				oninput={handleSearch}
+			/>
+		</div>
 	</div>
 	{#if paginatedUsers.length === 0}
 		<div class="p-8 text-center">

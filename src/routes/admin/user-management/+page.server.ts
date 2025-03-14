@@ -4,10 +4,7 @@ import { Role, type User } from '$lib/stores/auth';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ cookies, depends }) => {
-	// Register a dependency for this route
-	depends('app:users');
-
+export const load = (async ({ cookies }) => {
 	const accessToken = cookies.get('access_token');
 
 	if (!accessToken) {

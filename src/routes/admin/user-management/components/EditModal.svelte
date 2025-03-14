@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
 	import { Role, type User } from '$lib/stores/auth';
 	import { z } from 'zod';
 
