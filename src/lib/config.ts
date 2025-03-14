@@ -35,15 +35,9 @@ const config = {
 			adminLinks: [
 				{
 					label: 'User Management',
-					href: '/admin/users'
+					href: '/admin/user-management'
 				}
 			],
-			trainerLinks: [
-				{
-					label: 'Bookings',
-					href: '/bookings'
-				}
-			]
 		},
 		mission: {
 			title: ['Mission and', 'Training Philosophy'],
