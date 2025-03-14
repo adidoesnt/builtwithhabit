@@ -1,5 +1,11 @@
-import type { Role, UserFindAttributes } from '$lib/server/db/schema';
+import type { UserFindAttributes } from '$lib/server/db/schema';
 import { writable } from 'svelte/store';
+
+export enum Role {
+	ADMIN = 'admin',
+	TRAINER = 'trainer',
+	USER = 'user'
+}
 
 export type User = UserFindAttributes & {
 	createdAt: Date;

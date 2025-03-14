@@ -1,6 +1,7 @@
 <script lang="ts">
 	import config from '$lib/config';
 	import { page } from '$app/state';
+	import { Role, user } from '$lib/stores/auth';
 
 	const { bgColor = 'light-green', textColor = 'dark-brown' } = $props();
 	const { navBar, logo } = config.site;
@@ -11,6 +12,17 @@
 	const toggleSidebar = () => {
 		isOpen = !isOpen;
 	};
+
+	const trainerLinks = $derived([
+		{
+			label: 'Bookings',
+			href: `/trainers/${$user?.id}/bookings`
+		},
+		{
+			label: 'Availability',
+			href: `/trainers/${$user?.id}/availability`
+		}
+	]);
 </script>
 
 <div class="relative text-${textColor} z-50">
@@ -45,6 +57,24 @@
 						{link.label}
 					</a>
 				{/each}
+				<hr class="my-4" />
+				<h3 class="text-lg font-bold">Trainer</h3>
+				{#if $user?.roles?.includes(Role.TRAINER)}
+					{#each trainerLinks as link}
+						<a href={link.href} class="py-2 transition-colors hover:opacity-80">
+							{link.label}
+						</a>
+					{/each}
+				{/if}
+				<hr class="my-4" />
+				<h3 class="text-lg font-bold">Admin</h3>
+				{#if $user?.roles?.includes(Role.ADMIN)}
+					{#each navBar.adminLinks as link}
+						<a href={link.href} class="py-2 transition-colors hover:opacity-80">
+							{link.label}
+						</a>
+					{/each}
+				{/if}
 			</nav>
 		</div>
 	</div>

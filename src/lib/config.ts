@@ -31,6 +31,18 @@ const config = {
 					label: 'Bookings',
 					href: '/bookings'
 				}
+			],
+			adminLinks: [
+				{
+					label: 'User Management',
+					href: '/admin/users'
+				}
+			],
+			trainerLinks: [
+				{
+					label: 'Bookings',
+					href: '/bookings'
+				}
 			]
 		},
 		mission: {
