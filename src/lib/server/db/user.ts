@@ -1,27 +1,51 @@
 import { eq } from 'drizzle-orm';
 import { database } from '.';
-import { users } from './schema';
-
-import type { UserCreateAttributes } from './schema';
+import { Role, userRoles, users, type UserCreateAttributes } from './schema';
 
 export const createUser = async (attributes: UserCreateAttributes) => {
-	const result = await database.insert(users).values(attributes).returning();
+	const user = await database.transaction(async (tx) => {
+		const result = await tx.insert(users).values(attributes).returning();
 
-	if (!result) {
-		throw new Error('Failed to create user');
-	}
+		if (!result) {
+			throw new Error('Failed to create user');
+		}
 
-	const user = result[0];
-	return user;
+		const user = result[0];
+
+		await tx.insert(userRoles).values({
+			userId: user.id,
+			role: Role.USER
+		});
+
+		return user;
+	});
+
+	const createdUser = await database.query.users.findFirst({
+		where: eq(users.id, user.id)
+	});
+	const createdUserRoles = await database.query.userRoles.findMany({
+		where: eq(userRoles.userId, user.id)
+	});
+
+	return {
+		...createdUser,
+		roles: createdUserRoles.map((role) => role.role)
+	};
 };
-
 export const getUserById = async (id: string) => {
-	const result = await database.select().from(users).where(eq(users.id, id));
+	const user = await database.query.users.findFirst({
+		where: eq(users.id, id)
+	});
+	const roles = await database.query.userRoles.findMany({
+		where: eq(userRoles.userId, id)
+	});
 
-	if (!result) {
+	if (!user) {
 		throw new Error('Failed to get user');
 	}
 
-	const user = result[0];
-	return user;
+	return {
+		...user,
+		roles: roles.map((role) => role.role)
+	};
 };

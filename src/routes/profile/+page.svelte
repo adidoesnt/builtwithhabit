@@ -90,6 +90,19 @@
 									})}
 								</p>
 							</div>
+
+							<div>
+								<p class="font-body text-light-brown text-sm">Roles</p>
+								<div class="mt-1 flex flex-wrap gap-2">
+									{#each $user.roles as userRole}
+										<span
+											class="font-body text-dark-brown bg-light-green rounded-md px-2 py-1 text-sm"
+										>
+											{userRole.charAt(0).toUpperCase() + userRole.slice(1).toLowerCase()}
+										</span>
+									{/each}
+								</div>
+							</div>
 						</div>
 					</div>
 

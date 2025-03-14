@@ -1,7 +1,24 @@
-import { decimal, pgTable, serial, text, timestamp, uuid, integer, boolean } from 'drizzle-orm/pg-core';
+import {
+	decimal,
+	pgTable,
+	serial,
+	text,
+	timestamp,
+	uuid,
+	integer,
+	pgEnum
+} from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
 export type UserFindAttributes = typeof users.$inferSelect;
+
+export enum Role {
+	ADMIN = 'admin',
+	TRAINER = 'trainer',
+	USER = 'user'
+}
+
+export const rolesEnum = pgEnum('roles', [Role.ADMIN, Role.TRAINER, Role.USER]);
 
 /**
  * Users table - stores user account information
@@ -17,6 +34,18 @@ export const users = pgTable('users', {
 	email: text('email').notNull().unique(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
+});
+
+/**
+ * User roles table - stores user roles
+ *
+ * Links users to their roles
+ */
+export const userRoles = pgTable('user_roles', {
+	userId: uuid('user_id')
+		.references(() => users.id)
+		.notNull(),
+	role: rolesEnum('role').notNull()
 });
 
 export type Package = typeof packages.$inferSelect;
@@ -51,6 +80,11 @@ export const purchases = pgTable('purchases', {
 	packageId: integer('package_id')
 		.references(() => packages.id)
 		.notNull(),
+	trainerId: uuid('trainer_id')
+		.references(() => users.id)
+		.notNull(),
+	address: text('address').notNull(),
+	postalCode: text('postal_code').notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
@@ -83,8 +117,23 @@ export const bookings = pgTable('bookings', {
 		.notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
-	address: text('address').notNull(),
-	postalCode: text('postal_code').notNull(),
+	createdAt: timestamp('created_at').notNull().defaultNow(),
+	updatedAt: timestamp('updated_at').notNull().defaultNow()
+});
+
+/**
+ * Availabilities table - stores trainer availability
+ *
+ * Each availability represents a time slot that a trainer is available to book
+ * Contains start and end times for the availability and links to the trainer
+ */
+export const availabilities = pgTable('availabilities', {
+	id: serial('id').primaryKey(),
+	trainerId: uuid('trainer_id')
+		.references(() => users.id)
+		.notNull(),
+	start: timestamp('start').notNull(),
+	end: timestamp('end').notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
