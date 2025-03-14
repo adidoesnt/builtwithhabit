@@ -10,6 +10,7 @@ export enum Role {
 export type User = UserFindAttributes & {
 	createdAt: Date;
 	roles: Role[];
+	isVerified?: boolean;
 };
 
 export const user = writable<User | null>(null);

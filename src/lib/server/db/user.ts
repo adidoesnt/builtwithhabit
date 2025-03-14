@@ -32,6 +32,7 @@ export const createUser = async (attributes: UserCreateAttributes) => {
 		roles: createdUserRoles.map((role) => role.role)
 	};
 };
+
 export const getUserById = async (id: string) => {
 	const user = await database.query.users.findFirst({
 		where: eq(users.id, id)
@@ -48,4 +49,46 @@ export const getUserById = async (id: string) => {
 		...user,
 		roles: roles.map((role) => role.role)
 	};
+};
+
+export const getAllUsers = async () => {
+	const users = await database.query.users.findMany();
+	const usersWithRoles = await Promise.all(
+		users.map(async (user) => {
+			const roles = await database.query.userRoles.findMany({
+				where: eq(userRoles.userId, user.id)
+			});
+
+			return {
+				...user,
+				roles: roles.map((role) => role.role)
+			};
+		})
+	);
+
+	return usersWithRoles;
+};
+
+export const updateUser = async (id: string, attributes: UserCreateAttributes & { roles: Role[] }) => {
+	const user = await database.transaction(async (tx) => {
+		const result = await tx.update(users).set(attributes).where(eq(users.id, id)).returning();
+
+		if (!result) {
+			throw new Error('Failed to update user');
+		}
+
+		await tx.delete(userRoles).where(eq(userRoles.userId, id));
+		await tx.insert(userRoles).values(attributes.roles.map((role) => ({ userId: id, role })));
+
+		return result[0];
+	});
+
+	return user;
+};
+
+export const deleteUser = async (id: string) => {
+	const result = await database.delete(users).where(eq(users.id, id));
+	const deleteCount = result.length;
+
+	return deleteCount;
 };

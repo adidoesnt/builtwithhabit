@@ -43,7 +43,7 @@ export const users = pgTable('users', {
  */
 export const userRoles = pgTable('user_roles', {
 	userId: uuid('user_id')
-		.references(() => users.id)
+		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	role: rolesEnum('role').notNull()
 });
@@ -75,13 +75,13 @@ export const packages = pgTable('packages', {
 export const purchases = pgTable('purchases', {
 	id: serial('id').primaryKey(),
 	userId: uuid('user_id')
-		.references(() => users.id)
+		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	packageId: integer('package_id')
-		.references(() => packages.id)
+		.references(() => packages.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	trainerId: uuid('trainer_id')
-		.references(() => users.id)
+		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	address: text('address').notNull(),
 	postalCode: text('postal_code').notNull(),
@@ -110,10 +110,10 @@ export const locations = pgTable('locations', {
 export const bookings = pgTable('bookings', {
 	id: serial('id').primaryKey(),
 	userId: uuid('user_id')
-		.references(() => users.id)
+		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	purchaseId: integer('purchase_id')
-		.references(() => purchases.id)
+		.references(() => purchases.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
@@ -130,7 +130,7 @@ export const bookings = pgTable('bookings', {
 export const availabilities = pgTable('availabilities', {
 	id: serial('id').primaryKey(),
 	trainerId: uuid('trainer_id')
-		.references(() => users.id)
+		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
