@@ -30,6 +30,14 @@
 	let currentEnd = $state<string | null>(null);
 	let timeError = $state<string | null>(null);
 
+	function isTimeOverlapping(start: string, end: string, dayIndex: number): boolean {
+		if (!start || !end || dayIndex === null) return false;
+
+		return formData[dayIndex].availabilities.some((slot) => {
+			return start < slot.end && end > slot.start;
+		});
+	}
+
 	function validateTimes() {
 		if (!currentStart || !currentEnd) {
 			timeError = null;
@@ -38,6 +46,11 @@
 
 		if (currentStart >= currentEnd) {
 			timeError = 'Start time must be before end time';
+			return false;
+		}
+
+		if (currentDay !== null && isTimeOverlapping(currentStart, currentEnd, currentDay)) {
+			timeError = 'This time slot overlaps with an existing slot';
 			return false;
 		}
 
@@ -58,6 +71,8 @@
 				end: currentEnd
 			});
 
+			formData[currentDay].availabilities.sort((a, b) => a.start.localeCompare(b.start));
+
 			currentStart = null;
 			currentEnd = null;
 			timeError = null;
@@ -77,6 +92,14 @@
 		});
 
 		window.location.reload();
+	}
+
+	function formatTime(timeStr: string): string {
+		if (!timeStr) return '';
+		const [hours, minutes] = timeStr.split(':').map(Number);
+		const period = hours >= 12 ? 'PM' : 'AM';
+		const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+		return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
 	}
 </script>
 
@@ -216,26 +239,28 @@
 														class="bg-light-green flex items-center gap-1 rounded-full px-3 py-1"
 													>
 														<span class="font-body text-dark-brown text-sm">
-															{availability.start} - {availability.end}
+															{formatTime(availability.start)} - {formatTime(availability.end)}
 														</span>
-														<button
-															onclick={() => removeTimeSlot(index, slotIndex)}
-															aria-label="Delete availability"
-															class="text-dark-brown hover:text-red-600"
-														>
-															<svg
-																xmlns="http://www.w3.org/2000/svg"
-																class="h-4 w-4"
-																viewBox="0 0 20 20"
-																fill="currentColor"
+														{#if isEditing}
+															<button
+																onclick={() => removeTimeSlot(index, slotIndex)}
+																aria-label="Delete availability"
+																class="text-dark-brown hover:text-red-600"
 															>
-																<path
-																	fill-rule="evenodd"
-																	d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-																	clip-rule="evenodd"
-																/>
-															</svg>
-														</button>
+																<svg
+																	xmlns="http://www.w3.org/2000/svg"
+																	class="h-4 w-4"
+																	viewBox="0 0 20 20"
+																	fill="currentColor"
+																>
+																	<path
+																		fill-rule="evenodd"
+																		d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+																		clip-rule="evenodd"
+																	/>
+																</svg>
+															</button>
+														{/if}
 													</div>
 												{/each}
 											</div>
