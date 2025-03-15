@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { user, Role } from '$lib/stores/auth';
 	import type { PageServerData } from './$types';
-	import { fade, slide } from 'svelte/transition';
+	import { fade, slide, scale } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
 	const { data }: { data: PageServerData } = $props();
@@ -122,6 +122,10 @@
 		formData[dayIndex].availabilities.splice(slotIndex, 1);
 	}
 
+	function toggleEditing() {
+		isEditing = !isEditing;
+	}
+
 	async function saveAvailabilities() {
 		try {
 			isSaving = true;
@@ -142,7 +146,6 @@
 			saveSuccess = true;
 			isEditing = false;
 
-			// Show success message briefly before reloading
 			setTimeout(() => {
 				window.location.reload();
 			}, 1000);
@@ -175,56 +178,76 @@
 			<div class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-md">
 				<div class="flex items-center justify-between">
 					<h2 class="font-heading text-dark-brown text-2xl font-bold">Weekly Availability</h2>
-					{#if isEditing}
-						<div class="flex items-center gap-2">
+					<div>
+						{#if isEditing}
+							<div
+								transition:scale={{ duration: 200, start: 0.95 }}
+								class="flex items-center gap-2"
+							>
+								<button
+									onclick={() => toggleEditing()}
+									class="font-body hover:bg-opacity-90 text-dark-brown flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 transition-colors"
+									disabled={isSaving}
+								>
+									Cancel
+								</button>
+								<button
+									onclick={saveAvailabilities}
+									class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+									disabled={isSaving}
+								>
+									{#if isSaving}
+										<svg
+											class="mr-2 -ml-1 h-4 w-4 animate-spin text-white"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+										>
+											<circle
+												class="opacity-25"
+												cx="12"
+												cy="12"
+												r="10"
+												stroke="currentColor"
+												stroke-width="4"
+											></circle>
+											<path
+												class="opacity-75"
+												fill="currentColor"
+												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+											></path>
+										</svg>
+										Saving...
+									{:else}
+										Save
+									{/if}
+								</button>
+							</div>
+						{:else}
 							<button
-								onclick={() => (isEditing = false)}
-								class="font-body hover:bg-opacity-90 text-dark-brown flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 transition-colors"
+								transition:slide={{ duration: 200, easing: quintOut }}
+								onclick={() => toggleEditing()}
+								class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors"
 								disabled={isSaving}
 							>
-								Cancel
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="mr-1 h-4 w-4"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+									/>
+								</svg>
+								Edit
 							</button>
-							<button
-								onclick={saveAvailabilities}
-								class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-								disabled={isSaving}
-							>
-								{#if isSaving}
-									<svg
-										class="mr-2 -ml-1 h-4 w-4 animate-spin text-white"
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-									>
-										<circle
-											class="opacity-25"
-											cx="12"
-											cy="12"
-											r="10"
-											stroke="currentColor"
-											stroke-width="4"
-										></circle>
-										<path
-											class="opacity-75"
-											fill="currentColor"
-											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-										></path>
-									</svg>
-									Saving...
-								{:else}
-									Save
-								{/if}
-							</button>
-						</div>
-					{:else}
-						<button
-							onclick={() => (isEditing = true)}
-							class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors"
-							disabled={isSaving}
-						>
-							Edit
-						</button>
-					{/if}
+						{/if}
+					</div>
 				</div>
 
 				{#if saveSuccess}
@@ -281,7 +304,10 @@
 								>
 									<hr class="border-gray-300" />
 									{#if isEditing}
-										<div class="flex flex-wrap items-center gap-4 rounded-sm bg-white p-4">
+										<div
+											transition:slide={{ duration: 200, easing: quintOut }}
+											class="flex flex-wrap items-center gap-4 rounded-sm bg-white p-4"
+										>
 											<div class="flex flex-col gap-1">
 												<label
 													for={`start-${index}`}
@@ -363,6 +389,7 @@
 														</span>
 														{#if isEditing}
 															<button
+																transition:fade={{ duration: 150 }}
 																onclick={() => removeTimeSlot(index, slotIndex)}
 																aria-label="Delete availability"
 																class="text-dark-brown hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
