@@ -61,7 +61,11 @@
 					<hr class="my-4" />
 					<h3 class="text-lg font-bold">Trainer</h3>
 					{#each trainerLinks as link}
-						<a href={link.href} class="py-2 transition-colors hover:opacity-80">
+						<a
+							href={link.href}
+							onclick={toggleSidebar}
+							class="py-2 transition-colors hover:opacity-80"
+						>
 							{link.label}
 						</a>
 					{/each}
@@ -70,7 +74,11 @@
 					<hr class="my-4" />
 					<h3 class="text-lg font-bold">Admin</h3>
 					{#each navBar.adminLinks as link}
-						<a href={link.href} class="py-2 transition-colors hover:opacity-80">
+						<a
+							href={link.href}
+							onclick={toggleSidebar}
+							class="py-2 transition-colors hover:opacity-80"
+						>
 							{link.label}
 						</a>
 					{/each}
