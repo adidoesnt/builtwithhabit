@@ -178,15 +178,16 @@
 			<div class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-md">
 				<div class="flex items-center justify-between">
 					<h2 class="font-heading text-dark-brown text-2xl font-bold">Weekly Availability</h2>
-					<div>
+					<div class="relative flex h-10 w-24 justify-end">
 						{#if isEditing}
 							<div
-								transition:scale={{ duration: 200, start: 0.95 }}
-								class="flex items-center gap-2"
+								in:fade={{ duration: 200 }}
+								out:fade={{ duration: 150 }}
+								class="absolute right-0 flex items-center gap-2"
 							>
 								<button
 									onclick={() => toggleEditing()}
-									class="font-body text-dark-brown flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+									class="font-body text-dark-brown flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 hover:bg-gray-200"
 									disabled={isSaving}
 									aria-label="Cancel editing"
 								>
@@ -207,7 +208,7 @@
 								</button>
 								<button
 									onclick={saveAvailabilities}
-									class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+									class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
 									disabled={isSaving}
 									aria-label="Save availability"
 								>
@@ -252,9 +253,10 @@
 							</div>
 						{:else}
 							<button
-								transition:slide={{ duration: 200, easing: quintOut }}
+								in:fade={{ duration: 200 }}
+								out:fade={{ duration: 150 }}
 								onclick={() => toggleEditing()}
-								class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors"
+								class="font-body bg-dark-brown hover:bg-opacity-90 absolute right-0 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105"
 								disabled={isSaving}
 								aria-label="Edit availability"
 							>
