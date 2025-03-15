@@ -186,19 +186,34 @@
 							>
 								<button
 									onclick={() => toggleEditing()}
-									class="font-body hover:bg-opacity-90 text-dark-brown flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 transition-colors"
+									class="font-body text-dark-brown flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
 									disabled={isSaving}
+									aria-label="Cancel editing"
 								>
-									Cancel
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-5 w-5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M6 18L18 6M6 6l12 12"
+										/>
+									</svg>
 								</button>
 								<button
 									onclick={saveAvailabilities}
-									class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+									class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
 									disabled={isSaving}
+									aria-label="Save availability"
 								>
 									{#if isSaving}
 										<svg
-											class="mr-2 -ml-1 h-4 w-4 animate-spin text-white"
+											class="h-5 w-5 animate-spin"
 											xmlns="http://www.w3.org/2000/svg"
 											fill="none"
 											viewBox="0 0 24 24"
@@ -217,9 +232,21 @@
 												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 											></path>
 										</svg>
-										Saving...
 									{:else}
-										Save
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M5 13l4 4L19 7"
+											/>
+										</svg>
 									{/if}
 								</button>
 							</div>
@@ -227,12 +254,13 @@
 							<button
 								transition:slide={{ duration: 200, easing: quintOut }}
 								onclick={() => toggleEditing()}
-								class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors"
+								class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors"
 								disabled={isSaving}
+								aria-label="Edit availability"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
-									class="mr-1 h-4 w-4"
+									class="h-5 w-5"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
@@ -244,7 +272,6 @@
 										d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
 									/>
 								</svg>
-								Edit
 							</button>
 						{/if}
 					</div>
@@ -278,24 +305,37 @@
 									currentDay === index ? 'rounded-b-none' : ''
 								}`}
 							>
-								<h3 class="font-heading text-dark-brown text-lg font-bold">{day}</h3>
-								{#if currentDay !== index}
-									<button
-										onclick={setCurrentDay.bind(null, index)}
-										class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-										disabled={isSaving}
+								<div class="flex items-center">
+									<h3 class="font-heading text-dark-brown text-lg font-bold">{day}</h3>
+									{#if formData[index].availabilities.length > 0}
+										<span class="text-light-brown ml-2 text-sm">
+											({formData[index].availabilities.length}
+											{formData[index].availabilities.length === 1 ? 'slot' : 'slots'})
+										</span>
+									{/if}
+								</div>
+								<button
+									onclick={() => setCurrentDay(currentDay === index ? null : index)}
+									class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+									disabled={isSaving}
+									aria-label={currentDay === index ? 'Hide availability' : 'Show availability'}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-5 w-5 transition-transform duration-200"
+										style={currentDay === index ? 'transform: rotate(180deg)' : ''}
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
 									>
-										Show
-									</button>
-								{:else}
-									<button
-										onclick={setCurrentDay.bind(null, null)}
-										class="font-body bg-dark-brown hover:bg-opacity-90 flex items-center gap-2 rounded-md px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-										disabled={isSaving}
-									>
-										Hide
-									</button>
-								{/if}
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</button>
 							</div>
 							{#if currentDay === index}
 								<div
