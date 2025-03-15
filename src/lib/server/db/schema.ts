@@ -6,7 +6,8 @@ import {
 	timestamp,
 	uuid,
 	integer,
-	pgEnum
+	pgEnum,
+	date
 } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
@@ -122,16 +123,31 @@ export const bookings = pgTable('bookings', {
 });
 
 /**
- * Availabilities table - stores trainer availability
+ * Weekly schedules table - stores trainer availability
  *
- * Each availability represents a time slot that a trainer is available to book
+ * Each schedule represents a trainer's availability for a specific day of the week
  * Contains start and end times for the availability and links to the trainer
  */
-export const availabilities = pgTable('availabilities', {
+export type RecurringAvailability = typeof recurringAvailabilities.$inferSelect;
+
+export const recurringAvailabilities = pgTable('recurring_availabilities', {
 	id: serial('id').primaryKey(),
 	trainerId: uuid('trainer_id')
 		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
+	dayOfWeek: integer('day_of_week').notNull(), // 0 = Sunday, 1 = Monday, etc.
+	start: text('start').notNull(),
+	end: text('end').notNull(),
+	createdAt: timestamp('created_at').notNull().defaultNow(),
+	updatedAt: timestamp('updated_at').notNull().defaultNow()
+});
+
+export const availabilityOverrides = pgTable('availability_overrides', {
+	id: serial('id').primaryKey(),
+	trainerId: uuid('trainer_id')
+		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
+		.notNull(),
+	date: date('date').notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
