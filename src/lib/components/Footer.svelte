@@ -38,7 +38,7 @@
 				<h3 class="font-headings mb-4 text-lg font-semibold">Quick Links</h3>
 				<ul class="font-body flex flex-col space-y-2 text-sm">
 					<li>
-						<a href={isHomePage ? '#' : '/'} class="hover:text-light-green transition-colors">
+						<a href={isHomePage ? '#' : '/'} class="hover:text-light-brown transition-colors">
 							{isHomePage ? 'Back to top' : 'Home'}
 						</a>
 					</li>
