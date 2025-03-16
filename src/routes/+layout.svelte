@@ -5,6 +5,7 @@
 	import { setUser, user } from '$lib/stores/auth';
 	import { page } from '$app/state';
 	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import { navigating } from '$app/state';
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
@@ -16,6 +17,8 @@
 
 	const isAuthenticated = $derived($user);
 	const isLandingPage = $derived(page.url.pathname === '/');
+
+	const showFooter = $derived(isLandingPage || !isAuthenticated);
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -49,7 +52,7 @@
 
 {#if navigating.complete}
 	<div
-		class="bg-opacity-30 fixed inset-0 z-50 flex items-center justify-center bg-background backdrop-blur-sm"
+		class="bg-opacity-30 bg-background fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
 	>
 		<div class="rounded-lg bg-white p-6 shadow-xl">
 			<div class="flex flex-col items-center">
@@ -67,5 +70,11 @@
 {/if}
 
 <div class="bg-dark-brown font-old-standard flex min-h-screen w-full flex-col">
-	{@render children()}
+	<main class="flex-grow">
+		{@render children()}
+	</main>
+
+	{#if showFooter}
+		<Footer />
+	{/if}
 </div>
