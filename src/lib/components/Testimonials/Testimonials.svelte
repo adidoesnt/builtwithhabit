@@ -51,7 +51,15 @@
 			</p>
 		</div>
 
-		<div class="flex flex-1 flex-col justify-center">
+		<div id="testimonials-mobile" class="flex flex-col gap-4 md:hidden">
+			{#each testimonials as testimonial}
+				<div class="flex h-auto w-full">
+					<TestimonialCard {testimonial} />
+				</div>
+			{/each}
+		</div>
+
+		<div id="testimonials-desktop" class="hidden md:flex md:flex-1 md:flex-col md:justify-center">
 			<div class="relative mb-8">
 				<div
 					class="from-beige absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r to-transparent"
@@ -61,9 +69,11 @@
 				></div>
 
 				<div class="overflow-hidden">
-					<div class={`scroll-container ${isVisible ? 'scroll-left' : ''}`}>
+					<div
+						class={`flex w-fit items-stretch ${isVisible ? 'animate-scroll-left hover:animate-pause' : ''}`}
+					>
 						{#each firstRowLoop as testimonial (testimonial.id)}
-							<div class="testimonial-wrapper">
+							<div class="mx-4 flex min-h-[300px] flex-none">
 								<TestimonialCard
 									testimonial={{
 										...testimonial,
@@ -85,9 +95,11 @@
 				></div>
 
 				<div class="overflow-hidden">
-					<div class={`scroll-container ${isVisible ? 'scroll-right' : ''}`}>
+					<div
+						class={`flex w-fit items-stretch ${isVisible ? 'animate-scroll-right hover:animate-pause' : ''}`}
+					>
 						{#each secondRowLoop as testimonial (testimonial.id)}
-							<div class="testimonial-wrapper">
+							<div class="mx-4 flex min-h-[300px] flex-none">
 								<TestimonialCard
 									testimonial={{
 										...testimonial,
@@ -103,28 +115,7 @@
 	</div>
 </section>
 
-<style>
-	.scroll-container {
-		display: flex;
-		width: fit-content;
-		align-items: stretch;
-	}
-
-	.testimonial-wrapper {
-		flex: 0 0 auto;
-		margin: 0 1rem;
-		display: flex;
-		min-height: 300px;
-	}
-
-	.scroll-left {
-		animation: scroll-left 60s linear infinite;
-	}
-
-	.scroll-right {
-		animation: scroll-right 60s linear infinite;
-	}
-
+<style global>
 	@keyframes scroll-left {
 		0% {
 			transform: translateX(0);
@@ -141,5 +132,17 @@
 		100% {
 			transform: translateX(0);
 		}
+	}
+
+	.animate-scroll-left {
+		animation: scroll-left 60s linear infinite;
+	}
+
+	.animate-scroll-right {
+		animation: scroll-right 60s linear infinite;
+	}
+
+	.animate-pause {
+		animation-play-state: paused;
 	}
 </style>
