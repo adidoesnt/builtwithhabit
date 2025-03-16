@@ -22,7 +22,7 @@
 	let isHomePage = $derived(page.url.pathname === '/');
 </script>
 
-<footer class="bg-dark-brown text-beige py-12 md:px-0 px-4">
+<footer class="bg-dark-brown text-beige px-4 py-12 md:px-0">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 			<div id="footer-logo" class="flex flex-col items-start">
@@ -38,11 +38,26 @@
 				<h3 class="font-headings mb-4 text-lg font-semibold">Quick Links</h3>
 				<ul class="font-body flex flex-col space-y-2 text-sm">
 					<li>
-						<a
-							href={isHomePage ? '#' : '/'}
-							class="hover:text-light-green transition-colors"
-						>
+						<a href={isHomePage ? '#' : '/'} class="hover:text-light-green transition-colors">
 							{isHomePage ? 'Back to top' : 'Home'}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#about"
+							class="hover:text-light-brown transition-colors"
+							onclick={(e) => smoothScroll(e, 'about')}
+						>
+							Mission
+						</a>
+					</li>
+					<li>
+						<a
+							href="#pricing"
+							class="hover:text-light-brown transition-colors"
+							onclick={(e) => smoothScroll(e, 'pricing')}
+						>
+							Packages
 						</a>
 					</li>
 					<li>
@@ -61,24 +76,6 @@
 							class:text-light-brown={page.url.pathname === '/login'}
 						>
 							Log in
-						</a>
-					</li>
-					<li>
-						<a
-							href="#pricing"
-							class="hover:text-light-brown transition-colors"
-							onclick={(e) => smoothScroll(e, 'pricing')}
-						>
-							Packages
-						</a>
-					</li>
-					<li>
-						<a
-							href="#about"
-							class="hover:text-light-brown transition-colors"
-							onclick={(e) => smoothScroll(e, 'about')}
-						>
-							Mission
 						</a>
 					</li>
 				</ul>
@@ -121,7 +118,10 @@
 		</div>
 
 		<div class="font-body border-beige/20 mt-12 border-t pt-8 text-center text-xs">
-			<p>© {new Date().getFullYear()} <span class="text-light-brown">Beings of Habit</span>. All rights reserved.</p>
+			<p>
+				© {new Date().getFullYear()} <span class="text-light-brown">Beings of Habit</span>. All
+				rights reserved.
+			</p>
 		</div>
 	</div>
 </footer>
