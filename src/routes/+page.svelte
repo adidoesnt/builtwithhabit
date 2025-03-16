@@ -21,6 +21,10 @@
 	const scrollToAbout = () => {
 		document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
 	};
+
+	const scrollToMission = () => {
+		document.getElementById('mission')?.scrollIntoView({ behavior: 'smooth' });
+	};
 </script>
 
 <section
@@ -47,7 +51,7 @@
 </section>
 
 <section id="about" class="w-full md:h-screen">
-	<div class="h-full w-full md:grid md:grid-cols-2 md:grid-rows-1">
+	<div id="contact" class="h-full w-full md:grid md:grid-cols-2 md:grid-rows-1">
 		<div
 			class="bg-light-green flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
 		>
@@ -79,12 +83,19 @@
 					</div>
 				</div>
 				<button
-					class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
+					class="font-body bg-dark-brown text-beige hidden w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:flex"
 					onclick={scrollToPricing}>{contact.callToAction}</button
+				>
+				<button
+					class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
+					onclick={scrollToMission}>{contact.viewMission}</button
 				>
 			</div>
 		</div>
-		<div class="bg-beige flex w-full flex-col justify-center gap-6 p-8 md:gap-8 md:p-24">
+		<div
+			id="mission"
+			class="bg-beige flex h-screen w-full flex-col justify-center gap-6 p-8 md:h-auto md:gap-8 md:p-24"
+		>
 			<div class="flex flex-col">
 				{#each mission.title as title}
 					<h2 class="font-headings text-dark-brown text-3xl font-semibold md:text-5xl">{title}</h2>
@@ -93,6 +104,10 @@
 			{#each mission.content as content}
 				<p class="font-body text-dark-brown text-md md:text-xl">{content}</p>
 			{/each}
+			<button
+				class="font-body mt-8 bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
+				onclick={scrollToPricing}>{contact.callToAction}</button
+			>
 		</div>
 	</div>
 </section>

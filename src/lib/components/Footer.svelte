@@ -18,6 +18,8 @@
 			});
 		}
 	}
+
+	let isHomePage = $derived(page.url.pathname === '/');
 </script>
 
 <footer class="bg-dark-brown text-beige py-12 md:px-0 px-4">
@@ -37,11 +39,10 @@
 				<ul class="font-body flex flex-col space-y-2 text-sm">
 					<li>
 						<a
-							href="/"
+							href={isHomePage ? '#' : '/'}
 							class="hover:text-light-green transition-colors"
-							class:text-light-brown={page.url.pathname === '/'}
 						>
-							Home
+							{isHomePage ? 'Back to top' : 'Home'}
 						</a>
 					</li>
 					<li>

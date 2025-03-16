@@ -52,6 +52,7 @@ const config = {
 			image: '/headshot.svg',
 			tagline: 'NASM-Certified Personal Trainer',
 			callToAction: 'View packages',
+			viewMission: 'View Mission',
 			email: 'ishita@boh-services.com',
 			phone: '+65 9233 4061',
 			instagram: {
@@ -65,7 +66,8 @@ const config = {
 				buttonText: 'Book Now'
 			},
 			currency: 'SG$',
-			earlyBirdDiscount: 'Early Bird Discount'
+			earlyBirdDiscount: 'Early Bird Discount',
+			viewTestimonials: 'View Testimonials'
 		}
 	},
 	packages: {

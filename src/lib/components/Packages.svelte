@@ -79,6 +79,10 @@
 			}
 		};
 	});
+
+	const scrollToTestimonials = () => {
+		document.getElementById('testimonials-section')?.scrollIntoView({ behavior: 'smooth' });
+	};
 </script>
 
 <section
@@ -102,7 +106,7 @@
 
 	<div
 		bind:this={packagesContainer}
-		class="flex w-full gap-4 overflow-hidden pb-4 md:grid md:grid-cols-3 md:overflow-visible md:px-4"
+		class="flex w-full gap-4 overflow-hidden md:grid md:grid-cols-3 md:overflow-visible md:px-4"
 	>
 		{#each packages as plan, index}
 			<div
@@ -154,7 +158,7 @@
 		{/each}
 	</div>
 
-	<div class="mt-4 flex justify-center md:hidden">
+	<div class="flex justify-center md:hidden">
 		{#each packages as _, index}
 			<button
 				aria-label={`Plan ${index + 1}`}
@@ -164,5 +168,12 @@
 				onclick={(e) => handleDotClick(index, e)}
 			></button>
 		{/each}
+	</div>
+
+	<div class="flex flex-col items-center justify-center">
+		<button
+			class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
+			onclick={scrollToTestimonials}>{pricing.viewTestimonials}</button
+		>
 	</div>
 </section>

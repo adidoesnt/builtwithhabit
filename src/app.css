@@ -19,3 +19,7 @@
 	--font-headings: 'Old Standard TT', serif;
 	--font-body: 'Lora', sans-serif;
 }
+
+html {
+	scroll-behavior: smooth;
+}
