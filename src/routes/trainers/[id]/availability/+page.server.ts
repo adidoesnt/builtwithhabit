@@ -1,6 +1,6 @@
 import { supabase } from "$lib/server/auth";
 import { Role } from "$lib/server/db/schema";
-import { getTrainerAvailability } from "$lib/server/db/trainer";
+import { getTrainerAvailability, getTrainerOverrides } from "$lib/server/db/trainer";
 import { getUserById } from "$lib/server/db/user.js";
 import { redirect } from "@sveltejs/kit";
 
@@ -28,8 +28,10 @@ export const load = async ({ cookies }) => {
 	}
 
     const availability = await getTrainerAvailability(trainer.id);
+    const overrides = await getTrainerOverrides(trainer.id);
 
     return {
-        availability
+        availability,
+		overrides
     }
 }

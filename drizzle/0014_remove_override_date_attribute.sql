@@ -1,0 +1,1 @@
+ALTER TABLE "availability_overrides" DROP COLUMN "date";

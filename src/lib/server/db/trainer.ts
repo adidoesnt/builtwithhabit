@@ -1,9 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, gte } from 'drizzle-orm';
 import { database } from '.';
 import {
 	availabilityOverrides,
 	recurringAvailabilities,
-	type RecurringAvailability
+    type AvailabilityOverride,
 } from './schema';
 
 export const getTrainerAvailability = async (trainerId: string) => {
@@ -13,9 +13,12 @@ export const getTrainerAvailability = async (trainerId: string) => {
 	return availability;
 };
 
-export const getTrainerOverrides = async (trainerId: string) => {
+export const getTrainerOverrides = async (trainerId: string, offset: Date = new Date()) => {
 	const overrides = await database.query.availabilityOverrides.findMany({
-		where: eq(availabilityOverrides.trainerId, trainerId)
+		where: and(
+			eq(availabilityOverrides.trainerId, trainerId),
+			gte(availabilityOverrides.start, offset)
+		)
 	});
 	return overrides;
 };
@@ -51,4 +54,20 @@ export const upsertTrainerAvailability = async (
 			);
 		})
 	);
+};
+
+export const upsertTrainerOverrides = async (
+    trainerId: string,
+	overrides: Omit<AvailabilityOverride, 'trainerId'>[]
+) => {
+	const overridesWithTrainerId = overrides.map((override) => ({
+		...override,
+		trainerId
+	}));
+
+	await database
+		.delete(availabilityOverrides)
+		.where(eq(availabilityOverrides.trainerId, trainerId));
+
+	await database.insert(availabilityOverrides).values(overridesWithTrainerId);
 };

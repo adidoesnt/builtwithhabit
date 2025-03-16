@@ -142,12 +142,13 @@ export const recurringAvailabilities = pgTable('recurring_availabilities', {
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
 
+export type AvailabilityOverride = typeof availabilityOverrides.$inferInsert;
+
 export const availabilityOverrides = pgTable('availability_overrides', {
 	id: serial('id').primaryKey(),
 	trainerId: uuid('trainer_id')
 		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
-	date: date('date').notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
