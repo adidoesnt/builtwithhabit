@@ -3,6 +3,10 @@
 	import { fade, slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import type { RecurringAvailability } from '$lib/server/db/schema';
+	import EditButton from './buttons/EditButton.svelte';
+	import SaveButton from './buttons/SaveButton.svelte';
+	import CancelButton from './buttons/CancelButton.svelte';
+	import DropdownButton from './buttons/DropdownButton.svelte';
 
 	const { availability }: { availability: RecurringAvailability[] } = $props();
 
@@ -166,7 +170,12 @@
 
 <div class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-md">
 	<div class="flex items-center justify-between">
-		<h2 class="font-heading text-dark-brown text-2xl font-bold">Weekly Availability</h2>
+		<div class="flex flex-col">
+			<h2 class="font-heading text-dark-brown text-2xl font-bold">Weekly Availability</h2>
+			<p class="font-body text-light-brown">
+				Set your weekly availability to let clients know when you're available for sessions.
+			</p>
+		</div>
 		<div class="relative flex h-10 w-24 justify-end">
 			{#if isEditing}
 				<div
@@ -174,96 +183,11 @@
 					out:fade={{ duration: 150 }}
 					class="absolute right-0 flex items-center gap-2"
 				>
-					<button
-						onclick={() => toggleEditing()}
-						class="font-body text-dark-brown flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 hover:bg-gray-200"
-						disabled={isSaving}
-						aria-label="Cancel editing"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						</svg>
-					</button>
-					<button
-						onclick={saveAvailabilities}
-						class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
-						disabled={isSaving}
-						aria-label="Save availability"
-					>
-						{#if isSaving}
-							<svg
-								class="h-5 w-5 animate-spin"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-							>
-								<circle
-									class="opacity-25"
-									cx="12"
-									cy="12"
-									r="10"
-									stroke="currentColor"
-									stroke-width="4"
-								></circle>
-								<path
-									class="opacity-75"
-									fill="currentColor"
-									d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-								></path>
-							</svg>
-						{:else}
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="h-5 w-5"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M5 13l4 4L19 7"
-								/>
-							</svg>
-						{/if}
-					</button>
+					<CancelButton onclick={toggleEditing} isDisabled={isSaving} />
+					<SaveButton save={saveAvailabilities} {isSaving} />
 				</div>
 			{:else}
-				<button
-					in:fade={{ duration: 200 }}
-					out:fade={{ duration: 150 }}
-					onclick={() => toggleEditing()}
-					class="font-body bg-dark-brown hover:bg-opacity-90 absolute right-0 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105"
-					disabled={isSaving}
-					aria-label="Edit availability"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-						/>
-					</svg>
-				</button>
+				<EditButton onclick={toggleEditing} isDisabled={isSaving} />
 			{/if}
 		</div>
 	</div>
@@ -305,28 +229,12 @@
 							</span>
 						{/if}
 					</div>
-					<button
+					<DropdownButton
+						ariaLabel={currentDay === index ? 'Hide availability' : 'Show availability'}
+						isOpen={currentDay === index}
 						onclick={() => setCurrentDay(currentDay === index ? null : index)}
-						class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
-						disabled={isSaving}
-						aria-label={currentDay === index ? 'Hide availability' : 'Show availability'}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5 transition-transform duration-200"
-							style={currentDay === index ? 'transform: rotate(180deg)' : ''}
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M19 9l-7 7-7-7"
-							/>
-						</svg>
-					</button>
+						isDisabled={isSaving}
+					/>
 				</div>
 				{#if currentDay === index}
 					<div
