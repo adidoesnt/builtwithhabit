@@ -42,7 +42,9 @@
 			<span class={`text-${textColor}`}>☰</span>
 		</button>
 
-		<div class="flex flex-col items-center justify-center gap-4 p-4 text-center">
+		<div
+			class="flex h-full flex-col items-center justify-center gap-4 overflow-y-auto p-4 text-center"
+		>
 			<div class="m-8 flex self-center">
 				<img src={logo} alt="logo" class="h-auto w-24 mix-blend-multiply md:w-40" />
 			</div>

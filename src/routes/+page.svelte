@@ -112,6 +112,6 @@
 	</div>
 </section>
 
-<Packages {packages} />
+<Packages {packages} showTestimonialsButton />
 
 <Testimonials />

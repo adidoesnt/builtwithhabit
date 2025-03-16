@@ -6,7 +6,11 @@
 
 	const { pricing } = config.site;
 
-	const { packages, description }: { packages: Package[]; description?: string } = $props();
+	const {
+		packages,
+		description,
+		showTestimonialsButton = false
+	}: { packages: Package[]; description?: string; showTestimonialsButton?: boolean } = $props();
 
 	let activeIndex = $state(0);
 	let packagesContainer: HTMLElement;
@@ -87,7 +91,7 @@
 
 <section
 	id="pricing"
-	class="bg-light-brown flex h-screen flex-col items-center justify-center gap-8 p-8"
+	class="bg-light-brown flex min-h-screen flex-col items-center justify-center gap-8 px-8 py-16"
 >
 	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
 		{pricing.title}
@@ -95,7 +99,7 @@
 	{#if description}
 		<div class="flex flex-col items-center justify-center gap-4 md:gap-0">
 			{#each description.split('.') as sentence, index}
-				<p class="font-body text-dark-brown text-center text-lg md:text-xl">
+				<p class="font-body text-dark-brown text-center text-md md:text-xl">
 					{sentence}{#if index < description.split('.').length - 1}
 						.
 					{/if}
@@ -149,7 +153,7 @@
 					</p>
 				</div>
 				<button
-					class="bg-dark-brown text-beige font-body rounded-sm p-2 transition-all duration-300 hover:scale-110"
+					class="bg-dark-brown text-beige font-body mt-auto rounded-sm p-2 transition-all duration-300 hover:scale-110"
 					onclick={() => goto(`/packages/${plan.id}/book`)}
 				>
 					{pricing.plans.buttonText}
@@ -170,10 +174,12 @@
 		{/each}
 	</div>
 
-	<div class="flex flex-col items-center justify-center">
-		<button
-			class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
-			onclick={scrollToTestimonials}>{pricing.viewTestimonials}</button
-		>
-	</div>
+	{#if showTestimonialsButton}
+		<div class="flex flex-col items-center justify-center">
+			<button
+				class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
+				onclick={scrollToTestimonials}>{pricing.viewTestimonials}</button
+			>
+		</div>
+	{/if}
 </section>
