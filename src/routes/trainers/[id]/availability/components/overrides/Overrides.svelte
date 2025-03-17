@@ -150,7 +150,7 @@
 				Indicate specific time ranges when you are unavailable.
 			</p>
 		</div>
-		<div class="flex gap-2">
+		<div class="flex gap-2 justify-end">
 			{#if isEditing}
 				<CancelButton onclick={setEditing.bind(null, false)} isDisabled={isSaving} />
 				<SaveButton save={saveOverrides} {isSaving} />
