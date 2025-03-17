@@ -8,7 +8,7 @@
 	in:fade={{ duration: 200 }}
 	out:fade={{ duration: 150 }}
 	{onclick}
-	class="font-body bg-dark-brown hover:bg-opacity-90 absolute right-0 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105"
+	class="font-body bg-dark-brown hover:bg-opacity-90 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105"
 	disabled={isDisabled}
 	aria-label="Edit availability"
 >

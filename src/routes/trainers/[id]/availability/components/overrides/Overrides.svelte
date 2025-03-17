@@ -142,53 +142,27 @@
 	}
 </script>
 
-<div class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-md">
-	<div class="flex items-center justify-between">
-		<div class="flex flex-col">
-			<h2 class="font-heading text-dark-brown text-2xl font-bold">Overrides</h2>
+<div class="rounded-lg bg-white p-6 shadow-md">
+	<div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+		<div class="flex-grow">
+			<h2 class="font-body text-dark-brown text-2xl font-bold">Overrides</h2>
 			<p class="font-body text-light-brown">
 				Indicate specific time ranges when you are unavailable.
 			</p>
 		</div>
-
-		{#if saveSuccess}
-			<div
-				transition:fade={{ duration: 300 }}
-				class="relative rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
-				role="alert"
-			>
-				<span class="block sm:inline">Your availability overrides have been saved successfully!</span>
-			</div>
-		{/if}
-
-		{#if saveError}
-			<div
-				transition:fade={{ duration: 300 }}
-				class="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
-				role="alert"
-			>
-				<span class="block sm:inline">Error: {saveError}</span>
-			</div>
-		{/if}
-
-		<div class="flex items-center gap-2">
-			<div class="relative flex h-10 w-24 justify-end">
-				{#if isEditing}
-					<div
-						in:fade={{ duration: 200 }}
-						out:fade={{ duration: 150 }}
-						class="absolute right-0 flex items-center gap-2"
-					>
-						<CancelButton onclick={setEditing.bind(null, false)} isDisabled={isSaving} />
-						<SaveButton save={saveOverrides} {isSaving} />
-					</div>
-				{:else}
-					<EditButton onclick={() => {
+		<div class="flex gap-2">
+			{#if isEditing}
+				<CancelButton onclick={setEditing.bind(null, false)} isDisabled={isSaving} />
+				<SaveButton save={saveOverrides} {isSaving} />
+			{:else}
+				<EditButton
+					onclick={() => {
 						setEditing(true);
 						setDropdown(true);
-					}} isDisabled={isSaving} />
-				{/if}
-			</div>
+					}}
+					isDisabled={isSaving}
+				/>
+			{/if}
 			<DropdownButton
 				ariaLabel="Toggle dropdown"
 				isOpen={showDropdown}
@@ -204,10 +178,30 @@
 		</div>
 	</div>
 
+	{#if saveSuccess}
+		<div
+			transition:fade={{ duration: 300 }}
+			class="relative mt-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
+			role="alert"
+		>
+			<span class="block sm:inline">Your availability overrides have been saved successfully!</span>
+		</div>
+	{/if}
+
+	{#if saveError}
+		<div
+			transition:fade={{ duration: 300 }}
+			class="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+			role="alert"
+		>
+			<span class="block sm:inline">Error: {saveError}</span>
+		</div>
+	{/if}
+
 	{#if showDropdown}
-		<div transition:fade={{ duration: 200 }} class="mt-4">
+		<div transition:fade={{ duration: 200 }} class="mt-8">
 			<div class="mb-4 flex items-center justify-between">
-				<h3 class="font-heading text-dark-brown text-lg font-semibold">Unavailable Time Slots</h3>
+				<h3 class="font-body text-dark-brown text-lg font-semibold">Unavailable Time Slots</h3>
 			</div>
 			{#if isEditing}
 				<div class="mb-4 w-full rounded-md bg-gray-100 p-4 shadow-sm">

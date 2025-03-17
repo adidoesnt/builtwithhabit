@@ -66,12 +66,11 @@
 		}
 	});
 
-
 	$effect(() => {
 		if (isEditing && currentDay === null) {
 			setCurrentDay(0);
 		}
-	})
+	});
 
 	function isTimeOverlapping(start: string, end: string, dayIndex: number): boolean {
 		if (!start || !end || dayIndex === null) return false;
@@ -175,24 +174,18 @@
 	}
 </script>
 
-<div class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-md">
-	<div class="flex items-center justify-between">
-		<div class="flex flex-col">
-			<h2 class="font-heading text-dark-brown text-2xl font-bold">Weekly Availability</h2>
+<div class="rounded-lg bg-white p-6 shadow-md">
+	<div class="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+		<div class="flex-grow">
+			<h2 class="font-body text-dark-brown text-2xl font-bold">Weekly Availability</h2>
 			<p class="font-body text-light-brown">
 				Set your weekly availability to let clients know when you're available for sessions.
 			</p>
 		</div>
-		<div class="relative flex h-10 w-24 justify-end">
+		<div class="flex gap-2">
 			{#if isEditing}
-				<div
-					in:fade={{ duration: 200 }}
-					out:fade={{ duration: 150 }}
-					class="absolute right-0 flex items-center gap-2"
-				>
-					<CancelButton onclick={toggleEditing} isDisabled={isSaving} />
-					<SaveButton save={saveAvailabilities} {isSaving} />
-				</div>
+				<CancelButton onclick={toggleEditing} isDisabled={isSaving} />
+				<SaveButton save={saveAvailabilities} {isSaving} />
 			{:else}
 				<EditButton onclick={toggleEditing} isDisabled={isSaving} />
 			{/if}
@@ -202,7 +195,7 @@
 	{#if saveSuccess}
 		<div
 			transition:fade={{ duration: 300 }}
-			class="relative rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
+			class="relative mt-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
 			role="alert"
 		>
 			<span class="block sm:inline">Your availability has been saved successfully!</span>
@@ -212,14 +205,14 @@
 	{#if saveError}
 		<div
 			transition:fade={{ duration: 300 }}
-			class="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+			class="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
 			role="alert"
 		>
 			<span class="block sm:inline">Error: {saveError}</span>
 		</div>
 	{/if}
 
-	<div class="grid grid-cols-1 gap-4">
+	<div class="mt-8 grid grid-cols-1 gap-4">
 		{#each daysOfWeek as day, index}
 			<div class="flex flex-col">
 				<div
@@ -228,7 +221,7 @@
 					}`}
 				>
 					<div class="flex items-center">
-						<h3 class="font-heading text-dark-brown text-lg font-bold">{day}</h3>
+						<h3 class="font-body text-dark-brown text-lg font-bold">{day}</h3>
 						{#if formData[index].availabilities.length > 0}
 							<span class="text-light-brown ml-2 text-sm">
 								({formData[index].availabilities.length}
