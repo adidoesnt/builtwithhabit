@@ -33,7 +33,7 @@
 >
 	<div
 		id="container"
-		class="bg-beige flex w-full max-w-2xl flex-col items-center justify-start gap-8 rounded-sm p-8 md:justify-center"
+		class="bg-beige flex w-fit min-h-screen md:min-h-fit flex-col items-center justify-start gap-8 rounded-none md:rounded-sm p-8 md:justify-center"
 	>
 		<LogoHeader />
 		<form

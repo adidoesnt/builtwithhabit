@@ -50,7 +50,7 @@
 >
 	<div
 		id="container"
-		class="bg-beige flex w-full max-w-md flex-col items-center justify-center gap-8 overflow-y-auto rounded-sm p-8 py-4 md:w-fit md:overflow-y-visible md:py-8"
+		class="bg-beige flex w-full min-h-screen md:min-h-fit max-w-md flex-col items-center justify-center gap-8 overflow-y-auto rounded-none md:rounded-sm p-8 py-4 md:w-fit md:overflow-y-visible md:py-8"
 	>
 		<LogoHeader />
 		<form
