@@ -3,7 +3,7 @@ import { database } from '.';
 import {
 	availabilityOverrides,
 	recurringAvailabilities,
-    type AvailabilityOverride,
+	type AvailabilityOverride
 } from './schema';
 
 export const getTrainerAvailability = async (trainerId: string) => {
@@ -17,7 +17,7 @@ export const getTrainerOverrides = async (trainerId: string, offset: Date = new 
 	const overrides = await database.query.availabilityOverrides.findMany({
 		where: and(
 			eq(availabilityOverrides.trainerId, trainerId),
-			gte(availabilityOverrides.start, offset)
+			gte(availabilityOverrides.end, offset)
 		)
 	});
 	return overrides;
@@ -57,17 +57,29 @@ export const upsertTrainerAvailability = async (
 };
 
 export const upsertTrainerOverrides = async (
-    trainerId: string,
-	overrides: Omit<AvailabilityOverride, 'trainerId'>[]
+	trainerId: string,
+	overrides: AvailabilityOverride[]
 ) => {
-	const overridesWithTrainerId = overrides.map((override) => ({
-		...override,
-		trainerId
-	}));
-
 	await database
 		.delete(availabilityOverrides)
 		.where(eq(availabilityOverrides.trainerId, trainerId));
 
-	await database.insert(availabilityOverrides).values(overridesWithTrainerId);
+	if (overrides.length === 0) return;
+
+	const formattedOverrides = overrides.map((override) => ({
+		trainerId,
+		start: new Date(override.start),
+		end: new Date(override.end)
+	}));
+
+	await database
+		.insert(availabilityOverrides)
+		.values(formattedOverrides)
+		.onConflictDoNothing({
+			target: [
+				availabilityOverrides.trainerId,
+				availabilityOverrides.start,
+				availabilityOverrides.end
+			]
+		});
 };

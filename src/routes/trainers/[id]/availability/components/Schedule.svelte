@@ -66,6 +66,13 @@
 		}
 	});
 
+
+	$effect(() => {
+		if (isEditing && currentDay === null) {
+			setCurrentDay(0);
+		}
+	})
+
 	function isTimeOverlapping(start: string, end: string, dayIndex: number): boolean {
 		if (!start || !end || dayIndex === null) return false;
 

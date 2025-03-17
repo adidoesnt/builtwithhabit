@@ -7,7 +7,9 @@ import {
 	uuid,
 	integer,
 	pgEnum,
-	date
+	date,
+	uniqueIndex,
+	primaryKey
 } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
@@ -144,13 +146,20 @@ export const recurringAvailabilities = pgTable('recurring_availabilities', {
 
 export type AvailabilityOverride = typeof availabilityOverrides.$inferInsert;
 
-export const availabilityOverrides = pgTable('availability_overrides', {
-	id: serial('id').primaryKey(),
-	trainerId: uuid('trainer_id')
-		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
-		.notNull(),
-	start: timestamp('start').notNull(),
-	end: timestamp('end').notNull(),
-	createdAt: timestamp('created_at').notNull().defaultNow(),
-	updatedAt: timestamp('updated_at').notNull().defaultNow()
-});
+export const availabilityOverrides = pgTable(
+	'availability_overrides',
+	{
+		trainerId: uuid('trainer_id')
+			.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
+			.notNull(),
+		start: timestamp('start').notNull(),
+		end: timestamp('end').notNull(),
+		createdAt: timestamp('created_at').notNull().defaultNow(),
+		updatedAt: timestamp('updated_at').notNull().defaultNow()
+	},
+	(table) => [
+		primaryKey({
+			columns: [table.trainerId, table.start, table.end]
+		})
+	]
+);

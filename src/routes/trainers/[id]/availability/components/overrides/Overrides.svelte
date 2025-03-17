@@ -10,24 +10,51 @@
 	const { overrides }: { overrides: AvailabilityOverride[] } = $props();
 
 	let isEditing = $state(false);
-	function toggleEditing() {
-		isEditing = !isEditing;
+	function setEditing(value: boolean) {
+		isEditing = value;
 	}
 
 	let isSaving = $state(false);
-	function saveOverrides() {
-		isSaving = true;
+	let saveError = $state<string | null>(null);
+	let saveSuccess = $state(false);
 
-		// TODO: Save overrides
+	async function saveOverrides() {
+		try {
+			isSaving = true;
+			saveError = null;
 
-		setTimeout(() => {
+			const response = await fetch(`/trainers/${$trainer!.id}/overrides`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to save availability');
+			}
+
+			saveSuccess = true;
+			isEditing = false;
+
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
+
+			setTimeout(() => {
+				isSaving = false;
+			}, 1000);
+		} catch (error) {
+			saveError = error instanceof Error ? error.message : 'An unknown error occurred';
+		} finally {
 			isSaving = false;
-		}, 1000);
+		}
 	}
 
 	let showDropdown = $state(false);
-	function toggleDropdown() {
-		showDropdown = !showDropdown;
+	function setDropdown(value: boolean) {
+		showDropdown = value;
 	}
 
 	let formData = $state<AvailabilityOverride[]>(overrides);
@@ -113,8 +140,6 @@
 	function deleteOverride(index: number) {
 		formData.splice(index, 1);
 	}
-
-	$inspect(formData);
 </script>
 
 <div class="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-md">
@@ -125,6 +150,27 @@
 				Indicate specific time ranges when you are unavailable.
 			</p>
 		</div>
+
+		{#if saveSuccess}
+			<div
+				transition:fade={{ duration: 300 }}
+				class="relative rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
+				role="alert"
+			>
+				<span class="block sm:inline">Your availability overrides have been saved successfully!</span>
+			</div>
+		{/if}
+
+		{#if saveError}
+			<div
+				transition:fade={{ duration: 300 }}
+				class="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+				role="alert"
+			>
+				<span class="block sm:inline">Error: {saveError}</span>
+			</div>
+		{/if}
+
 		<div class="flex items-center gap-2">
 			<div class="relative flex h-10 w-24 justify-end">
 				{#if isEditing}
@@ -133,17 +179,25 @@
 						out:fade={{ duration: 150 }}
 						class="absolute right-0 flex items-center gap-2"
 					>
-						<CancelButton onclick={toggleEditing} isDisabled={isSaving} />
+						<CancelButton onclick={setEditing.bind(null, false)} isDisabled={isSaving} />
 						<SaveButton save={saveOverrides} {isSaving} />
 					</div>
 				{:else}
-					<EditButton onclick={toggleEditing} isDisabled={isSaving} />
+					<EditButton onclick={() => {
+						setEditing(true);
+						setDropdown(true);
+					}} isDisabled={isSaving} />
 				{/if}
 			</div>
 			<DropdownButton
 				ariaLabel="Toggle dropdown"
 				isOpen={showDropdown}
-				onclick={toggleDropdown}
+				onclick={() => {
+					setDropdown(!showDropdown);
+					if (!showDropdown) {
+						setEditing(false);
+					}
+				}}
 				isDisabled={isSaving}
 				className="w-10 h-10"
 			/>
@@ -262,7 +316,7 @@
 				</div>
 			{/if}
 
-			<OverrideTable overrides={formData} onDelete={deleteOverride} />
+			<OverrideTable overrides={formData} onDelete={deleteOverride} {isEditing} />
 		</div>
 	{/if}
 </div>

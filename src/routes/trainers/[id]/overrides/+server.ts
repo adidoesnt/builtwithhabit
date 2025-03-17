@@ -1,6 +1,6 @@
-import { supabase } from '$lib/server/auth';
-import { redirect } from '@sveltejs/kit';
-import { upsertTrainerAvailability } from '$lib/server/db/trainer';
+import { supabase } from "$lib/server/auth";
+import { upsertTrainerOverrides } from "$lib/server/db/trainer";
+import { redirect } from "@sveltejs/kit";
 
 export const PUT = async ({ request, params, cookies }) => {
     try {
@@ -20,13 +20,12 @@ export const PUT = async ({ request, params, cookies }) => {
             throw redirect(302, '/');
         }
 
-        const availabilities = await request.json();
-
-        await upsertTrainerAvailability(id, availabilities);
+        const overrides = await request.json();
+        await upsertTrainerOverrides(id,overrides);
 
         return new Response(JSON.stringify({ success: true }), { status: 200 });
     } catch (error) {
         console.error(error);
         return new Response(JSON.stringify({ success: false }), { status: 500 });
     }
-};
+}

@@ -46,15 +46,15 @@
 </script>
 
 <div
-	class="flex h-screen w-screen flex-col items-center justify-center bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)]"
+	class="flex min-h-screen w-full flex-col items-center justify-center bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)]"
 >
 	<div
 		id="container"
-		class="bg-beige flex h-full w-full min-w-[300px] flex-col items-center justify-center gap-8 overflow-y-auto rounded-sm p-8 py-4 md:h-fit md:w-fit md:overflow-y-visible md:py-8"
+		class="bg-beige flex w-full max-w-md flex-col items-center justify-center gap-8 overflow-y-auto rounded-sm p-8 py-4 md:w-fit md:overflow-y-visible md:py-8"
 	>
 		<LogoHeader />
 		<form
-			class="font-body flex w-full flex-col justify-start gap-2 overflow-visible"
+			class="font-body flex w-full flex-col justify-start gap-2"
 			action="/login"
 			method="POST"
 			use:enhance={() => {
@@ -68,7 +68,7 @@
 		>
 			<h1 class="text-2xl">Log in</h1>
 			<p class="text-light-brown text-sm">Enter your email and password to login.</p>
-			<div class="flex flex-col overflow-y-auto">
+			<div class="flex flex-col">
 				<div class="flex flex-col gap-2">
 					<label for="email">Email</label>
 					<input
@@ -96,7 +96,7 @@
 					{/if}
 				</div>
 			</div>
-			<div class="flex flex-col-reverse justify-between gap-4 overflow-visible md:flex-row">
+			<div class="flex flex-col-reverse justify-between gap-4 md:flex-row">
 				<div class="flex flex-col gap-2">
 					<p class="text-light-brown text-sm">
 						Don't have an account? <a
