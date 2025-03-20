@@ -12,46 +12,53 @@
 	} from '../formState';
 
 	const validatePostalCode = async () => {
-		if ($postalCode.length !== 6) {
-			setIsValid(false);
-			setMessage('Postal code must be 6 characters (e.g., 123456)');
-			setValidationInProgress(false);
-			return;
-		}
+		// TODO: remove this mock
+		setIsValid(true);
+		setAddress('123 Main St, Singapore');
+		setMessage('Address found');
+		setValidationInProgress(false);
+		return;
 
-		try {
-			setIsValid(true);
-			setValidationInProgress(true);
-			setMessage('Validating postal code...');
+		// if ($postalCode.length !== 6) {
+		// 	setIsValid(false);
+		// 	setMessage('Postal code must be 6 characters (e.g., 123456)');
+		// 	setValidationInProgress(false);
+		// 	return;
+		// }
 
-			const response = await fetch(`/location/${$postalCode}/address`);
+		// try {
+		// 	setIsValid(true);
+		// 	setValidationInProgress(true);
+		// 	setMessage('Validating postal code...');
 
-			if (response.ok) {
-				const data = await response.json();
-				const { address, isValid } = data;
+		// 	const response = await fetch(`/location/${$postalCode}/address`);
 
-				if (data.isValid && data.address) {
-					setAddress(
-						address.label ||
-							`${address.street || ''}, ${address.municipality || ''}, ${address.region || ''}`
-					);
+		// 	if (response.ok) {
+		// 		const data = await response.json();
+		// 		const { address, isValid } = data;
 
-					setIsValid(isValid);
-					setMessage('Address found');
-				} else {
-					setMessage(data.message || 'Could not find address for this postal code');
-				}
-			} else {
-				setIsValid(false);
-				setMessage('Postal code is invalid or too far away');
-			}
-		} catch (error) {
-			console.error('Error validating postal code:', error);
-			setIsValid(false);
-			setMessage('Error connecting to validation service');
-		} finally {
-			setValidationInProgress(false);
-		}
+		// 		if (data.isValid && data.address) {
+		// 			setAddress(
+		// 				address.label ||
+		// 					`${address.street || ''}, ${address.municipality || ''}, ${address.region || ''}`
+		// 			);
+
+		// 			setIsValid(isValid);
+		// 			setMessage('Address found');
+		// 		} else {
+		// 			setMessage(data.message || 'Could not find address for this postal code');
+		// 		}
+		// 	} else {
+		// 		setIsValid(false);
+		// 		setMessage('Postal code is invalid or too far away');
+		// 	}
+		// } catch (error) {
+		// 	console.error('Error validating postal code:', error);
+		// 	setIsValid(false);
+		// 	setMessage('Error connecting to validation service');
+		// } finally {
+		// 	setValidationInProgress(false);
+		// }
 	};
 </script>
 

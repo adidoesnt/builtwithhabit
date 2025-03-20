@@ -1,5 +1,11 @@
 import { writable } from "svelte/store";
 
+export type Slot = {
+	day: Date;
+	hour: number;
+	minutes: number;
+};
+
 // Disclaimer checkbox
 export let disclaimerChecked = writable(false);
 
@@ -28,6 +34,12 @@ export const setAddress = (v: string) => {
 	address.set(v);
 };
 
+// Date picker
+export let selectedSlots = writable<Array<{ day: Date; hour: number; minutes: number }>>([]);
+export const setSelectedSlots = (v: Array<{ day: Date; hour: number; minutes: number }>) => {
+	selectedSlots.set(v);
+};
+
 // Reset all form state
 export const resetFormState = () => {
 	disclaimerChecked.set(false);
@@ -36,4 +48,8 @@ export const resetFormState = () => {
 	isValid.set(false);
 	validationInProgress.set(false);
 	message.set('');
+	selectedSlots.set([]);
 };
+
+
+

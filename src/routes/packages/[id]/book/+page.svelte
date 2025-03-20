@@ -8,6 +8,7 @@
 	import ProgressBar from './components/ProgressBar.svelte';
 	import MockDatePicker from './components/MockDatePicker.svelte';
 	import MockCheckout from './components/MockCheckout.svelte';
+	import { DatePicker } from './components/datePicker';
 	const { data }: { data: PageServerData } = $props();
 	const { package: fetchedPackage, locations: availableLocations } = data;
 
@@ -84,8 +85,7 @@
 				{/if}
 
 				{#if page === 1}
-					<!-- TODO: add actual date picker -->
-					<MockDatePicker {fetchedPackage} />
+					<DatePicker {fetchedPackage} />
 				{/if}
 
 				{#if page === 2}
