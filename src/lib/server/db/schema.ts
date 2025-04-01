@@ -9,7 +9,8 @@ import {
 	pgEnum,
 	date,
 	uniqueIndex,
-	primaryKey
+	primaryKey,
+	boolean
 } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
@@ -88,6 +89,7 @@ export const purchases = pgTable('purchases', {
 		.notNull(),
 	address: text('address').notNull(),
 	postalCode: text('postal_code').notNull(),
+	confirmed: boolean('confirmed').notNull().default(false),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });

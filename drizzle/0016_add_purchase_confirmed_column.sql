@@ -1,0 +1,1 @@
+ALTER TABLE "purchases" ADD COLUMN "confirmed" boolean DEFAULT false NOT NULL;

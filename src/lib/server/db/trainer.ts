@@ -3,6 +3,9 @@ import { database } from '.';
 import {
 	availabilityOverrides,
 	recurringAvailabilities,
+	Role,
+	userRoles,
+	users,
 	type AvailabilityOverride
 } from './schema';
 
@@ -82,4 +85,21 @@ export const upsertTrainerOverrides = async (
 				availabilityOverrides.end
 			]
 		});
+};
+
+export const getAllTrainers = async () => {
+	const trainers = await database
+		.select({
+			id: users.id,
+		})
+		.from(users)
+		.leftJoin(userRoles, eq(users.id, userRoles.userId))
+		.where(eq(userRoles.role, Role.TRAINER))
+		.groupBy(users.id);
+	return trainers;
+};
+
+export const getDefaultTrainer = async () => {
+	const trainers = await getAllTrainers();
+	return trainers[0];
 };

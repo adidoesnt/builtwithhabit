@@ -113,6 +113,13 @@
       "when": 1742215733044,
       "tag": "0015_change_to_composite_pk_for_overrides",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1743525655979,
+      "tag": "0016_add_purchase_confirmed_column",
+      "breakpoints": true
     }
   ]
 }

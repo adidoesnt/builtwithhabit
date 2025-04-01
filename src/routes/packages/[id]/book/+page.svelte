@@ -68,6 +68,7 @@
 	isOpen={isReserveSlotsModalOpen}
 	onCancel={onReserveSlotsModalCancel}
 	onProceed={onReserveSlotsModalProceed}
+	packageId={fetchedPackage.id}
 />
 
 <div class="bg-beige min-h-screen p-4 md:p-8">
