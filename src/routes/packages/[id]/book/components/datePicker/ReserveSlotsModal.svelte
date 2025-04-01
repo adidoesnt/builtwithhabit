@@ -48,7 +48,7 @@
 			<hr class="border-dark-brown w-full" />
 			<p class="font-body text-dark-brown">
 				Please note that by clicking next, you are reserving the selected slot(s). In case of
-				payment failure, the slot(s) will be released.
+				failure to make payment within 15 minutes, the slot(s) will be released.
 			</p>
 			<div class="font-body flex gap-4">
 				<button
