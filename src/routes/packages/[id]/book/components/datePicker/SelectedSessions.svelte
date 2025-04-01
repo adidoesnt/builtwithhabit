@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { selectedSlots } from '../formState';
 
-	const { formatTimeTo12Hour, toggleSlot, formatDay } = $props();
+	const { formatTimeTo12Hour, toggleSlot, formatDay, numSessions } = $props();
+	const numSelectedSlots = $derived($selectedSlots.length)
+
+	let invalidNumSelected = $derived(numSelectedSlots < numSessions);
+	let invalidNumFontColor = $derived(invalidNumSelected ? 'text-red-500' : 'text-green-600')
 </script>
 
 <div class="mt-4 w-full border-t border-gray-200 pt-4">
-	<h3 class="font-body text-dark-brown mb-2 text-lg font-semibold">Selected Sessions:</h3>
+	<div class="flex flex-col py-2 mb-2">
+		<h3 class="font-body text-dark-brown text-lg font-semibold">Selected Sessions:</h3>
+		<p class={`font-body ${invalidNumFontColor}`}>{numSelectedSlots} sessions out of {numSessions} selected</p>
+	</div>
 	{#if $selectedSlots.length === 0}
 		<p class="text-gray-500 font-body">No sessions selected</p>
 	{:else}

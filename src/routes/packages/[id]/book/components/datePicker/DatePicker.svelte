@@ -127,5 +127,5 @@
 		</p>
 	{/if}
 
-	<SelectedSessions {formatTimeTo12Hour} {toggleSlot} {formatDay} />
+	<SelectedSessions {formatTimeTo12Hour} {toggleSlot} {formatDay} {numSessions} />
 </div>

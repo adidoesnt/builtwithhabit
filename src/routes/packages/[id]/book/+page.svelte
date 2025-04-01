@@ -2,13 +2,21 @@
 	import type { PageServerData } from './$types';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import Disclaimer from './components/packageAndLocationDetails/Disclaimer.svelte';
-	import { address, disclaimerChecked, isValid, resetFormState } from './components/formState';
+	import {
+		address,
+		disclaimerChecked,
+		isValid,
+		resetFormState,
+		selectedSlots
+	} from './components/formState';
 	import PackageDetails from './components/packageAndLocationDetails/PackageDetails.svelte';
 	import LocationDetails from './components/packageAndLocationDetails/LocationDetails.svelte';
 	import ProgressBar from './components/ProgressBar.svelte';
-	import MockDatePicker from './components/MockDatePicker.svelte';
 	import MockCheckout from './components/MockCheckout.svelte';
 	import { DatePicker } from './components/datePicker';
+	import ReserveSlotsModal from './components/datePicker/ReserveSlotsModal.svelte';
+	import { goto } from '$app/navigation';
+
 	const { data }: { data: PageServerData } = $props();
 	const { package: fetchedPackage, locations: availableLocations } = data;
 
@@ -38,7 +46,29 @@
 	const firstPageNextDisabled = $derived(
 		page === 0 && ($address.length === 0 || !$isValid || !$disclaimerChecked)
 	);
+
+	const secondPageNextDisabled = $derived(
+		page === 1 && $selectedSlots.length < fetchedPackage.sessions
+	);
+
+	let isReserveSlotsModalOpen = $state(false);
+	const onReserveSlotsModalCancel = () => {
+		resetFormState();
+		isReserveSlotsModalOpen = false;
+		goto('/packages');
+	};
+
+	const onReserveSlotsModalProceed = () => {
+		isReserveSlotsModalOpen = false;
+		nextPage();
+	};
 </script>
+
+<ReserveSlotsModal
+	isOpen={isReserveSlotsModalOpen}
+	onCancel={onReserveSlotsModalCancel}
+	onProceed={onReserveSlotsModalProceed}
+/>
 
 <div class="bg-beige min-h-screen p-4 md:p-8">
 	<div class="mx-auto max-w-4xl">
@@ -106,12 +136,21 @@
 						<div></div>
 					{/if}
 
-					{#if page < 2}
+					{#if page === 0}
 						<button
 							type="button"
 							class="font-body bg-dark-brown hover:bg-opacity-90 cursor-pointer rounded-md px-6 py-2 text-white transition-colors disabled:bg-gray-100 disabled:text-gray-400"
 							onclick={nextPage}
 							disabled={postalCodeValidationInProgress || firstPageNextDisabled}
+						>
+							Next
+						</button>
+					{:else if page === 1}
+						<button
+							type="button"
+							onclick={() => (isReserveSlotsModalOpen = true)}
+							class="font-body bg-dark-brown hover:bg-opacity-90 cursor-pointer rounded-md px-6 py-2 text-white transition-colors disabled:bg-gray-100 disabled:text-gray-400"
+							disabled={secondPageNextDisabled}
 						>
 							Next
 						</button>
