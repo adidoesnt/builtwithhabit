@@ -1,5 +1,18 @@
 <script lang="ts">
+	import { selectedSlots } from '../formState';
+
 	const { isOpen, onProceed, onCancel } = $props();
+
+    const reserveSelectedSlots = async () => {
+        try {
+            // TODO: Implement reservation logic, call API to reserve slots
+            console.log('Reserving slots:', $selectedSlots);
+            onProceed();
+        } catch (error) {
+            console.error('Error reserving slots:', error);
+            // TODO: Handle error, show error message to user
+        }
+    }
 </script>
 
 {#if isOpen}
@@ -19,7 +32,7 @@
 				>
 				<button
 					type="button"
-					onclick={onProceed}
+					onclick={reserveSelectedSlots}
 					class="bg-dark-brown rounded-md px-4 py-2 text-white hover:bg-dark-brown/90 transition-colors cursor-pointer duration-300">Proceed to Payment</button
 				>
 			</div>
