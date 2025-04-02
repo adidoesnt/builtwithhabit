@@ -59,7 +59,7 @@
 				</div>
 
 				<p class="mb-8 text-center text-lg text-gray-700">
-					Your payment has been processed successfully. You may now close this window.
+					Your payment has been processed successfully. You may now leave this page.
 				</p>
 			{:else if isFailed}
 				<div class="flex justify-center p-8">
