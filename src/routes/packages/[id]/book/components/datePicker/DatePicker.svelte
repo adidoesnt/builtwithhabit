@@ -9,12 +9,14 @@
 		fetchedPackage,
 		existingBookings,
 		trainerAvailability,
-		trainerOverrides
+		trainerOverrides,
+		slotReservationError
 	}: {
 		fetchedPackage: Package;
 		existingBookings: Booking[];
 		trainerAvailability: TrainerAvailability[];
 		trainerOverrides: TrainerOverride[];
+		slotReservationError: string | null;
 	} = $props();
 	const { sessions: numSessions } = fetchedPackage;
 
@@ -139,6 +141,10 @@
 		<p class="font-body text-red-500">
 			The month selected should not be in the past or more than 3 months from now.
 		</p>
+	{/if}
+
+	{#if slotReservationError}
+		<p class="font-body text-red-500">{slotReservationError}</p>
 	{/if}
 
 	<SelectedSessions {formatTimeTo12Hour} {toggleSlot} {formatDay} {numSessions} />

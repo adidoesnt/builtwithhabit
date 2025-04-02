@@ -4,7 +4,7 @@
 	import { selectedSlots, address, postalCode, setPurchaseId } from '../formState';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
-	const { isOpen, onProceed, onCancel, packageId } = $props();
+	const { isOpen, onProceed, onCancel, packageId, onError } = $props();
 
 	const convertSlotsToDates = (slots: Array<{ day: Date; hour: number; minutes: number }>) => {
 		return slots.map((slot) => {
@@ -41,7 +41,7 @@
 			onProceed();
 		} catch (error) {
 			console.error('Error reserving slots:', error);
-			// TODO: Handle error, show error message to user
+			onError();
 		} finally {
 			isLoading = false;
 		}

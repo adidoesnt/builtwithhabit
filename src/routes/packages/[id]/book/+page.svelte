@@ -68,12 +68,19 @@
 		isReserveSlotsModalOpen = false;
 		nextPage();
 	};
+
+	let slotReservationError = $state<string | null>(null);
+	const onReserveSlotsModalError = () => {
+		isReserveSlotsModalOpen = false;
+		slotReservationError = 'An error occurred while reserving the slots. Please try again.';
+	};
 </script>
 
 <ReserveSlotsModal
 	isOpen={isReserveSlotsModalOpen}
 	onCancel={onReserveSlotsModalCancel}
 	onProceed={onReserveSlotsModalProceed}
+	onError={onReserveSlotsModalError}
 	packageId={fetchedPackage.id}
 />
 
@@ -127,6 +134,7 @@
 						{existingBookings}
 						{trainerAvailability}
 						{trainerOverrides}
+						{slotReservationError}
 					/>
 				{/if}
 
