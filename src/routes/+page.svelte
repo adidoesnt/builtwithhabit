@@ -1,4 +1,7 @@
 <script lang="ts">
+	// TODO: Add/change to server-side pagination for all tables
+	// TODO: test RBAC for all pages and routes
+
 	import { goto } from '$app/navigation';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import config from '$lib/config';
@@ -7,7 +10,7 @@
 	import EmailIcon from '$lib/icons/Email.svelte';
 	import Packages from '$lib/components/Packages.svelte';
 	import type { PageServerData } from './$types';
-	import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
+	// import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
 
 	const { splitDescription, mission, contact } = config.site;
 	const { data }: { data: PageServerData } = $props();
