@@ -12,10 +12,11 @@
 	import PackageDetails from './components/packageAndLocationDetails/PackageDetails.svelte';
 	import LocationDetails from './components/packageAndLocationDetails/LocationDetails.svelte';
 	import ProgressBar from './components/ProgressBar.svelte';
-	import MockCheckout from './components/MockCheckout.svelte';
 	import { DatePicker } from './components/datePicker';
 	import ReserveSlotsModal from './components/datePicker/ReserveSlotsModal.svelte';
 	import { goto } from '$app/navigation';
+	import Checkout from './components/checkoutPage/Checkout.svelte';
+	import type { Stripe } from '@stripe/stripe-js';
 
 	const { data }: { data: PageServerData } = $props();
 	const { package: fetchedPackage, locations: availableLocations } = data;
@@ -120,8 +121,7 @@
 				{/if}
 
 				{#if page === 2}
-					<!-- TODO: add Stripe checkout -->
-					<MockCheckout {fetchedPackage} />
+					<Checkout package={fetchedPackage} />
 				{/if}
 
 				<div class="mt-6 flex justify-between">

@@ -19,15 +19,18 @@
 			isLoading = true;
 			const slotDates = convertSlotsToDates($selectedSlots);
 
-			await fetch('/purchases', {
-				method: 'POST',
-				body: JSON.stringify({
-					packageId,
-					address: $address,
-					postalCode: $postalCode,
-					slots: slotDates
-				})
-			});
+			// TODO: Remove mock purchase
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+
+			// await fetch('/purchases', {
+			// 	method: 'POST',
+			// 	body: JSON.stringify({
+			// 		packageId,
+			// 		address: $address,
+			// 		postalCode: $postalCode,
+			// 		slots: slotDates
+			// 	})
+			// });
 
 			onProceed();
 		} catch (error) {
