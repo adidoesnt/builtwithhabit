@@ -89,3 +89,17 @@ export const confirmPurchaseStatus = async (paymentIntentClientSecret: string) =
 		throw error;
 	}
 };
+
+export const getPurchaseStatusByClientSecret = async (clientSecret: string) => {
+	const result = await database
+		.select()
+		.from(purchases)
+		.where(eq(purchases.paymentIntentClientSecret, clientSecret));
+	const purchase = result[0];
+
+	if (!purchase) {
+		throw new Error('No purchase found for the given client secret');
+	}
+
+	return purchase.confirmed;
+};

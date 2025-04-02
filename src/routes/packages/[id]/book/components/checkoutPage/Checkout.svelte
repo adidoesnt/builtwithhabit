@@ -69,9 +69,7 @@
 			const clientSecret = await fetchClientSecret();
 
 			await updatePurchase(clientSecret);
-
-			const id = clientSecret.split('_')[1];
-			redirectUrl = `/payment-intent/${id}`;
+			redirectUrl = `/payment-intent/${clientSecret}`;
 
 			if (stripe && clientSecret) {
 				elements = stripe.elements({

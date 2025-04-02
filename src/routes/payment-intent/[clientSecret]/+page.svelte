@@ -2,9 +2,24 @@
 	import type { PageServerData } from './$types';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import config from '$lib/config';
+	import { goto } from '$app/navigation';
 
 	const { data }: { data: PageServerData } = $props();
-	const { id } = data;
+	const { clientSecret } = data;
+
+	$effect(() => {
+		setInterval(() => {
+			fetch(`/payment-intent/${clientSecret}/status`)
+				.then((res) => res.json())
+				.then((data) => {
+					const { confirmed } = data;
+					if (confirmed) {
+						// TODO: Add a success page
+						goto(`/dashboard`);
+					}
+				});
+		}, 5000);
+	});
 </script>
 
 <div class="bg-beige font-body flex h-screen w-screen items-center justify-center px-4 py-8">
@@ -20,7 +35,7 @@
 				</h1>
 				<p class="text-center text-lg text-gray-700">
 					<span class="font-bold">Payment ID:</span>
-					{id}
+					{clientSecret}
 				</p>
 			</div>
 
