@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Booking } from '$lib/server/db/schema';
 	import { selectedSlots, type Slot } from '../formState';
+	import type { TrainerAvailability, TrainerOverride } from './types';
+
 	const {
 		isOpen,
 		onClose,
@@ -9,7 +11,9 @@
 		formatTimeTo12Hour,
 		toggleSlot,
 		formatDay,
-		existingBookings
+		existingBookings,
+		trainerAvailability,
+		trainerOverrides
 	}: {
 		isOpen: boolean;
 		onClose: () => void;
@@ -19,6 +23,8 @@
 		toggleSlot: (slot: Slot) => void;
 		formatDay: (day: Date) => string;
 		existingBookings: Booking[];
+		trainerAvailability: TrainerAvailability[];
+		trainerOverrides: TrainerOverride[];
 	} = $props();
 
 	const allTimeSlots: Array<Slot> = [];
@@ -59,16 +65,88 @@
 		);
 	};
 
-	const overlapWithBooked = (slot: Slot) => {
-		const slotStart = timeToMinutes(slot);
-		const slotEnd = slotStart + 60;
+	const isSlotAvailable = (slot: Slot) => {
+		const dayOfWeek = selectedDay.getDay();
 
-		return bookedSlots.some((bookedSlot) => {
-			const bookedStart = timeToMinutes(bookedSlot.start);
-			const bookedEnd = bookedStart + 60;
+		const mappedDayOfWeek = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+		const weeklyAvailability = trainerAvailability.filter((a) => a.dayOfWeek === mappedDayOfWeek);
 
-			return isSameDay(slot.day, bookedSlot.day) && slotStart < bookedEnd && slotEnd > bookedStart;
+		const slotStartMinutes = timeToMinutes({ hour: slot.hour, minutes: slot.minutes });
+		const slotEndMinutes = slotStartMinutes + 60;
+
+		const isWithinWeeklyAvailability = weeklyAvailability.some((availability) => {
+			const [startHour, startMinute] = availability.start.split(':').map(Number);
+			const [endHour, endMinute] = availability.end.split(':').map(Number);
+			const availabilityStartMinutes = timeToMinutes({ hour: startHour, minutes: startMinute });
+			const availabilityEndMinutes = timeToMinutes({ hour: endHour, minutes: endMinute });
+
+			return (
+				slotStartMinutes >= availabilityStartMinutes && slotEndMinutes <= availabilityEndMinutes
+			);
 		});
+
+		if (!isWithinWeeklyAvailability) return false;
+
+		const slotStartDate = new Date(selectedDay);
+		slotStartDate.setHours(slot.hour, slot.minutes, 0, 0);
+		const slotEndDate = new Date(slotStartDate);
+		slotEndDate.setHours(slot.hour + 1, slot.minutes, 0, 0);
+
+		const isOverridden = trainerOverrides.some((override) => {
+			return (
+				(slotStartDate >= override.start && slotStartDate < override.end) ||
+				(slotEndDate > override.start && slotEndDate <= override.end) ||
+				(slotStartDate <= override.start && slotEndDate >= override.end)
+			);
+		});
+
+		if (isOverridden) return false;
+
+		const isBooked = bookedSlots.some((bookedSlot) => {
+			const bookedStartMinutes = timeToMinutes(bookedSlot.start);
+			const bookedEndMinutes = timeToMinutes(bookedSlot.end);
+			return (
+				(slotStartMinutes >= bookedStartMinutes && slotStartMinutes < bookedEndMinutes) ||
+				(slotEndMinutes > bookedStartMinutes && slotEndMinutes <= bookedEndMinutes) ||
+				(slotStartMinutes <= bookedStartMinutes && slotEndMinutes >= bookedEndMinutes)
+			);
+		});
+
+		return !isBooked;
+	};
+
+	const getSlotStatus = (slot: Slot) => {
+		if (isSlotBooked(slot)) return 'booked';
+		if (!isSlotAvailable(slot)) return 'unavailable';
+		return 'available';
+	};
+
+	const getSlotClass = (slot: Slot) => {
+		const status = getSlotStatus(slot);
+		const isSelected = isSlotSelected(slot);
+
+		if (isSelected) return 'border-2 border-green-500 bg-green-200';
+		if (status === 'booked') return 'cursor-not-allowed bg-red-100 opacity-50';
+		if (status === 'unavailable') return 'cursor-not-allowed bg-gray-100 opacity-50';
+		return 'bg-gray-200 hover:bg-gray-300';
+	};
+
+	const getSlotStatusText = (slot: Slot) => {
+		const status = getSlotStatus(slot);
+		if (status === 'booked') return 'Booked';
+		if (status === 'unavailable') return 'Unavailable';
+		return '';
+	};
+
+	const getIsDisabled = (slot: Slot) => {
+		const status = getSlotStatus(slot);
+		const isSelected = isSlotSelected(slot);
+
+		return (
+			status !== 'available' ||
+			($selectedSlots.length >= numSessions && !isSelected) ||
+			(!isSelected && overlapWithSelected(slot))
+		);
 	};
 
 	const isSlotBooked = (slot: Slot) => {
@@ -106,21 +184,6 @@
 			);
 		});
 	};
-
-	const getIsDisabled = (slot: Slot) => {
-		// Slot is disabled if:
-		// 1. It's already booked or overlaps with a booked slot
-		// 2. The user has selected max sessions and this slot is not already selected
-		// 3. The slot overlaps with an already selected slot (and is not itself selected)
-		const isSelected = isSlotSelected(slot);
-
-		return (
-			isSlotBooked(slot) ||
-			overlapWithBooked(slot) ||
-			($selectedSlots.length >= numSessions && !isSelected) ||
-			(!isSelected && overlapWithSelected(slot))
-		);
-	};
 </script>
 
 {#if isOpen}
@@ -151,39 +214,30 @@
 
 			<div class="grid w-full grid-cols-2 gap-2 overflow-y-auto p-2 md:grid-cols-4">
 				{#each allTimeSlots as slot}
-					{#if slot.hour >= 7 && slot.hour < 21}
-						<!-- Only show time slots between 7 AM and 9 PM -->
-						<button
-							type="button"
-							onclick={toggleSlot.bind(null, slot)}
-							disabled={getIsDisabled(slot) && !isSlotSelected(slot)}
-							class={`flex w-full items-center gap-2 rounded-md p-2 transition-colors
-								${
-									isSlotBooked(slot) || overlapWithBooked(slot)
-										? 'cursor-not-allowed bg-red-100 opacity-50'
-										: isSlotSelected(slot)
-											? 'border-2 border-green-500 bg-green-200'
-											: 'bg-gray-200 hover:bg-gray-300'
-								}
-								${getIsDisabled(slot) && !isSlotSelected(slot) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
-						>
-							<div class="flex-1">
-								<span class="font-body text-dark-brown font-medium">
-									{formatTimeTo12Hour(slot) +
-										' - ' +
-										formatTimeTo12Hour({
-											hour: slot.hour + 1,
-											minutes: slot.minutes
-										})}
-								</span>
-								{#if isSlotBooked(slot)}
-									<span class="font-body block text-xs text-red-600">Booked</span>
-								{:else if overlapWithBooked(slot)}
-									<span class="font-body block text-xs text-gray-600">Unavailable</span>
-								{/if}
-							</div>
-						</button>
-					{/if}
+					<button
+						type="button"
+						onclick={toggleSlot.bind(null, slot)}
+						disabled={getIsDisabled(slot) && !isSlotSelected(slot)}
+						class={`flex w-full items-center gap-2 rounded-md p-2 transition-colors ${getSlotClass(slot)} ${
+							getIsDisabled(slot) && !isSlotSelected(slot)
+								? 'cursor-not-allowed opacity-50'
+								: 'cursor-pointer'
+						}`}
+					>
+						<div class="flex-1">
+							<span class="font-body text-dark-brown font-medium">
+								{formatTimeTo12Hour(slot) +
+									' - ' +
+									formatTimeTo12Hour({
+										hour: slot.hour + 1,
+										minutes: slot.minutes
+									})}
+							</span>
+							{#if getSlotStatusText(slot)}
+								<span class="font-body block text-xs text-gray-600">{getSlotStatusText(slot)}</span>
+							{/if}
+						</div>
+					</button>
 				{/each}
 			</div>
 

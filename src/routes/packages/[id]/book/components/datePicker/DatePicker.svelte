@@ -3,8 +3,19 @@
 	import { selectedSlots, setSelectedSlots, type Slot } from '../formState';
 	import DayModal from './DayModal.svelte';
 	import SelectedSessions from './SelectedSessions.svelte';
+	import type { TrainerAvailability, TrainerOverride } from './types';
 
-	const { fetchedPackage, existingBookings }: { fetchedPackage: Package, existingBookings: Booking[] } = $props();
+	const {
+		fetchedPackage,
+		existingBookings,
+		trainerAvailability,
+		trainerOverrides
+	}: {
+		fetchedPackage: Package;
+		existingBookings: Booking[];
+		trainerAvailability: TrainerAvailability[];
+		trainerOverrides: TrainerOverride[];
+	} = $props();
 	const { sessions: numSessions } = fetchedPackage;
 
 	let month = $state<string | null>(null);
@@ -92,6 +103,8 @@
 			{formatTimeTo12Hour}
 			{formatDay}
 			{existingBookings}
+			{trainerAvailability}
+			{trainerOverrides}
 		/>
 	{/if}
 

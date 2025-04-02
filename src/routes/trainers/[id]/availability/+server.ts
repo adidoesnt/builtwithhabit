@@ -22,7 +22,7 @@ export const PUT = async ({ request, params, cookies }) => {
 
         const availabilities = await request.json();
 
-        await upsertTrainerAvailability(id, availabilities);
+        await upsertTrainerAvailability(availabilities);
 
         return new Response(JSON.stringify({ success: true }), { status: 200 });
     } catch (error) {

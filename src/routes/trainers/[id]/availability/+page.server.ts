@@ -27,8 +27,8 @@ export const load = async ({ cookies }) => {
 		throw redirect(302, '/');
 	}
 
-    const availability = await getTrainerAvailability(trainer.id);
-    const overrides = await getTrainerOverrides(trainer.id);
+    const availability = await getTrainerAvailability();
+    const overrides = await getTrainerOverrides();
 
     return {
         availability,

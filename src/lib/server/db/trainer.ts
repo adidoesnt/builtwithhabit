@@ -9,17 +9,23 @@ import {
 	type AvailabilityOverride
 } from './schema';
 
-export const getTrainerAvailability = async (trainerId: string) => {
+// For now we only have one trainer, so we can hardcode the trainerId
+export const getTrainerAvailability = async () => {
+	const trainer = await getDefaultTrainer();
+
 	const availability = await database.query.recurringAvailabilities.findMany({
-		where: eq(recurringAvailabilities.trainerId, trainerId)
+		where: eq(recurringAvailabilities.trainerId, trainer.id)
 	});
 	return availability;
 };
 
-export const getTrainerOverrides = async (trainerId: string, offset: Date = new Date()) => {
+// For now we only have one trainer, so we can hardcode the trainerId
+export const getTrainerOverrides = async (offset: Date = new Date()) => {
+	const trainer = await getDefaultTrainer();
+
 	const overrides = await database.query.availabilityOverrides.findMany({
 		where: and(
-			eq(availabilityOverrides.trainerId, trainerId),
+			eq(availabilityOverrides.trainerId, trainer.id),
 			gte(availabilityOverrides.end, offset)
 		)
 	});
@@ -35,20 +41,20 @@ type AvailabilityUpsertAttributes = {
 	}[];
 };
 
-export const upsertTrainerAvailability = async (
-	trainerId: string,
-	availabilities: AvailabilityUpsertAttributes[]
-) => {
+// For now we only have one trainer, so we can hardcode the trainerId
+export const upsertTrainerAvailability = async (availabilities: AvailabilityUpsertAttributes[]) => {
+	const trainer = await getDefaultTrainer();
+
 	await database
 		.delete(recurringAvailabilities)
-		.where(eq(recurringAvailabilities.trainerId, trainerId));
+		.where(eq(recurringAvailabilities.trainerId, trainer.id));
 
 	await Promise.all(
 		availabilities.map(async (availability) => {
 			await Promise.all(
 				availability.availabilities.map(async (timeSlot) => {
 					await database.insert(recurringAvailabilities).values({
-						trainerId,
+						trainerId: trainer.id,
 						dayOfWeek: availability.day,
 						start: timeSlot.start,
 						end: timeSlot.end
@@ -59,18 +65,17 @@ export const upsertTrainerAvailability = async (
 	);
 };
 
-export const upsertTrainerOverrides = async (
-	trainerId: string,
-	overrides: AvailabilityOverride[]
-) => {
+export const upsertTrainerOverrides = async (overrides: AvailabilityOverride[]) => {
+	const trainer = await getDefaultTrainer();
+
 	await database
 		.delete(availabilityOverrides)
-		.where(eq(availabilityOverrides.trainerId, trainerId));
+		.where(eq(availabilityOverrides.trainerId, trainer.id));
 
 	if (overrides.length === 0) return;
 
 	const formattedOverrides = overrides.map((override) => ({
-		trainerId,
+		trainerId: trainer.id,
 		start: new Date(override.start),
 		end: new Date(override.end)
 	}));
@@ -90,7 +95,7 @@ export const upsertTrainerOverrides = async (
 export const getAllTrainers = async () => {
 	const trainers = await database
 		.select({
-			id: users.id,
+			id: users.id
 		})
 		.from(users)
 		.leftJoin(userRoles, eq(users.id, userRoles.userId))

@@ -18,7 +18,13 @@
 	import Checkout from './components/checkoutPage/Checkout.svelte';
 
 	const { data }: { data: PageServerData } = $props();
-	const { package: fetchedPackage, locations: availableLocations, bookings: existingBookings } = data;
+	const {
+		package: fetchedPackage,
+		locations: availableLocations,
+		bookings: existingBookings,
+		trainerAvailability,
+		trainerOverrides
+	} = data;
 
 	let page = $state(0);
 	let postalCodeValidationInProgress = $state(false);
@@ -116,7 +122,12 @@
 				{/if}
 
 				{#if page === 1}
-					<DatePicker {fetchedPackage} {existingBookings} />
+					<DatePicker
+						{fetchedPackage}
+						{existingBookings}
+						{trainerAvailability}
+						{trainerOverrides}
+					/>
 				{/if}
 
 				{#if page === 2}

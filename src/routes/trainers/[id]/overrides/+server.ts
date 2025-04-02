@@ -21,7 +21,7 @@ export const PUT = async ({ request, params, cookies }) => {
         }
 
         const overrides = await request.json();
-        await upsertTrainerOverrides(id,overrides);
+        await upsertTrainerOverrides(overrides);
 
         return new Response(JSON.stringify({ success: true }), { status: 200 });
     } catch (error) {
