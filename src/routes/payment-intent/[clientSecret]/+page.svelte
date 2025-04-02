@@ -8,31 +8,32 @@
 	const { clientSecret } = data;
 
 	$effect(() => {
-		setInterval(() => {
+		const interval = setInterval(() => {
 			fetch(`/payment-intent/${clientSecret}/status`)
 				.then((res) => res.json())
 				.then((data) => {
 					const { confirmed } = data;
 					if (confirmed) {
+						clearInterval(interval);
 						// TODO: Add a success page
 						goto(`/dashboard`);
 					}
 				});
 		}, 5000);
+
+		return () => clearInterval(interval);
 	});
 </script>
 
 <div class="bg-beige font-body flex h-screen w-screen items-center justify-center px-4 py-8">
 	<div class="flex flex-col items-center justify-center">
-		<div class="w-fit rounded-lg border border-gray-100 bg-white p-8 shadow-lg flex flex-col gap-4">
+		<div class="flex w-fit flex-col gap-4 rounded-lg border border-gray-100 bg-white p-8 shadow-lg">
 			<div class="flex justify-center p-8">
 				<LoadingSpinner size="64px" color="#8B4513" />
 			</div>
 
 			<div class="flex flex-col">
-				<h1 class="font-bold text-dark-brown text-center text-3xl">
-					Processing Your Payment
-				</h1>
+				<h1 class="text-dark-brown text-center text-3xl font-bold">Processing Your Payment</h1>
 				<p class="text-center text-lg text-gray-700">
 					<span class="font-bold">Payment ID:</span>
 					{clientSecret}
