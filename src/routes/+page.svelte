@@ -112,7 +112,8 @@
 	</div>
 </section>
 
-<Packages {packages} showTestimonialsButton />
-
 <!-- TODO: Add back after getting testimonial content -->
+<!-- <Packages {packages} showTestimonialsButton /> -->
+<Packages {packages} />
+
 <!-- <Testimonials /> -->
