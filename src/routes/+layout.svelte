@@ -30,24 +30,6 @@
 			});
 		});
 	});
-
-	const getSidebarBgColor = $derived(() => {
-		if (page.url.pathname.includes('/packages/')) return 'beige';
-
-		switch (page.url.pathname) {
-			case '/bookings':
-				return 'beige';
-			default:
-				return 'light-green';
-		}
-	});
-
-	const getSidebarTextColor = $derived(() => {
-		switch (page.url.pathname) {
-			default:
-				return 'dark-brown';
-		}
-	});
 </script>
 
 {#if navigating.complete}
@@ -66,7 +48,7 @@
 {/if}
 
 {#if isAuthenticated && !isLandingPage}
-	<Sidebar bgColor={getSidebarBgColor()} textColor={getSidebarTextColor()} />
+	<Sidebar bgColor={'beige'} textColor={'dark-brown'} />
 {/if}
 
 <div class="bg-dark-brown font-old-standard flex min-h-screen w-full flex-col">
