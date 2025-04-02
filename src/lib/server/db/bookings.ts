@@ -1,7 +1,7 @@
 import { database } from '.';
-import { bookings, purchases, PurchaseStatus } from '$lib/server/db/schema';
+import { bookings, packages, purchases, PurchaseStatus } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
-import { eq } from 'drizzle-orm';
+import { and, asc, eq } from 'drizzle-orm';
 
 const getTimes = (slot: Date | string) => {
 	const start = new Date(slot);
@@ -64,7 +64,10 @@ export const updatePaymentIntentClientSecret = async (
 		.where(eq(purchases.id, purchaseId));
 };
 
-export const updatePurchaseStatus = async (paymentIntentClientSecret: string, status: PurchaseStatus) => {
+export const updatePurchaseStatus = async (
+	paymentIntentClientSecret: string,
+	status: PurchaseStatus
+) => {
 	try {
 		console.log(
 			'Attempting to update purchase status for client secret:',
@@ -102,4 +105,25 @@ export const getPurchaseStatusByClientSecret = async (clientSecret: string) => {
 	}
 
 	return purchase.status;
+};
+
+export const getBookingsByUserId = async (userId: string) => {
+	const results = await database
+		.select()
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.leftJoin(packages, eq(purchases.packageId, packages.id))
+		.where(and(eq(purchases.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
+		.orderBy(asc(bookings.start));
+
+	return results.map((result) => ({
+		...result.bookings,
+		purchase: {
+			id: result.purchases?.id,
+			status: result.purchases?.status,
+			address: result.purchases?.address,
+			postalCode: result.purchases?.postalCode
+		},
+		package: result.packages
+	}));
 };

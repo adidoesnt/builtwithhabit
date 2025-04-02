@@ -18,7 +18,7 @@
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
 		"stripe:login": "stripe login",
-		"stripe:listen": "stripe listen --forward-to http://localhost:5173/api/webhook --skip-verify"
+		"stripe:listen": "stripe listen --forward-to http://localhost:5173/payment-intent/webhook --skip-verify"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^5.5.2",
