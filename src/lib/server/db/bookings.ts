@@ -128,6 +128,19 @@ export const getBookingsByUserId = async (userId: string) => {
 	}));
 };
 
+export const getPurchasesByUserId = async (userId: string) => {
+	const results = await database
+		.select()
+		.from(purchases)
+		.leftJoin(packages, eq(purchases.packageId, packages.id))
+		.where(eq(purchases.userId, userId));
+
+	return results.map((result) => ({
+		...result.purchases,
+		package: result.packages
+	}));
+};
+
 export const getUpcomingBookingsByUserId = async (userId: string, limit = 3) => {
 	// Limit to top 3
 	const result = await database

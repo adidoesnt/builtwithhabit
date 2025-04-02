@@ -129,7 +129,7 @@
 					</table>
 				</div>
 			{:else}
-				<div class="text-left px-4 pb-4">
+				<div class="px-4 pb-4 text-left">
 					<p class="font-body text-light-brown">Expand the table to see your upcoming bookings.</p>
 				</div>
 			{/if}
@@ -174,9 +174,6 @@
 							<tr>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Sessions</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Price</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Status</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Date</th>
 							</tr>
 						</thead>
@@ -186,26 +183,6 @@
 									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 										<td class="font-body text-dark-brown border-b p-4">{purchase.purchases.id}</td>
 										<td class="font-body text-dark-brown border-b p-4">{purchase.packages.name}</td>
-										<td class="font-body text-dark-brown border-b p-4"
-											>{purchase.packages.sessions}</td
-										>
-										<td class="font-body text-dark-brown border-b p-4"
-											>${Number(purchase.packages.price).toFixed(2)}</td
-										>
-										<td class="font-body text-dark-brown border-b p-4">
-											<span
-												class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-													purchase.purchases.status === 'confirmed'
-														? 'bg-green-100 text-green-800'
-														: purchase.purchases.status === 'unconfirmed'
-															? 'bg-yellow-100 text-yellow-800'
-															: 'bg-red-100 text-red-800'
-												}`}
-											>
-												{purchase.purchases.status.charAt(0).toUpperCase() +
-													purchase.purchases.status.slice(1)}
-											</span>
-										</td>
 										<td class="font-body text-dark-brown border-b p-4">
 											<div>{formatDate(purchase.purchases.createdAt)}</div>
 											<div class="text-sm text-gray-500">
@@ -219,7 +196,7 @@
 					</table>
 				</div>
 			{:else}
-				<div class="text-left px-4 pb-4">
+				<div class="px-4 pb-4 text-left">
 					<p class="font-body text-light-brown">Expand the table to see your recent purchases.</p>
 				</div>
 			{/if}
