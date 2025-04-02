@@ -125,7 +125,7 @@
 				{/if}
 
 				<div class="mt-6 flex justify-between">
-					{#if page > 0}
+					{#if page === 1}
 						<button
 							type="button"
 							class="font-body text-dark-brown rounded-md bg-gray-200 px-6 py-2 transition-colors hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
@@ -154,14 +154,6 @@
 							disabled={secondPageNextDisabled}
 						>
 							Next
-						</button>
-					{:else}
-						<button
-							type="submit"
-							class="font-body bg-dark-brown hover:bg-opacity-90 cursor-pointer rounded-md px-6 py-2 text-white transition-colors disabled:bg-gray-100 disabled:text-gray-400"
-							disabled={postalCodeValidationInProgress}
-						>
-							Complete Booking
 						</button>
 					{/if}
 				</div>

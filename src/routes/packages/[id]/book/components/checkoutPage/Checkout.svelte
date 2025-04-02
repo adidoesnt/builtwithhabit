@@ -15,6 +15,8 @@
 	let elements: any = $state(null);
 	let paymentElement: any = $state(null);
 	let paymentElementContainer: HTMLElement | null = $state(null);
+	let isMounted = $state(false);
+	let isSubmitting = $state(false);
 
 	const fetchClientSecret = async () => {
 		const result = await fetch('/payment-intent', {
@@ -31,7 +33,6 @@
 
 		const data = await result.json();
 		const clientSecret = data.clientSecret;
-		console.log('Client secret', clientSecret);
 		return clientSecret;
 	};
 
@@ -50,6 +51,10 @@
 					}
 				});
 				paymentElement = elements.create('payment');
+
+				if (paymentElementContainer) {
+					mountPaymentElement();
+				}
 			}
 		} catch (error) {
 			console.error('Error initializing Stripe:', error);
@@ -58,22 +63,42 @@
 		}
 	};
 
+	const mountPaymentElement = () => {
+		if (paymentElement && paymentElementContainer && !isMounted) {
+			try {
+				paymentElement.mount(paymentElementContainer);
+				isMounted = true;
+				console.log('Payment element mounted successfully');
+			} catch (error) {
+				console.error('Error mounting payment element:', error);
+			}
+		}
+	};
+
 	$effect(() => {
 		initializeStripe();
 	});
 
 	$effect(() => {
-		if (paymentElement && paymentElementContainer) {
-			paymentElement.mount(paymentElementContainer);
+		if (paymentElementContainer) {
+			mountPaymentElement();
 		}
 	});
 
 	const onsubmit = async (event: Event) => {
 		event.preventDefault();
-        
-		if (!stripe || !elements || !paymentElement) return;
+		isSubmitting = true;
 
-		isLoading = true;
+		if (!stripe || !elements || !paymentElement) {
+			console.error('Missing required Stripe components:', {
+				stripe: !!stripe,
+				elements: !!elements,
+				paymentElement: !!paymentElement
+			});
+			isSubmitting = false;
+			return;
+		}
+
 		try {
 			console.log('Confirming payment...');
 			const { error } = await stripe.confirmPayment({
@@ -87,7 +112,7 @@
 		} catch (e) {
 			console.error('Payment error:', e);
 		} finally {
-			isLoading = false;
+			isSubmitting = false;
 		}
 	};
 </script>
@@ -96,24 +121,29 @@
 	<Summary package={fetchedPackage} />
 
 	<form {onsubmit}>
-		{#if !isLoading}
-			<div bind:this={paymentElementContainer}></div>
-			<button
-				type="submit"
-				class="bg-dark-brown hover:bg-brown mt-4 w-full rounded px-4 py-2 text-white transition-colors"
-				disabled={isLoading}
-			>
-				{#if isLoading}
-					<LoadingSpinner size="20px" color="#FFFFFF" />
-				{:else}
-					Pay S${(amount / 100).toFixed(2)}
-				{/if}
-			</button>
-		{:else}
-			<div class="flex items-center justify-center gap-2">
-				<LoadingSpinner size="24px" color="#8B4513" />
-				<span class="font-body text-dark-brown">Loading payment options...</span>
-			</div>
-		{/if}
+		<div class="relative">
+			{#if isLoading}
+				<div class="bg-opacity-80 absolute inset-0 z-10 flex items-center justify-center bg-white">
+					<div class="flex items-center justify-center gap-2">
+						<LoadingSpinner size="24px" color="#8B4513" />
+						<span class="font-body text-dark-brown">Loading payment options...</span>
+					</div>
+				</div>
+			{/if}
+
+			<div bind:this={paymentElementContainer} class="min-h-[200px]"></div>
+		</div>
+
+		<button
+			type="submit"
+			class="bg-dark-brown hover:bg-brown mt-4 flex w-full items-center justify-center gap-2 rounded px-4 py-2 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-body"
+			disabled={isLoading || isSubmitting}
+		>
+			{#if isSubmitting}
+				<LoadingSpinner size="20px" color="#FFFFFF" />
+			{:else}
+				Pay S${(amount / 100).toFixed(2)}
+			{/if}
+		</button>
 	</form>
 </div>
