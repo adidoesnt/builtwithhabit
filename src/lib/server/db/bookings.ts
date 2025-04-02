@@ -155,3 +155,11 @@ export const getAllBookings = async () => {
 
 	return result;
 };
+
+export const deletePurchaseByClientSecret = async (clientSecret: string) => {
+	const result = await database
+		.delete(purchases)
+		.where(eq(purchases.paymentIntentClientSecret, clientSecret));
+
+	return result;
+};

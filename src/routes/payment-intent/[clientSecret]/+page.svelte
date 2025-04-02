@@ -21,7 +21,6 @@
 					} else if (status === PurchaseStatus.FAILED) {
 						clearInterval(interval);
 						isFailed = true;
-						// TODO: Delete the purchase from the database
 					}
 				});
 		}, 5000);
