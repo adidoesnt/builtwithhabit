@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { loadStripe, type Stripe, type StripeElements, type StripePaymentElement } from '@stripe/stripe-js';
+	import {
+		loadStripe,
+		type Stripe,
+		type StripeElements,
+		type StripePaymentElement
+	} from '@stripe/stripe-js';
 	import type { Package } from '$lib/server/db/schema';
 	import { PUBLIC_STRIPE_KEY } from '$env/static/public';
 	import Summary from './Summary.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
+	import { purchaseId } from '../formState';
 
 	const { package: fetchedPackage }: { package: Package } = $props();
 	const price = parseFloat(fetchedPackage.price);
@@ -38,12 +44,32 @@
 		return clientSecret;
 	};
 
+	const updatePurchase = async (clientSecret: string) => {
+		const result = await fetch(`/purchases/${$purchaseId}`, {
+			method: 'PUT',
+			body: JSON.stringify({ paymentIntentClientSecret: clientSecret }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+
+		if (!result.ok) {
+			throw new Error('Failed to update purchase');
+        }
+
+		const data = await result.json();
+		return data;
+	};
+
 	const initializeStripe = async () => {
 		isLoading = true;
 		try {
 			const stripeInstance = await loadStripe(PUBLIC_STRIPE_KEY);
 			stripe = stripeInstance;
 			const clientSecret = await fetchClientSecret();
+
+			await updatePurchase(clientSecret);
+
 			const id = clientSecret.split('_')[1];
 			redirectUrl = `/payment-intent/${id}`;
 
@@ -107,7 +133,7 @@
 			console.log('Confirming payment...');
 			const { error } = await stripe.confirmPayment({
 				elements,
-                redirect: 'if_required',
+				redirect: 'if_required',
 				confirmParams: {
 					return_url: window.location.origin + redirectUrl
 				}

@@ -90,6 +90,7 @@ export const purchases = pgTable('purchases', {
 	address: text('address').notNull(),
 	postalCode: text('postal_code').notNull(),
 	confirmed: boolean('confirmed').notNull().default(false),
+	paymentIntentClientSecret: text('payment_intent_client_secret'),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });

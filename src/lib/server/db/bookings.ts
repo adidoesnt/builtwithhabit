@@ -1,6 +1,7 @@
 import { database } from '.';
 import { bookings, purchases } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
+import { eq } from 'drizzle-orm';
 
 const getTimes = (slot: Date | string) => {
 	const start = new Date(slot);
@@ -16,7 +17,7 @@ export const createUnconfirmedPurchase = async (
 	postalCode: string,
 	slots: Array<Date>
 ) => {
-	await database.transaction(async (tx) => {
+	return await database.transaction(async (tx) => {
 		const trainer = await getDefaultTrainer();
 
 		const result = await tx
@@ -48,5 +49,17 @@ export const createUnconfirmedPurchase = async (
 		);
 
 		console.log('Created bookings for purchase with id', newPurchase.id);
+
+		return newPurchase;
 	});
+};
+
+export const updatePaymentIntentClientSecret = async (
+	purchaseId: number,
+	paymentIntentClientSecret: string
+) => {
+	await database
+		.update(purchases)
+		.set({ paymentIntentClientSecret })
+		.where(eq(purchases.id, purchaseId));
 };

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { selectedSlots, address, postalCode } from '../formState';
+	import { selectedSlots, address, postalCode, setPurchaseId } from '../formState';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	const { isOpen, onProceed, onCancel, packageId } = $props();
@@ -22,15 +22,22 @@
 			// TODO: Remove mock purchase
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			// await fetch('/purchases', {
-			// 	method: 'POST',
-			// 	body: JSON.stringify({
-			// 		packageId,
-			// 		address: $address,
-			// 		postalCode: $postalCode,
-			// 		slots: slotDates
-			// 	})
-			// });
+			const response = await fetch('/purchases', {
+				method: 'POST',
+				body: JSON.stringify({
+					packageId,
+					address: $address,
+					postalCode: $postalCode,
+					slots: slotDates
+				})
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to reserve slots');
+			}
+
+			const data = await response.json();
+			setPurchaseId(data.purchaseId);
 
 			onProceed();
 		} catch (error) {

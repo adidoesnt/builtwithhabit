@@ -51,5 +51,8 @@ export const resetFormState = () => {
 	selectedSlots.set([]);
 };
 
+export const purchaseId = writable<number | null>(null);
 
-
+export const setPurchaseId = (v: number | null) => {
+	purchaseId.set(v);
+};

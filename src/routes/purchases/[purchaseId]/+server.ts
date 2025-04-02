@@ -1,12 +1,11 @@
 import { supabase } from '$lib/server/auth';
-import { createUnconfirmedPurchase } from '$lib/server/db/bookings';
+import { updatePaymentIntentClientSecret } from '$lib/server/db/bookings.js';
 import { getUserById } from '$lib/server/db/user';
 import { json } from '@sveltejs/kit';
 
-export const POST = async ({ request, cookies }) => {
+export const PUT = async ({ request, params, cookies }) => {
 	try {
 		const accessToken = cookies.get('access_token');
-		const { packageId, address, postalCode, slots } = await request.json();
 
 		if (!accessToken) {
 			return json({ success: false, error: 'No access token found' }, { status: 401 });
@@ -24,14 +23,18 @@ export const POST = async ({ request, cookies }) => {
 			return json({ success: false, error: 'User not found' }, { status: 401 });
 		}
 
-		const purchase = await createUnconfirmedPurchase(user.id, packageId, address, postalCode, slots);
+		const { paymentIntentClientSecret } = await request.json();
+		const { purchaseId } = params;
 
-		return json(
-			{ success: true, message: 'Unconfirmed purchase created successfully', purchaseId: purchase.id },
-			{ status: 200 }
-		);
+		const id = Number(purchaseId);
+		if (isNaN(id)) {
+			return json({ success: false, error: 'Invalid purchase ID' }, { status: 400 });
+		}
+
+		await updatePaymentIntentClientSecret(id, paymentIntentClientSecret);
+		return json({ success: true }, { status: 200 });
 	} catch (error) {
-		console.error(error);
+		console.error('Error updating payment intent client secret:', error);
 		return json({ success: false, error: 'Internal server error' }, { status: 500 });
 	}
 };
