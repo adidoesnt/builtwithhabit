@@ -4,6 +4,7 @@
 	import { formatDate } from '$lib/utils/date';
 	import { formatTime } from '$lib/utils/time';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
+	import { capitalise } from '$lib/utils/text';
 
 	const { data }: { data: PageData } = $props();
 	const { bookings } = data;
@@ -26,7 +27,7 @@
 
 		<div class="mt-6 mb-8">
 			<h1 class="text-dark-brown text-2xl font-bold">Your Bookings</h1>
-			<p class="text-light-brown mt-2 text-sm">View and manage your package bookings</p>
+			<p class="text-light-brown mt-2 text-sm">View and manage your package bookings.</p>
 		</div>
 
 		{#if bookings.length === 0}
@@ -48,82 +49,49 @@
 				<p class="mt-1 text-sm text-gray-500">You haven't made any bookings yet.</p>
 			</div>
 		{:else}
-			<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
-				<table class="min-w-full divide-y divide-gray-200">
-					<thead class="bg-gray-50">
-						<tr>
-							<th
-								scope="col"
-								class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-							>
-								Booking ID
-							</th>
-							<th
-								scope="col"
-								class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-							>
-								Purchase ID
-							</th>
-							<th
-								scope="col"
-								class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-							>
-								Date & Time
-							</th>
-							<th
-								scope="col"
-								class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-							>
-								Package
-							</th>
-							<th
-								scope="col"
-								class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-							>
-								Location
-							</th>
-							<th
-								scope="col"
-								class="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
-							>
-								Status
-							</th>
-						</tr>
-					</thead>
-					<tbody class="divide-y divide-gray-200 bg-white">
-						{#each bookings as booking}
-							<tr class="hover:bg-gray-50">
-								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900">{booking.id}</div>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900">{booking.purchase!.id}</div>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm text-gray-900">{formatDate(booking.start)}</div>
-									<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm font-medium text-gray-900">{booking.package!.name}</div>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
-									<div class="text-sm text-gray-900">
-										{booking.purchase!.address}, {booking.purchase!.postalCode}
-									</div>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
-									<span
-										class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getStatusColor(
-											booking.purchase!.status!
-										)}"
-									>
-										{booking.purchase!.status}
-									</span>
-								</td>
+			<div class="overflow-hidden rounded-lg bg-white shadow-md">
+				<div class="flex items-center justify-between border-b p-4">
+					<h2 class="font-body text-dark-brown text-xl font-semibold">Bookings</h2>
+				</div>
+				<div class="overflow-x-auto">
+					<table class="w-full border-collapse">
+						<thead class="bg-gray-50">
+							<tr>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Booking ID</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Date & Time</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Location</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Status</th>
 							</tr>
-						{/each}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{#each bookings as booking, i}
+								<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+									<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
+									<td class="font-body text-dark-brown border-b p-4">{booking.purchase!.id}</td>
+									<td class="font-body text-dark-brown border-b p-4">
+										<div>{formatDate(booking.start)}</div>
+										<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>
+									</td>
+									<td class="font-body text-dark-brown border-b p-4">{booking.package!.name}</td>
+									<td class="font-body text-dark-brown border-b p-4">
+										{booking.purchase!.address}, {booking.purchase!.postalCode}
+									</td>
+									<td class="font-body text-dark-brown border-b p-4">
+										<span
+											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getStatusColor(
+												booking.purchase!.status!
+											)}"
+										>
+											{capitalise(booking.purchase!.status!)}
+										</span>
+									</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		{/if}
 	</div>
