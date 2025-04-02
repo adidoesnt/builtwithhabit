@@ -1,4 +1,5 @@
 import { PUBLIC_STRIPE_KEY } from '$env/static/public';
+import { getAllBookings } from '$lib/server/db/bookings.js';
 import { getLocations } from '$lib/server/db/locations.js';
 import { getPackageById } from '$lib/server/db/packages';
 import { loadStripe } from '@stripe/stripe-js';
@@ -24,9 +25,11 @@ export const load = async ({ params }) => {
 	}
 
 	const locations = await getLocations();
+	const bookings = await getAllBookings();
 
 	return {
 		package: fetchedPackage,
 		locations,
+		bookings
 	};
 };

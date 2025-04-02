@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Package } from '$lib/server/db/schema';
+	import type { Booking, Package } from '$lib/server/db/schema';
 	import { selectedSlots, setSelectedSlots, type Slot } from '../formState';
 	import DayModal from './DayModal.svelte';
 	import SelectedSessions from './SelectedSessions.svelte';
 
-	const { fetchedPackage }: { fetchedPackage: Package } = $props();
+	const { fetchedPackage, existingBookings }: { fetchedPackage: Package, existingBookings: Booking[] } = $props();
 	const { sessions: numSessions } = fetchedPackage;
 
 	let month = $state<string | null>(null);
@@ -91,6 +91,7 @@
 			{toggleSlot}
 			{formatTimeTo12Hour}
 			{formatDay}
+			{existingBookings}
 		/>
 	{/if}
 

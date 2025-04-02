@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Booking } from '$lib/server/db/schema';
 	import { selectedSlots, type Slot } from '../formState';
 	const {
 		isOpen,
@@ -7,7 +8,8 @@
 		selectedDay,
 		formatTimeTo12Hour,
 		toggleSlot,
-		formatDay
+		formatDay,
+		existingBookings
 	}: {
 		isOpen: boolean;
 		onClose: () => void;
@@ -16,6 +18,7 @@
 		formatTimeTo12Hour: (slot: { hour: number; minutes: number }) => string;
 		toggleSlot: (slot: Slot) => void;
 		formatDay: (day: Date) => string;
+		existingBookings: Booking[];
 	} = $props();
 
 	const allTimeSlots: Array<Slot> = [];
@@ -24,40 +27,30 @@
 		allTimeSlots.push({ day: selectedDay, hour, minutes: 30 });
 	}
 
-	// TODO: Remove mock booked slots
-	const bookedSlots = [
-		{
-			day: selectedDay,
-			start: { hour: 9, minutes: 0 },
-			end: { hour: 10, minutes: 0 }
-		},
-		{
-			day: selectedDay,
-			start: { hour: 12, minutes: 30 },
-			end: { hour: 13, minutes: 30 }
-		},
-		{
-			day: selectedDay,
-			start: { hour: 15, minutes: 0 },
-			end: { hour: 16, minutes: 0 }
-		},
-		{
-			day: selectedDay,
-			start: { hour: 18, minutes: 30 },
-			end: { hour: 19, minutes: 30 }
-		}
-	];
-
-	const timeToMinutes = (time: { hour: number; minutes: number }) => {
-		return time.hour * 60 + time.minutes;
-	};
-
 	const isSameDay = (date1: Date, date2: Date) => {
 		return (
 			date1.getFullYear() === date2.getFullYear() &&
 			date1.getMonth() === date2.getMonth() &&
 			date1.getDate() === date2.getDate()
 		);
+	};
+
+	const bookedSlots = existingBookings
+		.filter((booking) => isSameDay(booking.start, selectedDay))
+		.map((booking) => ({
+			day: selectedDay,
+			start: {
+				hour: booking.start.getHours(),
+				minutes: booking.start.getMinutes()
+			},
+			end: {
+				hour: booking.end.getHours(),
+				minutes: booking.end.getMinutes()
+			}
+		}));
+
+	const timeToMinutes = (time: { hour: number; minutes: number }) => {
+		return time.hour * 60 + time.minutes;
 	};
 
 	const isSlotSelected = (slot: Slot) => {

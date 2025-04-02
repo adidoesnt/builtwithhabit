@@ -16,10 +16,9 @@
 	import ReserveSlotsModal from './components/datePicker/ReserveSlotsModal.svelte';
 	import { goto } from '$app/navigation';
 	import Checkout from './components/checkoutPage/Checkout.svelte';
-	import type { Stripe } from '@stripe/stripe-js';
 
 	const { data }: { data: PageServerData } = $props();
-	const { package: fetchedPackage, locations: availableLocations } = data;
+	const { package: fetchedPackage, locations: availableLocations, bookings: existingBookings } = data;
 
 	let page = $state(0);
 	let postalCodeValidationInProgress = $state(false);
@@ -117,7 +116,7 @@
 				{/if}
 
 				{#if page === 1}
-					<DatePicker {fetchedPackage} />
+					<DatePicker {fetchedPackage} {existingBookings} />
 				{/if}
 
 				{#if page === 2}

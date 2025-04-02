@@ -127,3 +127,13 @@ export const getBookingsByUserId = async (userId: string) => {
 		package: result.packages
 	}));
 };
+
+// For now we only have one trainer, so we can hardcode the trainerId
+export const getAllBookings = async () => {
+	const result = await database
+		.select()
+		.from(bookings)
+		// TODO: Filter by trainerId
+
+	return result;
+};

@@ -123,6 +123,8 @@ export const locations = pgTable('locations', {
  * Contains start and end times for the session and links to the user and purchase
  * Location will be used to check distance from available locations
  */
+export type Booking = typeof bookings.$inferSelect;
+
 export const bookings = pgTable('bookings', {
 	id: serial('id').primaryKey(),
 	userId: uuid('user_id')
