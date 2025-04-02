@@ -1,6 +1,6 @@
 <script lang="ts">
 	// TODO: Add CRON job to expire unconfirmed purchases after 15 minutes
-	
+
 	import { selectedSlots, address, postalCode, setPurchaseId } from '../formState';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
@@ -20,9 +20,6 @@
 		try {
 			isLoading = true;
 			const slotDates = convertSlotsToDates($selectedSlots);
-
-			// TODO: Remove mock purchase
-			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			const response = await fetch('/purchases', {
 				method: 'POST',
