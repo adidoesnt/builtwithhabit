@@ -114,4 +114,5 @@
 
 <Packages {packages} showTestimonialsButton />
 
-<Testimonials />
+<!-- TODO: Add back after getting testimonial content -->
+<!-- <Testimonials /> -->
