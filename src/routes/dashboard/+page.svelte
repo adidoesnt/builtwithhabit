@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user } from '$lib/stores/auth';
+	import { Role, user } from '$lib/stores/auth';
 	import config from '$lib/config';
 	import DashboardIcon from '$lib/components/DashboardIcon.svelte';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
@@ -136,70 +136,75 @@
 		</div>
 
 		<!-- Recent purchases section -->
-		<div class="mt-12 rounded-lg bg-white shadow-md">
-			<div
-				class="flex items-center justify-between p-4 {isPurchasesTableExpanded ? 'border-b' : ''}"
-			>
-				<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
-				<button
-					class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
-					onclick={() => (isPurchasesTableExpanded = !isPurchasesTableExpanded)}
-					aria-label={isPurchasesTableExpanded ? 'Hide purchases' : 'Show purchases'}
+		{#if $user?.roles?.includes(Role.USER)}
+			<div class="mt-12 rounded-lg bg-white shadow-md">
+				<div
+					class="flex items-center justify-between p-4 {isPurchasesTableExpanded ? 'border-b' : ''}"
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5 transition-transform duration-200"
-						style={isPurchasesTableExpanded ? 'transform: rotate(180deg)' : ''}
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
+					<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
+					<button
+						class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+						onclick={() => (isPurchasesTableExpanded = !isPurchasesTableExpanded)}
+						aria-label={isPurchasesTableExpanded ? 'Hide purchases' : 'Show purchases'}
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M19 9l-7 7-7-7"
-						/>
-					</svg>
-				</button>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-5 w-5 transition-transform duration-200"
+							style={isPurchasesTableExpanded ? 'transform: rotate(180deg)' : ''}
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</button>
+				</div>
+				{#if typedPurchases.length === 0}
+					<div class="p-8 text-center">
+						<p class="font-body text-light-brown">No recent purchases.</p>
+					</div>
+				{:else if isPurchasesTableExpanded}
+					<div class="overflow-x-auto" transition:slide>
+						<table class="w-full border-collapse">
+							<thead class="bg-gray-50">
+								<tr>
+									<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
+									<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
+									<th class="font-body text-dark-brown border-b p-4 text-left">Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each typedPurchases as purchase, i}
+									{#if purchase.packages}
+										<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+											<td class="font-body text-dark-brown border-b p-4">{purchase.purchases.id}</td
+											>
+											<td class="font-body text-dark-brown border-b p-4"
+												>{purchase.packages.name}</td
+											>
+											<td class="font-body text-dark-brown border-b p-4">
+												<div>{formatDate(purchase.purchases.createdAt)}</div>
+												<div class="text-sm text-gray-500">
+													{formatTime(purchase.purchases.createdAt)}
+												</div>
+											</td>
+										</tr>
+									{/if}
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				{:else}
+					<div class="px-4 pb-4 text-left">
+						<p class="font-body text-light-brown">Expand the table to see your recent purchases.</p>
+					</div>
+				{/if}
 			</div>
-			{#if typedPurchases.length === 0}
-				<div class="p-8 text-center">
-					<p class="font-body text-light-brown">No recent purchases.</p>
-				</div>
-			{:else if isPurchasesTableExpanded}
-				<div class="overflow-x-auto" transition:slide>
-					<table class="w-full border-collapse">
-						<thead class="bg-gray-50">
-							<tr>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Date</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each typedPurchases as purchase, i}
-								{#if purchase.packages}
-									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td class="font-body text-dark-brown border-b p-4">{purchase.purchases.id}</td>
-										<td class="font-body text-dark-brown border-b p-4">{purchase.packages.name}</td>
-										<td class="font-body text-dark-brown border-b p-4">
-											<div>{formatDate(purchase.purchases.createdAt)}</div>
-											<div class="text-sm text-gray-500">
-												{formatTime(purchase.purchases.createdAt)}
-											</div>
-										</td>
-									</tr>
-								{/if}
-							{/each}
-						</tbody>
-					</table>
-				</div>
-			{:else}
-				<div class="px-4 pb-4 text-left">
-					<p class="font-body text-light-brown">Expand the table to see your recent purchases.</p>
-				</div>
-			{/if}
-		</div>
+		{/if}
 	</div>
 </div>

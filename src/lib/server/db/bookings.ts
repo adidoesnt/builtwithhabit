@@ -128,6 +128,30 @@ export const getBookingsByUserId = async (userId: string) => {
 	}));
 };
 
+// For now we only have one trainer, so we can hardcode the trainerId
+export const getBookingsForTrainer = async () => {
+	// TODO: Filter by trainerId
+	
+	const results = await database
+		.select()
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.leftJoin(packages, eq(purchases.packageId, packages.id))
+		.where(eq(purchases.status, PurchaseStatus.CONFIRMED))
+		.orderBy(asc(bookings.start));
+
+	return results.map((result) => ({
+		...result.bookings,
+		purchase: {
+			id: result.purchases?.id,
+			status: result.purchases?.status,
+			address: result.purchases?.address,
+			postalCode: result.purchases?.postalCode
+		},
+		package: result.packages
+	}));
+};
+
 export const getPurchasesByUserId = async (userId: string) => {
 	const results = await database
 		.select()
@@ -161,6 +185,29 @@ export const getUpcomingBookingsByUserId = async (userId: string, limit = 3) => 
 
 	return result;
 };
+
+// For now we only have one trainer, so we can hardcode the trainerId
+export const getUpcomingBookingsForTrainer = async (limit = 3) => {
+	// Limit to top 3
+	const result = await database
+		.select({
+			id: bookings.id,
+			start: bookings.start,
+			end: bookings.end,
+			purchase: {
+				id: purchases.id,
+				address: purchases.address,
+				postalCode: purchases.postalCode
+			}
+		})
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.where(gt(bookings.start, new Date()))
+		.limit(limit);
+
+	return result;
+};
+
 // For now we only have one trainer, so we can hardcode the trainerId
 export const getAllBookings = async () => {
 	const result = await database.select().from(bookings);

@@ -141,6 +141,13 @@
       "when": 1743612046579,
       "tag": "0019_fix_purchase_status_column",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1743631687846,
+      "tag": "0020_add_pk_to_roles_table",
+      "breakpoints": true
     }
   ]
 }

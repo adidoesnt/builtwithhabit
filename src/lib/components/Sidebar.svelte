@@ -15,10 +15,6 @@
 
 	const trainerLinks = $derived([
 		{
-			label: 'Bookings',
-			href: `/trainers/${$user?.id}/bookings`
-		},
-		{
 			label: 'Availability',
 			href: `/trainers/${$user?.id}/availability`
 		}
@@ -60,8 +56,6 @@
 					</a>
 				{/each}
 				{#if $user?.roles?.includes(Role.TRAINER)}
-					<hr class="my-4" />
-					<h3 class="text-lg font-bold">Trainer</h3>
 					{#each trainerLinks as link}
 						<a
 							href={link.href}

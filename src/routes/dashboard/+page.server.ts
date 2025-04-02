@@ -1,5 +1,9 @@
 import { supabase } from '$lib/server/auth';
-import { getRecentPurchasesByUserId, getUpcomingBookingsByUserId } from '$lib/server/db/bookings';
+import {
+	getRecentPurchasesByUserId,
+	getUpcomingBookingsByUserId,
+	getUpcomingBookingsForTrainer
+} from '$lib/server/db/bookings';
 import { getUserById } from '$lib/server/db/user';
 import { Role } from '$lib/stores/auth';
 import { redirect } from '@sveltejs/kit';
@@ -30,6 +34,12 @@ export const load = async ({ cookies }) => {
 		return {
 			bookings,
 			purchases
+		};
+	} else if (user.roles.includes(Role.TRAINER)) {
+		const bookings = await getUpcomingBookingsForTrainer();
+
+		return {
+			bookings
 		};
 	}
 };

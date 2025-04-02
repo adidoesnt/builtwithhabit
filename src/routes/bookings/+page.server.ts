@@ -3,7 +3,7 @@ import { getUserById } from '$lib/server/db/user.js';
 import { Role } from '$lib/stores/auth';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getBookingsByUserId } from '$lib/server/db/bookings';
+import { getBookingsByUserId, getBookingsForTrainer } from '$lib/server/db/bookings';
 
 export const load = (async ({ cookies }) => {
 	const accessToken = cookies.get('access_token');
@@ -26,6 +26,12 @@ export const load = (async ({ cookies }) => {
 
 	if (user.roles.includes(Role.USER)) {
 		const bookings = await getBookingsByUserId(user.id);
+
+		return {
+			bookings
+		};
+	} else if (user.roles.includes(Role.TRAINER)) {
+		const bookings = await getBookingsForTrainer();
 
 		return {
 			bookings

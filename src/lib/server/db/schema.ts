@@ -8,7 +8,6 @@ import {
 	integer,
 	pgEnum,
 	primaryKey,
-	boolean
 } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
@@ -48,7 +47,11 @@ export const userRoles = pgTable('user_roles', {
 		.references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' })
 		.notNull(),
 	role: rolesEnum('role').notNull()
-});
+}, (table) => [
+	primaryKey({
+		columns: [table.userId, table.role]
+	})
+]);
 
 export type Package = typeof packages.$inferSelect;
 
