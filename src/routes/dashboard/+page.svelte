@@ -10,8 +10,7 @@
 
 	const { dashboard } = config;
 	const { data }: { data: PageServerData } = $props();
-	const { bookings = [] } = data;
-	let isTableExpanded = $state(true);
+	const { bookings = [], purchases = [] } = data;
 
 	type BookingWithPurchase = {
 		id: number;
@@ -24,7 +23,30 @@
 		} | null;
 	};
 
+	type PurchaseWithPackage = {
+		purchases: {
+			id: number;
+			userId: string;
+			packageId: number;
+			status: 'confirmed' | 'unconfirmed' | 'failed';
+			createdAt: Date;
+			updatedAt: Date;
+		};
+		packages: {
+			id: number;
+			name: string;
+			sessions: number;
+			price: string;
+			expiryInDays: number;
+			description: string;
+			discount: string | null;
+		} | null;
+	};
+
 	const typedBookings = bookings as BookingWithPurchase[];
+	const typedPurchases = purchases as PurchaseWithPackage[];
+	let isTableExpanded = $state(true);
+	let isPurchasesTableExpanded = $state(true);
 </script>
 
 <div class="bg-beige min-h-screen p-8">
@@ -106,13 +128,101 @@
 						</tbody>
 					</table>
 				</div>
+			{:else}
+				<div class="text-left px-4 pb-4">
+					<p class="font-body text-light-brown">Expand the table to see your upcoming bookings.</p>
+				</div>
 			{/if}
 		</div>
 
-		<!-- TODO: Recent activity section -->
-		<div class="mt-12 rounded-lg bg-white p-6 shadow-md">
-			<h2 class="font-body text-dark-brown mb-4 text-xl font-semibold">Recent Activity</h2>
-			<p class="font-body text-light-brown">You have no recent activity.</p>
+		<!-- Recent purchases section -->
+		<div class="mt-12 rounded-lg bg-white shadow-md">
+			<div
+				class="flex items-center justify-between p-4 {isPurchasesTableExpanded ? 'border-b' : ''}"
+			>
+				<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
+				<button
+					class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+					onclick={() => (isPurchasesTableExpanded = !isPurchasesTableExpanded)}
+					aria-label={isPurchasesTableExpanded ? 'Hide purchases' : 'Show purchases'}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5 transition-transform duration-200"
+						style={isPurchasesTableExpanded ? 'transform: rotate(180deg)' : ''}
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M19 9l-7 7-7-7"
+						/>
+					</svg>
+				</button>
+			</div>
+			{#if typedPurchases.length === 0}
+				<div class="p-8 text-center">
+					<p class="font-body text-light-brown">No recent purchases.</p>
+				</div>
+			{:else if isPurchasesTableExpanded}
+				<div class="overflow-x-auto" transition:slide>
+					<table class="w-full border-collapse">
+						<thead class="bg-gray-50">
+							<tr>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Sessions</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Price</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Status</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							{#each typedPurchases as purchase, i}
+								{#if purchase.packages}
+									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+										<td class="font-body text-dark-brown border-b p-4">{purchase.purchases.id}</td>
+										<td class="font-body text-dark-brown border-b p-4">{purchase.packages.name}</td>
+										<td class="font-body text-dark-brown border-b p-4"
+											>{purchase.packages.sessions}</td
+										>
+										<td class="font-body text-dark-brown border-b p-4"
+											>${Number(purchase.packages.price).toFixed(2)}</td
+										>
+										<td class="font-body text-dark-brown border-b p-4">
+											<span
+												class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+													purchase.purchases.status === 'confirmed'
+														? 'bg-green-100 text-green-800'
+														: purchase.purchases.status === 'unconfirmed'
+															? 'bg-yellow-100 text-yellow-800'
+															: 'bg-red-100 text-red-800'
+												}`}
+											>
+												{purchase.purchases.status.charAt(0).toUpperCase() +
+													purchase.purchases.status.slice(1)}
+											</span>
+										</td>
+										<td class="font-body text-dark-brown border-b p-4">
+											<div>{formatDate(purchase.purchases.createdAt)}</div>
+											<div class="text-sm text-gray-500">
+												{formatTime(purchase.purchases.createdAt)}
+											</div>
+										</td>
+									</tr>
+								{/if}
+							{/each}
+						</tbody>
+					</table>
+				</div>
+			{:else}
+				<div class="text-left px-4 pb-4">
+					<p class="font-body text-light-brown">Expand the table to see your recent purchases.</p>
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>

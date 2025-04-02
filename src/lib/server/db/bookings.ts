@@ -163,3 +163,14 @@ export const deletePurchaseByClientSecret = async (clientSecret: string) => {
 
 	return result;
 };
+
+export const getRecentPurchasesByUserId = async (userId: string, limit = 3) => {
+	const result = await database
+		.select()
+		.from(purchases)
+		.leftJoin(packages, eq(purchases.packageId, packages.id))
+		.where(eq(purchases.userId, userId))
+		.limit(limit);
+
+	return result;
+};

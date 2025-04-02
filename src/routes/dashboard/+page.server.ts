@@ -1,5 +1,5 @@
 import { supabase } from '$lib/server/auth';
-import { getUpcomingBookingsByUserId } from '$lib/server/db/bookings';
+import { getRecentPurchasesByUserId, getUpcomingBookingsByUserId } from '$lib/server/db/bookings';
 import { getUserById } from '$lib/server/db/user';
 import { Role } from '$lib/stores/auth';
 import { redirect } from '@sveltejs/kit';
@@ -25,9 +25,11 @@ export const load = async ({ cookies }) => {
 
 	if (user.roles.includes(Role.USER)) {
 		const bookings = await getUpcomingBookingsByUserId(user.id);
+		const purchases = await getRecentPurchasesByUserId(user.id);
 
 		return {
-			bookings
+			bookings,
+			purchases
 		};
 	}
 };
