@@ -60,6 +60,9 @@ const config = {
 				link: 'https://www.instagram.com/builtwithhabit/'
 			}
 		},
+		support: {
+			email: 'admin@boh-services.com',
+		},
 		pricing: {
 			title: 'Packages',
 			plans: {

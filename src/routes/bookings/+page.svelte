@@ -5,6 +5,7 @@
 	import { formatTime } from '$lib/utils/time';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import { capitalise } from '$lib/utils/text';
+	import config from '$lib/config';
 
 	const { data }: { data: PageData } = $props();
 	const { bookings } = data;
@@ -50,8 +51,14 @@
 			</div>
 		{:else}
 			<div class="overflow-hidden rounded-lg bg-white shadow-md">
-				<div class="flex items-center justify-between border-b p-4">
+				<div class="flex items-between justify-center border-b p-4 flex-col">
 					<h2 class="font-body text-dark-brown text-xl font-semibold">Bookings</h2>
+					<p class="text-light-brown mt-2 text-sm">
+						To adjust your booking, please contact us at
+						<a href="mailto:{config.site.support.email}" class="text-dark-brown font-medium"
+							>{config.site.support.email}</a
+						>.
+					</p>
 				</div>
 				<div class="overflow-x-auto">
 					<table class="w-full border-collapse">

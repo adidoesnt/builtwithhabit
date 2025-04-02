@@ -106,7 +106,7 @@
 			<div class="border-t border-gray-200 pt-6">
 				<p class="text-center text-sm text-gray-500">
 					If you encounter any issues, please contact our support team at <span
-						class="text-dark-brown font-medium">{config.site.contact.email}</span
+						class="text-dark-brown font-medium">{config.site.support.email}</span
 					>
 				</p>
 			</div>
