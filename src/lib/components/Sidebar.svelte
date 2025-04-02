@@ -13,6 +13,10 @@
 		isOpen = !isOpen;
 	};
 
+	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
+
+	let links = $derived(isTrainer ? navBar.links.filter((link) => link.href !== '/packages') : navBar.links);
+
 	const trainerLinks = $derived([
 		{
 			label: 'Availability',
@@ -46,7 +50,7 @@
 			</div>
 			<h2 class="font-headings mb-4 text-4xl font-bold">{navBar.title}</h2>
 			<nav class="font-body flex flex-col">
-				{#each navBar.links as link}
+				{#each links as link}
 					<a
 						href={link.href}
 						class={`py-2 transition-colors ${currentPath === link.href ? 'underline hover:opacity-100' : ''} transition-opacity duration-300 hover:opacity-80`}

@@ -11,6 +11,7 @@
 	const { dashboard } = config;
 	const { data }: { data: PageServerData } = $props();
 	const { bookings = [], purchases = [] } = data;
+	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
 	type BookingWithPurchase = {
 		id: number;
@@ -20,6 +21,11 @@
 			id: number;
 			address: string;
 			postalCode: string;
+		} | null;
+		user: {
+			id: string;
+			firstName: string;
+			lastName: string;
 		} | null;
 	};
 
@@ -47,6 +53,12 @@
 	const typedPurchases = purchases as PurchaseWithPackage[];
 	let isTableExpanded = $state(true);
 	let isPurchasesTableExpanded = $state(true);
+
+	let icons = $derived(
+		$user?.roles?.includes(Role.TRAINER)
+			? [dashboard.icons[1], dashboard.icons[3]]
+			: dashboard.icons
+	);
 </script>
 
 <div class="bg-beige min-h-screen p-8">
@@ -60,8 +72,8 @@
 			<p class="font-body text-light-brown mt-2">What would you like to do today?</p>
 		</div>
 
-		<div class="grid grid-cols-2 gap-6 gap-y-10 md:grid-cols-4 md:gap-y-6">
-			{#each dashboard.icons as icon}
+		<div class={`grid grid-cols-2 gap-6 gap-y-10 md:grid-cols-${icons.length} md:gap-y-6`}>
+			{#each icons as icon}
 				<DashboardIcon
 					name={icon.name}
 					icon={icon.icon}
@@ -108,6 +120,9 @@
 						<thead class="bg-gray-50">
 							<tr>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Booking ID</th>
+								{#if isTrainer}
+									<th class="font-body text-dark-brown border-b p-4 text-left">Client</th>
+								{/if}
 								<th class="font-body text-dark-brown border-b p-4 text-left">Time</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Location</th>
 							</tr>
@@ -116,6 +131,11 @@
 							{#each typedBookings as booking, i}
 								<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 									<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
+									{#if isTrainer}
+										<td class="font-body text-dark-brown border-b p-4">
+											{booking.user?.firstName} {booking.user?.lastName}
+										</td>
+									{/if}
 									<td class="font-body text-dark-brown border-b p-4">
 										<div>{formatDate(booking.start)}</div>
 										<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>

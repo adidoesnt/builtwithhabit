@@ -1,5 +1,5 @@
 import { database } from '.';
-import { bookings, packages, purchases, PurchaseStatus } from '$lib/server/db/schema';
+import { bookings, packages, purchases, PurchaseStatus, users } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
 import { and, asc, eq, gt } from 'drizzle-orm';
 
@@ -131,12 +131,13 @@ export const getBookingsByUserId = async (userId: string) => {
 // For now we only have one trainer, so we can hardcode the trainerId
 export const getBookingsForTrainer = async () => {
 	// TODO: Filter by trainerId
-	
+
 	const results = await database
 		.select()
 		.from(bookings)
 		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
 		.leftJoin(packages, eq(purchases.packageId, packages.id))
+		.leftJoin(users, eq(purchases.userId, users.id))
 		.where(eq(purchases.status, PurchaseStatus.CONFIRMED))
 		.orderBy(asc(bookings.start));
 
@@ -147,6 +148,12 @@ export const getBookingsForTrainer = async () => {
 			status: result.purchases?.status,
 			address: result.purchases?.address,
 			postalCode: result.purchases?.postalCode
+		},
+		user: {
+			id: result.users?.id,
+			firstName: result.users?.firstName,
+			lastName: result.users?.lastName,
+			email: result.users?.email
 		},
 		package: result.packages
 	}));
@@ -198,10 +205,16 @@ export const getUpcomingBookingsForTrainer = async (limit = 3) => {
 				id: purchases.id,
 				address: purchases.address,
 				postalCode: purchases.postalCode
+			},
+			user: {
+				id: users.id,
+				firstName: users.firstName,
+				lastName: users.lastName
 			}
 		})
 		.from(bookings)
 		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.leftJoin(users, eq(purchases.userId, users.id))
 		.where(gt(bookings.start, new Date()))
 		.limit(limit);
 

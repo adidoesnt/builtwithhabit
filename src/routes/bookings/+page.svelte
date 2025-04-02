@@ -6,9 +6,12 @@
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import { capitalise } from '$lib/utils/text';
 	import config from '$lib/config';
+	import { Role, user } from '$lib/stores/auth';
 
 	const { data }: { data: PageData } = $props();
 	const { bookings } = data;
+
+	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
 	const getStatusColor = (status: PurchaseStatus) => {
 		switch (status) {
@@ -19,6 +22,14 @@
 			default:
 				return 'bg-yellow-100 text-yellow-800';
 		}
+	};
+
+	type BookingWithUser = {
+		id: number;
+		user: {
+			firstName: string;
+			lastName: string;
+		};
 	};
 </script>
 
@@ -51,7 +62,7 @@
 			</div>
 		{:else}
 			<div class="overflow-hidden rounded-lg bg-white shadow-md">
-				<div class="flex items-between justify-center border-b p-4 flex-col">
+				<div class="items-between flex flex-col justify-center border-b p-4">
 					<h2 class="font-body text-dark-brown text-xl font-semibold">Bookings</h2>
 					<p class="text-light-brown mt-2 text-sm">
 						To adjust your booking, please contact us at
@@ -66,6 +77,9 @@
 							<tr>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Booking ID</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
+								{#if isTrainer}
+									<th class="font-body text-dark-brown border-b p-4 text-left">Client</th>
+								{/if}
 								<th class="font-body text-dark-brown border-b p-4 text-left">Date & Time</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Location</th>
@@ -77,6 +91,12 @@
 								<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 									<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
 									<td class="font-body text-dark-brown border-b p-4">{booking.purchase!.id}</td>
+									{#if isTrainer}
+										<td class="font-body text-dark-brown border-b p-4">
+											{(booking as unknown as BookingWithUser).user?.firstName}
+											{(booking as unknown as BookingWithUser).user?.lastName}
+										</td>
+									{/if}
 									<td class="font-body text-dark-brown border-b p-4">
 										<div>{formatDate(booking.start)}</div>
 										<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>
