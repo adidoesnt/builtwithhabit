@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { loadStripe } from '@stripe/stripe-js';
+	import { loadStripe, type Stripe, type StripeElements, type StripePaymentElement } from '@stripe/stripe-js';
 	import type { Package } from '$lib/server/db/schema';
 	import { PUBLIC_STRIPE_KEY } from '$env/static/public';
 	import Summary from './Summary.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
+	import { goto } from '$app/navigation';
 
 	const { package: fetchedPackage }: { package: Package } = $props();
 	const price = parseFloat(fetchedPackage.price);
@@ -11,12 +12,13 @@
 	const amount = Math.round((price - discount) * 100);
 
 	let isLoading = $state(false);
-	let stripe: any = $state(null);
-	let elements: any = $state(null);
-	let paymentElement: any = $state(null);
+	let stripe: Stripe | null = $state(null);
+	let elements: StripeElements | null = $state(null);
+	let paymentElement: StripePaymentElement | null = $state(null);
 	let paymentElementContainer: HTMLElement | null = $state(null);
 	let isMounted = $state(false);
 	let isSubmitting = $state(false);
+	let redirectUrl = $state('');
 
 	const fetchClientSecret = async () => {
 		const result = await fetch('/payment-intent', {
@@ -42,6 +44,8 @@
 			const stripeInstance = await loadStripe(PUBLIC_STRIPE_KEY);
 			stripe = stripeInstance;
 			const clientSecret = await fetchClientSecret();
+			const id = clientSecret.split('_')[1];
+			redirectUrl = `/payment-intent/${id}`;
 
 			if (stripe && clientSecret) {
 				elements = stripe.elements({
@@ -103,12 +107,14 @@
 			console.log('Confirming payment...');
 			const { error } = await stripe.confirmPayment({
 				elements,
+                redirect: 'if_required',
 				confirmParams: {
-					return_url: window.location.origin + '/payment/success'
+					return_url: window.location.origin + redirectUrl
 				}
 			});
 
 			if (error) throw error;
+			goto('/dashboard');
 		} catch (e) {
 			console.error('Payment error:', e);
 		} finally {
@@ -136,7 +142,7 @@
 
 		<button
 			type="submit"
-			class="bg-dark-brown hover:bg-brown mt-4 flex w-full items-center justify-center gap-2 rounded px-4 py-2 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-body"
+			class="bg-dark-brown hover:bg-brown font-body mt-4 flex w-full items-center justify-center gap-2 rounded px-4 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
 			disabled={isLoading || isSubmitting}
 		>
 			{#if isSubmitting}
