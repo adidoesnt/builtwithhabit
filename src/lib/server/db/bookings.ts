@@ -1,7 +1,7 @@
 import { database } from '.';
 import { bookings, packages, purchases, PurchaseStatus } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
-import { and, asc, eq } from 'drizzle-orm';
+import { and, asc, eq, gt } from 'drizzle-orm';
 
 const getTimes = (slot: Date | string) => {
 	const start = new Date(slot);
@@ -128,12 +128,30 @@ export const getBookingsByUserId = async (userId: string) => {
 	}));
 };
 
+export const getUpcomingBookingsByUserId = async (userId: string, limit = 3) => {
+	// Limit to top 3
+	const result = await database
+		.select({
+			id: bookings.id,
+			start: bookings.start,
+			end: bookings.end,
+			purchase: {
+				id: purchases.id,
+				address: purchases.address,
+				postalCode: purchases.postalCode
+			}
+		})
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.where(and(eq(bookings.userId, userId), gt(bookings.start, new Date())))
+		.limit(limit);
+
+	return result;
+};
 // For now we only have one trainer, so we can hardcode the trainerId
 export const getAllBookings = async () => {
-	const result = await database
-		.select()
-		.from(bookings)
-		// TODO: Filter by trainerId
+	const result = await database.select().from(bookings);
+	// TODO: Filter by trainerId
 
 	return result;
 };
