@@ -18,6 +18,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const isAuthenticatedRoute = getIsAuthenticatedRoute(event.url.pathname);
 	const isLandingPage = isLandingPageRoute(event.url.pathname);
 	const isPackageBookingRoute = getIsPackageBookingRoute(event.url.pathname);
+	const isPaymentIntentWebhookRoute = event.url.pathname.includes('/payment-intent/webhook');
+
+	if (isPaymentIntentWebhookRoute) {
+		return resolve(event);
+	}
+
 	if (accessToken) {
 		const { data, error } = await supabase.auth.getUser(accessToken);
 

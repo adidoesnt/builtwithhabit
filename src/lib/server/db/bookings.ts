@@ -63,3 +63,29 @@ export const updatePaymentIntentClientSecret = async (
 		.set({ paymentIntentClientSecret })
 		.where(eq(purchases.id, purchaseId));
 };
+
+export const confirmPurchaseStatus = async (paymentIntentClientSecret: string) => {
+	try {
+		console.log(
+			'Attempting to update purchase status for client secret:',
+			paymentIntentClientSecret
+		);
+		const result = await database
+			.update(purchases)
+			.set({ confirmed: true })
+			.where(eq(purchases.paymentIntentClientSecret, paymentIntentClientSecret))
+			.returning();
+
+		console.log('Update result:', result);
+
+		if (!result || result.length === 0) {
+			console.error('No purchase found for client secret:', paymentIntentClientSecret);
+			throw new Error('No purchase found for the given client secret');
+		}
+
+		return result[0];
+	} catch (error) {
+		console.error('Error updating purchase status:', error);
+		throw error;
+	}
+};
