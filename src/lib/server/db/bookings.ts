@@ -1,5 +1,5 @@
 import { database } from '.';
-import { bookings, purchases } from '$lib/server/db/schema';
+import { bookings, purchases, PurchaseStatus } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
 import { eq } from 'drizzle-orm';
 
@@ -64,7 +64,7 @@ export const updatePaymentIntentClientSecret = async (
 		.where(eq(purchases.id, purchaseId));
 };
 
-export const confirmPurchaseStatus = async (paymentIntentClientSecret: string) => {
+export const updatePurchaseStatus = async (paymentIntentClientSecret: string, status: PurchaseStatus) => {
 	try {
 		console.log(
 			'Attempting to update purchase status for client secret:',
@@ -72,7 +72,7 @@ export const confirmPurchaseStatus = async (paymentIntentClientSecret: string) =
 		);
 		const result = await database
 			.update(purchases)
-			.set({ confirmed: true })
+			.set({ status })
 			.where(eq(purchases.paymentIntentClientSecret, paymentIntentClientSecret))
 			.returning();
 
@@ -101,5 +101,5 @@ export const getPurchaseStatusByClientSecret = async (clientSecret: string) => {
 		throw new Error('No purchase found for the given client secret');
 	}
 
-	return purchase.confirmed;
+	return purchase.status;
 };

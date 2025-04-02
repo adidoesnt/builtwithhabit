@@ -127,6 +127,20 @@
       "when": 1743608280966,
       "tag": "0017_add payment intent client secret to purchases",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1743611760255,
+      "tag": "0018_change_purchase_status_to_enum",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1743612046579,
+      "tag": "0019_fix_purchase_status_column",
+      "breakpoints": true
     }
   ]
 }

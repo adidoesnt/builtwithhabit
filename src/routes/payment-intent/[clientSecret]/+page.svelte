@@ -2,21 +2,25 @@
 	import type { PageServerData } from './$types';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import config from '$lib/config';
-
+	import { PurchaseStatus } from '../types';
 	const { data }: { data: PageServerData } = $props();
 	const { clientSecret } = data;
 
 	let isSuccess = $state(false);
+	let isFailed = $state(false);
 
 	$effect(() => {
 		const interval = setInterval(() => {
 			fetch(`/payment-intent/${clientSecret}/status`)
 				.then((res) => res.json())
 				.then((data) => {
-					const { confirmed } = data;
-					if (confirmed) {
+					const { status } = data;
+					if (status === PurchaseStatus.CONFIRMED) {
 						clearInterval(interval);
 						isSuccess = true;
+					} else if (status === PurchaseStatus.FAILED) {
+						clearInterval(interval);
+						isFailed = true;
 					}
 				});
 		}, 5000);
@@ -55,6 +59,30 @@
 
 				<p class="mb-8 text-center text-lg text-gray-700">
 					Your payment has been processed successfully. You may now close this window.
+				</p>
+			{:else if isFailed}
+				<div class="flex justify-center p-8">
+					<svg class="h-16 w-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
+				</div>
+
+				<div class="flex flex-col">
+					<h1 class="text-dark-brown text-center text-3xl font-bold">Payment Failed</h1>
+					<p class="text-center text-lg text-gray-700">
+						<span class="font-bold">Payment ID:</span>
+						{clientSecret}
+					</p>
+				</div>
+
+				<p class="mb-8 text-center text-lg text-gray-700">
+					We were unable to process your payment. Please try again or contact our support team for
+					assistance.
 				</p>
 			{:else}
 				<div class="flex justify-center p-8">

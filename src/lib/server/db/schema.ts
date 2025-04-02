@@ -7,8 +7,6 @@ import {
 	uuid,
 	integer,
 	pgEnum,
-	date,
-	uniqueIndex,
 	primaryKey,
 	boolean
 } from 'drizzle-orm/pg-core';
@@ -70,6 +68,18 @@ export const packages = pgTable('packages', {
 	discount: decimal('discount', { precision: 10, scale: 2 }).default('0.00')
 });
 
+export enum PurchaseStatus {
+	CONFIRMED = 'confirmed',
+	UNCONFIRMED = 'unconfirmed',
+	FAILED = 'failed'
+}
+
+export const purchaseStatusEnum = pgEnum('purchase_status', [
+	PurchaseStatus.CONFIRMED,
+	PurchaseStatus.UNCONFIRMED,
+	PurchaseStatus.FAILED
+]);
+
 /**
  * Purchases table - tracks package purchases by users
  *
@@ -89,7 +99,7 @@ export const purchases = pgTable('purchases', {
 		.notNull(),
 	address: text('address').notNull(),
 	postalCode: text('postal_code').notNull(),
-	confirmed: boolean('confirmed').notNull().default(false),
+	status: purchaseStatusEnum('status').notNull().default(PurchaseStatus.UNCONFIRMED),
 	paymentIntentClientSecret: text('payment_intent_client_secret'),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()

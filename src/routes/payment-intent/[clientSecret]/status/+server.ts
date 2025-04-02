@@ -24,7 +24,7 @@ export async function GET({ params, cookies }) {
 
 	const { clientSecret } = params;
 
-	const confirmed = await getPurchaseStatusByClientSecret(clientSecret);
+	const status = await getPurchaseStatusByClientSecret(clientSecret);
 
-	return json({ confirmed });
+	return json({ status });
 }
