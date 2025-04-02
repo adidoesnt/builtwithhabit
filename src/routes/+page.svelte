@@ -1,6 +1,7 @@
 <script lang="ts">
 	// TODO: Add/change to server-side pagination for all tables
 	// TODO: test RBAC for all pages and routes
+	// TODO: Overall aesthetic tightening
 
 	import { goto } from '$app/navigation';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';

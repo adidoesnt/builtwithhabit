@@ -64,12 +64,14 @@
 			<div class="overflow-hidden rounded-lg bg-white shadow-md">
 				<div class="items-between flex flex-col justify-center border-b p-4">
 					<h2 class="font-body text-dark-brown text-xl font-semibold">Bookings</h2>
-					<p class="text-light-brown mt-2 text-sm">
-						To adjust your booking, please contact us at
-						<a href="mailto:{config.site.support.email}" class="text-dark-brown font-medium"
-							>{config.site.support.email}</a
-						>.
-					</p>
+					{#if !isTrainer}
+						<p class="text-light-brown mt-2 text-sm">
+							To adjust your booking, please contact us at
+							<a href="mailto:{config.site.support.email}" class="text-dark-brown font-medium"
+								>{config.site.support.email}</a
+							>.
+						</p>
+					{/if}
 				</div>
 				<div class="overflow-x-auto">
 					<table class="w-full border-collapse">
