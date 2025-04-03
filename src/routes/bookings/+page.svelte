@@ -184,7 +184,7 @@
 			</div>
 
 			<div class="mt-4 flex items-center justify-between rounded-lg bg-white p-4 shadow-md">
-				<div class="flex items-center gap-2">
+				<div class="hidden items-center gap-2 md:flex">
 					<label for="itemsPerPage" class="text-sm text-gray-700">Items per page:</label>
 					<select
 						id="itemsPerPage"
@@ -197,7 +197,7 @@
 					</select>
 				</div>
 
-				<div class="flex items-center gap-2">
+				<div class="flex w-full items-center justify-center gap-2 md:w-auto">
 					<button
 						class="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
 						disabled={page === 0}
