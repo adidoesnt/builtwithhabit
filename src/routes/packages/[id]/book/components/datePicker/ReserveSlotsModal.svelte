@@ -55,7 +55,7 @@
 		>
 			<h1 class="font-body text-dark-brown text-2xl font-bold">Disclaimer</h1>
 			<hr class="border-dark-brown w-full" />
-			<p class="font-body text-dark-brown">
+			<p class="font-body text-dark-brown md:text-left text-center">
 				Please note that by clicking next, you are reserving the selected slot(s). In case of
 				failure to make payment within 15 minutes, the slot(s) will be released.
 			</p>
