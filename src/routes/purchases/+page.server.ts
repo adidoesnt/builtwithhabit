@@ -9,19 +9,19 @@ export const load = (async ({ cookies }) => {
 	const accessToken = cookies.get('access_token');
 
 	if (!accessToken) {
-		throw redirect(303, '/login');
+		throw redirect(302, '/login');
 	}
 
 	const authUser = await supabase.auth.getUser(accessToken);
 
 	if (!authUser.data.user) {
-		throw redirect(303, '/login');
+		throw redirect(302, '/login');
 	}
 
 	const user = await getUserById(authUser.data.user.id);
 
 	if (!user) {
-		throw redirect(303, '/login');
+		throw redirect(302, '/login');
 	}
 
 	if (user.roles.includes(Role.USER)) {
@@ -32,5 +32,5 @@ export const load = (async ({ cookies }) => {
 		};
 	}
 
-	throw redirect(303, '/');
+	throw redirect(302, '/');
 }) satisfies PageServerLoad;
