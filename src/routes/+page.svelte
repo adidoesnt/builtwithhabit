@@ -56,7 +56,7 @@
 <section id="about" class="w-full md:h-[100dvh]">
 	<div id="contact" class="h-full w-full md:grid md:grid-cols-2 md:grid-rows-1">
 		<div
-			class="bg-light-green flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
+			class="bg-light-green h-[100dvh] md:h-fit flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
 		>
 			<img
 				src={contact.image}
