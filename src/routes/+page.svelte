@@ -54,9 +54,9 @@
 </section>
 
 <section id="about" class="w-full md:h-[100dvh] min-h-fit">
-	<div id="contact" class="h-full w-full min-h-fit md:grid md:grid-cols-2 md:grid-rows-1">
+	<div id="contact" class="h-fit w-full min-h-[100dvh] md:grid md:grid-cols-2 md:grid-rows-1">
 		<div
-			class="bg-light-green h-[100dvh] min-h-fit md:h-fit flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
+			class="bg-light-green min-h-[100dvh] h-fit flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
 		>
 			<img
 				src={contact.image}
@@ -97,7 +97,7 @@
 		</div>
 		<div
 			id="mission"
-			class="bg-beige flex h-[100dvh] min-h-fit w-full flex-col justify-center gap-6 p-8 md:h-auto md:gap-8 md:p-24"
+			class="bg-beige flex h-fit min-h-[100dvh] w-full flex-col justify-center gap-6 p-8 md:h-auto md:gap-8 md:p-24"
 		>
 			<div class="flex flex-col">
 				{#each mission.title as title}
