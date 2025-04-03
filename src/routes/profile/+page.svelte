@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div class="bg-beige min-h-screen p-8">
+<div class="bg-beige min-h-[100dvh] p-8">
 	<div class="mx-auto max-w-4xl">
 		<LogoHeader />
 

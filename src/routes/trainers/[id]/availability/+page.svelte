@@ -10,7 +10,7 @@
 </script>
 
 {#if $user?.roles.includes(Role.TRAINER)}
-	<div class="bg-beige font-body min-h-screen p-8">
+	<div class="bg-beige font-body min-h-[100dvh] p-8">
 		<div class="mx-auto max-w-4xl">
 			<LogoHeader />
 

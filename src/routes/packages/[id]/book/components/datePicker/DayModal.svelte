@@ -206,7 +206,7 @@
 		class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center shadow-2xl backdrop-blur-2xl"
 	>
 		<div
-			class="flex h-screen w-screen flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 md:h-fit md:max-h-[90vh] md:w-fit"
+			class="flex h-[100dvh] w-screen flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 md:h-fit md:max-h-[90vh] md:w-fit"
 		>
 			<div class="flex w-full justify-end">
 				<button
