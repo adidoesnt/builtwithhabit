@@ -6,7 +6,7 @@ _A **beingsofhabit** venture_.
 
 ## Overview
 
-This project is a booking portal for **builtwithhabit**, a platform that provides fitness and nutrition coaching.
+This project is a booking portal for **builtwithhabit**, a platform that provides fitness and nutrition coaching. You can find the live site [here](https://build.beingsofhabit.com).
 
 The platform aims to feature user authentication, a user and admin dashboards and a bookings page complete with payment integration.
 
@@ -48,10 +48,14 @@ Install the dependencies:
 bun install
 ```
 
-Run the development server:
+Run the development server and listen on Stripe events:
 
 ```bash
 bun run dev
+bun run stripe:listen
+
+# Or, if one liners are your thing
+bun run start
 ```
 
 Go to [http://localhost:5173](http://localhost:5173) to view the application.
