@@ -4,16 +4,21 @@
 	import { formatDate } from '$lib/utils/date';
 	import { formatTime } from '$lib/utils/time';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { capitalise } from '$lib/utils/text';
 	import config from '$lib/config';
 	import { Role, user } from '$lib/stores/auth';
 
 	const { data }: { data: PageData } = $props();
-	const { bookings: { items, total } } = data;
+	const {
+		bookings: { items, total }
+	} = data;
+	let bookings = $state(items);
 
 	let page = $state(0);
 	let itemsPerPage = $state(5);
 	const totalPages = $derived(Math.ceil(total / itemsPerPage));
+	let isLoading = $state(false);
 
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
@@ -66,6 +71,18 @@
 			lastName: string;
 		};
 	};
+
+	$effect(() => {
+		isLoading = true;
+		fetch(`/bookings?page=${page}&pageSize=${itemsPerPage}`)
+			.then((res) => res.json())
+			.then((data) => {
+				bookings = data.items;
+			})
+			.finally(() => {
+				isLoading = false;
+			});
+	});
 </script>
 
 <div class="bg-beige font-body text-dark-brown min-h-screen p-4 md:p-8">
@@ -77,7 +94,7 @@
 			<p class="text-light-brown mt-2 text-sm">View and manage your package bookings.</p>
 		</div>
 
-		{#if items.length === 0}
+		{#if bookings.length === 0}
 			<div class="mt-8 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
 				<svg
 					class="mx-auto h-12 w-12 text-gray-400"
@@ -124,35 +141,43 @@
 							</tr>
 						</thead>
 						<tbody>
-							{#each items as booking, i}
-								<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-									<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
-									<td class="font-body text-dark-brown border-b p-4">{booking.purchase!.id}</td>
-									{#if isTrainer}
-										<td class="font-body text-dark-brown border-b p-4">
-											{(booking as unknown as BookingWithUser).user?.firstName}
-											{(booking as unknown as BookingWithUser).user?.lastName}
-										</td>
-									{/if}
-									<td class="font-body text-dark-brown border-b p-4">
-										<div>{formatDate(booking.start)}</div>
-										<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>
-									</td>
-									<td class="font-body text-dark-brown border-b p-4">{booking.package!.name}</td>
-									<td class="font-body text-dark-brown border-b p-4">
-										{booking.purchase!.address}, {booking.purchase!.postalCode}
-									</td>
-									<td class="font-body text-dark-brown border-b p-4">
-										<span
-											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getStatusColor(
-												booking.purchase!.status!
-											)}"
-										>
-											{capitalise(booking.purchase!.status!)}
-										</span>
+							{#if isLoading}
+								<tr>
+									<td colspan={isTrainer ? 7 : 6} class="border-b p-8 text-center">
+										<LoadingSpinner size="48px" color="var(--color-dark-brown)" />
 									</td>
 								</tr>
-							{/each}
+							{:else}
+								{#each bookings as booking, i}
+									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+										<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
+										<td class="font-body text-dark-brown border-b p-4">{booking.purchase!.id}</td>
+										{#if isTrainer}
+											<td class="font-body text-dark-brown border-b p-4">
+												{(booking as unknown as BookingWithUser).user?.firstName}
+												{(booking as unknown as BookingWithUser).user?.lastName}
+											</td>
+										{/if}
+										<td class="font-body text-dark-brown border-b p-4">
+											<div>{formatDate(booking.start)}</div>
+											<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>
+										</td>
+										<td class="font-body text-dark-brown border-b p-4">{booking.package!.name}</td>
+										<td class="font-body text-dark-brown border-b p-4">
+											{booking.purchase!.address}, {booking.purchase!.postalCode}
+										</td>
+										<td class="font-body text-dark-brown border-b p-4">
+											<span
+												class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getStatusColor(
+													booking.purchase!.status!
+												)}"
+											>
+												{capitalise(booking.purchase!.status!)}
+											</span>
+										</td>
+									</tr>
+								{/each}
+							{/if}
 						</tbody>
 					</table>
 				</div>

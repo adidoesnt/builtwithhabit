@@ -5,7 +5,10 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { getBookingsByUserId, getBookingsForTrainer } from '$lib/server/db/bookings';
 
-export const load = (async ({ cookies }) => {
+export const load = (async ({ cookies, url }) => {
+	const page = url.searchParams.get('page') || '0';
+	const pageSize = url.searchParams.get('pageSize') || '5';
+
 	const accessToken = cookies.get('access_token');
 
 	if (!accessToken) {
@@ -25,7 +28,10 @@ export const load = (async ({ cookies }) => {
 	}
 
 	if (user.roles.includes(Role.USER)) {
-		const bookings = await getBookingsByUserId(user.id);
+		const bookings = await getBookingsByUserId(user.id, {
+			page: parseInt(page),
+			pageSize: parseInt(pageSize)
+		});
 
 		return {
 			bookings
