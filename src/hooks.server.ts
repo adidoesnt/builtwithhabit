@@ -24,18 +24,31 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return resolve(event);
 	}
 
-	if (accessToken) {
-		const { data, error } = await supabase.auth.getUser(accessToken);
+	try {
+		if (accessToken) {
+			const { data, error } = await supabase.auth.getUser(accessToken);
 
-		if (error) throw error;
+			if (error) {
+				event.cookies.delete('access_token', { path: '/' });
+				if (isAuthenticatedRoute) {
+					redirect(303, '/login');
+				}
+				return resolve(event);
+			}
 
-		if (data.user && !isAuthenticatedRoute && !isLandingPage) {
-			redirect(303, '/dashboard');
+			if (data.user && !isAuthenticatedRoute && !isLandingPage) {
+				redirect(303, '/dashboard');
+			}
+		} else if (isPackageBookingRoute) {
+			redirect(303, '/signup');
+		} else if (isAuthenticatedRoute) {
+			redirect(303, '/login');
 		}
-	} else if (isPackageBookingRoute) {
-		redirect(303, '/signup');
-	} else if (isAuthenticatedRoute) {
-		redirect(303, '/login');
+	} catch (error) {
+		console.error('Auth error:', error);
+		if (isAuthenticatedRoute) {
+			redirect(303, '/login');
+		}
 	}
 
 	return resolve(event);

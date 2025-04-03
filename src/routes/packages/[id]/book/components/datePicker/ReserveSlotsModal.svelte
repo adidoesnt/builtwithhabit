@@ -1,6 +1,4 @@
 <script lang="ts">
-	// TODO: Add CRON job to expire unconfirmed purchases after 15 minutes
-
 	import { selectedSlots, address, postalCode, setPurchaseId } from '../formState';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
