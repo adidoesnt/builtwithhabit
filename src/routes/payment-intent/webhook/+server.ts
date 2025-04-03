@@ -2,10 +2,32 @@ import { deletePurchaseByClientSecret, updatePurchaseStatus } from '$lib/server/
 import type { PaymentIntent } from '@stripe/stripe-js';
 import { json } from '@sveltejs/kit';
 import { WebhookEvent, PurchaseStatus } from '../types';
+import stripe from '$lib/server/stripe';
+import { env } from '$env/dynamic/private';
+
+const { STRIPE_WEBHOOK_SECRET } = env;
+
+if (!STRIPE_WEBHOOK_SECRET) {
+	throw new Error('STRIPE_WEBHOOK_SECRET is not set');
+}
 
 export const POST = async ({ request }) => {
 	try {
-		const event = await request.json();
+		const signature = request.headers.get('stripe-signature');
+		if (!signature) {
+			return json({ error: 'No signature found' }, { status: 400 });
+		}
+
+		const body = await request.text();
+		let event;
+
+		try {
+			event = stripe.webhooks.constructEvent(body, signature, STRIPE_WEBHOOK_SECRET);
+		} catch (err) {
+			console.error('Webhook signature verification failed:', err);
+			return json({ error: 'Invalid signature' }, { status: 400 });
+		}
+
 		console.log('Received webhook event:', event.type);
 
 		let paymentIntent: PaymentIntent | null = null;
