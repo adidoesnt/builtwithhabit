@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { Role, type User } from '$lib/stores/auth';
+	import { Role } from '$lib/stores/auth';
+	import type { UserWithRoles } from '$lib/server/db/user';
 	import { z } from 'zod';
 
 	const {
 		user,
 		closeModal
 	}: {
-		user: User;
+		user: UserWithRoles;
 		closeModal: () => void;
 	} = $props();
 

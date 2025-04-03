@@ -27,9 +27,9 @@ export const load = (async ({ cookies }) => {
 		throw redirect(302, '/');
 	}
 
-	const users: User[] = await getAllUsers();
+	const users = await getAllUsers();
 	const usersWithVerificationStatus = await Promise.all(
-		users.map(async (user) => {
+		users.items.map(async (user) => {
 			const result = await supabaseAdmin.getUserById(user.id);
 			const {
 				data: { user: authUser },
@@ -50,6 +50,7 @@ export const load = (async ({ cookies }) => {
 	);
 
 	return {
-		users: usersWithVerificationStatus
+		users: usersWithVerificationStatus,
+		total: users.total
 	};
 }) satisfies PageServerLoad;

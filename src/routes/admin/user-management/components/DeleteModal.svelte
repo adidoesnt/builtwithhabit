@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { User } from '$lib/stores/auth';
+	import type { UserWithRoles } from '$lib/server/db/user';
 
 	const {
 		user,
 		closeModal
 	}: {
-		user: User;
+		user: UserWithRoles;
 		closeModal: () => void;
 	} = $props();
 
