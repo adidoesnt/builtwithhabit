@@ -31,7 +31,7 @@
 </script>
 
 <section
-	class="relative flex h-screen w-full flex-col items-center justify-center bg-[url(/hut-with-mountains-3.jpg)] bg-cover bg-center backdrop-blur-sm"
+	class="relative flex h-[100dvh] w-full flex-col items-center justify-center bg-[url(/hut-with-mountains-3.jpg)] bg-cover bg-center backdrop-blur-sm"
 >
 	<div class="absolute inset-0 backdrop-blur-sm"></div>
 	<button
@@ -53,7 +53,7 @@
 	</button>
 </section>
 
-<section id="about" class="w-full md:h-screen">
+<section id="about" class="w-full md:h-[100dvh]">
 	<div id="contact" class="h-full w-full md:grid md:grid-cols-2 md:grid-rows-1">
 		<div
 			class="bg-light-green flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
@@ -97,7 +97,7 @@
 		</div>
 		<div
 			id="mission"
-			class="bg-beige flex h-screen w-full flex-col justify-center gap-6 p-8 md:h-auto md:gap-8 md:p-24"
+			class="bg-beige flex h-[100dvh] w-full flex-col justify-center gap-6 p-8 md:h-auto md:gap-8 md:p-24"
 		>
 			<div class="flex flex-col">
 				{#each mission.title as title}

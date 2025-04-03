@@ -21,7 +21,7 @@
 	};
 </script>
 
-<div class="bg-beige font-body text-dark-brown min-h-screen p-4 md:p-8">
+<div class="bg-beige font-body text-dark-brown min-h-[100dvh] p-4 md:p-8">
 	<div class="mx-auto max-w-6xl">
 		<LogoHeader />
 

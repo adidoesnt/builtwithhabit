@@ -7,7 +7,7 @@
 	let users = $derived(data.users ?? []);
 </script>
 
-<div class="bg-beige min-h-screen p-4 md:p-8">
+<div class="bg-beige min-h-[100dvh] p-4 md:p-8">
 	<div class="mx-auto max-w-6xl">
 		<LogoHeader />
 

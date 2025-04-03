@@ -49,7 +49,7 @@
 </script>
 
 {#if isOpen}
-	<div class="fixed z-50 m-0 flex h-screen w-screen items-center justify-center backdrop-blur-xl">
+	<div class="fixed z-50 m-0 flex h-[100dvh] w-screen items-center justify-center backdrop-blur-xl">
 		<div
 			class="flex max-w-[50dvw] flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-xl"
 		>

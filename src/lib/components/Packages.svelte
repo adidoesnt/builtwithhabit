@@ -97,7 +97,7 @@
 
 <section
 	id="pricing"
-	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-screen flex-col items-center justify-center gap-8 px-8 py-16`}
+	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-[100dvh] flex-col items-center justify-center gap-8 px-8 py-16`}
 >
 	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
 		{pricing.title}

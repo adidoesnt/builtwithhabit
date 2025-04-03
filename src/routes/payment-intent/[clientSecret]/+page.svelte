@@ -29,7 +29,7 @@
 	});
 </script>
 
-<div class="bg-beige font-body flex h-screen w-screen items-center justify-center px-4 py-8">
+<div class="bg-beige font-body flex h-[100dvh] w-screen items-center justify-center px-4 py-8">
 	<div class="flex flex-col items-center justify-center">
 		<div class="flex w-fit flex-col gap-4 rounded-lg border border-gray-100 bg-white p-8 shadow-lg">
 			{#if isSuccess}

@@ -29,11 +29,11 @@
 </script>
 
 <div
-	class="flex min-h-screen w-full flex-col items-center justify-center bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
+	class="flex min-h-[100dvh] w-full flex-col items-center justify-center bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
 >
 	<div
 		id="container"
-		class="bg-beige flex min-h-screen w-fit flex-col items-center justify-start gap-8 rounded-none p-8 md:min-h-fit md:justify-center md:rounded-sm"
+		class="bg-beige flex min-h-[100dvh] w-fit flex-col items-center justify-start gap-8 rounded-none p-8 md:min-h-fit md:justify-center md:rounded-sm"
 	>
 		<LogoHeader />
 		<form

@@ -51,7 +51,7 @@
 	<Sidebar bgColor={'beige'} textColor={'dark-brown'} />
 {/if}
 
-<div class="bg-dark-brown font-old-standard flex min-h-screen w-full flex-col">
+<div class="bg-dark-brown font-old-standard flex min-h-[100dvh] w-full flex-col">
 	<main class="flex-grow">
 		{@render children()}
 	</main>
