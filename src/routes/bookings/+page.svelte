@@ -9,14 +9,13 @@
 	import { Role, user } from '$lib/stores/auth';
 
 	const { data }: { data: PageData } = $props();
-	const { bookings } = data;
+	const { bookings: { items, total } } = data;
 
 	let page = $state(0);
 	let itemsPerPage = $state(5);
+	const totalPages = $derived(Math.ceil(total / itemsPerPage));
 
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
-
-	const totalPages = $derived(Math.ceil(bookings.length / itemsPerPage));
 
 	const getPageNumbers = () => {
 		const pages = [];
@@ -78,7 +77,7 @@
 			<p class="text-light-brown mt-2 text-sm">View and manage your package bookings.</p>
 		</div>
 
-		{#if bookings.length === 0}
+		{#if items.length === 0}
 			<div class="mt-8 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
 				<svg
 					class="mx-auto h-12 w-12 text-gray-400"
@@ -125,7 +124,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{#each bookings as booking, i}
+							{#each items as booking, i}
 								<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
 									<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
 									<td class="font-body text-dark-brown border-b p-4">{booking.purchase!.id}</td>

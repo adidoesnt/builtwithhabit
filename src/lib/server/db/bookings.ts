@@ -1,7 +1,8 @@
 import { database } from '.';
 import { bookings, packages, purchases, PurchaseStatus, users } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
-import { and, asc, eq, gt } from 'drizzle-orm';
+import { and, asc, eq, gt, sql } from 'drizzle-orm';
+import type { PaginationParams } from './types';
 
 const getTimes = (slot: Date | string) => {
 	const start = new Date(slot);
@@ -107,16 +108,31 @@ export const getPurchaseStatusByClientSecret = async (clientSecret: string) => {
 	return purchase.status;
 };
 
-export const getBookingsByUserId = async (userId: string) => {
+export const getBookingsByUserId = async (
+	userId: string,
+	paginationParams: PaginationParams = {
+		page: 0,
+		pageSize: 5
+	}
+) => {
+	const totalCount = await database
+		.select({ count: sql<number>`count(*)` })
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.where(and(eq(purchases.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
+		.then((result) => result[0].count);
+
 	const results = await database
 		.select()
 		.from(bookings)
 		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
 		.leftJoin(packages, eq(purchases.packageId, packages.id))
 		.where(and(eq(purchases.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
-		.orderBy(asc(bookings.start));
+		.orderBy(asc(bookings.start))
+		.limit(paginationParams.pageSize)
+		.offset(paginationParams.page * paginationParams.pageSize);
 
-	return results.map((result) => ({
+	const data = results.map((result) => ({
 		...result.bookings,
 		purchase: {
 			id: result.purchases?.id,
@@ -126,11 +142,30 @@ export const getBookingsByUserId = async (userId: string) => {
 		},
 		package: result.packages
 	}));
+
+	return {
+		items: data,
+		total: totalCount,
+		page: paginationParams.page,
+		pageSize: paginationParams.pageSize
+	};
 };
 
 // For now we only have one trainer, so we can hardcode the trainerId
-export const getBookingsForTrainer = async () => {
+export const getBookingsForTrainer = async (
+	paginationParams: PaginationParams = {
+		page: 0,
+		pageSize: 5
+	}
+) => {
 	// TODO: Filter by trainerId
+
+	const totalCount = await database
+		.select({ count: sql<number>`count(*)` })
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.where(eq(purchases.status, PurchaseStatus.CONFIRMED))
+		.then((result) => result[0].count);
 
 	const results = await database
 		.select()
@@ -139,9 +174,11 @@ export const getBookingsForTrainer = async () => {
 		.leftJoin(packages, eq(purchases.packageId, packages.id))
 		.leftJoin(users, eq(purchases.userId, users.id))
 		.where(eq(purchases.status, PurchaseStatus.CONFIRMED))
-		.orderBy(asc(bookings.start));
+		.orderBy(asc(bookings.start))
+		.limit(paginationParams.pageSize)
+		.offset(paginationParams.page * paginationParams.pageSize);
 
-	return results.map((result) => ({
+	const data = results.map((result) => ({
 		...result.bookings,
 		purchase: {
 			id: result.purchases?.id,
@@ -157,6 +194,13 @@ export const getBookingsForTrainer = async () => {
 		},
 		package: result.packages
 	}));
+
+	return {
+		items: data,
+		total: totalCount,
+		page: paginationParams.page,
+		pageSize: paginationParams.pageSize
+	};
 };
 
 export const getPurchasesByUserId = async (userId: string) => {
