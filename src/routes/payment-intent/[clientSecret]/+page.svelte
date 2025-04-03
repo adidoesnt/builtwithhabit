@@ -76,7 +76,7 @@
 
 				<div class="flex flex-col">
 					<h1 class="text-dark-brown text-center text-3xl font-bold">Payment Failed</h1>
-					<p class="text-center text-lg text-gray-700">
+					<p class="text-center text-lg text-gray-700 text-wrap break-all">
 						<span class="font-bold">Payment ID:</span>
 						{clientSecret}
 					</p>
@@ -93,7 +93,7 @@
 
 				<div class="flex flex-col">
 					<h1 class="text-dark-brown text-center text-3xl font-bold">Processing Your Payment</h1>
-					<p class="text-center text-lg text-gray-700">
+					<p class="text-center text-lg text-gray-700 text-wrap break-all">
 						<span class="font-bold">Payment ID:</span>
 						{clientSecret}
 					</p>
