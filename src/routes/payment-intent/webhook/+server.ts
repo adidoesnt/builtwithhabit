@@ -32,12 +32,16 @@ export const POST = async ({ request }) => {
 
 		let paymentIntent: PaymentIntent | null = null;
 		switch (event.type) {
+			case WebhookEvent.PaymentIntentCreated:
+				// TODO: Add logic to check if the payment intent has succeeded, if not, cancel and delete the purchase
+				break;
 			case WebhookEvent.PaymentIntentSucceeded:
 			case WebhookEvent.ChargeSucceeded:
 				paymentIntent = event.data.object as PaymentIntent;
 				console.log('Updating purchase status for client secret:', paymentIntent.client_secret);
 				await updatePurchaseStatus(paymentIntent.client_secret!, PurchaseStatus.CONFIRMED);
 				break;
+			case WebhookEvent.PaymentIntentCanceled:
 			case WebhookEvent.PaymentIntentPaymentFailed:
 				console.log('Payment failed:', event.data.object);
 				paymentIntent = event.data.object as PaymentIntent;

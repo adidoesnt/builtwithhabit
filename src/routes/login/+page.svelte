@@ -1,6 +1,4 @@
 <script lang="ts">
-	// TODO: Add login failure error handling
-
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
