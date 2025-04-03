@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { PageData } from './$types';
-	
+
 	const { data }: { data: PageData } = $props();
 	const { user } = data;
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    const { onclick, isDisabled }: { onclick: () => void; isDisabled: boolean } = $props();
+	const { onclick, isDisabled }: { onclick: () => void; isDisabled: boolean } = $props();
 </script>
 
 <button

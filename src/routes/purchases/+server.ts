@@ -24,10 +24,20 @@ export const POST = async ({ request, cookies }) => {
 			return json({ success: false, error: 'User not found' }, { status: 401 });
 		}
 
-		const purchase = await createUnconfirmedPurchase(user.id, packageId, address, postalCode, slots);
+		const purchase = await createUnconfirmedPurchase(
+			user.id,
+			packageId,
+			address,
+			postalCode,
+			slots
+		);
 
 		return json(
-			{ success: true, message: 'Unconfirmed purchase created successfully', purchaseId: purchase.id },
+			{
+				success: true,
+				message: 'Unconfirmed purchase created successfully',
+				purchaseId: purchase.id
+			},
 			{ status: 200 }
 		);
 	} catch (error) {

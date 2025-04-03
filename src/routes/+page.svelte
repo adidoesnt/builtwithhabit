@@ -108,7 +108,7 @@
 				<p class="font-body text-dark-brown text-md md:text-xl">{content}</p>
 			{/each}
 			<button
-				class="font-body mt-8 bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
+				class="font-body bg-dark-brown text-beige mt-8 flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
 				onclick={scrollToPricing}>{contact.callToAction}</button
 			>
 		</div>

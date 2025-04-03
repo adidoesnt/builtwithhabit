@@ -16,6 +16,6 @@
 			<p class="font-body text-light-brown mt-1">View and manage user accounts</p>
 		</div>
 
-		<UserTable users={users} total={data.total} />
+		<UserTable {users} total={data.total} />
 	</div>
 </div>

@@ -10,8 +10,8 @@ export const POST = async ({ cookies }) => {
 		cookies.delete('access_token', { path: '/' });
 		cookies.delete('refresh_token', { path: '/' });
 		clearUser();
-        return redirect(303, '/login');
+		return redirect(303, '/login');
 	} else {
 		return error(401, 'Unauthorized');
-    }
+	}
 };

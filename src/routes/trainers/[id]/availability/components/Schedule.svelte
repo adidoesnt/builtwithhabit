@@ -182,7 +182,7 @@
 				Set your weekly availability to let clients know when you're available for sessions.
 			</p>
 		</div>
-		<div class="flex gap-2 justify-end">
+		<div class="flex justify-end gap-2">
 			{#if isEditing}
 				<CancelButton onclick={toggleEditing} isDisabled={isSaving} />
 				<SaveButton save={saveAvailabilities} {isSaving} />
@@ -278,7 +278,7 @@
 										/>
 									</div>
 								</div>
-								<div class="flex md:h-full flex-col justify-end">
+								<div class="flex flex-col justify-end md:h-full">
 									<button
 										disabled={!currentStart || !currentEnd || timeError !== null || isSaving}
 										onclick={addTimeSlot}

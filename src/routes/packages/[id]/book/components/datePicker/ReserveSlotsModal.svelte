@@ -69,7 +69,7 @@
 				<button
 					type="button"
 					onclick={reserveSelectedSlots}
-					class="flex items-center justify-center gap-2 bg-dark-brown hover:bg-dark-brown/90 cursor-pointer rounded-md px-4 py-2 text-white transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50"
+					class="bg-dark-brown hover:bg-dark-brown/90 flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-white transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50"
 					disabled={isLoading}
 					>{#if isLoading}
 						<LoadingSpinner size="20px" color="#FFFFFF" />

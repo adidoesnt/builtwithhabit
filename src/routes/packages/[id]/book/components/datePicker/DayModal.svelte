@@ -215,7 +215,8 @@
 						? 'text-green-600'
 						: 'text-red-600'}"
 				>
-					Selected {$selectedSlots.length} {$selectedSlots.length === 1 ? 'session' : 'sessions'} out of {numSessions}.
+					Selected {$selectedSlots.length}
+					{$selectedSlots.length === 1 ? 'session' : 'sessions'} out of {numSessions}.
 				</p>
 			</div>
 

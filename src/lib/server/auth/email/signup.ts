@@ -1,4 +1,4 @@
-import { supabase } from "..";
+import { supabase } from '..';
 
 export async function signupWithEmail(email: string, password: string) {
 	const { data, error } = await supabase.auth.signUp({

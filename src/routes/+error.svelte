@@ -12,7 +12,7 @@
 	>
 		<LogoHeader />
 		<div class="flex flex-col items-center text-center">
-			<h1 class="font-body font-bold text-2xl">
+			<h1 class="font-body text-2xl font-bold">
 				{page.status}: {page.error?.message || 'Something went wrong'}
 			</h1>
 			<p class="text-light-brown font-body text-sm">

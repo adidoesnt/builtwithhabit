@@ -8,6 +8,8 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY || !SUPABASE_SERVICE_ROLE_KEY) {
 }
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const { auth: { admin: supabaseAdmin } } = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+const {
+	auth: { admin: supabaseAdmin }
+} = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 export { supabaseAdmin };

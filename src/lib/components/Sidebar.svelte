@@ -15,7 +15,9 @@
 
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
-	let links = $derived(isTrainer ? navBar.links.filter((link) => link.href !== '/packages') : navBar.links);
+	let links = $derived(
+		isTrainer ? navBar.links.filter((link) => link.href !== '/packages') : navBar.links
+	);
 
 	const trainerLinks = $derived([
 		{

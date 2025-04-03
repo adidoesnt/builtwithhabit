@@ -38,7 +38,7 @@ const config = {
 					label: 'User Management',
 					href: '/admin/user-management'
 				}
-			],
+			]
 		},
 		mission: {
 			title: ['Mission and', 'Training Philosophy'],
@@ -61,7 +61,7 @@ const config = {
 			}
 		},
 		support: {
-			email: 'admin@boh-services.com',
+			email: 'admin@boh-services.com'
 		},
 		pricing: {
 			title: 'Packages',

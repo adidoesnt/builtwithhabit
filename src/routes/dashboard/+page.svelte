@@ -133,7 +133,8 @@
 									<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
 									{#if isTrainer}
 										<td class="font-body text-dark-brown border-b p-4">
-											{booking.user?.firstName} {booking.user?.lastName}
+											{booking.user?.firstName}
+											{booking.user?.lastName}
 										</td>
 									{/if}
 									<td class="font-body text-dark-brown border-b p-4">

@@ -4,9 +4,7 @@
 	export let testimonial: Testimonial;
 </script>
 
-<div
-	class="flex h-full w-96 flex-col rounded-sm bg-white p-6 shadow-md gap-4"
->
+<div class="flex h-full w-96 flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
 	<div class="flex items-center">
 		<div class="bg-light-green mr-4 flex h-12 w-12 items-center justify-center rounded-full">
 			<div
@@ -24,7 +22,7 @@
 		</div>
 	</div>
 
-	<div class="flex mt-2">
+	<div class="mt-2 flex">
 		{#each Array(5) as _, i}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

@@ -55,7 +55,7 @@
 
 		if (!result.ok) {
 			throw new Error('Failed to update purchase');
-        }
+		}
 
 		const data = await result.json();
 		return data;

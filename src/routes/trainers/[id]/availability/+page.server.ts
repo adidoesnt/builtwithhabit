@@ -1,11 +1,11 @@
-import { supabase } from "$lib/server/auth";
-import { Role } from "$lib/server/db/schema";
-import { getTrainerAvailability, getTrainerOverrides } from "$lib/server/db/trainer";
-import { getUserById } from "$lib/server/db/user.js";
-import { redirect } from "@sveltejs/kit";
+import { supabase } from '$lib/server/auth';
+import { Role } from '$lib/server/db/schema';
+import { getTrainerAvailability, getTrainerOverrides } from '$lib/server/db/trainer';
+import { getUserById } from '$lib/server/db/user.js';
+import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ cookies }) => {
-    const accessToken = cookies.get('access_token');
+	const accessToken = cookies.get('access_token');
 
 	if (!accessToken) {
 		throw redirect(302, '/login');
@@ -27,11 +27,11 @@ export const load = async ({ cookies }) => {
 		throw redirect(302, '/');
 	}
 
-    const availability = await getTrainerAvailability();
-    const overrides = await getTrainerOverrides();
+	const availability = await getTrainerAvailability();
+	const overrides = await getTrainerOverrides();
 
-    return {
-        availability,
+	return {
+		availability,
 		overrides
-    }
-}
+	};
+};

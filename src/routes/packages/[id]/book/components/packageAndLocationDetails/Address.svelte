@@ -9,7 +9,9 @@
 			type="textarea"
 			id="address"
 			class="font-body w-full rounded-md border border-gray-300 bg-white p-2 focus:ring-2 focus:outline-none
-                    {$validationInProgress ? 'cursor-not-allowed bg-gray-100 text-gray-400' : 'cursor-text'}
+                    {$validationInProgress
+				? 'cursor-not-allowed bg-gray-100 text-gray-400'
+				: 'cursor-text'}
                     {!$isValid && !$validationInProgress ? 'border-red-500' : ''}
                     {$isValid && $address ? 'border-green-500' : ''}"
 			disabled={$validationInProgress}

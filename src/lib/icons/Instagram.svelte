@@ -5,7 +5,7 @@
 <a aria-label="Instagram" {href} target="_blank" rel="noopener noreferrer">
 	<svg
 		{fill}
-		class="hover:scale-110 hover:opacity-80 transition-all duration-300"
+		class="transition-all duration-300 hover:scale-110 hover:opacity-80"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 30 30"
 		{width}

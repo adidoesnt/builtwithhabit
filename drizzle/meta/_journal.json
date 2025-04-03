@@ -1,153 +1,153 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1741465280577,
-      "tag": "0000_init",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1741465510930,
-      "tag": "0001_drop_password_column",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1741642019286,
-      "tag": "0002_add_tables_to_support_bookings",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1741642128384,
-      "tag": "0003_add_not_null_for_bookings_tables_references",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1741642759876,
-      "tag": "0004_add_discount__for_packages",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1741642975951,
-      "tag": "0005_seed_packages",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1741645632129,
-      "tag": "0006_sour_zodiak",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1741713219366,
-      "tag": "0007_add_locations",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1741713238634,
-      "tag": "0008_add_location_values",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1741720932649,
-      "tag": "0009_remove_online_location_option",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "7",
-      "when": 1741958079453,
-      "tag": "0010_flat_dormammu",
-      "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "7",
-      "when": 1741971737516,
-      "tag": "0011_add_cascades",
-      "breakpoints": true
-    },
-    {
-      "idx": 12,
-      "version": "7",
-      "when": 1742053316969,
-      "tag": "0012_support_recurring_schedule",
-      "breakpoints": true
-    },
-    {
-      "idx": 13,
-      "version": "7",
-      "when": 1742060595499,
-      "tag": "0013_change_availability_timestamps_to_text",
-      "breakpoints": true
-    },
-    {
-      "idx": 14,
-      "version": "7",
-      "when": 1742133585193,
-      "tag": "0014_remove_override_date_attribute",
-      "breakpoints": true
-    },
-    {
-      "idx": 15,
-      "version": "7",
-      "when": 1742215733044,
-      "tag": "0015_change_to_composite_pk_for_overrides",
-      "breakpoints": true
-    },
-    {
-      "idx": 16,
-      "version": "7",
-      "when": 1743525655979,
-      "tag": "0016_add_purchase_confirmed_column",
-      "breakpoints": true
-    },
-    {
-      "idx": 17,
-      "version": "7",
-      "when": 1743608280966,
-      "tag": "0017_add payment intent client secret to purchases",
-      "breakpoints": true
-    },
-    {
-      "idx": 18,
-      "version": "7",
-      "when": 1743611760255,
-      "tag": "0018_change_purchase_status_to_enum",
-      "breakpoints": true
-    },
-    {
-      "idx": 19,
-      "version": "7",
-      "when": 1743612046579,
-      "tag": "0019_fix_purchase_status_column",
-      "breakpoints": true
-    },
-    {
-      "idx": 20,
-      "version": "7",
-      "when": 1743631687846,
-      "tag": "0020_add_pk_to_roles_table",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1741465280577,
+			"tag": "0000_init",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1741465510930,
+			"tag": "0001_drop_password_column",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1741642019286,
+			"tag": "0002_add_tables_to_support_bookings",
+			"breakpoints": true
+		},
+		{
+			"idx": 3,
+			"version": "7",
+			"when": 1741642128384,
+			"tag": "0003_add_not_null_for_bookings_tables_references",
+			"breakpoints": true
+		},
+		{
+			"idx": 4,
+			"version": "7",
+			"when": 1741642759876,
+			"tag": "0004_add_discount__for_packages",
+			"breakpoints": true
+		},
+		{
+			"idx": 5,
+			"version": "7",
+			"when": 1741642975951,
+			"tag": "0005_seed_packages",
+			"breakpoints": true
+		},
+		{
+			"idx": 6,
+			"version": "7",
+			"when": 1741645632129,
+			"tag": "0006_sour_zodiak",
+			"breakpoints": true
+		},
+		{
+			"idx": 7,
+			"version": "7",
+			"when": 1741713219366,
+			"tag": "0007_add_locations",
+			"breakpoints": true
+		},
+		{
+			"idx": 8,
+			"version": "7",
+			"when": 1741713238634,
+			"tag": "0008_add_location_values",
+			"breakpoints": true
+		},
+		{
+			"idx": 9,
+			"version": "7",
+			"when": 1741720932649,
+			"tag": "0009_remove_online_location_option",
+			"breakpoints": true
+		},
+		{
+			"idx": 10,
+			"version": "7",
+			"when": 1741958079453,
+			"tag": "0010_flat_dormammu",
+			"breakpoints": true
+		},
+		{
+			"idx": 11,
+			"version": "7",
+			"when": 1741971737516,
+			"tag": "0011_add_cascades",
+			"breakpoints": true
+		},
+		{
+			"idx": 12,
+			"version": "7",
+			"when": 1742053316969,
+			"tag": "0012_support_recurring_schedule",
+			"breakpoints": true
+		},
+		{
+			"idx": 13,
+			"version": "7",
+			"when": 1742060595499,
+			"tag": "0013_change_availability_timestamps_to_text",
+			"breakpoints": true
+		},
+		{
+			"idx": 14,
+			"version": "7",
+			"when": 1742133585193,
+			"tag": "0014_remove_override_date_attribute",
+			"breakpoints": true
+		},
+		{
+			"idx": 15,
+			"version": "7",
+			"when": 1742215733044,
+			"tag": "0015_change_to_composite_pk_for_overrides",
+			"breakpoints": true
+		},
+		{
+			"idx": 16,
+			"version": "7",
+			"when": 1743525655979,
+			"tag": "0016_add_purchase_confirmed_column",
+			"breakpoints": true
+		},
+		{
+			"idx": 17,
+			"version": "7",
+			"when": 1743608280966,
+			"tag": "0017_add payment intent client secret to purchases",
+			"breakpoints": true
+		},
+		{
+			"idx": 18,
+			"version": "7",
+			"when": 1743611760255,
+			"tag": "0018_change_purchase_status_to_enum",
+			"breakpoints": true
+		},
+		{
+			"idx": 19,
+			"version": "7",
+			"when": 1743612046579,
+			"tag": "0019_fix_purchase_status_column",
+			"breakpoints": true
+		},
+		{
+			"idx": 20,
+			"version": "7",
+			"when": 1743631687846,
+			"tag": "0020_add_pk_to_roles_table",
+			"breakpoints": true
+		}
+	]
 }
