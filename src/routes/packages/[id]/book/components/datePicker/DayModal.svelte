@@ -2,6 +2,9 @@
 	import type { Booking } from '$lib/server/db/schema';
 	import { selectedSlots, type Slot } from '../formState';
 	import type { TrainerAvailability, TrainerOverride } from './types';
+	import config from '$lib/config';
+
+	const { bookings } = config;
 
 	const {
 		isOpen,
@@ -108,7 +111,13 @@
 			return (
 				(slotStartMinutes >= bookedStartMinutes && slotStartMinutes < bookedEndMinutes) ||
 				(slotEndMinutes > bookedStartMinutes && slotEndMinutes <= bookedEndMinutes) ||
-				(slotStartMinutes <= bookedStartMinutes && slotEndMinutes >= bookedEndMinutes)
+				(slotStartMinutes <= bookedStartMinutes && slotEndMinutes >= bookedEndMinutes) ||
+				// Check for buffer time after booked slot
+				(slotStartMinutes >= bookedEndMinutes &&
+					slotStartMinutes < bookedEndMinutes + bookings.bufferTime) ||
+				// Check for buffer time before booked slot
+				(slotEndMinutes > bookedStartMinutes - bookings.bufferTime &&
+					slotEndMinutes <= bookedStartMinutes)
 			);
 		});
 
@@ -180,7 +189,13 @@
 			const selectedEnd = selectedStart + 60;
 
 			return (
-				isSameDay(selectedSlot.day, slot.day) && slotStart < selectedEnd && slotEnd > selectedStart
+				isSameDay(selectedSlot.day, slot.day) &&
+				// Check for direct overlap
+				((slotStart < selectedEnd && slotEnd > selectedStart) ||
+					// Check for buffer time after selected slot
+					(slotStart >= selectedEnd && slotStart < selectedEnd + bookings.bufferTime) ||
+					// Check for buffer time before selected slot
+					(slotEnd > selectedStart - bookings.bufferTime && slotEnd <= selectedStart))
 			);
 		});
 	};
