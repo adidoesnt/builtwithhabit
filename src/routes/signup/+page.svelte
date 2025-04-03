@@ -3,6 +3,10 @@
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
+	import { PUBLIC_DISABLE_SIGNUP } from '$env/static/public';
+
+	const DISABLE_SIGNUP = PUBLIC_DISABLE_SIGNUP === 'true';
+
 	type FormErrors = {
 		firstName?: string[];
 		middleName?: string[];
@@ -37,7 +41,9 @@
 	>
 		<LogoHeader />
 		<form
-			class="font-body flex w-full flex-col justify-start gap-2"
+			class="font-body flex w-full flex-col justify-start gap-2 {DISABLE_SIGNUP
+				? 'pointer-events-none opacity-50'
+				: ''}"
 			action="/signup"
 			method="POST"
 			use:enhance={() => {
@@ -50,7 +56,11 @@
 			}}
 		>
 			<h1 class="text-2xl">Sign up</h1>
-			<p class="text-light-brown text-sm">Enter your details below to create an account.</p>
+			{#if DISABLE_SIGNUP}
+				<p class="text-sm text-red-500">Sign up is currently disabled.</p>
+			{:else}
+				<p class="text-light-brown text-sm">Enter your details below to create an account.</p>
+			{/if}
 			<div class="flex flex-col gap-4">
 				<div class="flex flex-wrap gap-4">
 					<div class="flex flex-col gap-2">
