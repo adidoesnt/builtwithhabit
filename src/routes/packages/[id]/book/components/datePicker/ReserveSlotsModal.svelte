@@ -51,11 +51,11 @@
 {#if isOpen}
 	<div class="fixed z-50 m-0 flex h-[100dvh] w-screen items-center justify-center backdrop-blur-xl">
 		<div
-			class="flex max-w-[50dvw] flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-xl"
+			class="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-4 rounded-lg bg-white p-4 shadow-xl md:h-fit md:w-fit"
 		>
 			<h1 class="font-body text-dark-brown text-2xl font-bold">Disclaimer</h1>
 			<hr class="border-dark-brown w-full" />
-			<p class="font-body text-dark-brown">
+			<p class="font-body text-dark-brown md:text-left text-center">
 				Please note that by clicking next, you are reserving the selected slot(s). In case of
 				failure to make payment within 15 minutes, the slot(s) will be released.
 			</p>
