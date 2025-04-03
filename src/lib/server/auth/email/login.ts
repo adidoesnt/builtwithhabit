@@ -1,4 +1,4 @@
-import { supabase } from "..";
+import { supabase } from '..';
 
 export async function loginWithEmail(email: string, password: string) {
 	const { data, error } = await supabase.auth.signInWithPassword({
@@ -7,8 +7,16 @@ export async function loginWithEmail(email: string, password: string) {
 	});
 
 	if (error) {
-		throw new Error(error.message);
+		return {
+			user: null,
+			session: null,
+			error: error.message
+		};
 	}
 
-	return data;
+	return {
+		user: data.user,
+		session: data.session,
+		error: null
+	};
 }

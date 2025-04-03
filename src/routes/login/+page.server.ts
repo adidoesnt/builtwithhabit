@@ -31,22 +31,24 @@ export const actions = {
 				}
 			});
 		}
-		const {
-			user: authUser,
-			session,
-			weakPassword
-		} = await loginWithEmail(result.data.email, result.data.password);
 
-		if (!authUser) {
-			throw fail(400, {
+		const loginResult = await loginWithEmail(result.data.email, result.data.password);
+		console.log('Login result', loginResult);
+
+		if (loginResult.error || !loginResult.user || !loginResult.session) {
+			return fail(400, {
 				error: 'Failed to log in',
-				errors: {},
+				errors: {
+					password: loginResult.error || 'Invalid credentials'
+				},
 				data: {
 					email: data.email,
 					password: data.password
 				}
 			});
 		}
+
+		const { user: authUser, session } = loginResult;
 
 		cookies.set('access_token', session.access_token, {
 			path: '/',
@@ -61,19 +63,6 @@ export const actions = {
 			sameSite: 'lax',
 			maxAge: 60 * 60 * 24 * 30 // Default Supabase refresh token expiry
 		});
-
-		if (weakPassword) {
-			return fail(400, {
-				error: 'Weak password',
-				errors: {
-					password: weakPassword.reasons?.[0] ?? 'Weak password'
-				},
-				data: {
-					email: data.email,
-					password: data.password
-				}
-			});
-		}
 
 		const user = await getUserById(authUser.id);
 		setUser(user);

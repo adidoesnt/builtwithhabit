@@ -1,6 +1,6 @@
 <script lang="ts">
 	// TODO: Add login failure error handling
-	
+
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
@@ -21,7 +21,7 @@
 	let isLoading = $state(false);
 
 	$effect(() => {
-		if (formValues.email && form?.errors?.email) {
+		if (formValues.email && form?.errors?.email && formValues.email !== form.data?.email) {
 			form = {
 				...form,
 				error: undefined as any,
@@ -34,7 +34,11 @@
 	});
 
 	$effect(() => {
-		if (formValues.password && form?.errors?.password) {
+		if (
+			formValues.password &&
+			form?.errors?.password &&
+			formValues.password !== form.data?.password
+		) {
 			form = {
 				...form,
 				error: undefined as any,
@@ -52,14 +56,14 @@
 >
 	<div
 		id="container"
-		class="bg-beige flex w-full min-h-screen md:min-h-fit max-w-md flex-col items-center justify-center gap-8 overflow-y-auto rounded-none md:rounded-sm p-8 py-4 md:w-fit md:overflow-y-visible md:py-8"
+		class="bg-beige flex min-h-screen w-full max-w-md flex-col items-center justify-center gap-8 overflow-y-auto rounded-none p-8 py-4 md:min-h-fit md:w-fit md:overflow-y-visible md:rounded-sm md:py-8"
 	>
 		<LogoHeader />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-2"
 			action="/login"
 			method="POST"
-			use:enhance={() => {
+			use:enhance={({ formData }) => {
 				isLoading = true;
 
 				return async ({ update }) => {
