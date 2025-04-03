@@ -9,8 +9,14 @@
 	const {
 		packages,
 		description,
-		showTestimonialsButton = false
-	}: { packages: Package[]; description?: string; showTestimonialsButton?: boolean } = $props();
+		showTestimonialsButton = false,
+		altColors = false
+	}: {
+		packages: Package[];
+		description?: string;
+		showTestimonialsButton?: boolean;
+		altColors?: boolean;
+	} = $props();
 
 	let activeIndex = $state(0);
 	let packagesContainer: HTMLElement;
@@ -91,7 +97,7 @@
 
 <section
 	id="pricing"
-	class="bg-light-brown flex min-h-screen flex-col items-center justify-center gap-8 px-8 py-16"
+	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-screen flex-col items-center justify-center gap-8 px-8 py-16`}
 >
 	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
 		{pricing.title}
@@ -99,7 +105,7 @@
 	{#if description}
 		<div class="flex flex-col items-center justify-center gap-4 md:gap-0">
 			{#each description.split('.') as sentence, index}
-				<p class="font-body text-dark-brown text-center text-md md:text-xl">
+				<p class="font-body text-dark-brown text-md text-center md:text-xl">
 					{sentence}{#if index < description.split('.').length - 1}
 						.
 					{/if}
@@ -115,10 +121,9 @@
 		{#each packages as plan, index}
 			<div
 				id={`plan-${index}`}
-				class="bg-beige relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-lg transition-transform duration-300 {index ===
-				activeIndex
-					? 'opacity-100'
-					: 'opacity-70'} md:opacity-100 md:hover:scale-105"
+				class={`${altColors ? 'bg-beige' : 'bg-gray-100'} relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-lg transition-transform duration-300 ${
+					index === activeIndex ? 'opacity-100' : 'opacity-70'
+				} md:opacity-100 md:hover:scale-105`}
 			>
 				{#if pricing.earlyBirdDiscount}
 					<div

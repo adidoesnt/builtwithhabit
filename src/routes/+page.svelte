@@ -118,6 +118,6 @@
 
 <!-- TODO: Add back after getting testimonial content -->
 <!-- <Packages {packages} showTestimonialsButton /> -->
-<Packages {packages} />
+<Packages {packages} altColors />
 
 <!-- <Testimonials /> -->
