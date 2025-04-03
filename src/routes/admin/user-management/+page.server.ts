@@ -1,6 +1,6 @@
 import { supabase, supabaseAdmin } from '$lib/server/auth/index.js';
 import { getAllUsers, getUserById } from '$lib/server/db/user.js';
-import { Role, type User } from '$lib/stores/auth';
+import { Role } from '$lib/stores/auth';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
