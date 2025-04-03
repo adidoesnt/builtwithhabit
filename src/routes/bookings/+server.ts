@@ -1,5 +1,5 @@
 import { supabase } from '$lib/server/auth/index.js';
-import { getBookingsByUserId } from '$lib/server/db/bookings';
+import { getBookingsForTrainer } from '$lib/server/db/bookings';
 import { getUserById } from '$lib/server/db/user';
 
 export const GET = async ({ url, cookies }) => {
@@ -31,7 +31,7 @@ export const GET = async ({ url, cookies }) => {
 		return new Response('Invalid page or page size', { status: 400 });
 	}
 
-	const bookings = await getBookingsByUserId(user.id, {
+	const bookings = await getBookingsForTrainer({
 		page: numericPage,
 		pageSize: numericPageSize
 	});
