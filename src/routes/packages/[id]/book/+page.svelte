@@ -74,6 +74,11 @@
 		isReserveSlotsModalOpen = false;
 		slotReservationError = 'An error occurred while reserving the slots. Please try again.';
 	};
+
+	const handleBackToPackages = () => {
+		resetFormState();
+		goto('/packages');
+	};
 </script>
 
 <ReserveSlotsModal
@@ -96,8 +101,8 @@
 						Complete the form below to book the {fetchedPackage.name} package.
 					</p>
 				</div>
-				<a
-					href="/packages"
+				<button
+					onclick={handleBackToPackages}
 					class="font-body text-dark-brown mt-4 flex items-center gap-2 self-center hover:underline md:mt-0 md:self-start"
 				>
 					<svg
@@ -113,7 +118,7 @@
 						/>
 					</svg>
 					Back to Packages
-				</a>
+				</button>
 			</div>
 		</div>
 

@@ -2,26 +2,31 @@
 	import { selectedSlots } from '../formState';
 
 	const { formatTimeTo12Hour, toggleSlot, formatDay, numSessions } = $props();
-	const numSelectedSlots = $derived($selectedSlots.length)
-
-	let invalidNumSelected = $derived(numSelectedSlots < numSessions);
-	let invalidNumFontColor = $derived(invalidNumSelected ? 'text-red-500' : 'text-green-600')
 </script>
 
 <div class="mt-4 w-full border-t border-gray-200 pt-4">
-	<div class="flex flex-col py-2 mb-2">
+	<div class="mb-2 flex flex-col py-2">
 		<h3 class="font-body text-dark-brown text-lg font-semibold">Selected Sessions:</h3>
-		<p class={`font-body ${invalidNumFontColor}`}>{numSelectedSlots} sessions out of {numSessions} selected</p>
+		<p
+			class="font-body text-left text-sm {$selectedSlots.length >= numSessions
+				? 'text-green-600'
+				: 'text-red-600'}"
+		>
+			Selected {$selectedSlots.length}
+			{$selectedSlots.length === 1 ? 'session' : 'sessions'} out of {numSessions}.
+		</p>
 	</div>
 	{#if $selectedSlots.length === 0}
-		<p class="text-gray-500 font-body">No sessions selected</p>
+		<p class="font-body text-gray-500">No sessions selected</p>
 	{:else}
 		<div class="flex flex-wrap gap-2">
 			{#each $selectedSlots as slot}
 				<div
 					class="flex items-center gap-2 rounded-full border border-green-300 bg-green-100 px-3 py-1"
 				>
-					<span class="font-body text-dark-brown">{formatDay(slot.day)} {formatTimeTo12Hour(slot)}</span>
+					<span class="font-body text-dark-brown"
+						>{formatDay(slot.day)} {formatTimeTo12Hour(slot)}</span
+					>
 					<button
 						onclick={() => toggleSlot(slot)}
 						class="text-red-500 hover:text-red-700"

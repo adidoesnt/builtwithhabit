@@ -198,7 +198,7 @@
 					onclick={onClose}
 					class="font-body text-dark-brown rounded-md px-3 py-1 text-sm hover:bg-gray-100"
 				>
-					Close
+					Save
 				</button>
 			</div>
 
@@ -209,6 +209,13 @@
 				<p class="font-body text-dark-brown text-md text-center">
 					Select up to {numSessions}
 					{numSessions === 1 ? 'session' : 'sessions'}. Each session is 1 hour long.
+				</p>
+				<p
+					class="font-body text-center text-sm {$selectedSlots.length >= numSessions
+						? 'text-green-600'
+						: 'text-red-600'}"
+				>
+					Selected {$selectedSlots.length} {$selectedSlots.length === 1 ? 'session' : 'sessions'} out of {numSessions}.
 				</p>
 			</div>
 
