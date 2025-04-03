@@ -13,52 +13,52 @@
 
 	const validatePostalCode = async () => {
 		// MOCK:
-		setIsValid(true);
-		setAddress('123 Main St, Singapore');
-		setMessage('Address found');
-		setValidationInProgress(false);
-		return;
+		// setIsValid(true);
+		// setAddress('123 Main St, Singapore');
+		// setMessage('Address found');
+		// setValidationInProgress(false);
+		// return;
 
-		// if ($postalCode.length !== 6) {
-		// 	setIsValid(false);
-		// 	setMessage('Postal code must be 6 characters (e.g., 123456)');
-		// 	setValidationInProgress(false);
-		// 	return;
-		// }
+		if ($postalCode.length !== 6) {
+			setIsValid(false);
+			setMessage('Postal code must be 6 characters (e.g., 123456)');
+			setValidationInProgress(false);
+			return;
+		}
 
-		// try {
-		// 	setIsValid(true);
-		// 	setValidationInProgress(true);
-		// 	setMessage('Validating postal code...');
+		try {
+			setIsValid(true);
+			setValidationInProgress(true);
+			setMessage('Validating postal code...');
 
-		// 	const response = await fetch(`/location/${$postalCode}/address`);
+			const response = await fetch(`/location/${$postalCode}/address`);
 
-		// 	if (response.ok) {
-		// 		const data = await response.json();
-		// 		const { address, isValid } = data;
+			if (response.ok) {
+				const data = await response.json();
+				const { address, isValid } = data;
 
-		// 		if (data.isValid && data.address) {
-		// 			setAddress(
-		// 				address.label ||
-		// 					`${address.street || ''}, ${address.municipality || ''}, ${address.region || ''}`
-		// 			);
+				if (data.isValid && data.address) {
+					setAddress(
+						address.label ||
+							`${address.street || ''}, ${address.municipality || ''}, ${address.region || ''}`
+					);
 
-		// 			setIsValid(isValid);
-		// 			setMessage('Address found');
-		// 		} else {
-		// 			setMessage(data.message || 'Could not find address for this postal code');
-		// 		}
-		// 	} else {
-		// 		setIsValid(false);
-		// 		setMessage('Postal code is invalid or too far away');
-		// 	}
-		// } catch (error) {
-		// 	console.error('Error validating postal code:', error);
-		// 	setIsValid(false);
-		// 	setMessage('Error connecting to validation service');
-		// } finally {
-		// 	setValidationInProgress(false);
-		// }
+					setIsValid(isValid);
+					setMessage('Address found');
+				} else {
+					setMessage(data.message || 'Could not find address for this postal code');
+				}
+			} else {
+				setIsValid(false);
+				setMessage('Postal code is invalid or too far away');
+			}
+		} catch (error) {
+			console.error('Error validating postal code:', error);
+			setIsValid(false);
+			setMessage('Error connecting to validation service');
+		} finally {
+			setValidationInProgress(false);
+		}
 	};
 </script>
 
