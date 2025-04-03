@@ -1,6 +1,5 @@
 import { getAllUsers, getUserById } from '$lib/server/db/user';
-
-import { supabase } from '$lib/server/auth';
+import { supabase, supabaseAdmin } from '$lib/server/auth';
 import type { Cookies } from '@sveltejs/kit';
 import { Role } from '$lib/stores/auth';
 
@@ -37,5 +36,31 @@ export const GET = async ({ url, cookies }) => {
 
 	const users = await getAllUsers({ page: numericPage, pageSize: numericPageSize }, search);
 
-	return new Response(JSON.stringify(users), { status: 200 });
+	const usersWithVerificationStatus = await Promise.all(
+		users.items.map(async (user) => {
+			const result = await supabaseAdmin.getUserById(user.id);
+			const {
+				data: { user: authUser },
+				error
+			} = result;
+
+			if (error) {
+				console.error('Error fetching user verification status', error);
+			}
+
+			const isVerified = !!authUser?.email_confirmed_at;
+
+			return {
+				...user,
+				isVerified
+			};
+		})
+	);
+
+	const data = {
+		users: usersWithVerificationStatus,
+		total: users.total
+	};
+
+	return new Response(JSON.stringify(data), { status: 200 });
 };

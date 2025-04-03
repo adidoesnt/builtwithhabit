@@ -65,7 +65,7 @@
 		fetch(`/users?page=${currentPage}&pageSize=${pageSize}&search=${debouncedSearchTerm}`)
 			.then((res) => res.json())
 			.then((data) => {
-				users = data.items;
+				users = data.users;
 				total = data.total;
 			})
 			.finally(() => {
