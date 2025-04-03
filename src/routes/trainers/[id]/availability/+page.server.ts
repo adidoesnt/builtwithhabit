@@ -8,23 +8,23 @@ export const load = async ({ cookies }) => {
 	const accessToken = cookies.get('access_token');
 
 	if (!accessToken) {
-		throw redirect(303, '/login');
+		throw redirect(302, '/login');
 	}
 
 	const authUser = await supabase.auth.getUser(accessToken);
 
 	if (!authUser.data.user) {
-		throw redirect(303, '/login');
+		throw redirect(302, '/login');
 	}
 
 	const trainer = await getUserById(authUser.data.user.id);
 
 	if (!trainer) {
-		throw redirect(303, '/login');
+		throw redirect(302, '/login');
 	}
 
 	if (!trainer.roles.includes(Role.TRAINER)) {
-		throw redirect(303, '/');
+		throw redirect(302, '/');
 	}
 
 	const availability = await getTrainerAvailability();
