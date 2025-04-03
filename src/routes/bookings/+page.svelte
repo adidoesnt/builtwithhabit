@@ -11,7 +11,43 @@
 	const { data }: { data: PageData } = $props();
 	const { bookings } = data;
 
+	let page = $state(0);
+	let itemsPerPage = $state(5);
+
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
+
+	const totalPages = $derived(Math.ceil(bookings.length / itemsPerPage));
+
+	const getPageNumbers = () => {
+		const pages = [];
+		const maxVisiblePages = 5;
+		const halfMaxPages = Math.floor(maxVisiblePages / 2);
+
+		let startPage = Math.max(0, page - halfMaxPages);
+		let endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
+
+		if (endPage - startPage + 1 < maxVisiblePages) {
+			startPage = Math.max(0, endPage - maxVisiblePages + 1);
+		}
+
+		if (startPage > 0) {
+			pages.push(0);
+			if (startPage > 1) pages.push('ellipsis');
+		}
+
+		for (let i = startPage; i <= endPage; i++) {
+			pages.push(i);
+		}
+
+		if (endPage < totalPages - 1) {
+			if (endPage < totalPages - 2) pages.push('ellipsis');
+			pages.push(totalPages - 1);
+		}
+
+		return pages;
+	};
+
+	const itemsPerPageOptions = [5, 10, 25, 50];
 
 	const getStatusColor = (status: PurchaseStatus) => {
 		switch (status) {
@@ -120,6 +156,56 @@
 							{/each}
 						</tbody>
 					</table>
+				</div>
+			</div>
+
+			<div class="mt-4 flex items-center justify-between rounded-lg bg-white p-4 shadow-md">
+				<div class="flex items-center gap-2">
+					<label for="itemsPerPage" class="text-sm text-gray-700">Items per page:</label>
+					<select
+						id="itemsPerPage"
+						bind:value={itemsPerPage}
+						class="focus:border-dark-brown focus:ring-dark-brown appearance-none rounded-md border border-gray-300 bg-white px-3 py-1 pr-8 text-sm focus:ring-1 focus:outline-none"
+					>
+						{#each itemsPerPageOptions as option}
+							<option value={option}>{option}</option>
+						{/each}
+					</select>
+				</div>
+
+				<div class="flex items-center gap-2">
+					<button
+						class="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+						disabled={page === 0}
+						onclick={() => (page = Math.max(0, page - 1))}
+					>
+						Previous
+					</button>
+
+					<div class="flex items-center gap-1">
+						{#each getPageNumbers() as pageNum}
+							{#if pageNum === 'ellipsis'}
+								<span class="px-2 text-gray-500">...</span>
+							{:else}
+								<button
+									class="rounded-md px-3 py-1 text-sm {pageNum === page
+										? 'bg-dark-brown text-white'
+										: 'hover:bg-gray-50'}"
+									onclick={() => (page = pageNum as number)}
+								>
+									{(pageNum as number) + 1}
+								</button>
+							{/if}
+						{/each}
+					</div>
+
+					<button
+						class="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+						disabled={page === totalPages - 1}
+						onclick={() => (page = Math.min(totalPages - 1, page + 1))}
+					>
+						Next
+					</button>
 				</div>
 			</div>
 		{/if}
