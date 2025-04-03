@@ -92,6 +92,48 @@
 		threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
 		return selectedDate >= threeDaysFromNow;
 	};
+
+	const getDayName = (date: Date) => {
+		return date.toLocaleDateString('en-US', { weekday: 'short' });
+	};
+
+	const getMonthName = (date: Date) => {
+		return date.toLocaleDateString('en-US', { month: 'short' });
+	};
+
+	const getFirstDayOfMonth = (year: number, month: number) => {
+		// getDay() returns 0-6 (Sunday-Saturday), we want 0-6 (Monday-Sunday)
+		const day = new Date(year, month - 1, 1).getDay();
+		return day === 0 ? 6 : day - 1;
+	};
+
+	const getEmptyCells = (year: number, month: number) => {
+		const firstDay = getFirstDayOfMonth(year, month);
+		const prevMonth = month === 1 ? 12 : month - 1;
+		const prevYear = month === 1 ? year - 1 : year;
+		const prevMonthDays = new Date(prevYear, prevMonth, 0).getDate();
+
+		return Array.from({ length: firstDay }, (_, i) => {
+			const day = prevMonthDays - firstDay + i + 1;
+			return {
+				day,
+				date: new Date(prevYear, prevMonth - 1, day)
+			};
+		});
+	};
+
+	const getNextMonthCells = (year: number, month: number, currentDays: number) => {
+		const totalCells = Math.ceil((currentDays + getFirstDayOfMonth(year, month)) / 7) * 7;
+		const remainingCells = totalCells - currentDays - getFirstDayOfMonth(year, month);
+
+		const nextMonth = month === 12 ? 1 : month + 1;
+		const nextYear = month === 12 ? year + 1 : year;
+
+		return Array.from({ length: remainingCells }, (_, i) => ({
+			day: i + 1,
+			date: new Date(nextYear, nextMonth - 1, i + 1)
+		}));
+	};
 </script>
 
 <div id="date-picker" class="flex flex-col gap-4">
@@ -122,16 +164,51 @@
 	</div>
 
 	{#if days && month && isValidMonth(month)}
-		<div class="grid w-full grid-cols-7 gap-1">
+		<div
+			class="font-body grid w-full grid-cols-7 gap-2 rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+		>
+			<div class="text-dark-brown text-center text-sm font-semibold">Mon</div>
+			<div class="text-dark-brown text-center text-sm font-semibold">Tue</div>
+			<div class="text-dark-brown text-center text-sm font-semibold">Wed</div>
+			<div class="text-dark-brown text-center text-sm font-semibold">Thu</div>
+			<div class="text-dark-brown text-center text-sm font-semibold">Fri</div>
+			<div class="text-dark-brown text-center text-sm font-semibold">Sat</div>
+			<div class="text-dark-brown text-center text-sm font-semibold">Sun</div>
+			{#each getEmptyCells(parseInt(currentYear!), parseInt(currentMonth!)) as { day, date }}
+				<button
+					type="button"
+					class="flex aspect-square cursor-not-allowed flex-col items-center justify-center rounded-md bg-gray-50 px-2 py-1 text-gray-400 transition-colors md:items-start md:justify-start"
+					disabled
+				>
+					<span class="text-sm">{day} {getMonthName(date)}</span>
+					<span class="text-xs">{getDayName(date)}</span>
+				</button>
+			{/each}
 			{#each Array.from({ length: days }, (_, i) => i + 1) as day}
 				<button
 					type="button"
-					class="text-dark-brown flex aspect-square items-center justify-center rounded-md bg-gray-200 px-2 py-1 disabled:opacity-50 md:items-start md:justify-start"
+					class="text-dark-brown flex aspect-square cursor-pointer flex-col items-center justify-center rounded-md bg-gray-50 px-2 py-1 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 md:items-start md:justify-start"
 					disabled={!isValidDay(day)}
 					onclick={() =>
 						(currentDay = new Date(parseInt(currentYear!), parseInt(currentMonth!) - 1, day))}
 				>
-					{day}
+					<span class="text-sm"
+						>{day}
+						{getMonthName(new Date(parseInt(currentYear!), parseInt(currentMonth!) - 1, day))}</span
+					>
+					<span class="text-xs"
+						>{getDayName(new Date(parseInt(currentYear!), parseInt(currentMonth!) - 1, day))}</span
+					>
+				</button>
+			{/each}
+			{#each getNextMonthCells(parseInt(currentYear!), parseInt(currentMonth!), days) as { day, date }}
+				<button
+					type="button"
+					class="flex aspect-square cursor-not-allowed flex-col items-center justify-center rounded-md bg-gray-50 px-2 py-1 text-gray-400 transition-colors md:items-start md:justify-start"
+					disabled
+				>
+					<span class="text-sm">{day} {getMonthName(date)}</span>
+					<span class="text-xs">{getDayName(date)}</span>
 				</button>
 			{/each}
 		</div>
