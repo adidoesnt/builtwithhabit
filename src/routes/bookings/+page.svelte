@@ -126,47 +126,103 @@
 					{/if}
 				</div>
 				<div class="overflow-x-auto">
-					<table class="w-full border-collapse">
-						<thead class="bg-gray-50">
-							<tr>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Booking ID</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
-								{#if isTrainer}
-									<th class="font-body text-dark-brown border-b p-4 text-left">Client</th>
-								{/if}
-								<th class="font-body text-dark-brown border-b p-4 text-left">Date & Time</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Location</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#if isLoading}
+					{#if isLoading}
+						<div class="hidden md:block">
+							<table class="w-full border-collapse">
+								<thead class="bg-gray-50">
+									<tr>
+										<th class="font-body text-dark-brown min-w-[120px] border-b p-4 text-left"
+											>Booking ID</th
+										>
+										<th class="font-body text-dark-brown min-w-[120px] border-b p-4 text-left"
+											>Purchase ID</th
+										>
+										{#if isTrainer}
+											<th class="font-body text-dark-brown min-w-[150px] border-b p-4 text-left"
+												>Client</th
+											>
+										{/if}
+										<th class="font-body text-dark-brown min-w-[180px] border-b p-4 text-left"
+											>Date & Time</th
+										>
+										<th class="font-body text-dark-brown min-w-[150px] border-b p-4 text-left"
+											>Package</th
+										>
+										<th class="font-body text-dark-brown min-w-[200px] border-b p-4 text-left"
+											>Location</th
+										>
+										<th class="font-body text-dark-brown min-w-[100px] border-b p-4 text-left"
+											>Status</th
+										>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan={isTrainer ? 7 : 6} class="border-b p-8 text-center">
+											<LoadingSpinner size="48px" color="var(--color-dark-brown)" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="flex h-32 items-center justify-center md:hidden">
+							<LoadingSpinner size="48px" color="var(--color-dark-brown)" />
+						</div>
+					{:else}
+						<table class="w-full border-collapse">
+							<thead class="bg-gray-50">
 								<tr>
-									<td colspan={isTrainer ? 7 : 6} class="border-b p-8 text-center">
-										<LoadingSpinner size="48px" color="var(--color-dark-brown)" />
-									</td>
+									<th class="font-body text-dark-brown min-w-[120px] border-b p-4 text-left"
+										>Booking ID</th
+									>
+									<th class="font-body text-dark-brown min-w-[120px] border-b p-4 text-left"
+										>Purchase ID</th
+									>
+									{#if isTrainer}
+										<th class="font-body text-dark-brown min-w-[150px] border-b p-4 text-left"
+											>Client</th
+										>
+									{/if}
+									<th class="font-body text-dark-brown min-w-[180px] border-b p-4 text-left"
+										>Date & Time</th
+									>
+									<th class="font-body text-dark-brown min-w-[150px] border-b p-4 text-left"
+										>Package</th
+									>
+									<th class="font-body text-dark-brown min-w-[200px] border-b p-4 text-left"
+										>Location</th
+									>
+									<th class="font-body text-dark-brown min-w-[100px] border-b p-4 text-left"
+										>Status</th
+									>
 								</tr>
-							{:else}
+							</thead>
+							<tbody>
 								{#each bookings as booking, i}
 									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td class="font-body text-dark-brown border-b p-4">{booking.id}</td>
-										<td class="font-body text-dark-brown border-b p-4">{booking.purchase!.id}</td>
+										<td class="font-body text-dark-brown min-w-[120px] border-b p-4"
+											>{booking.id}</td
+										>
+										<td class="font-body text-dark-brown min-w-[120px] border-b p-4"
+											>{booking.purchase!.id}</td
+										>
 										{#if isTrainer}
-											<td class="font-body text-dark-brown border-b p-4">
+											<td class="font-body text-dark-brown min-w-[150px] border-b p-4">
 												{(booking as unknown as BookingWithUser).user?.firstName}
 												{(booking as unknown as BookingWithUser).user?.lastName}
 											</td>
 										{/if}
-										<td class="font-body text-dark-brown border-b p-4">
+										<td class="font-body text-dark-brown min-w-[180px] border-b p-4">
 											<div>{formatDate(booking.start)}</div>
 											<div class="text-sm text-gray-500">{formatTime(booking.start)}</div>
 										</td>
-										<td class="font-body text-dark-brown border-b p-4">{booking.package!.name}</td>
-										<td class="font-body text-dark-brown border-b p-4">
+										<td class="font-body text-dark-brown min-w-[150px] border-b p-4"
+											>{booking.package!.name}</td
+										>
+										<td class="font-body text-dark-brown min-w-[200px] border-b p-4">
 											{booking.purchase!.address}, {booking.purchase!.postalCode}
 										</td>
-										<td class="font-body text-dark-brown border-b p-4">
+										<td class="font-body text-dark-brown min-w-[100px] border-b p-4">
 											<span
 												class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getStatusColor(
 													booking.purchase!.status!
@@ -177,9 +233,9 @@
 										</td>
 									</tr>
 								{/each}
-							{/if}
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					{/if}
 				</div>
 			</div>
 
