@@ -30,12 +30,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 		if (error) throw error;
 
 		if (data.user && !isAuthenticatedRoute && !isLandingPage) {
-			redirect(302, '/dashboard');
+			redirect(303, '/dashboard');
 		}
 	} else if (isPackageBookingRoute) {
-		redirect(302, '/signup');
+		redirect(303, '/signup');
 	} else if (isAuthenticatedRoute) {
-		redirect(302, '/login');
+		redirect(303, '/login');
 	}
 
 	return resolve(event);
