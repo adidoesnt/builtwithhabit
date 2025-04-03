@@ -1,7 +1,7 @@
 const config = {
 	site: {
 		name: 'builtwithhabit',
-		logo: '/bwh-logo-cropped.svg',
+		logo: '/bwh-logo-cropped.png',
 		caption: 'by beingsofhabit',
 		splitName: ['built', 'with', 'habit'],
 		description: 'Embark on a personalised fitness journey that works for you.',
