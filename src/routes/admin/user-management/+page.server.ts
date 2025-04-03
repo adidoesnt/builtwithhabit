@@ -8,23 +8,23 @@ export const load = (async ({ cookies }) => {
 	const accessToken = cookies.get('access_token');
 
 	if (!accessToken) {
-		throw redirect(302, '/login');
+		throw redirect(303, '/login');
 	}
 
 	const authUser = await supabase.auth.getUser(accessToken);
 
 	if (!authUser.data.user) {
-		throw redirect(302, '/login');
+		throw redirect(303, '/login');
 	}
 
 	const user = await getUserById(authUser.data.user.id);
 
 	if (!user) {
-		throw redirect(302, '/login');
+		throw redirect(303, '/login');
 	}
 
 	if (!user.roles.includes(Role.ADMIN)) {
-		throw redirect(302, '/');
+		throw redirect(303, '/');
 	}
 
 	const users = await getAllUsers();
