@@ -18,7 +18,8 @@
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
 		"stripe:login": "stripe login",
-		"stripe:listen": "stripe listen --forward-to http://localhost:5173/payment-intent/webhook --skip-verify"
+		"stripe:listen": "stripe listen --forward-to http://localhost:5173/payment-intent/webhook --skip-verify",
+		"start": "concurrently \"npm run dev\" \"npm run stripe:listen\""
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^5.5.2",
@@ -27,6 +28,7 @@
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/typography": "^0.5.15",
 		"@tailwindcss/vite": "^4.0.0",
+		"concurrently": "^9.1.2",
 		"drizzle-kit": "^0.30.2",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
