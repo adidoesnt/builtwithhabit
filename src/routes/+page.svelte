@@ -54,7 +54,7 @@
 </section>
 
 <section id="about" class="w-full md:h-[100dvh] min-h-fit">
-	<div id="contact" class="h-full w-full md:grid md:grid-cols-2 md:grid-rows-1">
+	<div id="contact" class="h-full w-full min-h-fit md:grid md:grid-cols-2 md:grid-rows-1">
 		<div
 			class="bg-light-green h-[100dvh] min-h-fit md:h-fit flex w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
 		>
