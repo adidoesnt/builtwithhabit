@@ -89,9 +89,10 @@
 			<div class="flex items-center justify-between p-4 {isTableExpanded ? 'border-b' : ''}">
 				<h2 class="font-body text-dark-brown text-xl font-semibold">Upcoming Bookings</h2>
 				<button
-					class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+					class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
 					onclick={() => (isTableExpanded = !isTableExpanded)}
 					aria-label={isTableExpanded ? 'Hide bookings' : 'Show bookings'}
+					disabled={typedBookings.length === 0}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -164,9 +165,10 @@
 				>
 					<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
 					<button
-						class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200"
+						class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
 						onclick={() => (isPurchasesTableExpanded = !isPurchasesTableExpanded)}
 						aria-label={isPurchasesTableExpanded ? 'Hide purchases' : 'Show purchases'}
+						disabled={typedPurchases.length === 0}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
