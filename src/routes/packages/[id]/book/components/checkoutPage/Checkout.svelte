@@ -68,7 +68,7 @@
 			const { clientSecret, paymentIntentId } = await fetchClientSecret();
 
 			await updatePurchase(paymentIntentId);
-			redirectUrl = `/payment-intent/${clientSecret}`;
+			redirectUrl = `/payment-intent/${paymentIntentId}`;
 
 			if (stripe && clientSecret) {
 				elements = stripe.elements({
