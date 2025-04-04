@@ -23,7 +23,7 @@ exports.handler = async (event) => {
 	const { Records } = event;
 
 	console.log('Processing records...');
-	await Promise.allSettled(
+	const results = await Promise.allSettled(
 		Records.map(async (record) => {
 			try {
 				const body = JSON.parse(record.body);
