@@ -92,7 +92,7 @@
 
 		<div class="mt-6 md:mb-8">
 			<h1 class="text-dark-brown text-2xl font-bold">Your Bookings</h1>
-			<p class="text-light-brown text-sm md:mb-2">View and manage your package bookings.</p>
+			<p class="text-light-brown text-sm mb-4 md:mb-2">View and manage your package bookings.</p>
 			<ReschedulingInfo className="text-sm hidden md:block text-light-brown" />
 			<p class="text-light-brown text-sm hidden md:block mt-2">
 				To make a new booking, <a href="/packages" class="text-dark-brown underline">click here</a>.
@@ -100,7 +100,7 @@
 		</div>
 
 		{#if bookings.length === 0}
-			<div class=" mt-2 md:mt-8 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
+			<div class="mt-4 md:mt-8 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
 				<svg
 					class="mx-auto h-12 w-12 text-gray-400"
 					fill="none"
