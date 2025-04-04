@@ -1,0 +1,7 @@
+{
+	"name": "lambda",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "Aditya Banerjee",
+	"description": "BWH Lambda function to check payment intent status"
+}

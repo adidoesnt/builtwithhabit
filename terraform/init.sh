@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source .envrc
 
 # Create TF State S3 Bucket
