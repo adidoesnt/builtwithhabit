@@ -5,7 +5,7 @@
 	import InstagramIcon from '$lib/icons/Instagram.svelte';
 	import MobileIcon from '$lib/icons/Mobile.svelte';
 	import EmailIcon from '$lib/icons/Email.svelte';
-	import Packages from '$lib/components/Packages.svelte';
+	import Packages from '$lib/components/Packages/Packages.svelte';
 	import type { PageServerData } from './$types';
 	// import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
 
