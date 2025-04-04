@@ -5,7 +5,7 @@ import { resetPassword } from '$lib/server/auth/email/resetPassword';
 import { supabase } from '$lib/server/auth';
 
 const schema = z.object({
-	password: z.string()
+	password: z.string().min(8, 'Password must be at least 8 characters long')
 });
 
 export const actions = {
@@ -58,13 +58,14 @@ export const actions = {
 
 		try {
 			await resetPassword(email, result.data.password);
+			return {
+				success: 'Password reset successfully'
+			};
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
 				error: 'Failed to reset password'
 			});
 		}
-
-		throw redirect(303, '/login');
 	}
 } satisfies Actions;

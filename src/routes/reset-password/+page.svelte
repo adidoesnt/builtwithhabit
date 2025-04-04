@@ -8,7 +8,8 @@
 		password?: string[];
 	};
 
-	let { form }: { form: (ActionData & { errors?: FormErrors }) | null } = $props();
+	let { form }: { form: (ActionData & { errors?: FormErrors; success?: string }) | null } =
+		$props();
 
 	let formValues = $state({
 		password: ''
@@ -53,7 +54,7 @@
 		>
 			<div class="space-y-1">
 				<h1 class="text-2xl font-semibold">Reset Password</h1>
-				<p class="text-light-brown text-sm">Enter your password to receive a password reset link.</p>
+				<p class="text-light-brown text-sm">Enter your new password to reset your account.</p>
 			</div>
 
 			<div class="flex flex-col gap-4">
@@ -63,7 +64,7 @@
 						class="focus:border-dark-brown rounded-sm border-[1px] border-gray-300 p-2 focus:outline-none"
 						type="password"
 						name="password"
-						placeholder="Enter your password"
+						placeholder="Enter your new password"
 						bind:value={formValues.password}
 					/>
 					{#if form?.errors?.password}
@@ -93,9 +94,11 @@
 					{/if}</button
 				>
 			</div>
-
 			{#if form?.error}
-				<p class="mt-2 text-sm text-red-400">{form.error}</p>
+				<p class="text-sm text-red-400">{form.error}</p>
+			{/if}
+			{#if form?.success}
+				<p class="text-sm text-green-600">{form.success}</p>
 			{/if}
 		</form>
 	</div>
