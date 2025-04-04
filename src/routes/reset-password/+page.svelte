@@ -40,7 +40,7 @@
 		<LogoHeader />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-6"
-			action="/forgot-password"
+			action="/reset-password"
 			method="POST"
 			use:enhance={({ formData }) => {
 				isLoading = true;
