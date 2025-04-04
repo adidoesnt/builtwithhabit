@@ -35,7 +35,8 @@ export const POST = async ({ request }) => {
 		switch (event.type) {
 			case WebhookEvent.PaymentIntentCreated:
 				paymentIntent = event.data.object as PaymentIntent;
-				await sendMessage({ payment_intent_id: paymentIntent.id });
+				// TODO: Uncomment this
+				// await sendMessage({ payment_intent_id: paymentIntent.id });
 				break;
 			case WebhookEvent.PaymentIntentSucceeded:
 			case WebhookEvent.ChargeSucceeded:
