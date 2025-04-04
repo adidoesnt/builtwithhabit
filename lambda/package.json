@@ -1,7 +1,10 @@
 {
-	"name": "lambda",
-	"version": "1.0.0",
+	"name": "bwh-check-payment-intent-status",
 	"main": "index.js",
 	"author": "Aditya Banerjee",
-	"description": "BWH Lambda function to check payment intent status"
+	"description": "BWH Lambda function to check payment intent status",
+	"dependencies": {
+		"@aws-sdk/client-secrets-manager": "^3.782.0",
+		"stripe": "^18.0.0"
+	}
 }
