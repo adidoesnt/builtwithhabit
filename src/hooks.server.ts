@@ -6,7 +6,14 @@ const isLandingPageRoute = (pathname: string) => {
 };
 
 const getIsAuthenticatedRoute = (pathname: string) => {
-	return !['/login', '/signup', '/signup/verify-email', '/'].includes(pathname);
+	return ![
+		'/login',
+		'/signup',
+		'/signup/verify-email',
+		'/',
+		'/reset-password',
+		'/forgot-password'
+	].includes(pathname);
 };
 
 const getIsPackageBookingRoute = (pathname: string) => {
