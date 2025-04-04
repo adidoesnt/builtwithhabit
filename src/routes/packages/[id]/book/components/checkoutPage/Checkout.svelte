@@ -136,6 +136,8 @@
 			});
 
 			if (error) throw error;
+
+			goto(redirectUrl);
 		} catch (e) {
 			console.error('Payment error:', e);
 		} finally {
