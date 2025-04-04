@@ -1,5 +1,5 @@
 import { supabase } from '$lib/server/auth';
-import { getPurchaseStatusByClientSecret } from '$lib/server/db/bookings';
+import { getPurchaseStatusByPaymentIntentId } from '$lib/server/db/bookings';
 import { getUserById } from '$lib/server/db/user.js';
 import { json } from '@sveltejs/kit';
 
@@ -22,9 +22,9 @@ export async function GET({ params, cookies }) {
 		return json({ error: 'User not found' }, { status: 401 });
 	}
 
-	const { clientSecret } = params;
+	const { paymentIntentId } = params;
 
-	const status = await getPurchaseStatusByClientSecret(clientSecret);
+	const status = await getPurchaseStatusByPaymentIntentId(paymentIntentId);
 
 	return json({ status });
 }

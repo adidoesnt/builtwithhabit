@@ -1,0 +1,1 @@
+ALTER TABLE "purchases" RENAME COLUMN "payment_intent_client_secret" TO "payment_intent_id";

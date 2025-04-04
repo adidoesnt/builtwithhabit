@@ -55,35 +55,23 @@ export const createUnconfirmedPurchase = async (
 	});
 };
 
-export const updatePaymentIntentClientSecret = async (
-	purchaseId: number,
-	paymentIntentClientSecret: string
-) => {
-	await database
-		.update(purchases)
-		.set({ paymentIntentClientSecret })
-		.where(eq(purchases.id, purchaseId));
+export const updatePaymentIntentId = async (purchaseId: number, paymentIntentId: string) => {
+	await database.update(purchases).set({ paymentIntentId }).where(eq(purchases.id, purchaseId));
 };
 
-export const updatePurchaseStatus = async (
-	paymentIntentClientSecret: string,
-	status: PurchaseStatus
-) => {
+export const updatePurchaseStatus = async (paymentIntentId: string, status: PurchaseStatus) => {
 	try {
-		console.log(
-			'Attempting to update purchase status for client secret:',
-			paymentIntentClientSecret
-		);
+		console.log('Attempting to update purchase status for client secret:', paymentIntentId);
 		const result = await database
 			.update(purchases)
 			.set({ status })
-			.where(eq(purchases.paymentIntentClientSecret, paymentIntentClientSecret))
+			.where(eq(purchases.paymentIntentId, paymentIntentId))
 			.returning();
 
 		console.log('Update result:', result);
 
 		if (!result || result.length === 0) {
-			console.error('No purchase found for client secret:', paymentIntentClientSecret);
+			console.error('No purchase found for client secret:', paymentIntentId);
 			throw new Error('No purchase found for the given client secret');
 		}
 
@@ -94,15 +82,15 @@ export const updatePurchaseStatus = async (
 	}
 };
 
-export const getPurchaseStatusByClientSecret = async (clientSecret: string) => {
+export const getPurchaseStatusByPaymentIntentId = async (paymentIntentId: string) => {
 	const result = await database
 		.select()
 		.from(purchases)
-		.where(eq(purchases.paymentIntentClientSecret, clientSecret));
+		.where(eq(purchases.paymentIntentId, paymentIntentId));
 	const purchase = result[0];
 
 	if (!purchase) {
-		throw new Error('No purchase found for the given client secret');
+		throw new Error('No purchase found for the given payment intent id');
 	}
 
 	return purchase.status;
@@ -275,10 +263,10 @@ export const getAllBookings = async () => {
 	return result;
 };
 
-export const deletePurchaseByClientSecret = async (clientSecret: string) => {
+export const deletePurchaseByPaymentIntentId = async (paymentIntentId: string) => {
 	const result = await database
 		.delete(purchases)
-		.where(eq(purchases.paymentIntentClientSecret, clientSecret));
+		.where(eq(purchases.paymentIntentId, paymentIntentId));
 
 	return result;
 };
