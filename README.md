@@ -21,6 +21,8 @@ _This project is currently under development._
 - Drizzle ORM
 - Supabase
 - Stripe
+- AWS Lambda
+- AWS SQS
 - Vercel
 
 ## Development
