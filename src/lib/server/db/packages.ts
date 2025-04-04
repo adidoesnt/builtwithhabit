@@ -1,9 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { database } from '.';
 import { packages } from './schema';
 
 export const getAllPackages = async () => {
-	return await database.select().from(packages);
+	return await database.select().from(packages).orderBy(asc(packages.id));
 };
 
 export const getPackageById = async (id: number) => {

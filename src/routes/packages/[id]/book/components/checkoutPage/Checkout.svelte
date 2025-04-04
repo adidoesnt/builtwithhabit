@@ -130,7 +130,6 @@
 			console.log('Confirming payment...');
 			const { error } = await stripe.confirmPayment({
 				elements,
-				redirect: 'if_required',
 				confirmParams: {
 					return_url: window.location.origin + redirectUrl
 				}
