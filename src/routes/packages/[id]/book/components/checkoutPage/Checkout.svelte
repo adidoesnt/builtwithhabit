@@ -10,6 +10,7 @@
 	import Summary from './Summary.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { purchaseId } from '../formState';
+	import { goto } from '$app/navigation';
 
 	const { package: fetchedPackage }: { package: Package } = $props();
 	const price = parseFloat(fetchedPackage.price);
@@ -130,18 +131,18 @@
 			console.log('Confirming payment...');
 			const { error } = await stripe.confirmPayment({
 				elements,
+				redirect: 'if_required',
 				confirmParams: {
 					return_url: window.location.origin + redirectUrl
 				}
 			});
 
 			if (error) throw error;
-
-			goto(redirectUrl);
 		} catch (e) {
 			console.error('Payment error:', e);
 		} finally {
 			isSubmitting = false;
+			goto(redirectUrl);
 		}
 	};
 </script>
