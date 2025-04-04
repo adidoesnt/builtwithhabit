@@ -87,7 +87,12 @@
 		<!-- Upcoming bookings section -->
 		<div class="mt-12 rounded-lg bg-white shadow-md">
 			<div class="flex items-center justify-between p-4 {isTableExpanded ? 'border-b' : ''}">
-				<h2 class="font-body text-dark-brown text-xl font-semibold">Upcoming Bookings</h2>
+				<div class="flex flex-col justify-center gap-2">
+					<h2 class="font-body text-dark-brown text-xl font-semibold">Upcoming Bookings</h2>
+					<p class="font-body text-light-brown">
+						Your next 3 bookings can be found below.
+					</p>
+				</div>
 				<button
 					class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
 					onclick={() => (isTableExpanded = !isTableExpanded)}
@@ -163,7 +168,12 @@
 				<div
 					class="flex items-center justify-between p-4 {isPurchasesTableExpanded ? 'border-b' : ''}"
 				>
-					<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
+					<div class="flex flex-col justify-center gap-2">
+						<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
+						<p class="font-body text-light-brown">
+							Your last 3 purchases can be found below.
+						</p>
+					</div>
 					<button
 						class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
 						onclick={() => (isPurchasesTableExpanded = !isPurchasesTableExpanded)}
