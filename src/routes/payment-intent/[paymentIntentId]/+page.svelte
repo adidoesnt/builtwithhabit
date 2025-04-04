@@ -4,14 +4,14 @@
 	import config from '$lib/config';
 	import { PurchaseStatus } from '../types';
 	const { data }: { data: PageServerData } = $props();
-	const { clientSecret } = data;
+	const { paymentIntentId } = data;
 
 	let isSuccess = $state(false);
 	let isFailed = $state(false);
 
 	$effect(() => {
 		const interval = setInterval(() => {
-			fetch(`/payment-intent/${clientSecret}/status`)
+			fetch(`/payment-intent/${paymentIntentId}/status`)
 				.then((res) => res.json())
 				.then((data) => {
 					const { status } = data;
@@ -55,7 +55,7 @@
 					<h1 class="text-dark-brown text-center text-3xl font-bold">Payment Successful!</h1>
 					<p class="text-center text-lg text-gray-700 text-wrap break-all">
 						<span class="font-bold">Payment ID:</span>
-						{clientSecret}
+							{paymentIntentId}
 					</p>
 				</div>
 
@@ -78,7 +78,7 @@
 					<h1 class="text-dark-brown text-center text-3xl font-bold">Payment Failed</h1>
 					<p class="text-center text-lg text-gray-700 text-wrap break-all">
 						<span class="font-bold">Payment ID:</span>
-						{clientSecret}
+						{paymentIntentId}
 					</p>
 				</div>
 
@@ -95,7 +95,7 @@
 					<h1 class="text-dark-brown text-center text-3xl font-bold">Processing Your Payment</h1>
 					<p class="text-center text-lg text-gray-700 text-wrap break-all">
 						<span class="font-bold">Payment ID:</span>
-						{clientSecret}
+						{paymentIntentId}
 					</p>
 				</div>
 

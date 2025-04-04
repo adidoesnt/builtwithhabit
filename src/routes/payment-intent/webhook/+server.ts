@@ -1,4 +1,4 @@
-import { deletePurchaseByClientSecret, updatePurchaseStatus } from '$lib/server/db/bookings';
+import { deletePurchaseByPaymentIntentId, updatePurchaseStatus } from '$lib/server/db/bookings';
 import type { PaymentIntent } from '@stripe/stripe-js';
 import { json } from '@sveltejs/kit';
 import { WebhookEvent, PurchaseStatus } from '../types';
@@ -48,7 +48,7 @@ export const POST = async ({ request }) => {
 				console.log('Payment failed:', event.data.object);
 				paymentIntent = event.data.object as PaymentIntent;
 				await updatePurchaseStatus(paymentIntent.client_secret!, PurchaseStatus.FAILED);
-				await deletePurchaseByClientSecret(paymentIntent!.client_secret!);
+				await deletePurchaseByPaymentIntentId(paymentIntent!.client_secret!);
 				break;
 			case WebhookEvent.ChargeUpdated:
 				console.log('Charge updated:', event.data.object);
