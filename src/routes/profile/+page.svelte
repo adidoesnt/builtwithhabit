@@ -116,7 +116,7 @@
 						</button> -->
 
 						<button
-							class="font-body flex cursor-pointer items-center justify-center rounded-sm bg-[#FF9AA2] px-6 py-2 text-white transition-all duration-300 hover:opacity-80"
+							class="font-body flex cursor-pointer items-center justify-center rounded-sm bg-[#E57373] px-6 py-2 text-white transition-all duration-300 hover:bg-[#EF5350] disabled:cursor-not-allowed disabled:opacity-70"
 							onclick={handleLogout}
 							disabled={isLoggingOut}
 						>
