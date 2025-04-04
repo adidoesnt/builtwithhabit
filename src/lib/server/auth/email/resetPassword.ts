@@ -15,15 +15,14 @@ export const sendPasswordResetEmail = async (email: string) => {
 	return data;
 };
 
-export const resetPassword = async (email: string, password: string) => {
+export const resetPassword = async (password: string) => {
 	const { data, error } = await supabase.auth.updateUser({
-		email,
 		password
 	});
 
 	if (error) {
 		throw new Error(error.message);
-	};
+	}
 
 	return data;
 };

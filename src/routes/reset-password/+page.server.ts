@@ -9,40 +9,11 @@ const schema = z.object({
 });
 
 export const actions = {
-	default: async ({ request, url }) => {
-		const hash = url.hash.substring(1);
-		const params = new URLSearchParams(hash);
-		const accessToken = params.get('access_token');
-
-		if (!accessToken) {
-			return fail(403, {
-				error: 'Invalid access token'
-			});
-		}
-
-		const { data: userData, error } = await supabase.auth.getUser(accessToken);
-
-		if (error) {
-			return fail(403, {
-				error: 'Invalid access token'
-			});
-		}
-
-		const email = userData.user?.email;
-
-		if (!email) {
-			return fail(403, {
-				error: 'Invalid access token'
-			});
-		}
-
+	default: async ({ request }) => {
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
 
-		console.log('Resetting password', {
-			email,
-			password: data.password
-		});
+		console.log('Resetting password');
 
 		const result = schema.safeParse(data);
 
@@ -57,7 +28,7 @@ export const actions = {
 		}
 
 		try {
-			await resetPassword(email, result.data.password);
+			await resetPassword(result.data.password);
 			return {
 				success: 'Password reset successfully'
 			};
