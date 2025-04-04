@@ -4,7 +4,7 @@ const Stripe = require('stripe');
 const secretsManagerClient = new SecretsManagerClient({ region: 'ap-southeast-1' });
 
 const getStripeSecret = async () => {
-	const command = new GetSecretValueCommand({ SecretId: 'bwh-stripe-keys' });
+	const command = new GetSecretValueCommand({ SecretId: 'bwh-stripe-keys-2' });
 	const response = await secretsManagerClient.send(command);
 	return JSON.parse(response.SecretString);
 };
