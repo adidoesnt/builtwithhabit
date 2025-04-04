@@ -39,8 +39,8 @@
 		}
 
 		const data = await result.json();
-		const clientSecret = data.clientSecret;
-		return clientSecret;
+		const { clientSecret, paymentIntentId } = data;
+		return { clientSecret, paymentIntentId };
 	};
 
 	const updatePurchase = async (paymentIntentId: string) => {
@@ -65,9 +65,9 @@
 		try {
 			const stripeInstance = await loadStripe(PUBLIC_STRIPE_KEY);
 			stripe = stripeInstance;
-			const clientSecret = await fetchClientSecret();
+			const { clientSecret, paymentIntentId } = await fetchClientSecret();
 
-			await updatePurchase(clientSecret);
+			await updatePurchase(paymentIntentId);
 			redirectUrl = `/payment-intent/${clientSecret}`;
 
 			if (stripe && clientSecret) {

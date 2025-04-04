@@ -31,7 +31,13 @@ export const POST = async ({ request, cookies }) => {
 		automatic_payment_methods: { enabled: true }
 	});
 
-	return new Response(JSON.stringify({ clientSecret: paymentIntent.client_secret }), {
-		status: 200
-	});
+	return new Response(
+		JSON.stringify({
+			clientSecret: paymentIntent.client_secret,
+			paymentIntentId: paymentIntent.id
+		}),
+		{
+			status: 200
+		}
+	);
 };
