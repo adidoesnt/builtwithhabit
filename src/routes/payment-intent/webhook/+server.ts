@@ -4,6 +4,7 @@ import { json } from '@sveltejs/kit';
 import { WebhookEvent, PurchaseStatus } from '../types';
 import stripe from '$lib/server/stripe';
 import { env } from '$env/dynamic/private';
+import { sendMessage } from '$lib/server/sqs';
 
 const { STRIPE_WEBHOOK_SECRET } = env;
 
@@ -33,7 +34,8 @@ export const POST = async ({ request }) => {
 		let paymentIntent: PaymentIntent | null = null;
 		switch (event.type) {
 			case WebhookEvent.PaymentIntentCreated:
-				// TODO: Add logic to check if the payment intent has succeeded, if not, cancel and delete the purchase
+				paymentIntent = event.data.object as PaymentIntent;
+				await sendMessage({ payment_intent_id: paymentIntent.id });
 				break;
 			case WebhookEvent.PaymentIntentSucceeded:
 			case WebhookEvent.ChargeSucceeded:
@@ -46,9 +48,7 @@ export const POST = async ({ request }) => {
 				console.log('Payment failed:', event.data.object);
 				paymentIntent = event.data.object as PaymentIntent;
 				await updatePurchaseStatus(paymentIntent.client_secret!, PurchaseStatus.FAILED);
-				setTimeout(async () => {
-					await deletePurchaseByClientSecret(paymentIntent!.client_secret!);
-				}, 20000);
+				await deletePurchaseByClientSecret(paymentIntent!.client_secret!);
 				break;
 			case WebhookEvent.ChargeUpdated:
 				console.log('Charge updated:', event.data.object);
