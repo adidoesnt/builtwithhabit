@@ -7,9 +7,7 @@ resource "aws_iam_policy" "bwh_lambda_policy" {
       {
         Effect = "Allow"
         Action = "secretsmanager:GetSecretValue",
-        Resource = [
-          aws_secretsmanager_secret.bwh_stripe_keys.arn
-        ]
+        Resource = aws_secretsmanager_secret.bwh_stripe_keys.arn
       },
       {
         Effect = "Allow"

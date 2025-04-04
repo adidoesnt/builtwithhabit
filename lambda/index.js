@@ -1,7 +1,7 @@
 const { SecretsManagerClient, GetSecretValueCommand } = require('@aws-sdk/client-secrets-manager');
 const Stripe = require('stripe');
 
-const secretsManagerClient = new SecretsManagerClient({ region: 'us-east-1' });
+const secretsManagerClient = new SecretsManagerClient({ region: 'ap-southeast-1' });
 
 const getStripeSecret = async () => {
 	const command = new GetSecretValueCommand({ SecretId: 'bwh-stripe-keys' });
@@ -28,7 +28,7 @@ exports.handler = async (event) => {
 			const body = JSON.parse(record.body);
 			const { payment_intent_id } = body;
 
-			console.log('Checking payment status for for client_secret', client_secret);
+			console.log('Checking payment status for payment_intent_id:', payment_intent_id);
 
 			const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
 			const { client_secret, status } = paymentIntent;
