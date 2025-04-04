@@ -38,8 +38,9 @@
 	>
 		<LogoHeader linkToHome={false} />
 		<p class="font-body text-dark-brown text-lg">
-			<span class="text-light-brown">{splitDescription[0]}</span>
-			<span class="text-dark-brown">{splitDescription[1]}</span>
+			<span class="text-dark-brown">{splitDescription[0]}</span>
+			<span class="text-light-brown">{splitDescription[1]}</span>
+			<span class="text-dark-brown">{splitDescription[2]}</span>
 		</p>
 	</button>
 	<button

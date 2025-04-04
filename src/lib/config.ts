@@ -6,7 +6,8 @@ const config = {
 		splitName: ['built', 'with', 'habit'],
 		description: 'Embark on a personalised fitness journey that works for you.',
 		splitDescription: [
-			'Click here to embark on a personalised fitness journey that works',
+			'Click here',
+			'to embark on a personalised fitness journey that works',
 			'for you.'
 		],
 		navBar: {
