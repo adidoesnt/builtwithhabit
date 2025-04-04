@@ -9,7 +9,6 @@
 	import { PUBLIC_STRIPE_KEY } from '$env/static/public';
 	import Summary from './Summary.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
-	import { goto } from '$app/navigation';
 	import { purchaseId } from '../formState';
 
 	const { package: fetchedPackage }: { package: Package } = $props();
@@ -138,7 +137,6 @@
 			});
 
 			if (error) throw error;
-			goto('/dashboard');
 		} catch (e) {
 			console.error('Payment error:', e);
 		} finally {
