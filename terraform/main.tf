@@ -3,14 +3,22 @@ provider "aws" {
   region  = "ap-southeast-1"
 }
 
-variable "access_key_id" {
-  description = "AWS Access Key ID for BWH"
+variable "public_stripe_key" {
+  description = "Public Stripe Key"
   type        = string
+  sensitive   = true
 }
 
-variable "secret_access_key" {
-  description = "AWS Secret Access Key for BWH"
+variable "secret_stripe_key" {
+  description = "Secret Stripe Key"
   type        = string
+  sensitive   = true
+}
+
+variable "stripe_webhook_secret" {
+  description = "Stripe Webhook Secret"
+  type        = string
+  sensitive   = true
 }
 
 terraform {
