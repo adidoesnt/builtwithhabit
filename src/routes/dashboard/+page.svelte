@@ -7,6 +7,8 @@
 	import { formatDate } from '$lib/utils/date';
 	import { formatTime } from '$lib/utils/time';
 	import { slide } from 'svelte/transition';
+	import { capitalise } from '$lib/utils/text';
+	import { PurchaseStatus } from '../payment-intent/types';
 
 	const { dashboard } = config;
 	const { data }: { data: PageServerData } = $props();
@@ -59,6 +61,17 @@
 			? [dashboard.icons[1], dashboard.icons[3]]
 			: dashboard.icons
 	);
+
+	const getStatusColor = (status: PurchaseStatus) => {
+		switch (status) {
+			case PurchaseStatus.CONFIRMED:
+				return 'bg-green-100 text-green-800';
+			case PurchaseStatus.FAILED:
+				return 'bg-red-100 text-red-800';
+			default:
+				return 'bg-yellow-100 text-yellow-800';
+		}
+	};
 </script>
 
 <div class="bg-beige min-h-[100dvh] p-8">
@@ -89,9 +102,7 @@
 			<div class="flex items-center justify-between p-4 {isTableExpanded ? 'border-b' : ''}">
 				<div class="flex flex-col justify-center gap-2">
 					<h2 class="font-body text-dark-brown text-xl font-semibold">Upcoming Bookings</h2>
-					<p class="font-body text-light-brown">
-						Your next 3 bookings can be found below.
-					</p>
+					<p class="font-body text-light-brown">Your next 3 bookings can be found below.</p>
 				</div>
 				<button
 					class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
@@ -170,9 +181,7 @@
 				>
 					<div class="flex flex-col justify-center gap-2">
 						<h2 class="font-body text-dark-brown text-xl font-semibold">Recent Purchases</h2>
-						<p class="font-body text-light-brown">
-							Your last 3 purchases can be found below.
-						</p>
+						<p class="font-body text-light-brown">Your last 3 purchases can be found below.</p>
 					</div>
 					<button
 						class="font-body text-dark-brown flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent"
@@ -209,6 +218,7 @@
 									<th class="font-body text-dark-brown border-b p-4 text-left">Purchase ID</th>
 									<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
 									<th class="font-body text-dark-brown border-b p-4 text-left">Date</th>
+									<th class="font-body text-dark-brown border-b p-4 text-left">Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -225,6 +235,15 @@
 												<div class="text-sm text-gray-500">
 													{formatTime(purchase.purchases.createdAt)}
 												</div>
+											</td>
+											<td class="font-body text-dark-brown border-b p-4">
+												<span
+													class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getStatusColor(
+														purchase.purchases.status as PurchaseStatus
+													)}"
+												>
+													{capitalise(purchase.purchases.status)}
+												</span>
 											</td>
 										</tr>
 									{/if}
