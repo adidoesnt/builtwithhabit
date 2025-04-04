@@ -48,7 +48,7 @@ exports.handler = async (event) => {
 
 					await stripe.paymentIntents.cancel(payment_intent_id);
 				} else if (status === 'succeeded') {
-					console.log('Payment intent status is succeeded, releasing booked slots');
+					console.log('Payment intent status is succeeded. No action needed.');
 				}
 			} catch (error) {
 				console.error('Error processing record:', error);
