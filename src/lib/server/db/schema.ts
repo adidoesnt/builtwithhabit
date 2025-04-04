@@ -107,7 +107,7 @@ export const purchases = pgTable('purchases', {
 	address: text('address').notNull(),
 	postalCode: text('postal_code').notNull(),
 	status: purchaseStatusEnum('status').notNull().default(PurchaseStatus.UNCONFIRMED),
-	paymentIntentClientSecret: text('payment_intent_client_secret'),
+	paymentIntentId: text('payment_intent_id'),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });

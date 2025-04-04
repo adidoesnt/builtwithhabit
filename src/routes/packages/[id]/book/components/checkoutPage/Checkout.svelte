@@ -43,10 +43,10 @@
 		return clientSecret;
 	};
 
-	const updatePurchase = async (clientSecret: string) => {
+	const updatePurchase = async (paymentIntentId: string) => {
 		const result = await fetch(`/purchases/${$purchaseId}`, {
 			method: 'PUT',
-			body: JSON.stringify({ paymentIntentClientSecret: clientSecret }),
+			body: JSON.stringify({ paymentIntentId }),
 			headers: {
 				'Content-Type': 'application/json'
 			}

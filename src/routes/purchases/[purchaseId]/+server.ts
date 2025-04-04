@@ -1,5 +1,5 @@
 import { supabase } from '$lib/server/auth';
-import { updatePaymentIntentClientSecret } from '$lib/server/db/bookings.js';
+import { updatePaymentIntentId } from '$lib/server/db/bookings.js';
 import { getUserById } from '$lib/server/db/user';
 import { json } from '@sveltejs/kit';
 
@@ -23,7 +23,7 @@ export const PUT = async ({ request, params, cookies }) => {
 			return json({ success: false, error: 'User not found' }, { status: 401 });
 		}
 
-		const { paymentIntentClientSecret } = await request.json();
+		const { paymentIntentId } = await request.json();
 		const { purchaseId } = params;
 
 		const id = Number(purchaseId);
@@ -31,7 +31,7 @@ export const PUT = async ({ request, params, cookies }) => {
 			return json({ success: false, error: 'Invalid purchase ID' }, { status: 400 });
 		}
 
-		await updatePaymentIntentClientSecret(id, paymentIntentClientSecret);
+		await updatePaymentIntentId(id, paymentIntentId);
 		return json({ success: true }, { status: 200 });
 	} catch (error) {
 		console.error('Error updating payment intent client secret:', error);
