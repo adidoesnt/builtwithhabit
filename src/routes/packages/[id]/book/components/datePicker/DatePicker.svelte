@@ -87,10 +87,14 @@
 	const isValidDay = (day: number) => {
 		const selectedDate = new Date(parseInt(currentYear!), parseInt(currentMonth!) - 1, day);
 
-		// new bookings must be at least 3 days from now
-		const threeDaysFromNow = new Date();
-		threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
-		return selectedDate >= threeDaysFromNow;
+		// TODO: revert to new bookings must be at least 3 days from now
+		// We will temporarily remove this to allow for last minute bookings
+
+		const today = new Date();
+		const tomorrow = new Date(today);
+		tomorrow.setDate(today.getDate() + 1);
+		tomorrow.setHours(0, 0, 0, 0);
+		return selectedDate >= tomorrow;
 	};
 
 	const getDayName = (date: Date) => {

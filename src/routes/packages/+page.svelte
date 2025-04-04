@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Packages from '$lib/components/Packages.svelte';
+	import Packages from '$lib/components/Packages/Packages.svelte';
 	import config from '$lib/config';
 	import type { PageServerData } from './$types';
 
@@ -9,4 +9,4 @@
 	const { packages } = data;
 </script>
 
-<Packages {description} {packages} />
+<Packages {description} {packages} showReschedulingInfo />

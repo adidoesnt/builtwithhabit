@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import type { Package } from '$lib/server/db/schema';
 	import config from '$lib/config';
+	import ReschedulingInfo from './ReschedulingInfo.svelte';
 
 	const { pricing } = config.site;
 
@@ -10,12 +11,14 @@
 		packages,
 		description,
 		showTestimonialsButton = false,
-		altColors = false
+		altColors = false,
+		showReschedulingInfo = false
 	}: {
 		packages: Package[];
 		description?: string;
 		showTestimonialsButton?: boolean;
 		altColors?: boolean;
+		showReschedulingInfo?: boolean;
 	} = $props();
 
 	let activeIndex = $state(0);
@@ -97,15 +100,15 @@
 
 <section
 	id="pricing"
-	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-[100dvh] flex-col items-center justify-center gap-8 px-8 py-16`}
+	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-[100dvh] flex-col items-center justify-center gap-4 md:gap-8 px-8 py-16`}
 >
 	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
 		{pricing.title}
 	</h2>
 	{#if description}
-		<div class="flex flex-col items-center justify-center gap-4 md:gap-0">
+		<div class="flex flex-col items-center justify-center gap-2 md:gap-0">
 			{#each description.split('.') as sentence, index}
-				<p class="font-body text-dark-brown text-md text-center md:text-xl">
+				<p class="font-body text-dark-brown text-md text-left md:text-center md:text-xl">
 					{sentence}{#if index < description.split('.').length - 1}
 						.
 					{/if}
@@ -121,7 +124,7 @@
 		{#each packages as plan, index}
 			<div
 				id={`plan-${index}`}
-				class={`${altColors ? 'bg-beige' : 'bg-gray-100'} relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-lg transition-transform duration-300 ${
+				class={`${altColors ? 'bg-beige' : 'bg-gray-100'} relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-xl transition-transform duration-300 ${
 					index === activeIndex ? 'opacity-100' : 'opacity-70'
 				} md:opacity-100 md:hover:scale-105`}
 			>
@@ -178,6 +181,12 @@
 			></button>
 		{/each}
 	</div>
+
+	{#if showReschedulingInfo}
+		<div class="mt-4">
+			<ReschedulingInfo className="text-sm my-2 md:my-0 font-body text-center text-light-brown" />
+		</div>
+	{/if}
 
 	{#if showTestimonialsButton}
 		<div class="flex flex-col items-center justify-center">

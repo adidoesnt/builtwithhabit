@@ -1,7 +1,7 @@
 import { database } from '.';
 import { bookings, packages, purchases, PurchaseStatus, users } from '$lib/server/db/schema';
 import { getDefaultTrainer } from './trainer';
-import { and, asc, eq, gt, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gt, sql } from 'drizzle-orm';
 import type { PaginationParams } from './types';
 
 const getTimes = (slot: Date | string) => {
@@ -208,7 +208,8 @@ export const getPurchasesByUserId = async (userId: string) => {
 		.select()
 		.from(purchases)
 		.leftJoin(packages, eq(purchases.packageId, packages.id))
-		.where(eq(purchases.userId, userId));
+		.where(eq(purchases.userId, userId))
+		.orderBy(desc(purchases.createdAt));
 
 	return results.map((result) => ({
 		...result.purchases,
@@ -232,6 +233,7 @@ export const getUpcomingBookingsByUserId = async (userId: string, limit = 3) => 
 		.from(bookings)
 		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
 		.where(and(eq(bookings.userId, userId), gt(bookings.start, new Date())))
+		.orderBy(asc(bookings.start))
 		.limit(limit);
 
 	return result;

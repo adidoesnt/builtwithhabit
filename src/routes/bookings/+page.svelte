@@ -8,6 +8,7 @@
 	import { capitalise } from '$lib/utils/text';
 	import config from '$lib/config';
 	import { Role, user } from '$lib/stores/auth';
+	import ReschedulingInfo from '$lib/components/Packages/ReschedulingInfo.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const {
@@ -89,13 +90,17 @@
 	<div class="mx-auto max-w-6xl">
 		<LogoHeader />
 
-		<div class="mt-6 mb-8">
+		<div class="mt-6 md:mb-8">
 			<h1 class="text-dark-brown text-2xl font-bold">Your Bookings</h1>
-			<p class="text-light-brown mt-2 text-sm">View and manage your package bookings.</p>
+			<p class="text-light-brown text-sm md:mb-2">View and manage your package bookings.</p>
+			<ReschedulingInfo className="text-sm hidden md:block text-light-brown" />
+			<p class="text-light-brown text-sm hidden md:block mt-2">
+				To make a new booking, <a href="/packages" class="text-dark-brown underline">click here</a>.
+			</p>
 		</div>
 
 		{#if bookings.length === 0}
-			<div class="mt-8 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
+			<div class=" mt-2 md:mt-8 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
 				<svg
 					class="mx-auto h-12 w-12 text-gray-400"
 					fill="none"
@@ -289,5 +294,10 @@
 				</div>
 			</div>
 		{/if}
+		<div class="mt-4"></div>
+		<ReschedulingInfo className="text-sm block md:hidden my-2 text-light-brown" />
+		<p class="text-light-brown text-sm md:hidden">
+			To make a new booking, <a href="/packages" class="text-dark-brown underline">click here</a>.
+		</p>
 	</div>
 </div>

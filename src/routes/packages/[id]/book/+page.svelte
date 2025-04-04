@@ -79,6 +79,10 @@
 		resetFormState();
 		goto('/packages');
 	};
+
+	$effect(() => {
+		resetFormState();
+	})
 </script>
 
 <ReserveSlotsModal
