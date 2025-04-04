@@ -4,6 +4,9 @@ import type { Actions } from './$types';
 import { signupWithEmail } from '$lib/server/auth/email/signup';
 import { createUser } from '$lib/server/db/user';
 import { setUser, type User } from '$lib/stores/auth';
+import { PUBLIC_DISABLE_SIGNUP } from '$env/static/public';
+
+const DISABLE_SIGNUP = PUBLIC_DISABLE_SIGNUP === 'true';
 
 const schema = z.object({
 	firstName: z.string().min(1, 'First name is required'),
@@ -15,6 +18,14 @@ const schema = z.object({
 
 export const actions = {
 	default: async ({ request, cookies }) => {
+		if (DISABLE_SIGNUP) {
+			return fail(403, {
+				error: 'Signup is disabled',
+				errors: {},
+				data: {}
+			});
+		}
+
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
 

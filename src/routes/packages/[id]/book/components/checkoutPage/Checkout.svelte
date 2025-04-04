@@ -10,6 +10,7 @@
 	import Summary from './Summary.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { purchaseId } from '../formState';
+	import { goto } from '$app/navigation';
 
 	const { package: fetchedPackage }: { package: Package } = $props();
 	const price = parseFloat(fetchedPackage.price);
@@ -141,6 +142,7 @@
 			console.error('Payment error:', e);
 		} finally {
 			isSubmitting = false;
+			goto(redirectUrl);
 		}
 	};
 </script>
