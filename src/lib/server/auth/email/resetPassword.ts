@@ -5,7 +5,7 @@ const { PUBLIC_APP_URL } = env;
 
 export const sendPasswordResetEmail = async (email: string) => {
 	const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-		redirectTo: `${PUBLIC_APP_URL}/login`
+		redirectTo: `${PUBLIC_APP_URL}/reset-password`
 	});
 
 	if (error) {
@@ -15,8 +15,9 @@ export const sendPasswordResetEmail = async (email: string) => {
 	return data;
 };
 
-export const resetPassword = async (password: string) => {
+export const resetPassword = async (email: string, password: string) => {
 	const { data, error } = await supabase.auth.updateUser({
+		email,
 		password
 	});
 

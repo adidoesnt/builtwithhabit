@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { supabase } from '$lib/server/auth';
 import { resetPassword } from '$lib/server/auth/email/resetPassword';
+import { supabase } from '$lib/server/auth';
 
 const schema = z.object({
 	password: z.string()
@@ -20,20 +20,27 @@ export const actions = {
 			});
 		}
 
-		// const { data: userData, error } = await supabase.auth.getUser(accessToken);
+		const { data: userData, error } = await supabase.auth.getUser(accessToken);
 
-		// if (error) {
-		// 	return fail(403, {
-		// 		error: 'Invalid access token'
-		// 	});
-		// }
+		if (error) {
+			return fail(403, {
+				error: 'Invalid access token'
+			});
+		}
 
-		// const email = userData.user?.email;
+		const email = userData.user?.email;
+
+		if (!email) {
+			return fail(403, {
+				error: 'Invalid access token'
+			});
+		}
 
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
 
 		console.log('Resetting password', {
+			email,
 			password: data.password
 		});
 
@@ -50,7 +57,7 @@ export const actions = {
 		}
 
 		try {
-			await resetPassword(result.data.password);
+			await resetPassword(email, result.data.password);
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
