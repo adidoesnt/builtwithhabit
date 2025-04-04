@@ -10,6 +10,15 @@ resource "aws_iam_policy" "bwh_lambda_policy" {
         Resource = [
           aws_secretsmanager_secret.bwh_stripe_keys.arn
         ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ]
+        Resource = aws_sqs_queue.bwh_payment_intent_queue.arn
       }
     ]
   })
