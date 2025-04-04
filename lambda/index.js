@@ -25,20 +25,48 @@ exports.handler = async (event) => {
 	console.log('Processing records...');
 	await Promise.allSettled(
 		Records.map(async (record) => {
-			const body = JSON.parse(record.body);
-			const { payment_intent_id } = body;
+			try {
+				const body = JSON.parse(record.body);
+				const { payment_intent_id } = body;
 
-			console.log('Checking payment status for payment_intent_id:', payment_intent_id);
+				console.log('Checking payment status for payment_intent_id:', payment_intent_id);
 
-			const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
-			const { client_secret, status } = paymentIntent;
+				const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
+				const { status } = paymentIntent;
 
-			console.log('Payment intent status:', status);
+				console.log('Payment intent status:', status);
+
+				if (
+					[
+						'requires_payment_method',
+						'requires_capture',
+						'requires_confirmation',
+						'requires_action'
+					].includes(status)
+				) {
+					console.log('Payment intent status is not succeeded, releasing booked slots');
+
+					await stripe.paymentIntents.cancel(payment_intent_id);
+				} else if (status === 'succeeded') {
+					console.log('Payment intent status is succeeded, releasing booked slots');
+				}
+			} catch (error) {
+				console.error('Error processing record:', error);
+			}
 		})
 	);
 
-	return {
-		statusCode: 200,
-		body: JSON.stringify({ message: 'Payment intents checked' })
-	};
+	const allSucceeded = results.every((result) => result.status === 'fulfilled');
+
+	if (allSucceeded) {
+		return {
+			statusCode: 200,
+			body: JSON.stringify({ message: 'All payment intents checked' })
+		};
+	} else {
+		return {
+			statusCode: 500,
+			body: JSON.stringify({ message: 'Some payment intents failed' })
+		};
+	}
 };
