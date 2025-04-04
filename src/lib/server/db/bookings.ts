@@ -263,10 +263,16 @@ export const getAllBookings = async () => {
 	return result;
 };
 
-export const deletePurchaseByPaymentIntentId = async (paymentIntentId: string) => {
-	const result = await database
-		.delete(purchases)
-		.where(eq(purchases.paymentIntentId, paymentIntentId));
+export const deleteBookingsByPaymentIntentId = async (paymentIntentId: string) => {
+	const purchase = await database.query.purchases.findFirst({
+		where: eq(purchases.paymentIntentId, paymentIntentId)
+	});
+
+	if (!purchase) {
+		throw new Error('No purchase found for the given payment intent id');
+	}
+
+	const result = await database.delete(bookings).where(eq(bookings.purchaseId, purchase.id));
 
 	return result;
 };
