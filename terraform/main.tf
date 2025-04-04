@@ -13,8 +13,6 @@ variable "secret_access_key" {
   type        = string
 }
 
-# TODO: Create the backend bucket and lock table
-
 terraform {
   backend "s3" {
     bucket  = "bwh-tf-state"
