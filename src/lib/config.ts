@@ -107,11 +107,11 @@ const config = {
 				color: 'bg-blue-500'
 			},
 			{
-				name: 'My Bookings',
-				description: 'View your scheduled sessions',
-				icon: 'calendar',
-				href: '/bookings',
-				color: 'bg-green-500'
+				name: 'Profile',
+				description: 'Manage your account',
+				icon: 'user',
+				href: '/profile',
+				color: 'bg-orange-500'
 			},
 			{
 				name: 'Purchases',
@@ -121,11 +121,11 @@ const config = {
 				color: 'bg-purple-500'
 			},
 			{
-				name: 'Profile',
-				description: 'Manage your account',
-				icon: 'user',
-				href: '/profile',
-				color: 'bg-orange-500'
+				name: 'Bookings',
+				description: 'View your scheduled sessions',
+				icon: 'calendar',
+				href: '/bookings',
+				color: 'bg-green-500'
 			}
 		]
 	}
