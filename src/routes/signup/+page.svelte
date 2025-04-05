@@ -70,6 +70,10 @@
 			}
 		}
 	});
+
+	function togglePasswordVisibility() {
+		showPassword = !showPassword;
+	}
 </script>
 
 <div
