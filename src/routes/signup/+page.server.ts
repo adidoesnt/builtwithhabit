@@ -10,7 +10,6 @@ const DISABLE_SIGNUP = PUBLIC_DISABLE_SIGNUP === 'true';
 
 const schema = z.object({
 	firstName: z.string().min(1, 'First name is required'),
-	middleName: z.string().optional(),
 	lastName: z.string().min(1, 'Last name is required'),
 	email: z.string().email('Invalid email address'),
 	password: z.string().min(8, 'Password must be at least 8 characters long')

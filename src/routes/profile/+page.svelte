@@ -19,8 +19,8 @@
 		}
 	}
 
-	function formatName(firstName: string, middleName: string | null, lastName: string) {
-		return middleName ? `${firstName} ${middleName} ${lastName}` : `${firstName} ${lastName}`;
+	function formatName(firstName: string, lastName: string) {
+		return `${firstName} ${lastName}`;
 	}
 </script>
 
@@ -43,7 +43,7 @@
 					</div>
 					<div class="text-center md:text-left">
 						<h2 class="font-body text-olive text-2xl font-semibold">
-							{formatName($user.firstName, $user.middleName, $user.lastName)}
+							{formatName($user.firstName, $user.lastName)}
 						</h2>
 						<p class="font-body text-olive">{$user.email}</p>
 					</div>
@@ -58,13 +58,6 @@
 								<p class="font-body text-light-brown text-sm">First Name</p>
 								<p class="font-body text-dark-brown">{$user.firstName}</p>
 							</div>
-
-							{#if $user.middleName}
-								<div>
-									<p class="font-body text-light-brown text-sm">Middle Name</p>
-									<p class="font-body text-dark-brown">{$user.middleName}</p>
-								</div>
-							{/if}
 
 							<div>
 								<p class="font-body text-light-brown text-sm">Last Name</p>

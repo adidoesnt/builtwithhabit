@@ -30,7 +30,6 @@ export const rolesEnum = pgEnum('roles', [Role.ADMIN, Role.TRAINER, Role.USER]);
 export const users = pgTable('users', {
 	id: uuid('id').primaryKey(),
 	firstName: text('first_name').notNull(),
-	middleName: text('middle_name'),
 	lastName: text('last_name').notNull(),
 	email: text('email').notNull().unique(),
 	createdAt: timestamp('created_at').notNull().defaultNow(),

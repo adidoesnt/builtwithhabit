@@ -155,6 +155,13 @@
       "when": 1743799165303,
       "tag": "0021_change_client_secret_to_pi_id",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1743873646762,
+      "tag": "0022_remove_middle_name",
+      "breakpoints": true
     }
   ]
 }

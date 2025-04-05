@@ -6,7 +6,6 @@ import type { PaginationParams } from './types';
 export type UserWithRoles = {
 	id: string;
 	firstName: string;
-	middleName: string | null;
 	lastName: string;
 	email: string;
 	createdAt: Date;
@@ -84,7 +83,6 @@ export const getAllUsers = async (
 		.select({
 			id: users.id,
 			firstName: users.firstName,
-			middleName: users.middleName,
 			lastName: users.lastName,
 			email: users.email,
 			createdAt: users.createdAt,
