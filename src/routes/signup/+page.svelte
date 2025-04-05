@@ -15,9 +15,19 @@
 		password?: string[];
 	};
 
-	let { form }: { form: (ActionData & { errors?: FormErrors }) | null } = $props();
+	type FormValues = {
+		firstName: string;
+		middleName: string;
+		lastName: string;
+		email: string;
+		password: string;
+	};
 
-	let formValues = $state({
+	let {
+		form
+	}: { form: (ActionData & { errors?: FormErrors; data?: Partial<FormValues> }) | null } = $props();
+
+	let formValues = $state<FormValues>({
 		firstName: '',
 		middleName: '',
 		lastName: '',
@@ -30,6 +40,35 @@
 	let submitDisabled = $derived(
 		Object.values(form?.errors ?? {}).some((error) => error !== undefined) || isLoading
 	);
+
+	// Reset errors when form values change
+	$effect(() => {
+		if (form?.errors) {
+			// Create a copy of the current errors
+			const updatedErrors = { ...form.errors };
+			let hasChanges = false;
+
+			// Check each field and reset its error if the value has changed
+			(Object.keys(formValues) as Array<keyof FormValues>).forEach((field) => {
+				if (
+					formValues[field] &&
+					form?.errors?.[field] &&
+					formValues[field] !== form?.data?.[field]
+				) {
+					updatedErrors[field] = undefined;
+					hasChanges = true;
+				}
+			});
+
+			if (hasChanges && form) {
+				form = {
+					...form,
+					error: undefined as any,
+					errors: updatedErrors
+				};
+			}
+		}
+	});
 </script>
 
 <div
@@ -37,7 +76,7 @@
 >
 	<div
 		id="container"
-		class="bg-beige flex min-h-[100dvh] w-full flex-col items-center justify-start gap-8 rounded-none p-8 md:min-h-fit md:justify-center md:rounded-sm"
+		class="bg-beige flex min-h-[100dvh] w-full md:w-fit flex-col items-center justify-start gap-8 rounded-none p-8 md:min-h-fit md:justify-center md:rounded-sm"
 	>
 		<LogoHeader />
 		<form
@@ -66,6 +105,7 @@
 					<div class="flex flex-col gap-2">
 						<label for="firstName">First Name</label>
 						<input
+							bind:value={formValues.firstName}
 							class="rounded-sm border-[1px] border-none p-2 md:max-w-[200px]"
 							type="text"
 							name="firstName"
@@ -154,6 +194,9 @@
 					{/if}
 				</button>
 			</div>
+			{#if form?.error}
+				<p class="mt-2 text-sm text-red-400">{form.error}</p>
+			{/if}
 		</form>
 	</div>
 </div>
