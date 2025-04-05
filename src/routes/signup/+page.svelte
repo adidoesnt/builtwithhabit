@@ -9,7 +9,6 @@
 
 	type FormErrors = {
 		firstName?: string[];
-		middleName?: string[];
 		lastName?: string[];
 		email?: string[];
 		password?: string[];
@@ -17,7 +16,6 @@
 
 	type FormValues = {
 		firstName: string;
-		middleName: string;
 		lastName: string;
 		email: string;
 		password: string;
@@ -29,7 +27,6 @@
 
 	let formValues = $state<FormValues>({
 		firstName: '',
-		middleName: '',
 		lastName: '',
 		email: '',
 		password: ''
@@ -118,21 +115,6 @@
 						/>
 						{#if form?.errors?.firstName}
 							<p class="text-sm text-red-400">{form.errors.firstName}</p>
-						{/if}
-					</div>
-					<div class="flex flex-col gap-2">
-						<label for="middleName"
-							>Middle Name <span class="text-light-brown text-sm">(Optional)</span></label
-						>
-						<input
-							bind:value={formValues.middleName}
-							class="max-w-[200px] rounded-sm border-[1px] border-none p-2"
-							type="text"
-							name="middleName"
-							placeholder=""
-						/>
-						{#if form?.errors?.middleName}
-							<p class="text-sm text-red-400">{form.errors.middleName}</p>
 						{/if}
 					</div>
 					<div class="flex flex-col gap-2">

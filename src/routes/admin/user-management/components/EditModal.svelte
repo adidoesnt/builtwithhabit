@@ -21,7 +21,6 @@
 	let editedUser = $state({
 		id: user.id,
 		firstName: user.firstName,
-		middleName: user.middleName || '',
 		lastName: user.lastName,
 		email: user.email,
 		roles: [...user.roles],
@@ -117,19 +116,6 @@
 						bind:value={editedUser.firstName}
 						class="font-body focus:border-dark-brown focus:ring-dark-brown w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:outline-none"
 						required
-						disabled={isSubmitting}
-					/>
-				</div>
-
-				<div>
-					<label for="middleName" class="font-body text-dark-brown mb-1 block text-sm font-medium">
-						Middle Name <span class="text-gray-500">(optional)</span>
-					</label>
-					<input
-						type="text"
-						id="middleName"
-						bind:value={editedUser.middleName}
-						class="font-body focus:border-dark-brown focus:ring-dark-brown w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:outline-none"
 						disabled={isSubmitting}
 					/>
 				</div>
