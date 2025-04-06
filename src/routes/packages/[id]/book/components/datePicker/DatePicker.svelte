@@ -91,10 +91,8 @@
 		// We will temporarily remove this to allow for last minute bookings
 
 		const today = new Date();
-		const tomorrow = new Date(today);
-		tomorrow.setDate(today.getDate() + 1);
-		tomorrow.setHours(0, 0, 0, 0);
-		return selectedDate >= tomorrow;
+		today.setHours(0, 0, 0, 0);
+		return selectedDate >= today;
 	};
 
 	const getDayName = (date: Date) => {
