@@ -8,7 +8,8 @@
 		email?: string[];
 	};
 
-	let { form }: { form: (ActionData & { errors?: FormErrors }) | null } = $props();
+	let { form }: { form: (ActionData & { errors?: FormErrors; success?: string }) | null } =
+		$props();
 
 	let formValues = $state({
 		email: ''
@@ -96,6 +97,9 @@
 
 			{#if form?.error}
 				<p class="mt-2 text-sm text-red-400">{form.error}</p>
+			{/if}
+			{#if form?.success}
+				<p class="text-sm text-green-600">{form.success}</p>
 			{/if}
 		</form>
 	</div>

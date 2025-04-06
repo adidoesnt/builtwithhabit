@@ -30,13 +30,14 @@ export const actions = {
 
 		try {
 			await sendPasswordResetEmail(result.data.email);
+			return {
+				success: 'Password reset email sent'
+			}
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
 				error: 'Failed to reset password'
 			});
 		}
-
-		throw redirect(303, '/login');
 	}
 } satisfies Actions;
