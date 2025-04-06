@@ -133,7 +133,7 @@ export const getBookingsByUserId = async (
 
 	return {
 		items: data,
-		total: totalCount,
+		total: Number(totalCount),
 		page: paginationParams.page,
 		pageSize: paginationParams.pageSize
 	};
