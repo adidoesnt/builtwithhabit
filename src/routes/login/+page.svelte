@@ -159,12 +159,11 @@
 							>Sign up!</a
 						>
 					</p>
-					<!-- TODO: Implement password reset -->
-					<!-- <a
+					<a
 						href="/forgot-password"
 						class="text-light-brown hover:text-dark-brown text-sm transition-all duration-300"
 						>Forgot password?</a
-					> -->
+					>
 				</div>
 				<button
 					class="bg-dark-brown text-beige font-body flex h-fit w-fit rounded-sm px-8 py-2 transition-all duration-300 hover:scale-110 hover:opacity-80 disabled:scale-100 disabled:cursor-not-allowed disabled:opacity-50 md:self-end"
