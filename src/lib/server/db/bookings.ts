@@ -107,7 +107,7 @@ export const getBookingsByUserId = async (
 		.select({ count: sql<number>`count(*)` })
 		.from(bookings)
 		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
-		.where(and(eq(purchases.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
+		.where(and(eq(bookings.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
 		.then((result) => result[0].count);
 
 	const results = await database
@@ -115,7 +115,7 @@ export const getBookingsByUserId = async (
 		.from(bookings)
 		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
 		.leftJoin(packages, eq(purchases.packageId, packages.id))
-		.where(and(eq(purchases.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
+		.where(and(eq(bookings.userId, userId), eq(purchases.status, PurchaseStatus.CONFIRMED)))
 		.orderBy(asc(bookings.start))
 		.limit(paginationParams.pageSize)
 		.offset(paginationParams.page * paginationParams.pageSize);
