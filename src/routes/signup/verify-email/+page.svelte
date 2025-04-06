@@ -3,7 +3,7 @@
 	import type { PageData } from './$types';
 
 	const { data }: { data: PageData } = $props();
-	const { user } = data;
+	const { email } = data;
 </script>
 
 <div class="flex h-[100dvh] w-screen flex-col items-center justify-center">
@@ -18,9 +18,8 @@
 				We just need to verify your email address to complete your account.
 			</p>
 			<p class="text-light-brown text-sm">
-				We've sent a verification email to <span class="font-bold"
-					>{user?.email ?? 'your email'}</span
-				>. Please check your inbox.
+				We've sent a verification email to <span class="font-bold">{email ?? 'your email'}</span>.
+				Please check your inbox.
 			</p>
 		</div>
 	</div>

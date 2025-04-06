@@ -88,6 +88,7 @@ export const actions = {
 			session
 		});
 
-		throw redirect(303, '/signup/verify-email');
+		const redirectUrl = `/signup/verify-email?email=${result.data.email}`;
+		throw redirect(303, redirectUrl);
 	}
 } satisfies Actions;
