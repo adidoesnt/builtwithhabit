@@ -28,10 +28,14 @@ export const load = (async ({ cookies, url }) => {
 	}
 
 	if (user.roles.includes(Role.USER)) {
+		console.log('Getting bookings for user', user.id);
+
 		const bookings = await getBookingsByUserId(user.id, {
 			page: parseInt(page),
 			pageSize: parseInt(pageSize)
 		});
+
+		console.log('Bookings for user', user.id, bookings);
 
 		return {
 			bookings
