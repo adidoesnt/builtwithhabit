@@ -27,9 +27,9 @@ export const load = (async ({ cookies, url }) => {
 		throw redirect(303, '/login');
 	}
 
-	if (user.roles.includes(Role.USER)) {
-		console.log('Getting bookings for user', user.id);
+	console.log('Getting bookings for user', user.id);
 
+	if (user.roles.includes(Role.USER)) {
 		const bookings = await getBookingsByUserId(user.id, {
 			page: parseInt(page),
 			pageSize: parseInt(pageSize)
@@ -42,6 +42,8 @@ export const load = (async ({ cookies, url }) => {
 		};
 	} else if (user.roles.includes(Role.TRAINER)) {
 		const bookings = await getBookingsForTrainer();
+
+		console.log('Bookings for trainer', user.id, bookings);
 
 		return {
 			bookings

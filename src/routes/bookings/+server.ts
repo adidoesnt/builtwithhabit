@@ -1,6 +1,7 @@
 import { supabase } from '$lib/server/auth/index.js';
-import { getBookingsForTrainer } from '$lib/server/db/bookings';
+import { getBookingsByUserId, getBookingsForTrainer } from '$lib/server/db/bookings';
 import { getUserById } from '$lib/server/db/user';
+import { Role } from '$lib/stores/auth.js';
 
 export const GET = async ({ url, cookies }) => {
 	const accessToken = cookies.get('access_token');
@@ -31,10 +32,24 @@ export const GET = async ({ url, cookies }) => {
 		return new Response('Invalid page or page size', { status: 400 });
 	}
 
-	const bookings = await getBookingsForTrainer({
-		page: numericPage,
-		pageSize: numericPageSize
-	});
+	console.log('Getting bookings for user', user.id);
+	if (user.roles.includes(Role.TRAINER)) {
+		const bookings = await getBookingsForTrainer({
+			page: numericPage,
+			pageSize: numericPageSize
+		});
 
-	return new Response(JSON.stringify(bookings), { status: 200 });
+		console.log('Bookings for trainer', user.id, bookings);
+
+		return new Response(JSON.stringify(bookings), { status: 200 });
+	} else {
+		const bookings = await getBookingsByUserId(user.id, {
+			page: numericPage,
+			pageSize: numericPageSize
+		});
+
+		console.log('Bookings for user', user.id, bookings);
+
+		return new Response(JSON.stringify(bookings), { status: 200 });
+	}
 };
