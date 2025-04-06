@@ -151,7 +151,7 @@
 				</div>
 			</div>
 			<div class="flex flex-col-reverse justify-between gap-4 md:flex-row">
-				<div class="flex flex-col gap-2">
+				<div class="flex flex-col gap-2 justify-center">
 					<p class="text-light-brown text-sm">
 						Don't have an account? <a
 							href="/signup"
