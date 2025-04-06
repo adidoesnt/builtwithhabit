@@ -62,7 +62,8 @@
 
 	$effect(() => {
 		isLoading = true;
-		fetch(`/users?page=${currentPage}&pageSize=${pageSize}&search=${debouncedSearchTerm}`)
+
+		fetch(`/users?page=${currentPage}&pageSize=${pageSize}&search=${debouncedSearchTerm ?? ''}`)
 			.then((res) => res.json())
 			.then((data) => {
 				users = data.users;
