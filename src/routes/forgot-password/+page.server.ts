@@ -37,6 +37,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(303, '/reset-password');
+		throw redirect(303, '/login');
 	}
 } satisfies Actions;

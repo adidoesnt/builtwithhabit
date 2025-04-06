@@ -1,8 +1,7 @@
 import { z } from 'zod';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { resetPassword } from '$lib/server/auth/email/resetPassword';
-import { supabase } from '$lib/server/auth';
 
 const schema = z.object({
 	password: z.string().min(8, 'Password must be at least 8 characters long')
