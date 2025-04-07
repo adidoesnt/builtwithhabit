@@ -2,9 +2,12 @@ import { z } from 'zod';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { resetPassword } from '$lib/server/auth/email/resetPassword';
+import { supabase } from '$lib/server/auth';
 
 const schema = z.object({
-	password: z.string().min(8, 'Password must be at least 8 characters long')
+	password: z.string().min(8, 'Password must be at least 8 characters long'),
+	access_token: z.string(),
+	refresh_token: z.string()
 });
 
 export const actions = {
@@ -27,12 +30,32 @@ export const actions = {
 		}
 
 		try {
-			await resetPassword(result.data.password);
+			const { error: sessionError } = await supabase.auth.setSession({
+				access_token: result.data.access_token,
+				refresh_token: result.data.refresh_token
+			});
+
+			if (sessionError) {
+				console.error('Session error:', sessionError);
+				return fail(500, {
+					error: 'Failed to establish session'
+				});
+			}
+
+			const resetResult = await resetPassword(result.data.password);
+			if (!resetResult) {
+				return fail(500, {
+					error: 'Failed to reset password'
+				});
+			}
+
 			return {
-				success: 'Password reset successfully'
+				success: true,
+				message: 'Password reset successfully!',
+				location: '/login'
 			};
 		} catch (error) {
-			console.error(error);
+			console.error('Error resetting password:', error);
 			return fail(500, {
 				error: 'Failed to reset password'
 			});
