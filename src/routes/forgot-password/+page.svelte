@@ -38,7 +38,7 @@
 		id="container"
 		class="bg-beige flex min-h-[100dvh] w-fit flex-col items-center justify-center gap-8 overflow-y-auto rounded-none p-8 py-4 md:min-h-fit md:overflow-y-visible md:rounded-sm md:py-8"
 	>
-		<LogoHeader />
+		<LogoHeader linkToHome />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-6"
 			action="/forgot-password"

@@ -39,14 +39,11 @@
 		Object.values(form?.errors ?? {}).some((error) => error !== undefined) || isLoading
 	);
 
-	// Reset errors when form values change
 	$effect(() => {
 		if (form?.errors) {
-			// Create a copy of the current errors
 			const updatedErrors = { ...form.errors };
 			let hasChanges = false;
 
-			// Check each field and reset its error if the value has changed
 			(Object.keys(formValues) as Array<keyof FormValues>).forEach((field) => {
 				if (
 					formValues[field] &&
@@ -80,7 +77,7 @@
 		id="container"
 		class="bg-beige flex min-h-[100dvh] w-full md:w-fit flex-col items-center justify-start gap-8 rounded-none p-8 md:min-h-fit md:justify-center md:rounded-sm"
 	>
-		<LogoHeader />
+		<LogoHeader linkToHome />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-2 {DISABLE_SIGNUP
 				? 'pointer-events-none opacity-50'

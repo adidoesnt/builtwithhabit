@@ -1,7 +1,7 @@
 <script lang="ts">
 	import config from '$lib/config';
 
-	const { linkToHome = true } = $props();
+	const { linkToHome = false } = $props();
 
 	const { site } = config;
 	const { splitName, caption, logo } = site;

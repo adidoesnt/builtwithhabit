@@ -14,10 +14,6 @@ const config = {
 			title: 'Menu',
 			links: [
 				{
-					label: 'Home',
-					href: '/'
-				},
-				{
 					label: 'Dashboard',
 					href: '/dashboard'
 				},

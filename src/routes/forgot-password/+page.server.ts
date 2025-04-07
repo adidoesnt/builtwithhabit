@@ -31,8 +31,9 @@ export const actions = {
 		try {
 			await sendPasswordResetEmail(result.data.email);
 			return {
-				success: 'Password reset email sent'
-			}
+				success:
+					"Password reset email sent. Please check your spam folder if you don't see it in your inbox."
+			};
 		} catch (error) {
 			console.error(error);
 			return fail(500, {
