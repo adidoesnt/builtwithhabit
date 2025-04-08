@@ -9,7 +9,7 @@
 	import type { PageServerData } from './$types';
 	// import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
 
-	const { splitDescription, mission, contact } = config.site;
+	const { splitDescription, mission, contact, pricing } = config.site;
 	const { data }: { data: PageServerData } = $props();
 	const { packages } = data;
 
@@ -30,6 +30,14 @@
 <section
 	class="relative flex h-[100dvh] min-h-fit w-full flex-col items-center justify-center bg-[url(/hut-with-mountains-3.jpg)] bg-cover bg-center backdrop-blur-sm"
 >
+	{#if pricing.earlyBirdDiscount}
+		<a
+			class="font-body absolute top-0 right-0 z-10 rounded-bl-lg bg-red-500 py-1 pr-3 pl-5 text-xs font-bold text-white shadow-md hover:opacity-80 hover:scale-105 transition-all duration-300"
+			href="#pricing"
+		>
+			Early bird discounts active!
+		</a>
+	{/if}
 	<div class="absolute inset-0 backdrop-blur-sm"></div>
 	<button
 		{onclick}
