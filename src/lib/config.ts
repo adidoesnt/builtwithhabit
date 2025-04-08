@@ -141,30 +141,9 @@ const config = {
 		learnMore: {
 			introduction:
 				'Whether you’re new to strength training or looking to level up your current routine, I offer a range of personal training options that are individualised, holistic, and grounded in science.',
-			tableDescription:
-				'The table below outlines the key details of each package.',
+			tableDescription: 'The table below outlines the key details of each package.',
 			accordionDescription:
-				'The details for each package can be seen below by expanding their respective dropdowns.',
-			packages: [
-				{
-					name: 'Discover',
-					sessions: 1,
-					description:
-						"A one-time session designed to explore your goals, introduce foundational movements, and assess where you're at physically. Great for beginners or anyone wanting to dip their toes into personalised training."
-				},
-				{
-					name: 'Build',
-					sessions: 5,
-					description:
-						'A short-term plan to build consistency, learn proper form, and develop a routine that suits your lifestyle. We focus on mobility, strength, and conditioning - all tailored to your body and preferences.'
-				},
-				{
-					name: 'Transform',
-					sessions: 10,
-					description:
-						'A comprehensive program designed to create sustainable change. This package dives deeper into progressive overload, movement patterns, aerobic capacity, and muscle development - with check-ins and nutritional guidance to support your goals.'
-				}
-			]
+				'The details for each package can be seen below by expanding their respective dropdowns.'
 		}
 	},
 	bookings: {

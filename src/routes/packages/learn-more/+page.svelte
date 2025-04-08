@@ -1,12 +1,16 @@
 <script lang="ts">
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import config from '$lib/config';
+	import type { PageServerData } from './$types';
 	import PackagesAccordion from './components/PackagesAccordion.svelte';
 	import PackagesTable from './components/PackagesTable.svelte';
 
 	const {
 		packages: { learnMore }
 	} = config;
+
+	const { data }: { data: PageServerData } = $props();
+	const { packages } = data;
 </script>
 
 <div class="bg-light-green grid h-full min-h-[100dvh] w-full place-items-center">
@@ -24,8 +28,8 @@
 			<p class="font-body text-olive text-md md:text-lg block md:hidden">
 				{learnMore.accordionDescription}
 			</p>
-			<PackagesTable />
-			<PackagesAccordion />
+			<PackagesTable {packages} />
+			<PackagesAccordion {packages} />
 		</div>
 	</div>
 </div>

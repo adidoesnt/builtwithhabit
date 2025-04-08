@@ -70,6 +70,7 @@ export const packages = pgTable('packages', {
 	sessions: integer('sessions').notNull(),
 	expiryInDays: integer('expiry_in_days').notNull(),
 	description: text('description').notNull(),
+	longDescription: text('long_description'),
 	price: decimal('price', { precision: 10, scale: 2 }).notNull(),
 	discount: decimal('discount', { precision: 10, scale: 2 }).default('0.00')
 });

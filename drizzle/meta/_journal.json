@@ -162,6 +162,20 @@
       "when": 1743873646762,
       "tag": "0022_remove_middle_name",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1744128604376,
+      "tag": "0023_add_package_long_description_field",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1744128637643,
+      "tag": "0024_add_long_description_values_to_packages",
+      "breakpoints": true
     }
   ]
 }
