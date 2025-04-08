@@ -41,7 +41,7 @@ const config = {
 						href: '/signup'
 					},
 					{
-						label: 'Login',
+						label: 'Log In',
 						href: '/login'
 					},
 					{
