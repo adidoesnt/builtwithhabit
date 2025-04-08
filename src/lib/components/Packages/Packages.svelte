@@ -12,13 +12,15 @@
 		description,
 		showTestimonialsButton = false,
 		altColors = false,
-		showReschedulingInfo = false
+		showReschedulingInfo = false,
+		showLearnMoreLink = false
 	}: {
 		packages: Package[];
 		description?: string;
 		showTestimonialsButton?: boolean;
 		altColors?: boolean;
 		showReschedulingInfo?: boolean;
+		showLearnMoreLink?: boolean;
 	} = $props();
 
 	let activeIndex = $state(0);
@@ -100,7 +102,7 @@
 
 <section
 	id="pricing"
-	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-[100dvh] flex-col items-center justify-center gap-4 md:gap-8 px-8 py-16`}
+	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-[100dvh] flex-col items-center justify-center gap-4 px-8 py-16 md:gap-8`}
 >
 	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
 		{pricing.title}
@@ -181,6 +183,16 @@
 			></button>
 		{/each}
 	</div>
+
+	{#if showLearnMoreLink}
+		<div class="mt-4">
+			<a
+				href="/packages/learn-more"
+				class="font-body bg-dark-brown text-beige inline-block rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
+				>Learn More</a
+			>
+		</div>
+	{/if}
 
 	{#if showReschedulingInfo}
 		<div class="mt-4">

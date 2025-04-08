@@ -12,7 +12,8 @@ const getIsAuthenticatedRoute = (pathname: string) => {
 		'/signup/verify-email',
 		'/',
 		'/reset-password',
-		'/forgot-password'
+		'/forgot-password',
+		'/packages/learn-more'
 	].includes(pathname);
 };
 
