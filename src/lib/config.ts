@@ -67,8 +67,12 @@ const config = {
 						href: '/login'
 					},
 					{
-						label: 'About',
-						href: '#about'
+						label: 'Contact',
+						href: '#contact'
+					},
+					{
+						label: 'Mission',
+						href: '#mission'
 					},
 					{
 						label: 'Packages',
