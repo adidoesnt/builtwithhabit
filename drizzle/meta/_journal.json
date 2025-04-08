@@ -176,6 +176,13 @@
       "when": 1744128637643,
       "tag": "0024_add_long_description_values_to_packages",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1744129926409,
+      "tag": "0025_make_package_long_desc_not_null",
+      "breakpoints": true
     }
   ]
 }

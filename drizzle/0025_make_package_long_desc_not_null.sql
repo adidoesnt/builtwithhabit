@@ -1,0 +1,1 @@
+ALTER TABLE "packages" ALTER COLUMN "long_description" SET NOT NULL;
