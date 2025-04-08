@@ -116,7 +116,7 @@
 			<p class="font-body text-dark-brown text-md md:text-xl">
 				<a class="underline transition-all duration-300 hover:opacity-50" href="/about-me"
 					>Click here</a
-				> to learn more about me, my mission, and my training philosophy.
+				> to learn more about me, my mission, and what to expect from my training sessions.
 			</p>
 			<button
 				class="font-body bg-dark-brown text-beige mt-8 flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
