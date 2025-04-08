@@ -5,7 +5,12 @@
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
 
-	const { bgColor = 'light-green', textColor = 'dark-brown' } = $props();
+	const {
+		bgColor = 'light-green',
+		textColor = 'dark-brown',
+		isLandingPage = false,
+		isMobile = false
+	} = $props();
 	const { navBar, logo } = config.site;
 	const currentPath = $derived(page.url.pathname);
 
@@ -32,7 +37,13 @@
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
 	let links = $derived(
-		isTrainer ? navBar.links.filter((link) => link.href !== '/packages') : navBar.links
+		isLandingPage
+			? isMobile
+				? navBar.landingPageLinks.mobile
+				: navBar.landingPageLinks.desktop
+			: isTrainer
+				? navBar.links.filter((link) => link.href !== '/packages')
+				: navBar.links
 	);
 
 	const trainerLinks = $derived([
@@ -42,7 +53,13 @@
 		}
 	]);
 
-	const noSidebarPages = ['/login', '/signup', '/signup/verify-email', '/'];
+	const noSidebarPages = [
+		'/login',
+		'/signup',
+		'/signup/verify-email',
+		'/reset-password',
+		'/forgot-password'
+	];
 	const shouldShowSidebar = $derived(!noSidebarPages.includes(currentPath));
 </script>
 
@@ -109,20 +126,22 @@
 					</nav>
 				</div>
 
-				<div class="mt-auto w-full">
-					<button
-						class="font-body flex w-full cursor-pointer items-center justify-center rounded-sm bg-[#E57373] px-6 py-2 text-white transition-all duration-300 hover:bg-[#EF5350] disabled:cursor-not-allowed disabled:opacity-70"
-						onclick={handleLogout}
-						disabled={isLoggingOut}
-					>
-						{#if isLoggingOut}
-							<LoadingSpinner size="20px" color="#FFFFFF" />
-							<span class="ml-2">Logging out...</span>
-						{:else}
-							Logout
-						{/if}
-					</button>
-				</div>
+				{#if !isLandingPage}
+					<div class="mt-auto w-full">
+						<button
+							class="font-body flex w-full cursor-pointer items-center justify-center rounded-sm bg-[#E57373] px-6 py-2 text-white transition-all duration-300 hover:bg-[#EF5350] disabled:cursor-not-allowed disabled:opacity-70"
+							onclick={handleLogout}
+							disabled={isLoggingOut}
+						>
+							{#if isLoggingOut}
+								<LoadingSpinner size="20px" color="#FFFFFF" />
+								<span class="ml-2">Logging out...</span>
+							{:else}
+								Logout
+							{/if}
+						</button>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>

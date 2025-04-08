@@ -51,6 +51,15 @@
 	<Sidebar bgColor={'beige'} textColor={'dark-brown'} />
 {/if}
 
+{#if isLandingPage}
+	<div class="md:hidden block">
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile />
+	</div>
+	<div class="md:block hidden">
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage />
+	</div>
+{/if}
+
 <div class="bg-dark-brown font-old-standard flex min-h-[100dvh] w-full flex-col">
 	<main class="flex-grow">
 		{@render children()}

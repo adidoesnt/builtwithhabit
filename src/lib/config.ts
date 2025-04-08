@@ -30,6 +30,52 @@ const config = {
 					href: '/bookings'
 				}
 			],
+			landingPageLinks: {
+				desktop: [
+					{
+						label: 'Home',
+						href: '#'
+					},
+					{
+						label: 'Sign Up',
+						href: '/signup'
+					},
+					{
+						label: 'Login',
+						href: '/login'
+					},
+					{
+						label: 'About',
+						href: '#about'
+					},
+					{
+						label: 'Packages',
+						href: '#pricing'
+					}
+				],
+				mobile: [
+					{
+						label: 'Home',
+						href: '#'
+					},
+					{
+						label: 'Sign Up',
+						href: '/signup'
+					},
+					{
+						label: 'Login',
+						href: '/login'
+					},
+					{
+						label: 'About',
+						href: '#about'
+					},
+					{
+						label: 'Packages',
+						href: '#pricing'
+					}
+				]
+			},
 			adminLinks: [
 				{
 					label: 'User Management',
