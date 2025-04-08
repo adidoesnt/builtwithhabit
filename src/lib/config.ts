@@ -143,6 +143,8 @@ const config = {
 				'Whether you’re new to strength training or looking to level up your current routine, I offer a range of personal training options that are individualised, holistic, and grounded in science.',
 			tableDescription:
 				'The table below outlines the key details of each package.',
+			accordionDescription:
+				'The details for each package can be seen below by expanding their respective dropdowns.',
 			packages: [
 				{
 					name: 'Discover',

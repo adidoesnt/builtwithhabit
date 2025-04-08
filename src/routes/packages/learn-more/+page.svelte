@@ -1,6 +1,8 @@
 <script lang="ts">
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import config from '$lib/config';
+	import PackagesAccordion from './components/PackagesAccordion.svelte';
+	import PackagesTable from './components/PackagesTable.svelte';
 
 	const {
 		packages: { learnMore }
@@ -16,41 +18,14 @@
 			<p class="font-body text-olive text-md md:text-lg">
 				{learnMore.introduction}
 			</p>
-			<p class="font-body text-olive text-md md:text-lg">
+			<p class="font-body text-olive text-md md:text-lg hidden md:block">
 				{learnMore.tableDescription}
 			</p>
-
-			<div class="overflow-hidden rounded-lg bg-white shadow-md hidden md:block">
-				<div class="overflow-x-auto">
-					<table class="w-full min-w-[800px] border-collapse">
-						<thead class="bg-gray-50">
-							<tr>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Package</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Sessions</th>
-								<th class="font-body text-dark-brown border-b p-4 text-left">Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each learnMore.packages as packageItem, i}
-								<tr class={`${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-									<td
-										class="font-body text-dark-brown overflow-y-auto border-b p-4"
-										>{packageItem.name}</td
-									>
-									<td
-										class="font-body text-dark-brown overflow-y-auto border-b p-4"
-										>{packageItem.sessions}</td
-									>
-									<td
-										class="font-body text-dark-brown overflow-y-auto border-b p-4"
-										>{packageItem.description}</td
-									>
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				</div>
-			</div>
+			<p class="font-body text-olive text-md md:text-lg block md:hidden">
+				{learnMore.accordionDescription}
+			</p>
+			<PackagesTable />
+			<PackagesAccordion />
 		</div>
 	</div>
 </div>
