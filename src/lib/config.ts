@@ -91,7 +91,7 @@ const config = {
 			title: ['Mission and', 'Training Philosophy'],
 			content: [
 				'Strength training is truly one of the most powerful tools for South Asian women to build confidence, longevity, and resilience at any stage of life!',
-				'My approach combines science-backed resistance training, whole-food nutrition, and mindful living—cutting through misinformation to create personalised, sustainable, and iterative fitness plans that work for you. I believe fitness should feel intuitive - not restrictive - and I work closely with each client to build strength in a way that feels natural, empowering, and lasting!'
+				'My approach combines science-backed resistance training, whole-food nutrition, and mindful living-cutting through misinformation to create personalised, sustainable, and iterative fitness plans that work for you. I believe fitness should feel intuitive - not restrictive - and I work closely with each client to build strength in a way that feels natural, empowering, and lasting!'
 			]
 		},
 		contact: {
@@ -148,19 +148,19 @@ const config = {
 					name: 'Discover',
 					sessions: 1,
 					description:
-						"A one-time session designed to explore your goals, introduce foundational movements, and assess where you're at physically. Great for beginners or anyone wanting to dip their toes into personalized training."
+						"A one-time session designed to explore your goals, introduce foundational movements, and assess where you're at physically. Great for beginners or anyone wanting to dip their toes into personalised training."
 				},
 				{
 					name: 'Build',
 					sessions: 5,
 					description:
-						'A short-term plan to build consistency, learn proper form, and develop a routine that suits your lifestyle. We focus on mobility, strength, and conditioning — all tailored to your body and preferences.'
+						'A short-term plan to build consistency, learn proper form, and develop a routine that suits your lifestyle. We focus on mobility, strength, and conditioning - all tailored to your body and preferences.'
 				},
 				{
 					name: 'Transform',
 					sessions: 10,
 					description:
-						'A comprehensive program designed to create sustainable change. This package dives deeper into progressive overload, movement patterns, aerobic capacity, and muscle development — with check-ins and nutritional guidance to support your goals.'
+						'A comprehensive program designed to create sustainable change. This package dives deeper into progressive overload, movement patterns, aerobic capacity, and muscle development - with check-ins and nutritional guidance to support your goals.'
 				}
 			]
 		}
