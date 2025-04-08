@@ -13,19 +13,19 @@
 	const { packages } = data;
 </script>
 
-<div class="bg-light-green grid h-full min-h-[100dvh] w-full place-items-center">
+<div class="bg-beige grid h-full min-h-[100dvh] w-full place-items-center">
 	<div class="container mx-auto flex h-full flex-col justify-start gap-4 overflow-x-auto p-4">
-		<LogoHeader linkToHome altColors />
+		<LogoHeader linkToHome />
 
 		<div class="flex flex-col gap-4 p-4">
-			<h1 class="font-headings text-olive text-4xl font-bold">Packages</h1>
-			<p class="font-body text-olive text-md md:text-lg">
+			<h1 class="font-headings text-dark-brown text-4xl font-bold">Packages</h1>
+			<p class="font-body text-dark-brown text-md md:text-lg">
 				{learnMore.introduction}
 			</p>
-			<p class="font-body text-olive text-md md:text-lg hidden md:block">
+			<p class="font-body text-dark-brown text-md hidden md:block md:text-lg">
 				{learnMore.tableDescription}
 			</p>
-			<p class="font-body text-olive text-md md:text-lg block md:hidden">
+			<p class="font-body text-dark-brown text-md block md:hidden md:text-lg">
 				{learnMore.accordionDescription}
 			</p>
 			<PackagesTable {packages} />
