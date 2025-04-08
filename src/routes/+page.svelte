@@ -32,7 +32,7 @@
 >
 	{#if pricing.earlyBirdDiscount}
 		<a
-			class="font-body absolute top-0 right-0 z-10 rounded-bl-lg bg-red-500 py-1 pr-3 pl-4 text-xs font-bold text-white shadow-md hover:opacity-80 hover:scale-105 transition-all duration-300"
+			class="font-body absolute top-0 right-0 z-10 rounded-bl-lg bg-red-500 py-1 pr-3 pl-4 text-xs font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:opacity-80"
 			href="#pricing"
 		>
 			Early bird discounts active!
@@ -113,6 +113,11 @@
 			{#each mission.content as content}
 				<p class="font-body text-dark-brown text-md md:text-xl">{content}</p>
 			{/each}
+			<p class="font-body text-dark-brown text-md md:text-xl">
+				<a class="underline transition-all duration-300 hover:opacity-50" href="/about-me"
+					>Click here</a
+				> to learn more about me, my mission, and my training philosophy.
+			</p>
 			<button
 				class="font-body bg-dark-brown text-beige mt-8 flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
 				onclick={scrollToPricing}>{contact.callToAction}</button

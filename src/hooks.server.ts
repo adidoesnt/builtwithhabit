@@ -13,7 +13,8 @@ const getIsAuthenticatedRoute = (pathname: string) => {
 		'/',
 		'/reset-password',
 		'/forgot-password',
-		'/packages/learn-more'
+		'/packages/learn-more',
+		'/about-me'
 	].includes(pathname);
 };
 

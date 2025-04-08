@@ -20,7 +20,7 @@
 </script>
 
 <div class="bg-beige grid h-full min-h-[100dvh] w-full place-items-center">
-	<div class="container mx-auto flex h-full flex-col justify-start gap-4 overflow-x-auto p-4">
+	<div class="container mx-auto flex flex-col justify-start gap-4 overflow-x-auto p-4">
 		<LogoHeader linkToHome />
 
 		<div class="flex flex-col gap-4 p-4">
