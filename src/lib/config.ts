@@ -120,6 +120,45 @@ const config = {
 			viewTestimonials: 'View Testimonials'
 		}
 	},
+	aboutMe: {
+		titles: {
+			aboutMe: 'About Me',
+			expectations: 'What to expect from my sessions'
+		},
+		image: '/about-me.jpeg',
+		content: {
+			about: [
+				'Hi, I’m Ishita - a NASM-certified personal trainer with a deep passion for helping South Asian women build confidence, strength, and sustainable wellness habits.',
+				"Movement has always been a huge part of my life. I was raised in an athletic, health-conscious household that taught me discipline, resilience, and how to channel movement as a healthy outlet for my anxiety. Whether it's lifting in the gym, dancing around the house, playing basketball, or biking outdoors, I’ve always found joy in moving my body in ways that challenge and energize me.",
+				'But my journey hasn’t always been linear. At one point, I developed a more rigid and unsustainable relationship with food and body image - one shaped by unrealistic beauty standards and misinformation. During the pandemic, I began unlearning harmful habits and re-learning how to honour my body: training for strength, nourishing myself with whole foods, and reconnecting with movement as a source of joy, not punishment.',
+				'Lifting became my sanctuary. It transformed not just my body, but my mindset - helping me take up more space, embrace my functionality, and find empowerment in consistency, discipline, and routine. Today, I feel strong, capable, and more connected to myself than ever - and I want to pass on that feeling to others.',
+				'Our culture often preaches restriction and shrinking - but science tells us a different story. Our bodies need fuel, rest, and thoughtful training to thrive. That’s why I use a science-backed, holistic approach to fitness that considers every part of your wellbeing: training, nutrition, sleep, recovery, and more. I stay up-to-date with the latest evidence and apply it in real, personalized, practical ways - always listening to what your body needs.'
+			],
+			expectations: {
+				introduction: 'My training sessions are structured around three pillars:',
+				pillars: [
+					{
+						title: 'Flexibility & Mobility',
+						description: 'Improving joint health and range of motion'
+					},
+					{
+						title: 'Muscular Conditioning',
+						description: 'Building functional strength and endurance'
+					},
+					{
+						title: 'Cardiovascular Capacity',
+						description: 'Enhancing stamina and aerobic health'
+					}
+				],
+				approach:
+					'Before we add intensity, we lay the groundwork: teaching form, correcting posture, and making you feel confident in how you move. I take a very hands-on approach - offering real-time demonstrations, verbal cues, and consistent encouragement throughout our session.',
+				holisticSupport:
+					'Training isn’t just about what you do in the gym. That’s why I integrate nutritional guidance (focused on whole foods, high-protein, non-restrictive eating), sleep hygiene tips, and recovery practices. Whether your goal is hypertrophy, fat loss, or overall wellness, we work together to create a routine that aligns with your lifestyle - not against it.',
+				mission:
+					'My aim is to equip you with the knowledge and tools to feel empowered in your own skin - at every age and stage of life.'
+			}
+		}
+	},
 	packages: {
 		disclaimer: {
 			message: 'By checking this box, you agree to the following',

@@ -39,7 +39,7 @@
 
 			<button
 				onclick={handleBackToHome}
-				class="font-body text-dark-brown mt-4 flex items-center gap-2 self-center hover:underline md:mt-0 md:self-start"
+				class="font-body text-dark-brown flex items-center gap-2 text-lg font-bold hover:underline mt-4 self-start"
 			>
 				<Back />
 				Back to Home
