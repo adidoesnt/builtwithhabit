@@ -32,7 +32,7 @@
 >
 	{#if pricing.earlyBirdDiscount}
 		<a
-			class="font-body absolute top-0 right-0 z-10 rounded-bl-lg bg-red-500 py-1 pr-3 pl-5 text-xs font-bold text-white shadow-md hover:opacity-80 hover:scale-105 transition-all duration-300"
+			class="font-body absolute top-0 right-0 z-10 rounded-bl-lg bg-red-500 py-1 pr-3 pl-4 text-xs font-bold text-white shadow-md hover:opacity-80 hover:scale-105 transition-all duration-300"
 			href="#pricing"
 		>
 			Early bird discounts active!
