@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import config from '$lib/config';
+	import Back from '$lib/icons/Back.svelte';
 	import type { PageServerData } from './$types';
 	import PackagesAccordion from './components/PackagesAccordion.svelte';
 	import PackagesTable from './components/PackagesTable.svelte';
@@ -11,6 +13,10 @@
 
 	const { data }: { data: PageServerData } = $props();
 	const { packages } = data;
+
+	const handleBackToHome = () => {
+		goto('/');
+	};
 </script>
 
 <div class="bg-beige grid h-full min-h-[100dvh] w-full place-items-center">
@@ -30,6 +36,14 @@
 			</p>
 			<PackagesTable {packages} />
 			<PackagesAccordion {packages} />
+
+			<button
+				onclick={handleBackToHome}
+				class="font-body text-dark-brown mt-4 flex items-center gap-2 self-center hover:underline md:mt-0 md:self-start"
+			>
+				<Back />
+				Back to Home
+			</button>
 		</div>
 	</div>
 </div>
