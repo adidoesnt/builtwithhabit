@@ -25,7 +25,7 @@
 
 	let users = $state([...initialUsers]);
 	let currentPage = $state(0);
-	let pageSize = $state(10);
+	let pageSize = $state(5);
 	let totalPages = $derived(Math.ceil(total / pageSize));
 	let userToEdit = $state<UserWithRoles | null>(null);
 	let userToDelete = $state<UserWithRoles | null>(null);
