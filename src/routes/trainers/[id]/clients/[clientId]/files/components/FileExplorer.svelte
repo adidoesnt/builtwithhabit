@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { UserDir } from '../types';
 	import FolderIcon from './FolderIcon.svelte';
 	import PDFIcon from './PDFIcon.svelte';
@@ -15,14 +14,6 @@
 
 	function isDirectory(url: string) {
 		return url.endsWith('/');
-	}
-
-	function handleFileClick(file: { name: string; url: string }) {
-		if (isDirectory(file.url)) {
-			goto(`/trainers/${trainerId}/clients/${clientId}/files/${file.name}`);
-		} else {
-			goto(file.url);
-		}
 	}
 
 	async function handleDelete(
@@ -163,14 +154,18 @@
 									{:else}
 										<FileIcon className="h-5 w-5 text-dark-brown" />
 									{/if}
-									<button
-										class="text-dark-brown cursor-pointer hover:text-blue-800"
-										title={isDirectory(file.url) ? 'Open directory' : 'Download file'}
-										aria-label={isDirectory(file.url) ? 'Open directory' : 'Download file'}
-										onclick={() => handleFileClick(file)}
-									>
-										{file.name}
-									</button>
+									{#if isDirectory(file.url)}
+										<span class="text-dark-brown">{file.name}</span>
+									{:else}
+										<a
+											class="text-dark-brown cursor-pointer hover:text-blue-800"
+											href={file.url}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{file.name}
+										</a>
+									{/if}
 								</div>
 							</td>
 							<td class="font-body text-light-brown px-6 py-4 whitespace-nowrap">
