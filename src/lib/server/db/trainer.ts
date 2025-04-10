@@ -1,7 +1,8 @@
-import { and, eq, gte, ilike, or, sql } from 'drizzle-orm';
+import { and, eq, gte, ilike, not, or, sql } from 'drizzle-orm';
 import { database } from '.';
 import {
 	availabilityOverrides,
+	bookings,
 	purchases,
 	recurringAvailabilities,
 	Role,
@@ -165,4 +166,12 @@ export const getTrainerClients = async (
 		pageSize,
 		totalCount
 	};
+};
+
+// TODO: Update this to get client notes and image URLs
+export const getClientById = async (id: string) => {
+	const clients = await database.select().from(users).where(eq(users.id, id));
+	const client = clients[0];
+
+	return client;
 };

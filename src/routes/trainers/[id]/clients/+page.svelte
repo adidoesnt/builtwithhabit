@@ -44,10 +44,6 @@
 				isLoading = false;
 			});
 	});
-
-	$inspect({
-		clients
-	});
 </script>
 
 <div id="clients-page" class="bg-beige font-body min-h-[100dvh] p-8">
@@ -125,11 +121,12 @@
 											</td>
 											<td class="font-body text-dark-brown border-b p-4">{client.email}</td>
 											<td class="font-body text-dark-brown border-b p-4">
-												<button
+												<a
+													href={`/trainers/${trainerId}/clients/${client.id}`}
 													class="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm hover:bg-gray-50"
 												>
 													View Profile
-												</button>
+												</a>
 											</td>
 										</tr>
 									{/each}

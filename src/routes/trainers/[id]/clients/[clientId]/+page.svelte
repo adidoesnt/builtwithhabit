@@ -1,0 +1,65 @@
+<script lang="ts">
+	import type { PageData } from './$types';
+	import LogoHeader from '$lib/components/LogoHeader.svelte';
+
+	const { data }: { data: PageData } = $props();
+	const { client } = data;
+
+	function formatName(firstName: string, lastName: string) {
+		return `${firstName} ${lastName}`;
+	}
+</script>
+
+<div class="bg-beige min-h-[100dvh] p-8">
+	<div class="mx-auto max-w-4xl">
+		<LogoHeader />
+
+		<div class="mt-8 mb-12 text-center md:text-start">
+			<h1 class="font-body text-dark-brown text-2xl font-bold md:text-3xl">Client Profile</h1>
+			<p class="font-body text-light-brown mt-2">View client details</p>
+		</div>
+
+		<div class="overflow-hidden rounded-lg bg-white shadow-md">
+			<div class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row">
+				<div
+					class="font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+				>
+					{client.firstName[0]}{client.lastName[0]}
+				</div>
+				<div class="text-center md:text-left">
+					<h2 class="font-body text-olive text-xl font-semibold">
+						{formatName(client.firstName, client.lastName)}
+					</h2>
+					<p class="font-body text-olive">{client.email}</p>
+				</div>
+			</div>
+
+			<div class="p-6">
+				<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+					<div class="space-y-4">
+						<h3 class="font-body text-dark-brown text-xl font-semibold">Personal Information</h3>
+
+						<div>
+							<p class="font-body text-light-brown text-sm">First Name</p>
+							<p class="font-body text-dark-brown">{client.firstName}</p>
+						</div>
+
+						<div>
+							<p class="font-body text-light-brown text-sm">Last Name</p>
+							<p class="font-body text-dark-brown">{client.lastName}</p>
+						</div>
+					</div>
+
+					<div class="space-y-4">
+						<h3 class="font-body text-dark-brown text-xl font-semibold">Contact Information</h3>
+
+						<div>
+							<p class="font-body text-light-brown text-sm">Email</p>
+							<p class="font-body text-dark-brown">{client.email}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
