@@ -1,5 +1,5 @@
 export enum UserDir {
-	PROFILE_PICTURE = 'profile_picture',
-	TRAINER_NOTES = 'trainer_notes',
+	PROFILE_PICTURE = 'profile-picture',
+	TRAINER_NOTES = 'trainer-notes',
 	MEDIA = 'media'
 }

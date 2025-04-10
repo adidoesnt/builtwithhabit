@@ -15,8 +15,8 @@ const s3Client = new S3Client({
 });
 
 export enum UserDir {
-	PROFILE_PICTURE = 'profile_picture',
-	TRAINER_NOTES = 'trainer_notes',
+	PROFILE_PICTURE = 'profile-picture',
+	TRAINER_NOTES = 'trainer-notes',
 	MEDIA = 'media'
 }
 
@@ -67,7 +67,10 @@ export const listFilesInDir = async (userId: string, dir?: UserDir) => {
 	}
 
 	const files = await Promise.all(
-		response.Contents?.filter((file) => file.Key !== prefix).map(async (file) => {
+		response.Contents?.filter((file) => {
+			if (!file.Key) return false;
+			return file.Key !== prefix && file.Key !== `${prefix}/`;
+		}).map(async (file) => {
 			const fileName = file.Key?.split('/').pop() || '';
 			const isDir = file.Key?.endsWith('/');
 
@@ -77,7 +80,7 @@ export const listFilesInDir = async (userId: string, dir?: UserDir) => {
 					Bucket: S3_BUCKET_NAME,
 					Key: file.Key
 				});
-				url = await getSignedUrl(s3Client, command, { expiresIn: 3600 }); // 1 hour expiry
+				url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
 			}
 
 			return {
