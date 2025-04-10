@@ -6,6 +6,7 @@
 	import DocumentIcon from './DocumentIcon.svelte';
 	import FileIcon from './FileIcon.svelte';
 	import FileUploadModal from './FileUploadModal.svelte';
+	import { goto } from '$app/navigation';
 
 	const { files, trainerId, clientId, currentDir = 'root', goToPreviousDir = null } = $props();
 	let isUploadModalOpen = $state(false);
@@ -14,6 +15,10 @@
 
 	function isDirectory(url: string) {
 		return url.endsWith('/');
+	}
+
+	function handleDirectoryClick(directory: { name: string; url: string }) {
+		goto(`/trainers/${trainerId}/clients/${clientId}/files/${directory.name}`);
 	}
 
 	async function handleDelete(
@@ -155,7 +160,12 @@
 										<FileIcon className="h-5 w-5 text-dark-brown" />
 									{/if}
 									{#if isDirectory(file.url)}
-										<span class="text-dark-brown">{file.name}</span>
+										<button
+											class="text-dark-brown cursor-pointer hover:text-blue-800"
+											onclick={() => handleDirectoryClick(file)}
+										>
+											{file.name}
+										</button>
 									{:else}
 										<a
 											class="text-dark-brown cursor-pointer hover:text-blue-800"
