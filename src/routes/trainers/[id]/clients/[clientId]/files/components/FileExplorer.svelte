@@ -165,6 +165,8 @@
 												/>
 											</svg>
 										</button>
+									{:else}
+										<span class="text-light-brown">No actions available</span>
 									{/if}
 								</div>
 							</td>
