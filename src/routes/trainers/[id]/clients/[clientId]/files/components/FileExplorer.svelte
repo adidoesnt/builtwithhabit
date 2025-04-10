@@ -6,8 +6,11 @@
 	import ImageIcon from './ImageIcon.svelte';
 	import DocumentIcon from './DocumentIcon.svelte';
 	import FileIcon from './FileIcon.svelte';
+	import FileUploadModal from './FileUploadModal.svelte';
 
 	const { files, trainerId, clientId, currentDir = 'root', goToPreviousDir = null } = $props();
+	let isUploadModalOpen = $state(false);
+	let toggleUploadModal = () => (isUploadModalOpen = !isUploadModalOpen);
 
 	function isDirectory(url: string) {
 		return url.endsWith('/');
@@ -21,18 +24,33 @@
 		}
 	}
 
-	function handleUpload() {
-		console.log('Opening file upload dialog');
-		// TODO: Implement file upload
-	}
-
 	function handleDelete(file: { name: string; url: string }) {
 		console.log('Deleting file:', file.name);
 		// TODO: Implement file deletion
 	}
 
+	const getPresignedUrl = async (fileName: string) => {
+		switch (currentDir) {
+			case UserDir.MEDIA:
+				return await fetch(
+					`/trainers/${trainerId}/clients/${clientId}/files/media/presigned-url?fileName=${fileName}`
+				)
+					.then((res) => res.json())
+					.then((data) => data.presignedUrl);
+			case UserDir.TRAINER_NOTES:
+				return await fetch(
+					`/trainers/${trainerId}/clients/${clientId}/files/trainer-notes/presigned-url?fileName=${fileName}`
+				)
+					.then((res) => res.json())
+					.then((data) => data.presignedUrl);
+			default:
+				return null;
+		}
+	};
 	const disableUpload = $derived(!Object.values(UserDir).includes(currentDir as UserDir));
 </script>
+
+<FileUploadModal isOpen={isUploadModalOpen} onClose={toggleUploadModal} {getPresignedUrl} />
 
 <div class="overflow-hidden rounded-lg bg-white shadow-md">
 	<div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 p-4">
@@ -68,7 +86,7 @@
 			class="text-dark-brown cursor-pointer hover:text-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
 			title="Upload files"
 			aria-label="Upload files"
-			onclick={handleUpload}
+			onclick={toggleUploadModal}
 			disabled={disableUpload}
 		>
 			<svg
