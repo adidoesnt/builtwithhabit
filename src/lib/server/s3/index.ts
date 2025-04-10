@@ -2,7 +2,8 @@ import {
 	S3Client,
 	GetObjectCommand,
 	PutObjectCommand,
-	ListObjectsV2Command
+	ListObjectsV2Command,
+	DeleteObjectCommand
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
@@ -35,6 +36,13 @@ export const getPresignedUrlForViewOrDownload = async (
 	return url;
 };
 
+export const getPresignedUrlForDelete = async (userId: string, dir: UserDir, fileName: string) => {
+	const prefix = getUserFilesPrefix(userId, dir);
+	const command = new DeleteObjectCommand({ Bucket: S3_BUCKET_NAME, Key: `${prefix}/${fileName}` });
+	const url = await getSignedUrl(s3Client, command, { expiresIn: 60 * 60 * 24 });
+	return url;
+};
+
 export const getPresignedUrlForUpload = async (userId: string, dir: UserDir, fileName: string) => {
 	const prefix = getUserFilesPrefix(userId, dir);
 	const command = new PutObjectCommand({ Bucket: S3_BUCKET_NAME, Key: `${prefix}/${fileName}` });
@@ -57,11 +65,13 @@ export const listFilesInDir = async (userId: string, dir?: UserDir) => {
 		return [
 			{
 				name: UserDir.MEDIA,
-				url: `${prefix}/${UserDir.MEDIA}/`
+				url: `${prefix}/${UserDir.MEDIA}/`,
+				deleteUrl: null
 			},
 			{
 				name: UserDir.TRAINER_NOTES,
-				url: `${prefix}/${UserDir.TRAINER_NOTES}/`
+				url: `${prefix}/${UserDir.TRAINER_NOTES}/`,
+				deleteUrl: null
 			}
 		];
 	}
@@ -74,18 +84,25 @@ export const listFilesInDir = async (userId: string, dir?: UserDir) => {
 			const fileName = file.Key?.split('/').pop() || '';
 			const isDir = file.Key?.endsWith('/');
 
-			let url = file.Key;
+			let url = file.Key ?? null;
+			let deleteUrl = null;
 			if (!isDir && file.Key) {
 				const command = new GetObjectCommand({
 					Bucket: S3_BUCKET_NAME,
 					Key: file.Key
 				});
 				url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+				const deleteCommand = new DeleteObjectCommand({
+					Bucket: S3_BUCKET_NAME,
+					Key: file.Key
+				});
+				deleteUrl = await getSignedUrl(s3Client, deleteCommand, { expiresIn: 3600 });
 			}
 
 			return {
 				name: fileName,
-				url
+				url,
+				deleteUrl
 			};
 		}) || []
 	);

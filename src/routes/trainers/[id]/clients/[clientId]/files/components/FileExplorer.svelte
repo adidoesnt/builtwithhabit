@@ -11,6 +11,7 @@
 	const { files, trainerId, clientId, currentDir = 'root', goToPreviousDir = null } = $props();
 	let isUploadModalOpen = $state(false);
 	let toggleUploadModal = () => (isUploadModalOpen = !isUploadModalOpen);
+	let deletingFiles: Array<number> = $state([]);
 
 	function isDirectory(url: string) {
 		return url.endsWith('/');
@@ -24,9 +25,25 @@
 		}
 	}
 
-	function handleDelete(file: { name: string; url: string }) {
-		console.log('Deleting file:', file.name);
-		// TODO: Implement file deletion
+	async function handleDelete(
+		file: { name: string; url: string; deleteUrl: string | null },
+		index: number
+	) {
+		try {
+			if (file.deleteUrl) {
+				deletingFiles.push(index);
+				await fetch(file.deleteUrl, {
+					method: 'DELETE'
+				});
+				window.location.reload();
+			} else {
+				throw new Error('No delete URL found for file');
+			}
+		} catch (error) {
+			console.error('Error deleting file:', error);
+		} finally {
+			deletingFiles = deletingFiles.filter((i) => i !== index);
+		}
 	}
 
 	const getPresignedUrl = async (fileName: string) => {
@@ -125,7 +142,7 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200">
-					{#each files as file}
+					{#each files as file, index}
 						<tr class="hover:bg-gray-50">
 							<td class="font-body text-dark-brown px-6 py-4 whitespace-nowrap">
 								<div class="flex items-center gap-2">
@@ -163,10 +180,11 @@
 								<div class="flex gap-2">
 									{#if !isDirectory(file.url)}
 										<button
-											class="cursor-pointer text-red-600 hover:text-red-800"
+											class="cursor-pointer text-red-600 hover:text-red-800 disabled:cursor-not-allowed disabled:opacity-50"
 											title="Delete file"
 											aria-label="Delete file"
-											onclick={() => handleDelete(file)}
+											disabled={deletingFiles.includes(index)}
+											onclick={() => handleDelete(file, index)}
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"

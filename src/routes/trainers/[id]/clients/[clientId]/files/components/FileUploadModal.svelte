@@ -68,6 +68,7 @@
 
 			setTimeout(() => {
 				onClose();
+				window.location.reload();
 			}, 3000);
 		} catch (error) {
 			console.error('Error uploading files:', error);
