@@ -2,6 +2,7 @@ import { and, eq, gte } from 'drizzle-orm';
 import { database } from '.';
 import {
 	availabilityOverrides,
+	purchases,
 	recurringAvailabilities,
 	Role,
 	userRoles,
@@ -107,4 +108,21 @@ export const getAllTrainers = async () => {
 export const getDefaultTrainer = async () => {
 	const trainers = await getAllTrainers();
 	return trainers[0];
+};
+
+// TODO: This is a temporary function to get the clients of the default trainer
+export const getTrainerClients = async () => {
+	const trainer = await getDefaultTrainer();
+
+	const clients = await database
+		.selectDistinct({
+			id: users.id,
+			firstName: users.firstName,
+			lastName: users.lastName
+		})
+		.from(purchases)
+		.leftJoin(users, eq(purchases.userId, users.id))
+		.where(eq(purchases.trainerId, trainer.id));
+
+	return clients;
 };
