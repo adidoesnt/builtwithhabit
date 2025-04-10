@@ -65,9 +65,9 @@
 					</div>
 				</div>
 
-				<div class="mt-8 border-t border-gray-200 pt-8">
+				<div class="mt-8 border-t border-gray-200 pt-8 flex w-full justify-center md:justify-start">
 					<button
-						class="text-dark-brown font-body cursor-pointer rounded-sm bg-[#A0D2EB] px-6 py-2 transition-all duration-300 hover:opacity-80"
+						class="text-dark-brown font-body cursor-pointer rounded-sm bg-light-green px-6 py-2 transition-all duration-300 hover:opacity-80"
 						onclick={handleViewFiles}
 					>
 						View Client Files
