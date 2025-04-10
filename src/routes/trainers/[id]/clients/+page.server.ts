@@ -12,6 +12,7 @@ export const load = async ({ cookies, params, url }) => {
 	const query = url.searchParams;
 	const page = parseInt(query.get('page') || '0');
 	const pageSize = parseInt(query.get('pageSize') || '10');
+	const search = query.get('search') || '';
 
 	if (!accessToken) {
 		throw redirect(303, '/login');
@@ -33,12 +34,12 @@ export const load = async ({ cookies, params, url }) => {
 		throw redirect(303, '/');
 	}
 
-	const clientsResponse = await getTrainerClients({ page, pageSize });
+	const clientsResponse = await getTrainerClients({ page, pageSize }, search);
 	const { clients, totalCount } = clientsResponse;
 
 	return {
 		clients,
 		totalCount,
-		trainerId
+		trainerId,
 	};
 };

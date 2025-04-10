@@ -1,4 +1,4 @@
-import { and, eq, gte, sql } from 'drizzle-orm';
+import { and, eq, gte, ilike, or, sql } from 'drizzle-orm';
 import { database } from '.';
 import {
 	availabilityOverrides,
@@ -116,14 +116,32 @@ export const getTrainerClients = async (
 	{ page, pageSize }: PaginationParams = {
 		page: 0,
 		pageSize: 10
-	}
+	},
+	search: string = ''
 ) => {
 	const trainer = await getDefaultTrainer();
+
+	console.log('Search and pagination params:', { page, pageSize, search });
+
+	const searchCondition = search
+		? or(
+				ilike(users.firstName, `%${search}%`),
+				ilike(users.lastName, `%${search}%`),
+				ilike(users.email, `%${search}%`)
+			)
+		: undefined;
+
+	console.log('Search condition:', searchCondition);
+	console.log('Trainer ID:', trainer.id);
 
 	const countResult = await database
 		.select({ count: sql<number>`count(distinct ${purchases.userId})` })
 		.from(purchases)
-		.where(eq(purchases.trainerId, trainer.id));
+		.leftJoin(users, eq(purchases.userId, users.id))
+		.where(and(eq(purchases.trainerId, trainer.id), searchCondition));
+
+	console.log('Count result:', countResult);
+
 	const totalCount = countResult[0].count;
 
 	const clients = await database
@@ -135,9 +153,11 @@ export const getTrainerClients = async (
 		})
 		.from(purchases)
 		.leftJoin(users, eq(purchases.userId, users.id))
-		.where(eq(purchases.trainerId, trainer.id))
+		.where(and(eq(purchases.trainerId, trainer.id), searchCondition))
 		.limit(pageSize)
 		.offset(page * pageSize);
+
+	console.log('Clients result:', clients);
 
 	return {
 		clients,

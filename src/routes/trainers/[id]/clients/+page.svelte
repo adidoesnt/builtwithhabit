@@ -4,15 +4,14 @@
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 
 	const { data }: { data: PageData } = $props();
-	const { clients: initialClients, totalCount: initialTotalCount } = data;
-
-	let clients = $state(initialClients);
-	let totalCount = $state(initialTotalCount);
+	const { trainerId } = data;
 
 	let page = $state(0);
-	let pageSize = $state(5);
-	let searchTerm = $state(''); // TODO: Add search functionality
+	let pageSize = $state(10);
+	let searchTerm = $state('');
 	let isLoading = $state(false);
+	let clients = $state(data.clients);
+	let totalCount = $state(data.totalCount);
 	let totalPages = $derived(Math.ceil(totalCount / pageSize));
 
 	const itemsPerPageOptions = [5, 10, 25, 50];
@@ -34,7 +33,7 @@
 	$effect(() => {
 		isLoading = true;
 		fetch(
-			`/trainers/${data.trainerId}/clients?page=${page}&pageSize=${pageSize}&search=${debouncedSearchTerm ?? ''}`
+			`/trainers/${trainerId}/clients?page=${page}&pageSize=${pageSize}&search=${debouncedSearchTerm ?? ''}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
@@ -45,13 +44,17 @@
 				isLoading = false;
 			});
 	});
+
+	$inspect({
+		clients
+	});
 </script>
 
-<div class="bg-beige font-body min-h-[100dvh] p-8">
-	<div class="mx-auto max-w-4xl">
+<div id="clients-page" class="bg-beige font-body min-h-[100dvh] p-8">
+	<div id="clients-container" class="mx-auto max-w-4xl">
 		<LogoHeader />
 
-		<div class="mt-8 mb-6">
+		<div id="clients-header" class="mt-8 mb-6">
 			<h1 class="font-body text-dark-brown text-2xl font-bold md:text-3xl">Clients</h1>
 			<p class="font-body text-light-brown mt-1">View and manage your clients</p>
 		</div>
@@ -84,10 +87,10 @@
 								<table class="w-full border-collapse">
 									<thead class="bg-gray-50">
 										<tr>
+											<th class="font-body text-dark-brown border-b p-4 text-left">ID</th>
 											<th class="font-body text-dark-brown border-b p-4 text-left">Name</th>
 											<th class="font-body text-dark-brown border-b p-4 text-left">Email</th>
-											<th class="font-body text-dark-brown border-b p-4 text-left">Bookings</th>
-											<th class="font-body text-dark-brown border-b p-4 text-left">Last Booking</th>
+											<th class="font-body text-dark-brown border-b p-4 text-left">Actions</th>
 										</tr>
 									</thead>
 									<tbody>
