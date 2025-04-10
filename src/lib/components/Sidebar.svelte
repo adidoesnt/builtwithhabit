@@ -30,7 +30,9 @@
 			goto('/login');
 		} catch (error) {
 			console.error('Logout failed:', error);
+		} finally {
 			isLoggingOut = false;
+			toggleSidebar();
 		}
 	}
 
