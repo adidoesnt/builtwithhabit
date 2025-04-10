@@ -1,12 +1,17 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
+	import { goto } from '$app/navigation';
 
 	const { data }: { data: PageData } = $props();
-	const { client } = data;
+	const { client, trainer } = data;
 
 	function formatName(firstName: string, lastName: string) {
 		return `${firstName} ${lastName}`;
+	}
+
+	function handleViewFiles() {
+		goto(`/trainers/${trainer.id}/clients/${client.id}/files`);
 	}
 </script>
 
@@ -58,6 +63,15 @@
 							<p class="font-body text-dark-brown">{client.email}</p>
 						</div>
 					</div>
+				</div>
+
+				<div class="mt-8 border-t border-gray-200 pt-8">
+					<button
+						class="text-dark-brown font-body cursor-pointer rounded-sm bg-[#A0D2EB] px-6 py-2 transition-all duration-300 hover:opacity-80"
+						onclick={handleViewFiles}
+					>
+						View Client Files
+					</button>
 				</div>
 			</div>
 		</div>

@@ -41,7 +41,7 @@ export const load = async ({ cookies, params }) => {
 		throw redirect(303, '/');
 	}
 
-	const { clientId } = params;
+	const { id: trainerId, clientId } = params;
 	if (!clientId) {
 		console.log('Client ID is required');
 		throw redirect(303, '/');
@@ -50,6 +50,7 @@ export const load = async ({ cookies, params }) => {
 	const client = await getClientById(clientId);
 
 	return {
+		trainer: { id: trainerId },
 		client
 	};
 };
