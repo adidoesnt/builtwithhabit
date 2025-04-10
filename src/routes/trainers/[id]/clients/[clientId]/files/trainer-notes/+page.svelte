@@ -9,7 +9,6 @@
 	const { files, client, trainerId } = data;
 
 	const goToPreviousDir = () => {
-		console.log('Going up one directory');
 		goto(`/trainers/${trainerId}/clients/${client.id}/files`);
 	};
 </script>

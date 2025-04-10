@@ -30,10 +30,8 @@
 
 	function handleFileClick(file: { name: string; url: string }) {
 		if (isDirectory(file.url)) {
-			console.log('Open directory:', file.name);
 			goto(`/trainers/${trainerId}/clients/${clientId}/files/${file.name}`);
 		} else {
-			console.log('Download file:', file.name);
 			goto(file.url);
 		}
 	}
@@ -56,20 +54,52 @@
 		<div class="flex items-center gap-4">
 			{#if goToPreviousDir}
 				<button
-					class="text-dark-brown font-body cursor-pointer rounded-sm bg-[#A0D2EB] px-3 py-1 text-sm transition-all duration-300 hover:opacity-80"
+					class="text-dark-brown cursor-pointer hover:text-blue-800"
+					title="Go back"
+					aria-label="Go back"
 					onclick={goToPreviousDir}
 				>
-					Back
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M10 19l-7-7m0 0l7-7m-7 7h18"
+						/>
+					</svg>
 				</button>
 			{/if}
-			<span class="font-body text-dark-brown">Current Directory: {currentDir || 'Root'}</span>
+			<span class="font-body text-dark-brown"
+				>Current Directory: <span class="font-bold">{currentDir || 'Root'}</span></span
+			>
 		</div>
 		<button
-			class="text-dark-brown font-body cursor-pointer rounded-sm bg-[#A0D2EB] px-3 py-1 text-sm transition-all duration-300 hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
+			class="text-dark-brown cursor-pointer hover:text-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
+			title="Upload files"
+			aria-label="Upload files"
 			onclick={handleUpload}
 			disabled={disableUpload}
 		>
-			Upload Files
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+				/>
+			</svg>
 		</button>
 	</div>
 
@@ -98,7 +128,9 @@
 								<div class="flex items-center gap-2">
 									<span class="text-lg">{getFileIcon(file.name, isDirectory(file.url))}</span>
 									<button
-										class="text-dark-brown font-body cursor-pointer transition-all duration-300 hover:underline hover:opacity-80"
+										class="text-dark-brown cursor-pointer hover:text-blue-800"
+										title={isDirectory(file.url) ? 'Open directory' : 'Download file'}
+										aria-label={isDirectory(file.url) ? 'Open directory' : 'Download file'}
 										onclick={() => handleFileClick(file)}
 									>
 										{file.name}
@@ -112,10 +144,25 @@
 								<div class="flex gap-2">
 									{#if !isDirectory(file.url)}
 										<button
-											class="text-dark-brown font-body cursor-pointer rounded-sm bg-red-100 px-3 py-1 text-sm transition-all duration-300 hover:opacity-80"
+											class="cursor-pointer text-red-600 hover:text-red-800"
+											title="Delete file"
+											aria-label="Delete file"
 											onclick={() => handleDelete(file)}
 										>
-											Delete
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+												/>
+											</svg>
 										</button>
 									{/if}
 								</div>
