@@ -1,31 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { UserDir } from '../types';
+	import FolderIcon from './FolderIcon.svelte';
+	import PDFIcon from './PDFIcon.svelte';
+	import ImageIcon from './ImageIcon.svelte';
+	import DocumentIcon from './DocumentIcon.svelte';
+	import FileIcon from './FileIcon.svelte';
 
 	const { files, trainerId, clientId, currentDir = 'root', goToPreviousDir = null } = $props();
 
 	function isDirectory(url: string) {
 		return url.endsWith('/');
-	}
-
-	function getFileIcon(name: string, isDir: boolean) {
-		if (isDir) return '📁';
-
-		const extension = name.split('.').pop()?.toLowerCase();
-		switch (extension) {
-			case 'pdf':
-				return '📄';
-			case 'jpg':
-			case 'jpeg':
-			case 'png':
-			case 'gif':
-				return '🖼️';
-			case 'doc':
-			case 'docx':
-				return '📝';
-			default:
-				return '📄';
-		}
 	}
 
 	function handleFileClick(file: { name: string; url: string }) {
@@ -126,7 +111,23 @@
 						<tr class="hover:bg-gray-50">
 							<td class="font-body text-dark-brown px-6 py-4 whitespace-nowrap">
 								<div class="flex items-center gap-2">
-									<span class="text-lg">{getFileIcon(file.name, isDirectory(file.url))}</span>
+									{#if isDirectory(file.url)}
+										<FolderIcon className="h-5 w-5 text-dark-brown" />
+									{:else if file.name.endsWith('.pdf')}
+										<PDFIcon className="h-5 w-5 text-dark-brown" />
+									{:else if ['jpg', 'jpeg', 'png', 'gif'].includes(file.name
+											.split('.')
+											.pop()
+											?.toLowerCase() || '')}
+										<ImageIcon className="h-5 w-5 text-dark-brown" />
+									{:else if ['doc', 'docx'].includes(file.name
+											.split('.')
+											.pop()
+											?.toLowerCase() || '')}
+										<DocumentIcon className="h-5 w-5 text-dark-brown" />
+									{:else}
+										<FileIcon className="h-5 w-5 text-dark-brown" />
+									{/if}
 									<button
 										class="text-dark-brown cursor-pointer hover:text-blue-800"
 										title={isDirectory(file.url) ? 'Open directory' : 'Download file'}
