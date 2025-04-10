@@ -1,4 +1,4 @@
-import { and, eq, gte } from 'drizzle-orm';
+import { and, eq, gte, sql } from 'drizzle-orm';
 import { database } from '.';
 import {
 	availabilityOverrides,
@@ -9,6 +9,7 @@ import {
 	users,
 	type AvailabilityOverride
 } from './schema';
+import type { PaginationParams } from './types';
 
 // For now we only have one trainer, so we can hardcode the trainerId
 export const getTrainerAvailability = async () => {
@@ -111,18 +112,37 @@ export const getDefaultTrainer = async () => {
 };
 
 // TODO: This is a temporary function to get the clients of the default trainer
-export const getTrainerClients = async () => {
+export const getTrainerClients = async (
+	{ page, pageSize }: PaginationParams = {
+		page: 0,
+		pageSize: 10
+	}
+) => {
 	const trainer = await getDefaultTrainer();
+
+	const countResult = await database
+		.select({ count: sql<number>`count(distinct ${purchases.userId})` })
+		.from(purchases)
+		.where(eq(purchases.trainerId, trainer.id));
+	const totalCount = countResult[0].count;
 
 	const clients = await database
 		.selectDistinct({
 			id: users.id,
 			firstName: users.firstName,
-			lastName: users.lastName
+			lastName: users.lastName,
+			email: users.email
 		})
 		.from(purchases)
 		.leftJoin(users, eq(purchases.userId, users.id))
-		.where(eq(purchases.trainerId, trainer.id));
+		.where(eq(purchases.trainerId, trainer.id))
+		.limit(pageSize)
+		.offset(page * pageSize);
 
-	return clients;
+	return {
+		clients,
+		page,
+		pageSize,
+		totalCount
+	};
 };

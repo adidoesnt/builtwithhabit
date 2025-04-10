@@ -50,6 +50,10 @@
 		{
 			label: 'Availability',
 			href: `/trainers/${$user?.id}/availability`
+		},
+		{
+			label: 'Clients',
+			href: `/trainers/${$user?.id}/clients`
 		}
 	]);
 
