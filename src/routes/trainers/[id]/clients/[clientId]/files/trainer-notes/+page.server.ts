@@ -4,7 +4,7 @@ import { getUserById } from '$lib/server/db/user';
 import { listFilesInDir } from '$lib/server/s3';
 import { Role } from '$lib/stores/auth';
 import { redirect } from '@sveltejs/kit';
-import { UserDir } from '../types';
+import { UserDir } from '../../../../../../../lib/types';
 
 export const load = async ({ cookies, params }) => {
 	const accessToken = cookies.get('access_token');

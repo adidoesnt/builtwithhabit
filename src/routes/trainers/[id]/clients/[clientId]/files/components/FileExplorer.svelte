@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { UserDir } from '../types';
+	import { UserDir } from '../../../../../../../lib/types';
 	import FolderIcon from './FolderIcon.svelte';
 	import PDFIcon from './PDFIcon.svelte';
 	import ImageIcon from './ImageIcon.svelte';

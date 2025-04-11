@@ -2,6 +2,7 @@
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import { formatTime } from '$lib/utils/time';
 	import type { PageData } from './$types';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const { booking, isTrainerForBooking, isClientForBooking, isAdmin } = data;
@@ -21,8 +22,45 @@
 		console.log('Viewing booking notes');
 	};
 
-	const handleUpsertBookingNotes = () => {
-		console.log('Upserting booking notes', { hasNotes });
+	const getFileNameForBookingNotes = (fileType: string = 'txt') => {
+		if (!booking) {
+			throw new Error('Booking not found');
+		}
+
+		return `booking-${booking.id}-notes.${fileType}`;
+	};
+
+    // TODO: Call this when saving the booking notes
+	const getPresignedUrlForBookingNotes = async (fileType: string = 'txt') => {
+		try {
+			if (!booking) {
+				throw new Error('Booking not found');
+			}
+
+			const fileName = getFileNameForBookingNotes();
+
+			const response = await fetch(`/bookings/${booking.id}/presigned-url?fileName=${fileName}`);
+
+			if (!response.ok) {
+				throw new Error('Failed to get presigned url');
+			}
+
+			const data = await response.json();
+			const { presignedUrl } = data;
+			return presignedUrl;
+		} catch (error) {
+			console.error('Error getting presigned url for booking notes', error);
+			return null;
+		}
+	};
+
+	const handleUpsertBookingNotes = async () => {
+		try {
+            // TODO: Add modal for editing and saving the booking notes
+            // Pass this function as a prop to the modal
+		} catch (error) {
+			console.error('Error upserting booking notes', error);
+		}
 	};
 </script>
 
@@ -171,7 +209,7 @@
 			</div>
 		{:else}
 			<div class="rounded-lg bg-white p-6 text-center shadow-md">
-				<p class="font-body text-dark-brown">Loading booking information...</p>
+				<LoadingSpinner size="48px" color="var(--color-dark-brown)" />
 			</div>
 		{/if}
 	</div>

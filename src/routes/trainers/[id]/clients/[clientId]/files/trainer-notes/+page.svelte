@@ -2,7 +2,7 @@
 	import type { PageServerData } from './$types';
 	import FileExplorer from '../components/FileExplorer.svelte';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
-	import { UserDir } from '../types';
+	import { UserDir } from '../../../../../../../lib/types';
 	import { goto } from '$app/navigation';
 
 	const { data }: { data: PageServerData } = $props();
