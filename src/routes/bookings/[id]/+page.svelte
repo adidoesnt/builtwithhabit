@@ -72,7 +72,11 @@
 		<div class="mt-8 mb-12 text-center md:text-start">
 			<h1 class="font-body text-dark-brown text-2xl font-bold md:text-3xl">
 				{#if booking}
-					Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
+					{#if isTrainerForBooking}
+						Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
+					{:else}
+						Booking #{booking.id} with {booking.client?.firstName} {booking.client?.lastName}
+					{/if}
 				{:else}
 					Booking Details
 				{/if}
@@ -96,8 +100,11 @@
 					</div>
 					<div class="text-center md:text-left">
 						<h2 class="font-body text-olive text-xl font-semibold">
-							Booking #{booking.id} with {booking.trainer?.firstName}
-							{booking.trainer?.lastName}
+							{#if isTrainerForBooking}
+								Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
+							{:else}
+								Booking #{booking.id} with {booking.client?.firstName} {booking.client?.lastName}
+							{/if}
 						</h2>
 						<p class="font-body text-olive">
 							{formatDate(booking.start)}
