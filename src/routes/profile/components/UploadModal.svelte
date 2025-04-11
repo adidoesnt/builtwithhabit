@@ -30,6 +30,9 @@
 		}
 	}
 
+	// TODO: Add thumbnail generation lambda on upload
+	// Then, check if thumbnail is available when fetching profile picture
+	// If not, use the original image
 	async function handleUpload() {
 		isLoading = true;
 
