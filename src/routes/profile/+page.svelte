@@ -3,6 +3,15 @@
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
+	import type { PageData } from './$types';
+
+	const { data }: { data: PageData } = $props();
+	const {
+		profilePictureViewUrl,
+		profilePictureDeleteUrl,
+		profilePictureUploadUrl,
+		hasProfilePicture
+	} = data;
 
 	let isLoggingOut = $state(false);
 
@@ -42,9 +51,18 @@
 						{$user.firstName[0]}{$user.lastName[0]}
 					</div>
 					<div class="text-center md:text-left">
-						<h2 class="font-body text-olive text-2xl font-semibold">
-							{formatName($user.firstName, $user.lastName)}
-						</h2>
+						{#if hasProfilePicture}
+							<!-- svelte-ignore a11y_img_redundant_alt -->
+							<img
+								src={profilePictureViewUrl}
+								alt="Profile Picture"
+								class="h-24 w-24 rounded-full"
+							/>
+						{:else}
+							<h2 class="font-body text-olive text-2xl font-semibold">
+								{formatName($user.firstName, $user.lastName)}
+							</h2>
+						{/if}
 						<p class="font-body text-olive">{$user.email}</p>
 					</div>
 				</div>
