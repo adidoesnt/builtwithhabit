@@ -2,9 +2,11 @@ import { supabase } from '$lib/server/auth';
 import { getBookingById } from '$lib/server/db/bookings';
 import { Role } from '$lib/server/db/schema';
 import { getUserById } from '$lib/server/db/user.js';
+import { getPresignedUrlForViewOrDownload } from '$lib/server/s3/index.js';
+import { UserDir } from '$lib/types.js';
 import { json, redirect } from '@sveltejs/kit';
 
-export const load = async ({ params, cookies }) => {
+export const load = async ({ params, cookies, fetch }) => {
 	const bookingId = Number(params.id);
 	const accessToken = cookies.get('access_token');
 
@@ -37,18 +39,36 @@ export const load = async ({ params, cookies }) => {
 	const user = await getUserById(authUser.data.user.id);
 	const isAdmin = user.roles.includes(Role.ADMIN);
 
-	const isTrainerForBooking = booking.trainer?.id === authUser.data.user.id;
-	const isClientForBooking = booking.client?.id === authUser.data.user.id;
+	const clientId = booking.client?.id;
+	const trainerId = booking.trainer?.id;
+
+	if (!clientId || !trainerId) {
+		throw redirect(303, '/bookings');
+	}
+
+	const isTrainerForBooking = trainerId === authUser.data.user.id;
+	const isClientForBooking = clientId === authUser.data.user.id;
 
 	if (!isTrainerForBooking && !isClientForBooking && !isAdmin) {
 		console.log('User is not authorised to view this booking');
 		throw redirect(303, '/bookings');
 	}
 
+	const bookingNotesPresignedUrlForView = await getPresignedUrlForViewOrDownload(
+		clientId,
+		UserDir.TRAINER_NOTES,
+		`booking-${booking.id}-notes.txt`
+	);
+
+	const bookingNotesFile = await fetch(bookingNotesPresignedUrlForView);
+
+	const bookingNotesFileText = !bookingNotesFile.ok ? null : await bookingNotesFile.text();
+
 	return {
 		booking,
 		isTrainerForBooking,
 		isClientForBooking,
-		isAdmin
+		isAdmin,
+		bookingNotesFileText
 	};
 };

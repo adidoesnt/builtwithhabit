@@ -6,8 +6,8 @@
 	import TrainerNotesModal from './components/TrainerNotesModal.svelte';
 
 	let { data }: { data: PageData } = $props();
-	const { booking, isTrainerForBooking, isClientForBooking, isAdmin } = data;
-	const hasNotes = $derived(!!booking?.notes);
+	const { booking, isTrainerForBooking, isClientForBooking, isAdmin, bookingNotesFileText } = data;
+	const hasNotes = $derived(!!bookingNotesFileText && bookingNotesFileText !== '');
 	const canViewBookingNotes = $derived(isTrainerForBooking || isClientForBooking || isAdmin);
 
 	let isTrainerNotesModalOpen = $state(false);
@@ -22,11 +22,6 @@
 			month: 'long',
 			day: 'numeric'
 		});
-	};
-
-	const handleViewBookingNotes = () => {
-		// TODO: Call this for viewing booking notes
-		console.log('Viewing booking notes');
 	};
 
 	const getFileNameForBookingNotes = (fileType: string = 'txt') => {
@@ -66,6 +61,8 @@
 	isOpen={isTrainerNotesModalOpen}
 	setIsOpen={setIsTrainerNotesModalOpen}
 	getPresignedUrl={getPresignedUrlForBookingNotes}
+	{bookingNotesFileText}
+	{isTrainerForBooking}
 />
 
 <div class="bg-beige min-h-[100dvh] p-8">
@@ -188,14 +185,6 @@
 					</div>
 
 					<div class="mt-8 flex flex-wrap gap-4 border-t border-gray-200 pt-8">
-						{#if hasNotes && canViewBookingNotes}
-							<button
-								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
-								onclick={handleViewBookingNotes}
-							>
-								View Booking Notes
-							</button>
-						{/if}
 						{#if isTrainerForBooking}
 							<button
 								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
@@ -204,8 +193,15 @@
 								{#if !hasNotes}
 									Add Booking Notes
 								{:else}
-									Edit Booking Notes
+									Open Booking Notes
 								{/if}
+							</button>
+						{:else if canViewBookingNotes && hasNotes}
+							<button
+								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
+								onclick={setIsTrainerNotesModalOpen.bind(null, true)}
+							>
+								View Booking Notes
 							</button>
 						{/if}
 					</div>
