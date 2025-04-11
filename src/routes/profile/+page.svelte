@@ -5,6 +5,8 @@
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
 	import ProfilePictureMenu from './components/ProfilePictureMenu.svelte';
+	import UploadModal from './components/UploadModal.svelte';
+	import DeleteConfirmationModal from './components/DeleteConfirmationModal.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const {
@@ -36,7 +38,29 @@
 	function formatName(firstName: string, lastName: string) {
 		return `${firstName} ${lastName}`;
 	}
+
+	let isDeleteConfirmationModalOpen = $state(false);
+	const setIsDeleteConfirmationModalOpen = (isOpen: boolean) => {
+		isDeleteConfirmationModalOpen = isOpen;
+	};
+
+	let isUploadModalOpen = $state(false);
+	const setIsUploadModalOpen = (isOpen: boolean) => {
+		isUploadModalOpen = isOpen;
+	};
 </script>
+
+<UploadModal
+	show={isUploadModalOpen}
+	onClose={setIsUploadModalOpen.bind(null, false)}
+	{profilePictureDeleteUrl}
+/>
+
+<DeleteConfirmationModal
+	show={isDeleteConfirmationModalOpen}
+	onClose={setIsDeleteConfirmationModalOpen.bind(null, false)}
+	{profilePictureDeleteUrl}
+/>
 
 <div class="bg-beige min-h-[100dvh] p-8">
 	<div class="mx-auto max-w-4xl">
@@ -69,9 +93,9 @@
 							<ProfilePictureMenu
 								{hasProfilePicture}
 								{profilePictureViewUrl}
-								{profilePictureDeleteUrl}
-								{profilePictureUploadUrl}
 								show={isProfilePictureHoverMenuVisible}
+								{setIsDeleteConfirmationModalOpen}
+								{setIsUploadModalOpen}
 							/>
 							{#if hasProfilePicture}
 								<!-- svelte-ignore a11y_img_redundant_alt -->

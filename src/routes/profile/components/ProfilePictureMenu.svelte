@@ -1,37 +1,12 @@
 <script lang="ts">
-	import DeleteConfirmationModal from "./DeleteConfirmationModal.svelte";
-	import UploadModal from "./UploadModal.svelte";
-
 	const {
 		hasProfilePicture,
 		profilePictureViewUrl,
-		profilePictureDeleteUrl,
-		profilePictureUploadUrl,
-		show
+		show,
+		setIsDeleteConfirmationModalOpen,
+		setIsUploadModalOpen
 	} = $props();
-
-	let isDeleteConfirmationModalOpen = $state(false);
-	const setIsDeleteConfirmationModalOpen = (isOpen: boolean) => {
-		isDeleteConfirmationModalOpen = isOpen;
-	};
-
-	let isUploadModalOpen = $state(false);
-	const setIsUploadModalOpen = (isOpen: boolean) => {
-		isUploadModalOpen = isOpen;
-	};
 </script>
-
-<UploadModal
-	show={isUploadModalOpen}
-	onClose={setIsUploadModalOpen.bind(null, false)}
-	{profilePictureDeleteUrl}
-/>
-
-<DeleteConfirmationModal
-	show={isDeleteConfirmationModalOpen}
-	onClose={setIsDeleteConfirmationModalOpen.bind(null, false)}
-	{profilePictureDeleteUrl}
-/>
 
 {#if show}
 	<div
