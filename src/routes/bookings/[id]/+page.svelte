@@ -19,6 +19,7 @@
 	};
 
 	const handleViewBookingNotes = () => {
+        // TODO: Call this for viewing booking notes
 		console.log('Viewing booking notes');
 	};
 
