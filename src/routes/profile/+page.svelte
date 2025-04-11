@@ -55,37 +55,41 @@
 					onmouseenter={setIsProfilePictureHoverMenuVisible.bind(null, true)}
 					onmouseleave={setIsProfilePictureHoverMenuVisible.bind(null, false)}
 				>
-					<button
-						class="relative font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
-						onmouseenter={setIsProfilePictureHoverMenuVisible.bind(null, true)}
-						onmouseleave={setIsProfilePictureHoverMenuVisible.bind(null, false)}
-						onclick={() => {
-							setIsProfilePictureHoverMenuVisible(!isProfilePictureHoverMenuVisible);
-						}}
+					<div
+						class="flex flex-col items-center justify-center gap-4 text-center md:flex-row md:justify-start md:text-left"
 					>
-						<ProfilePictureMenu
-							{hasProfilePicture}
-							{profilePictureViewUrl}
-							{profilePictureDeleteUrl}
-							{profilePictureUploadUrl}
-							show={isProfilePictureHoverMenuVisible}
-						/>
-						{$user.firstName[0]}{$user.lastName[0]}
-					</button>
-					<div class="text-center md:text-left">
-						{#if hasProfilePicture}
-							<!-- svelte-ignore a11y_img_redundant_alt -->
-							<img
-								src={profilePictureViewUrl}
-								alt="Profile Picture"
-								class="h-24 w-24 rounded-full"
+						<button
+							class="font-body text-dark-brown relative flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+							onmouseenter={setIsProfilePictureHoverMenuVisible.bind(null, true)}
+							onmouseleave={setIsProfilePictureHoverMenuVisible.bind(null, false)}
+							onclick={() => {
+								setIsProfilePictureHoverMenuVisible(!isProfilePictureHoverMenuVisible);
+							}}
+						>
+							<ProfilePictureMenu
+								{hasProfilePicture}
+								{profilePictureViewUrl}
+								{profilePictureDeleteUrl}
+								{profilePictureUploadUrl}
+								show={isProfilePictureHoverMenuVisible}
 							/>
-						{:else}
+							{#if hasProfilePicture}
+								<!-- svelte-ignore a11y_img_redundant_alt -->
+								<img
+									src={profilePictureViewUrl}
+									alt="Profile Picture"
+									class="h-24 w-24 rounded-full"
+								/>
+							{:else}
+								{$user.firstName[0]}{$user.lastName[0]}
+							{/if}
+						</button>
+						<div class="flex flex-col">
 							<h2 class="font-body text-olive text-2xl font-semibold">
 								{formatName($user.firstName, $user.lastName)}
 							</h2>
-						{/if}
-						<p class="font-body text-olive">{$user.email}</p>
+							<p class="font-body text-olive">{$user.email}</p>
+						</div>
 					</div>
 				</div>
 

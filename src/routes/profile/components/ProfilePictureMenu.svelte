@@ -1,4 +1,7 @@
 <script lang="ts">
+	import DeleteConfirmationModal from "./DeleteConfirmationModal.svelte";
+	import UploadModal from "./UploadModal.svelte";
+
 	const {
 		hasProfilePicture,
 		profilePictureViewUrl,
@@ -18,9 +21,21 @@
 	};
 </script>
 
+<UploadModal
+	show={isUploadModalOpen}
+	onClose={setIsUploadModalOpen.bind(null, false)}
+	{profilePictureDeleteUrl}
+/>
+
+<DeleteConfirmationModal
+	show={isDeleteConfirmationModalOpen}
+	onClose={setIsDeleteConfirmationModalOpen.bind(null, false)}
+	{profilePictureDeleteUrl}
+/>
+
 {#if show}
 	<div
-		class="text-dark-brown/70 absolute top-1/2 left-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 rounded-sm bg-gray-100 p-2 hover:opacity-100 md:opacity-50"
+		class="text-dark-brown/70 absolute top-1/2 left-1/2 z-40 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 rounded-sm bg-gray-100 p-2 hover:opacity-100 md:opacity-50"
 	>
 		{#if hasProfilePicture}
 			<a
