@@ -3,11 +3,17 @@
 	import { formatTime } from '$lib/utils/time';
 	import type { PageData } from './$types';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
+	import TrainerNotesModal from './components/TrainerNotesModal.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const { booking, isTrainerForBooking, isClientForBooking, isAdmin } = data;
 	const hasNotes = $derived(!!booking?.notes);
 	const canViewBookingNotes = $derived(isTrainerForBooking || isClientForBooking || isAdmin);
+
+	let isTrainerNotesModalOpen = $state(false);
+	const setIsTrainerNotesModalOpen = (isOpen: boolean) => {
+		isTrainerNotesModalOpen = isOpen;
+	};
 
 	const formatDate = (date: Date) => {
 		return date.toLocaleDateString('en-US', {
@@ -19,7 +25,7 @@
 	};
 
 	const handleViewBookingNotes = () => {
-        // TODO: Call this for viewing booking notes
+		// TODO: Call this for viewing booking notes
 		console.log('Viewing booking notes');
 	};
 
@@ -31,16 +37,16 @@
 		return `booking-${booking.id}-notes.${fileType}`;
 	};
 
-    // TODO: Call this when saving the booking notes
-	const getPresignedUrlForBookingNotes = async (fileType: string = 'txt') => {
+	const getPresignedUrlForBookingNotes = async () => {
 		try {
 			if (!booking) {
 				throw new Error('Booking not found');
 			}
 
 			const fileName = getFileNameForBookingNotes();
-
-			const response = await fetch(`/bookings/${booking.id}/presigned-url?fileName=${fileName}`);
+			const response = await fetch(
+				`/bookings/${booking.id}/presigned-url?fileName=${fileName}&clientId=${booking.client?.id}`
+			);
 
 			if (!response.ok) {
 				throw new Error('Failed to get presigned url');
@@ -54,16 +60,13 @@
 			return null;
 		}
 	};
-
-	const handleUpsertBookingNotes = async () => {
-		try {
-            // TODO: Add modal for editing and saving the booking notes
-            // Pass this function as a prop to the modal
-		} catch (error) {
-			console.error('Error upserting booking notes', error);
-		}
-	};
 </script>
+
+<TrainerNotesModal
+	isOpen={isTrainerNotesModalOpen}
+	setIsOpen={setIsTrainerNotesModalOpen}
+	getPresignedUrl={getPresignedUrlForBookingNotes}
+/>
 
 <div class="bg-beige min-h-[100dvh] p-8">
 	<div class="mx-auto max-w-4xl">
@@ -196,7 +199,7 @@
 						{#if isTrainerForBooking}
 							<button
 								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
-								onclick={handleUpsertBookingNotes}
+								onclick={setIsTrainerNotesModalOpen.bind(null, true)}
 							>
 								{#if !hasNotes}
 									Add Booking Notes
