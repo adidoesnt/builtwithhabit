@@ -136,6 +136,9 @@
 							>.
 						</p>
 					{/if}
+					<p class="text-light-brown text-sm">
+						<span class="text-dark-brown">Click on the ID of a booking</span> to view more details.
+					</p>
 				</div>
 				<div class="overflow-x-auto">
 					{#if isLoading}
@@ -212,8 +215,11 @@
 							<tbody>
 								{#each bookings as booking, i}
 									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td class="font-body text-dark-brown min-w-[120px] border-b p-4 hover:bg-gray-50"
-											><a class="text-dark-brown underline" href={getBookingLink(booking.id)}>{booking.id}</a></td
+										<td
+											class="font-body text-dark-brown min-w-[120px] border-b p-4"
+											><a class="text-dark-brown underline" href={getBookingLink(booking.id)}
+												>{booking.id}</a
+											></td
 										>
 										<td class="font-body text-dark-brown min-w-[120px] border-b p-4"
 											>{booking.purchase!.id}</td
