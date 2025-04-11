@@ -1,20 +1,145 @@
 <script lang="ts">
+	import LogoHeader from '$lib/components/LogoHeader.svelte';
+	import { formatTime } from '$lib/utils/time';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 	const { booking } = data;
+
+	const formatDate = (date: Date) => {
+		return date.toLocaleDateString('en-US', {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	};
 </script>
 
-<div>
-	<h1>{booking?.package?.name}</h1>
-	<p>{booking?.package?.description}</p>
-	<p>{booking?.package?.price}</p>
-	<p>{booking?.purchase?.address}</p>
-	<p>{booking?.purchase?.postalCode}</p>
-	<p>{booking?.client?.firstName}</p>
-	<p>{booking?.client?.lastName}</p>
-	<p>{booking?.trainer?.firstName}</p>
-	<p>{booking?.trainer?.lastName}</p>
-	<p>{booking?.start}</p>
-	<p>{booking?.end}</p>
+<div class="bg-beige min-h-[100dvh] p-8">
+	<div class="mx-auto max-w-4xl">
+		<LogoHeader />
+
+		<div class="mt-8 mb-12 text-center md:text-start">
+			<h1 class="font-body text-dark-brown text-2xl font-bold md:text-3xl">
+				{#if booking}
+					Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
+				{:else}
+					Booking Details
+				{/if}
+			</h1>
+			<p class="font-body text-light-brown mt-2">
+				{#if booking}
+					{formatDate(booking.start)}
+				{:else}
+					View and manage your booking information
+				{/if}
+			</p>
+		</div>
+
+		{#if booking}
+			<div class="overflow-hidden rounded-lg bg-white shadow-md">
+				<div class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row">
+					<div
+						class="font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+					>
+						{booking.id}
+					</div>
+					<div class="text-center md:text-left">
+						<h2 class="font-body text-olive text-xl font-semibold">
+							Booking #{booking.id} with {booking.trainer?.firstName}
+							{booking.trainer?.lastName}
+						</h2>
+						<p class="font-body text-olive">
+							{formatDate(booking.start)}
+						</p>
+					</div>
+				</div>
+
+				<div class="p-6">
+					<div class="space-y-6">
+						<div>
+							<h3 class="font-body text-dark-brown text-xl font-semibold">Participants</h3>
+							<div class="mt-4 space-y-4">
+								<div>
+									<p class="font-body text-light-brown text-sm">Client</p>
+									<p class="font-body text-dark-brown">
+										{booking.client?.firstName}
+										{booking.client?.lastName}
+									</p>
+								</div>
+								<div>
+									<p class="font-body text-light-brown text-sm">Trainer</p>
+									<p class="font-body text-dark-brown">
+										{booking.trainer?.firstName}
+										{booking.trainer?.lastName}
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<h3 class="font-body text-dark-brown text-xl font-semibold">Location</h3>
+							<div class="mt-4 space-y-4">
+								<div>
+									<p class="font-body text-light-brown text-sm">Address</p>
+									<p class="font-body text-dark-brown">{booking.purchase?.address}</p>
+								</div>
+								<div>
+									<p class="font-body text-light-brown text-sm">Postal Code</p>
+									<p class="font-body text-dark-brown">{booking.purchase?.postalCode}</p>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<h3 class="font-body text-dark-brown text-xl font-semibold">Schedule</h3>
+							<div class="mt-4 space-y-4">
+								<div>
+									<p class="font-body text-light-brown text-sm">Date</p>
+									<p class="font-body text-dark-brown">
+										{formatDate(booking.start)}
+									</p>
+								</div>
+								<div>
+									<p class="font-body text-light-brown text-sm">Start Time</p>
+									<p class="font-body text-dark-brown">
+										{formatTime(booking.start)}
+									</p>
+								</div>
+								<div>
+									<p class="font-body text-light-brown text-sm">End Time</p>
+									<p class="font-body text-dark-brown">
+										{formatTime(booking.end)}
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<h3 class="font-body text-dark-brown text-xl font-semibold">Package Information</h3>
+							<div class="mt-4 space-y-4">
+								<div>
+									<p class="font-body text-light-brown text-sm">Package Name</p>
+									<p class="font-body text-dark-brown">{booking.package?.name}</p>
+								</div>
+								<div>
+									<p class="font-body text-light-brown text-sm">Description</p>
+									<p class="font-body text-dark-brown">{booking.package?.description}</p>
+								</div>
+								<div>
+									<p class="font-body text-light-brown text-sm">Price</p>
+									<p class="font-body text-dark-brown">SG${booking.package?.price}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{:else}
+			<div class="rounded-lg bg-white p-6 text-center shadow-md">
+				<p class="font-body text-dark-brown">Loading booking information...</p>
+			</div>
+		{/if}
+	</div>
 </div>
