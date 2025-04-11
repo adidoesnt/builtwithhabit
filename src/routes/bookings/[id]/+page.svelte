@@ -4,6 +4,7 @@
 	import type { PageData } from './$types';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import TrainerNotesModal from './components/TrainerNotesModal.svelte';
+	import DeleteNotesConfirmationModal from './components/DeleteNotesConfirmationModal.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const { booking, isTrainerForBooking, isClientForBooking, isAdmin, bookingNotesFileText } = data;
@@ -13,6 +14,11 @@
 	let isTrainerNotesModalOpen = $state(false);
 	const setIsTrainerNotesModalOpen = (isOpen: boolean) => {
 		isTrainerNotesModalOpen = isOpen;
+	};
+
+	let isDeleteNotesConfirmationModalOpen = $state(false);
+	const setIsDeleteNotesConfirmationModalOpen = (isOpen: boolean) => {
+		isDeleteNotesConfirmationModalOpen = isOpen;
 	};
 
 	const formatDate = (date: Date) => {
@@ -32,7 +38,7 @@
 		return `booking-${booking.id}-notes.${fileType}`;
 	};
 
-	const getPresignedUrlForBookingNotes = async () => {
+	const getPresignedUrlForBookingNotes = async (isForDelete: boolean) => {
 		try {
 			if (!booking) {
 				throw new Error('Booking not found');
@@ -40,7 +46,7 @@
 
 			const fileName = getFileNameForBookingNotes();
 			const response = await fetch(
-				`/bookings/${booking.id}/presigned-url?fileName=${fileName}&clientId=${booking.client?.id}`
+				`/bookings/${booking.id}/presigned-url?fileName=${fileName}&clientId=${booking.client?.id}&isForDelete=${isForDelete}`
 			);
 
 			if (!response.ok) {
@@ -55,14 +61,34 @@
 			return null;
 		}
 	};
+
+	const getPresignedUrlForBookingNotesDelete = getPresignedUrlForBookingNotes.bind(null, true);
+
+	const handleDeleteBookingNotes = async () => {
+		try {
+			const presignedUrl = await getPresignedUrlForBookingNotesDelete();
+
+			await fetch(presignedUrl, {
+				method: 'DELETE'
+			});
+		} catch (error) {
+			console.error('Error deleting booking notes', error);
+		}
+	};
 </script>
 
 <TrainerNotesModal
 	isOpen={isTrainerNotesModalOpen}
 	setIsOpen={setIsTrainerNotesModalOpen}
-	getPresignedUrl={getPresignedUrlForBookingNotes}
+	getPresignedUrlForSave={getPresignedUrlForBookingNotes.bind(null, false)}
 	{bookingNotesFileText}
 	{isTrainerForBooking}
+/>
+
+<DeleteNotesConfirmationModal
+	isOpen={isDeleteNotesConfirmationModalOpen}
+	setIsOpen={setIsDeleteNotesConfirmationModalOpen}
+	{handleDeleteBookingNotes}
 />
 
 <div class="bg-beige min-h-[100dvh] p-8">
@@ -203,6 +229,14 @@
 									Open Booking Notes
 								{/if}
 							</button>
+							{#if hasNotes}
+								<button
+									class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
+									onclick={setIsDeleteNotesConfirmationModalOpen.bind(null, true)}
+								>
+									Delete Booking Notes
+								</button>
+							{/if}
 						{:else if canViewBookingNotes && hasNotes}
 							<button
 								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"

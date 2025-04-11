@@ -1,5 +1,5 @@
 <script lang="ts">
-	const { isOpen, setIsOpen, getPresignedUrl, bookingNotesFileText, isTrainerForBooking } =
+	const { isOpen, setIsOpen, getPresignedUrlForSave, bookingNotesFileText, isTrainerForBooking } =
 		$props();
 
 	let isLoading = $state(false);
@@ -17,7 +17,7 @@
 	async function handleSave() {
 		isLoading = true;
 		try {
-			const presignedUrl = await getPresignedUrl();
+			const presignedUrl = await getPresignedUrlForSave();
 			if (!presignedUrl) {
 				throw new Error('Failed to get presigned url');
 			}
@@ -39,6 +39,8 @@
 
 			setTimeout(() => {
 				message = null;
+				handleClose();
+				window.location.reload();
 			}, 3000);
 		} catch (error) {
 			console.error('Error saving notes:', error);

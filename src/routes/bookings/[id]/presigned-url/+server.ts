@@ -1,7 +1,11 @@
 import { supabase } from '$lib/server/auth/index.js';
 import { getBookingById } from '$lib/server/db/bookings';
 import { getUserById } from '$lib/server/db/user.js';
-import { getPresignedUrlForUpload, UserDir } from '$lib/server/s3/index.js';
+import {
+	getPresignedUrlForDelete,
+	getPresignedUrlForUpload,
+	UserDir
+} from '$lib/server/s3/index.js';
 import { Role } from '$lib/stores/auth.js';
 import { redirect } from '@sveltejs/kit';
 
@@ -56,13 +60,16 @@ export async function GET({ params, url, cookies }) {
 
 	const fileName = query.get('fileName');
 	const clientId = query.get('clientId');
+	const isForDelete = query.get('isForDelete') === 'true';
 
 	if (!fileName || !clientId) {
 		return new Response('Missing fileName or clientId', { status: 400 });
 	}
 
 	try {
-		const presignedUrl = await getPresignedUrlForUpload(clientId, UserDir.TRAINER_NOTES, fileName);
+		const presignedUrl = isForDelete
+			? await getPresignedUrlForDelete(clientId, UserDir.TRAINER_NOTES, fileName)
+			: await getPresignedUrlForUpload(clientId, UserDir.TRAINER_NOTES, fileName);
 		return new Response(JSON.stringify({ presignedUrl }));
 	} catch (error) {
 		console.error(error);
