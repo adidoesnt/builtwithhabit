@@ -4,6 +4,7 @@
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
+	import ProfilePictureMenu from './components/ProfilePictureMenu.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const {
@@ -14,6 +15,10 @@
 	} = data;
 
 	let isLoggingOut = $state(false);
+	let isProfilePictureHoverMenuVisible = $state(false);
+	const setIsProfilePictureHoverMenuVisible = (isVisible: boolean) => {
+		isProfilePictureHoverMenuVisible = isVisible;
+	};
 
 	async function handleLogout() {
 		isLoggingOut = true;
@@ -44,12 +49,29 @@
 
 		{#if $user}
 			<div class="overflow-hidden rounded-lg bg-white shadow-md">
-				<div class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row">
-					<div
-						class="font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row"
+					onmouseenter={setIsProfilePictureHoverMenuVisible.bind(null, true)}
+					onmouseleave={setIsProfilePictureHoverMenuVisible.bind(null, false)}
+				>
+					<button
+						class="relative font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+						onmouseenter={setIsProfilePictureHoverMenuVisible.bind(null, true)}
+						onmouseleave={setIsProfilePictureHoverMenuVisible.bind(null, false)}
+						onclick={() => {
+							setIsProfilePictureHoverMenuVisible(!isProfilePictureHoverMenuVisible);
+						}}
 					>
+						<ProfilePictureMenu
+							{hasProfilePicture}
+							{profilePictureViewUrl}
+							{profilePictureDeleteUrl}
+							{profilePictureUploadUrl}
+							show={isProfilePictureHoverMenuVisible}
+						/>
 						{$user.firstName[0]}{$user.lastName[0]}
-					</div>
+					</button>
 					<div class="text-center md:text-left">
 						{#if hasProfilePicture}
 							<!-- svelte-ignore a11y_img_redundant_alt -->
