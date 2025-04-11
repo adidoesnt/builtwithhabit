@@ -43,8 +43,10 @@
 	<div
 		class="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
 	>
-		<div class="w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg">
-			<div class="p-4">
+		<div
+			class="h-full w-full overflow-hidden bg-white shadow-lg md:h-auto md:max-w-sm md:rounded-lg"
+		>
+			<div class="p-4 md:p-4">
 				<h3 class="font-body text-dark-brown text-lg font-semibold">Delete Profile Picture</h3>
 				{#if message}
 					<div
@@ -66,7 +68,7 @@
 					</p>
 				{/if}
 			</div>
-			<div class="flex justify-end gap-2 border-t border-gray-200 bg-gray-50 p-4">
+			<div class="mt-auto flex justify-end gap-2 border-t border-gray-200 bg-gray-50 p-4 md:p-4">
 				<button
 					class="font-body text-dark-brown rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
 					onclick={onClose}
