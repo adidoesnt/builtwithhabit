@@ -3,6 +3,7 @@ import { bookings, packages, purchases, PurchaseStatus, users } from '$lib/serve
 import { getDefaultTrainer } from './trainer';
 import { and, asc, desc, eq, gt, sql } from 'drizzle-orm';
 import type { PaginationParams } from './types';
+import { alias } from 'drizzle-orm/pg-core';
 
 const getTimes = (slot: Date | string) => {
 	const start = new Date(slot);
@@ -286,4 +287,53 @@ export const getRecentPurchasesByUserId = async (userId: string, limit = 3) => {
 		.limit(limit);
 
 	return result;
+};
+
+export const getBookingById = async (id: number) => {
+	const clients = alias(users, 'clients');
+	const trainers = alias(users, 'trainers');
+
+	const result = await database
+		.select({
+			id: bookings.id,
+			start: bookings.start,
+			end: bookings.end,
+			purchase: {
+				id: purchases.id,
+				address: purchases.address,
+				postalCode: purchases.postalCode
+			},
+			package: {
+				id: packages.id,
+				name: packages.name,
+				description: packages.description,
+				price: packages.price
+			},
+			client: {
+				id: clients.id,
+				firstName: clients.firstName,
+				lastName: clients.lastName,
+				email: clients.email
+			},
+			trainer: {
+				id: trainers.id,
+				firstName: trainers.firstName,
+				lastName: trainers.lastName,
+				email: trainers.email
+			}
+		})
+		.from(bookings)
+		.leftJoin(purchases, eq(bookings.purchaseId, purchases.id))
+		.leftJoin(packages, eq(purchases.packageId, packages.id))
+		.leftJoin(clients, eq(purchases.userId, clients.id))
+		.leftJoin(trainers, eq(purchases.trainerId, trainers.id))
+		.where(eq(bookings.id, id));
+
+	const booking = result[0];
+
+	if (!booking) {
+		throw new Error('Booking not found');
+	}
+
+	return booking;
 };

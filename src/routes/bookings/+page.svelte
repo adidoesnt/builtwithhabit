@@ -84,6 +84,10 @@
 				isLoading = false;
 			});
 	});
+
+	const getBookingLink = (id: number) => {
+		return `/bookings/${id}`;
+	};
 </script>
 
 <div class="bg-beige font-body text-dark-brown min-h-[100dvh] p-4 md:p-8">
@@ -208,8 +212,8 @@
 							<tbody>
 								{#each bookings as booking, i}
 									<tr class={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-										<td class="font-body text-dark-brown min-w-[120px] border-b p-4"
-											>{booking.id}</td
+										<td class="font-body text-dark-brown min-w-[120px] border-b p-4 hover:bg-gray-50"
+											><a class="text-dark-brown underline" href={getBookingLink(booking.id)}>{booking.id}</a></td
 										>
 										<td class="font-body text-dark-brown min-w-[120px] border-b p-4"
 											>{booking.purchase!.id}</td
