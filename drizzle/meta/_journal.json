@@ -183,6 +183,13 @@
       "when": 1744129926409,
       "tag": "0025_make_package_long_desc_not_null",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1744370485778,
+      "tag": "0026_add_booking_notes",
+      "breakpoints": true
     }
   ]
 }

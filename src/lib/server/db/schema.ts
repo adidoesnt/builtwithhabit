@@ -142,6 +142,7 @@ export const bookings = pgTable('bookings', {
 		.notNull(),
 	start: timestamp('start').notNull(),
 	end: timestamp('end').notNull(),
+	notes: text('notes'),
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow()
 });

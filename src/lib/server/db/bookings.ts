@@ -298,6 +298,7 @@ export const getBookingById = async (id: number) => {
 			id: bookings.id,
 			start: bookings.start,
 			end: bookings.end,
+			notes: bookings.notes,
 			purchase: {
 				id: purchases.id,
 				address: purchases.address,

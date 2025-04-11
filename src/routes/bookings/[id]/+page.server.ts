@@ -46,6 +46,9 @@ export const load = async ({ params, cookies }) => {
 	}
 
 	return {
-		booking
-    }
+		booking,
+		isTrainerForBooking,
+		isClientForBooking,
+		isAdmin
+	};
 };

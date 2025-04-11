@@ -4,7 +4,9 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
-	const { booking } = data;
+	const { booking, isTrainerForBooking, isClientForBooking, isAdmin } = data;
+	const hasNotes = $derived(!!booking?.notes);
+	const canViewBookingNotes = $derived(isTrainerForBooking || isClientForBooking || isAdmin);
 
 	const formatDate = (date: Date) => {
 		return date.toLocaleDateString('en-US', {
@@ -13,6 +15,14 @@
 			month: 'long',
 			day: 'numeric'
 		});
+	};
+
+	const handleViewBookingNotes = () => {
+		console.log('Viewing booking notes');
+	};
+
+	const handleUpsertBookingNotes = () => {
+		console.log('Upserting booking notes', { hasNotes });
 	};
 </script>
 
@@ -133,6 +143,29 @@
 								</div>
 							</div>
 						</div>
+					</div>
+
+					<div class="mt-8 flex flex-wrap gap-4 border-t border-gray-200 pt-8">
+						{#if hasNotes && canViewBookingNotes}
+							<button
+								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
+								onclick={handleViewBookingNotes}
+							>
+								View Booking Notes
+							</button>
+						{/if}
+						{#if isTrainerForBooking}
+							<button
+								class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
+								onclick={handleUpsertBookingNotes}
+							>
+								{#if !hasNotes}
+									Add Booking Notes
+								{:else}
+									Edit Booking Notes
+								{/if}
+							</button>
+						{/if}
 					</div>
 				</div>
 			</div>
