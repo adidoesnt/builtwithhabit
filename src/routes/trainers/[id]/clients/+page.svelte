@@ -123,7 +123,7 @@
 											<td class="font-body text-dark-brown border-b p-4">
 												<a
 													href={`/trainers/${trainerId}/clients/${client.id}`}
-													class="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm hover:bg-gray-50"
+													class="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm whitespace-nowrap hover:bg-gray-50"
 												>
 													View Profile
 												</a>
