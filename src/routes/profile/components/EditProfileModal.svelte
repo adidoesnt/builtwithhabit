@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { User } from '$lib/stores/auth';
 	import { z } from 'zod';
 
 	const {
@@ -6,10 +7,15 @@
 		isOpen,
 		closeModal
 	}: {
-		user: { firstName: string; lastName: string };
+		user: User;
 		isOpen: boolean;
 		closeModal: () => void;
 	} = $props();
+
+	let message: {
+		message: string;
+		type: 'success' | 'error';
+	} | null = $state(null);
 
 	const formSchema = z.object({
 		firstName: z.string().min(1, { message: 'First name is required' }),
@@ -34,28 +40,31 @@
 		isSubmitting = true;
 
 		try {
-			// TODO: Add API call to update profile
-			// const response = await fetch('/profile', {
-			// 	method: 'PUT',
-			// 	body: JSON.stringify(editedUser)
-			// });
+			const response = await fetch(`/users/${user.id}`, {
+				method: 'PUT',
+				body: JSON.stringify(editedUser)
+			});
 
-			// if (!response.ok) {
-			// 	throw new Error('Failed to update profile');
-			// }
+			if (!response.ok) {
+				throw new Error('Failed to update profile');
+			}
 
-			console.log('Updated profile');
+			message = {
+				message: 'Profile updated successfully',
+				type: 'success'
+			};
 
-			closeModal();
-			window?.location.reload();
+			setTimeout(() => {
+				closeModal();
+				window.location.reload();
+			}, 2000);
 		} catch (error) {
 			console.error(error);
 
-			form.error?.addIssue({
-				code: z.ZodIssueCode.custom,
+			message = {
 				message: 'Failed to update profile',
-				path: ['root']
-			});
+				type: 'error'
+			};
 		} finally {
 			isSubmitting = false;
 		}
@@ -120,6 +129,16 @@
 						disabled={isSubmitting}
 					/>
 				</div>
+
+				{#if message}
+					<div
+						class={`font-body rounded-md p-3 text-sm ${
+							message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-500'
+						}`}
+					>
+						{message.message}
+					</div>
+				{/if}
 
 				{#if form.error?.issues?.length}
 					<div class="flex flex-col">

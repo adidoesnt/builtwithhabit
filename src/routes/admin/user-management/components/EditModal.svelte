@@ -14,7 +14,6 @@
 	const formSchema = z.object({
 		firstName: z.string().min(1, { message: 'First name is required' }),
 		lastName: z.string().min(1, { message: 'Last name is required' }),
-		email: z.string().email({ message: 'Invalid email address' }),
 		roles: z.array(z.nativeEnum(Role)).min(1, { message: 'Please select at least one role' })
 	});
 
@@ -22,7 +21,6 @@
 		id: user.id,
 		firstName: user.firstName,
 		lastName: user.lastName,
-		email: user.email,
 		roles: [...user.roles],
 		createdAt: user.createdAt
 	});
@@ -129,20 +127,6 @@
 					type="text"
 					id="lastName"
 					bind:value={editedUser.lastName}
-					class="font-body focus:border-dark-brown focus:ring-dark-brown w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:outline-none"
-					required
-					disabled={isSubmitting}
-				/>
-			</div>
-
-			<div>
-				<label for="email" class="font-body text-dark-brown mb-1 block text-sm font-medium">
-					Email Address
-				</label>
-				<input
-					type="email"
-					id="email"
-					bind:value={editedUser.email}
 					class="font-body focus:border-dark-brown focus:ring-dark-brown w-full rounded-md border border-gray-300 p-2 focus:ring-1 focus:outline-none"
 					required
 					disabled={isSubmitting}
