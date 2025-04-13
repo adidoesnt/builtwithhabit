@@ -24,6 +24,8 @@
 			<p class="font-body text-light-brown mt-2">View client details</p>
 		</div>
 
+
+		<!-- TODO: Add client profile picture -->
 		<div class="overflow-hidden rounded-lg bg-white shadow-md">
 			<div class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row">
 				<div
