@@ -237,6 +237,7 @@ export const getUpcomingBookingsForTrainer = async (limit = 3) => {
 			id: bookings.id,
 			start: bookings.start,
 			end: bookings.end,
+			status: purchases.status,
 			purchase: {
 				id: purchases.id,
 				address: purchases.address,

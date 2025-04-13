@@ -14,6 +14,7 @@
 	const { data }: { data: PageServerData } = $props();
 	const { bookings = [], purchases = [] } = data;
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
+	let isClient = $derived($user?.roles?.includes(Role.USER));
 
 	type BookingWithPurchase = {
 		id: number;
@@ -177,10 +178,10 @@
 									<td class="font-body text-dark-brown border-b p-4">
 										<span
 											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getBookingStatusColor(
-												booking.status
+												booking?.status
 											)}"
 										>
-											{capitalise(booking.status)}
+											{capitalise(booking?.status)}
 										</span>
 									</td>
 								</tr>
@@ -196,7 +197,7 @@
 		</div>
 
 		<!-- Recent purchases section -->
-		{#if $user?.roles?.includes(Role.USER)}
+		{#if isClient}
 			<div class="mt-12 rounded-lg bg-white shadow-md">
 				<div
 					class="flex items-center justify-between p-4 {isPurchasesTableExpanded ? 'border-b' : ''}"
