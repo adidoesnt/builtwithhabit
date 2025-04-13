@@ -112,7 +112,7 @@
 							id="notes"
 							class="font-body text-dark-brown focus:border-dark-brown focus:ring-dark-brown h-[calc(100%-3rem)] w-full rounded-md border border-gray-300 p-2"
 							placeholder="Enter your notes here..."
-							disabled={isLoading}
+							disabled={isLoading || !isTrainerForBooking}
 							bind:value={notes}
 						></textarea>
 					</div>
