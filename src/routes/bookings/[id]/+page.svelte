@@ -91,21 +91,25 @@
 	{handleDeleteBookingNotes}
 />
 
+{#snippet BookingHeader()}
+	{#if booking}
+		{#if isTrainerForBooking}
+			Booking #{booking.id} with {booking.client?.firstName} {booking.client?.lastName}
+		{:else}
+			Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
+		{/if}
+	{:else}
+		Booking Details
+	{/if}
+{/snippet}
+
 <div class="bg-beige min-h-[100dvh] p-8">
 	<div class="mx-auto max-w-4xl">
 		<LogoHeader />
 
 		<div class="mt-8 mb-12 text-center md:text-start">
 			<h1 class="font-body text-dark-brown text-2xl font-bold md:text-3xl">
-				{#if booking}
-					{#if isTrainerForBooking}
-						Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
-					{:else}
-						Booking #{booking.id} with {booking.client?.firstName} {booking.client?.lastName}
-					{/if}
-				{:else}
-					Booking Details
-				{/if}
+				{@render BookingHeader()}
 			</h1>
 			<p class="font-body text-light-brown mt-2">
 				{#if booking}
@@ -126,11 +130,7 @@
 					</div>
 					<div class="text-center md:text-left">
 						<h2 class="font-body text-olive text-xl font-semibold">
-							{#if isTrainerForBooking}
-								Booking #{booking.id} with {booking.trainer?.firstName} {booking.trainer?.lastName}
-							{:else}
-								Booking #{booking.id} with {booking.client?.firstName} {booking.client?.lastName}
-							{/if}
+							{@render BookingHeader()}
 						</h2>
 						<p class="font-body text-olive">
 							{formatDate(booking.start)}
