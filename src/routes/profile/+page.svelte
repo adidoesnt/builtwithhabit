@@ -7,12 +7,12 @@
 	import ProfilePictureMenu from './components/ProfilePictureMenu.svelte';
 	import UploadModal from './components/UploadModal.svelte';
 	import DeleteConfirmationModal from './components/DeleteConfirmationModal.svelte';
+	import EditProfileModal from './components/EditProfileModal.svelte';
 
 	const { data }: { data: PageData } = $props();
 	const {
 		profilePictureViewUrl,
 		profilePictureDeleteUrl,
-		profilePictureUploadUrl,
 		hasProfilePicture
 	} = data;
 
@@ -20,6 +20,11 @@
 	let isProfilePictureHoverMenuVisible = $state(false);
 	const setIsProfilePictureHoverMenuVisible = (isVisible: boolean) => {
 		isProfilePictureHoverMenuVisible = isVisible;
+	};
+
+	let isEditProfileModalOpen = $state(false);
+	const setIsEditProfileModalOpen = (isOpen: boolean) => {
+		isEditProfileModalOpen = isOpen;
 	};
 
 	async function handleLogout() {
@@ -61,6 +66,14 @@
 	onClose={setIsDeleteConfirmationModalOpen.bind(null, false)}
 	{profilePictureDeleteUrl}
 />
+
+{#if $user}
+	<EditProfileModal
+		user={$user}
+		isOpen={isEditProfileModalOpen}
+		closeModal={setIsEditProfileModalOpen.bind(null, false)}
+	/>
+{/if}
 
 <div class="bg-beige min-h-[100dvh] p-8">
 	<div class="mx-auto max-w-4xl">
@@ -168,13 +181,12 @@
 					</div>
 
 					<div class="mt-8 flex flex-col gap-4 md:flex-row">
-						<!-- TODO: Add edit profile popup -->
-
-						<!-- <button
-							class="text-dark-brown font-body cursor-pointer rounded-sm bg-[#A0D2EB] px-6 py-2 transition-all duration-300 hover:opacity-80"
+						<button
+							class="text-dark-brown font-body cursor-pointer rounded-sm bg-light-green px-6 py-2 transition-all duration-300 hover:opacity-80"
+							onclick={setIsEditProfileModalOpen.bind(null, true)}
 						>
 							Edit Profile
-						</button> -->
+						</button>
 
 						<button
 							class="font-body flex cursor-pointer items-center justify-center rounded-sm bg-[#E57373] px-6 py-2 text-white transition-all duration-300 hover:bg-[#EF5350] disabled:cursor-not-allowed disabled:opacity-70"

@@ -2,7 +2,6 @@ import { supabase } from '$lib/server/auth';
 import { getUserById } from '$lib/server/db/user';
 import {
 	getPresignedUrlForUpload,
-	getPresignedUrlForViewOrDownload,
 	listFilesInDir
 } from '$lib/server/s3/index.js';
 import { UserDir } from '$lib/types.js';
