@@ -19,6 +19,7 @@
 		id: number;
 		start: Date;
 		end: Date;
+		status: PurchaseStatus;
 		purchase: {
 			id: number;
 			address: string;
@@ -67,6 +68,17 @@
 			case PurchaseStatus.CONFIRMED:
 				return 'bg-green-100 text-green-800';
 			case PurchaseStatus.FAILED:
+				return 'bg-red-100 text-red-800';
+			default:
+				return 'bg-yellow-100 text-yellow-800';
+		}
+	};
+
+	const getBookingStatusColor = (status: string) => {
+		switch (status) {
+			case 'confirmed':
+				return 'bg-green-100 text-green-800';
+			case 'cancelled':
 				return 'bg-red-100 text-red-800';
 			default:
 				return 'bg-yellow-100 text-yellow-800';
@@ -142,6 +154,7 @@
 								{/if}
 								<th class="font-body text-dark-brown border-b p-4 text-left">Time</th>
 								<th class="font-body text-dark-brown border-b p-4 text-left">Location</th>
+								<th class="font-body text-dark-brown border-b p-4 text-left">Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -160,6 +173,15 @@
 									</td>
 									<td class="font-body text-dark-brown border-b p-4">
 										{booking.purchase?.address}, {booking.purchase?.postalCode}
+									</td>
+									<td class="font-body text-dark-brown border-b p-4">
+										<span
+											class="inline-flex rounded-full px-2 text-xs leading-5 font-semibold {getBookingStatusColor(
+												booking.status
+											)}"
+										>
+											{capitalise(booking.status)}
+										</span>
 									</td>
 								</tr>
 							{/each}
