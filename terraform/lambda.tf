@@ -1,11 +1,11 @@
 resource "aws_lambda_function" "check_payment_intent_status" {
   function_name = "bwh-check-payment-intent-status"
-  role          = aws_iam_role.bwh_lambda_role.arn
+  role          = aws_iam_role.bwh_check_payment_intent_status_lambda_role.arn
   handler       = "index.handler"
   runtime       = "nodejs18.x"
 
-  filename         = "./lambda.zip"
-  source_code_hash = filebase64sha256("./lambda.zip")
+  filename         = "./check-payment-intent-status-lambda.zip"
+  source_code_hash = filebase64sha256("./check-payment-intent-status-lambda.zip")
 }
 
 resource "aws_lambda_event_source_mapping" "bwh_payment_intent_queue_mapping" {

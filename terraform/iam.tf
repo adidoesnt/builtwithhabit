@@ -1,5 +1,5 @@
-resource "aws_iam_policy" "bwh_lambda_policy" {
-  name = "bwh-lambda-policy"
+resource "aws_iam_policy" "bwh_check_payment_intent_status_lambda_policy" {
+  name = "bwh-check-payment-intent-status-lambda-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -22,8 +22,8 @@ resource "aws_iam_policy" "bwh_lambda_policy" {
   })
 }
 
-resource "aws_iam_role" "bwh_lambda_role" {
-  name = "bwh-lambda-role"
+resource "aws_iam_role" "bwh_check_payment_intent_status_lambda_role" {
+  name = "bwh-check-payment-intent-status-lambda-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -38,12 +38,12 @@ resource "aws_iam_role" "bwh_lambda_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "bwh_lambda_policy_attachment" {
-  role       = aws_iam_role.bwh_lambda_role.name
-  policy_arn = aws_iam_policy.bwh_lambda_policy.arn
+resource "aws_iam_role_policy_attachment" "bwh_check_payment_intent_status_lambda_policy_attachment" {
+  role       = aws_iam_role.bwh_check_payment_intent_status_lambda_role.name
+  policy_arn = aws_iam_policy.bwh_check_payment_intent_status_lambda_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "bwh_lambda_basic_execution_policy_attachment" {
-  role       = aws_iam_role.bwh_lambda_role.name
+resource "aws_iam_role_policy_attachment" "bwh_check_payment_intent_status_lambda_basic_execution_policy_attachment" {
+  role       = aws_iam_role.bwh_check_payment_intent_status_lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }

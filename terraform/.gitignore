@@ -33,4 +33,5 @@ crash.log
 *.tfplan.*
 
 # Lambda zip file
-lambda.zip
+check-payment-intent-status-lambda.zip
+handle-profile-picture-thumbnails-lambda.zip
