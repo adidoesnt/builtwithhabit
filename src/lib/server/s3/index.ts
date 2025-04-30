@@ -80,6 +80,8 @@ export const listFilesInDir = async (userId: string, dir?: UserDir) => {
 		response.Contents?.filter((file) => {
 			if (!file.Key) return false;
 			return file.Key !== prefix && file.Key !== `${prefix}/`;
+		}).sort((a, b) => {
+			return (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0);
 		}).map(async (file) => {
 			const fileName = file.Key?.split('/').pop() || '';
 			const isDir = file.Key?.endsWith('/');

@@ -1,7 +1,7 @@
 import { supabase } from '$lib/server/auth';
 import { Role } from '$lib/server/db/schema';
 import { getClientById, getTrainerClients } from '$lib/server/db/trainer';
-import { getUserById } from '$lib/server/db/user.js';
+import { getUserById, getUserProfilePictureUrl } from '$lib/server/db/user.js';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ cookies, params }) => {
@@ -48,9 +48,11 @@ export const load = async ({ cookies, params }) => {
 	}
 
 	const client = await getClientById(clientId);
+	const clientProfilePictureUrl = await getUserProfilePictureUrl(client.id);
 
 	return {
 		trainer: { id: trainerId },
-		client
+		client,
+		clientProfilePictureUrl
 	};
 };

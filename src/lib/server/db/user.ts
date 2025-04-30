@@ -2,6 +2,7 @@ import { eq, sql } from 'drizzle-orm';
 import { database } from '.';
 import { Role, userRoles, users, type UserCreateAttributes } from './schema';
 import type { PaginationParams } from './types';
+import { listFilesInDir, UserDir } from '../s3';
 
 export type UserWithRoles = {
 	id: string;
@@ -131,4 +132,14 @@ export const deleteUser = async (id: string) => {
 	const deleteCount = result.length;
 
 	return deleteCount;
+};
+
+export const getUserProfilePictureUrl = async (id: string) => {
+	const files = await listFilesInDir(id, UserDir.PROFILE_PICTURE);
+
+	if (files.length === 0) {
+		return null;
+	}
+
+	return files[0].url;
 };

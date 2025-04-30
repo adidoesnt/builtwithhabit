@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 
 	const { data }: { data: PageData } = $props();
-	const { client, trainer } = data;
+	const { client, trainer, clientProfilePictureUrl } = data;
 
 	function formatName(firstName: string, lastName: string) {
 		return `${firstName} ${lastName}`;
@@ -24,15 +24,23 @@
 			<p class="font-body text-light-brown mt-2">View client details</p>
 		</div>
 
-
 		<!-- TODO: Add client profile picture -->
 		<div class="overflow-hidden rounded-lg bg-white shadow-md">
 			<div class="bg-light-green flex flex-col items-center gap-6 p-8 md:flex-row">
-				<div
-					class="font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
-				>
-					{client.firstName[0]}{client.lastName[0]}
-				</div>
+				{#if clientProfilePictureUrl}
+					<!-- svelte-ignore a11y_img_redundant_alt -->
+					<img
+						src={clientProfilePictureUrl}
+						alt="Profile Picture"
+						class="h-24 w-24 rounded-full bg-white shadow-md"
+					/>
+				{:else}
+					<div
+						class="font-body text-dark-brown flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold shadow-md"
+					>
+						{client.firstName[0]}{client.lastName[0]}
+					</div>
+				{/if}
 				<div class="text-center md:text-left">
 					<h2 class="font-body text-olive text-xl font-semibold">
 						{formatName(client.firstName, client.lastName)}
@@ -67,9 +75,9 @@
 					</div>
 				</div>
 
-				<div class="mt-8 border-t border-gray-200 pt-8 flex w-full justify-center md:justify-start">
+				<div class="mt-8 flex w-full justify-center border-t border-gray-200 pt-8 md:justify-start">
 					<button
-						class="text-dark-brown font-body cursor-pointer rounded-sm bg-light-green px-6 py-2 transition-all duration-300 hover:opacity-80"
+						class="text-dark-brown font-body bg-light-green cursor-pointer rounded-sm px-6 py-2 transition-all duration-300 hover:opacity-80"
 						onclick={handleViewFiles}
 					>
 						View Client Files
