@@ -72,7 +72,6 @@ export const packages = pgTable('packages', {
 	description: text('description').notNull(),
 	longDescription: text('long_description').notNull(),
 	price: decimal('price', { precision: 10, scale: 2 }).notNull(),
-	discount: decimal('discount', { precision: 10, scale: 2 }).default('0.00')
 });
 
 export enum PurchaseStatus {
