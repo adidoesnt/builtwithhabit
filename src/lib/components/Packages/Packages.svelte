@@ -130,13 +130,6 @@
 					index === activeIndex ? 'opacity-100' : 'opacity-70'
 				} md:opacity-100 md:hover:scale-105`}
 			>
-				{#if pricing.earlyBirdDiscount}
-					<div
-						class="font-body absolute top-0 right-0 z-10 rounded-tr-lg rounded-bl-lg bg-red-500 px-3 py-1 text-xs font-bold text-white shadow-md"
-					>
-						{pricing.earlyBirdDiscount}
-					</div>
-				{/if}
 				<h3 class="font-body text-dark-brown text-2xl font-semibold uppercase md:text-3xl">
 					{plan.name}
 				</h3>
@@ -149,17 +142,11 @@
 				</div>
 				<div class="flex flex-col items-center justify-center text-center">
 					<p class="font-body text-dark-brown text-xl">
-						<span class="text-gray-500 line-through">{pricing.currency}{plan.price}</span>
-						<span class="text-dark-brown"
-							>{pricing.currency}{parseFloat(plan.price) - parseFloat(plan.discount ?? '0.00')}
-							<span class="text-gray-500">in total</span>
-						</span>
+						{pricing.currency}{plan.price}
+						<span class="text-gray-500">in total</span>
 					</p>
 					<p class="font-body text-light-brown text-md mb-4">
-						{pricing.currency}{(
-							(parseFloat(plan.price) - parseFloat(plan.discount ?? '0.00')) /
-							plan.sessions
-						).toFixed(2)} per session
+						{pricing.currency}{(parseFloat(plan.price) / plan.sessions).toFixed(2)} per session
 					</p>
 				</div>
 				<button

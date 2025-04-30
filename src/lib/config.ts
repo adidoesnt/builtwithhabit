@@ -119,7 +119,6 @@ const config = {
 				buttonText: 'Book Now'
 			},
 			currency: 'SG$',
-			earlyBirdDiscount: 'Early Bird Discount',
 			viewTestimonials: 'View Testimonials'
 		}
 	},
