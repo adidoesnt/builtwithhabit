@@ -118,6 +118,15 @@
 					>Click here</a
 				> to learn more about me, my mission, and what to expect from my training sessions.
 			</p>
+			<p class="font-body text-dark-brown text-md md:text-xl">
+				Alternatively,
+				<a
+					class="underline transition-all duration-300 hover:opacity-50"
+					target="_blank"
+					rel="noopener noreferrer"
+					href={config.site.flyer.url}>click here</a
+				> to view my flyer that summarises my services and offerings.
+			</p>
 			<button
 				class="font-body bg-dark-brown text-beige mt-8 flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
 				onclick={scrollToPricing}>{contact.callToAction}</button

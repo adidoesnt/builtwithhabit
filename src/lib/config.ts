@@ -10,6 +10,9 @@ const config = {
 			'to embark on a personalised fitness journey that works',
 			'for you.'
 		],
+		flyer: {
+			url: 'https://bwh-main-bucket.s3.ap-southeast-1.amazonaws.com/assets/bwh-flyer.pdf'
+		},
 		navBar: {
 			title: 'Menu',
 			links: [
