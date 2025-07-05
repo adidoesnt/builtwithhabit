@@ -15,12 +15,12 @@ apt install -y \
     certbot \
     python3-certbot-nginx
 
-# echo "🐳 Installing Docker..."
-# curl -fsSL https://get.docker.com -o get-docker.sh
-# sh get-docker.sh
+echo "🐳 Installing Docker..."
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
 
-# echo "🐳 Installing Docker Compose..."
-# apt install docker-compose-plugin -y
+echo "🐳 Installing Docker Compose..."
+apt install docker-compose-plugin -y
 
 echo "🧱 Setting up UFW firewall..."
 ufw allow OpenSSH
