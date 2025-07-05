@@ -1,0 +1,18 @@
+services:
+  directus:
+    image: directus/directus:latest
+    restart: always
+    container_name: directus
+    ports:
+      - 8055:8055
+    env_file:
+      - .env.docker
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    env_file:
+      - .env.docker
