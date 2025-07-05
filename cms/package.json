@@ -1,0 +1,9 @@
+{
+  "name": "cms",
+  "scripts": {
+    "generate-ssh-key": "chmod +x scripts/generate-ssh-key.sh && ./scripts/generate-ssh-key.sh",
+    "print-key-pair": "chmod +x scripts/print-key-pair.sh && ./scripts/print-key-pair.sh"
+  },
+  "author": "Aditya Banerjee",
+  "description": "CMS for Built with Habit"
+}

@@ -1,8 +1,0 @@
-services:
-  directus:
-    image: directus/directus:latest
-    container_name: bwh-cms-directus
-    ports:
-      - 8055:8055
-    env_file:
-      - .env
