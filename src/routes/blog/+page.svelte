@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import config from '$lib/config';
-    import type { PageData } from './$types';
+	import type { PageData } from './$types';
 
 	const { site, blog } = config;
 	const { logo } = site;
@@ -52,7 +52,7 @@
 				</p>
 			</div>
 			<button
-				class="font-body bg-dark-brown text-beige relative z-10 mt-4 rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 block md:hidden"
+				class="font-body bg-dark-brown text-beige relative z-10 mt-4 block rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
 				onclick={scrollToPosts}
 			>
 				{viewPostsButtonText}
@@ -63,7 +63,7 @@
 	<!-- Right Main Content -->
 	<main
 		id="posts"
-		class="bg-beige flex md:h-[100dvh] w-full flex-col overflow-y-auto px-6 py-12 md:w-1/2 md:px-24 h-fit min-h-[100dvh]"
+		class="bg-beige flex h-fit min-h-[100dvh] w-full flex-col overflow-y-auto px-6 py-12 md:h-[100dvh] md:w-1/2 md:px-24"
 	>
 		<div class="mx-auto w-full max-w-2xl">
 			<h2
@@ -74,20 +74,24 @@
 			{#if posts && posts.length > 0}
 				<div class="flex flex-col gap-10">
 					{#each posts as post}
-						<article
-							class="rounded-xl bg-white p-10 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-						>
-							<h3 class="font-body text-dark-brown mb-2 text-xl font-semibold md:text-2xl">
-								{post.title}
-							</h3>
-							{#if post.description}
-								<p class="font-body text-dark-brown mb-4 text-lg font-light">{post.description}</p>
-							{/if}
-							<div class="text-light-brown mt-2 flex items-center justify-between text-xs">
-								<span>By {post.author.name}</span>
-								<span>{formatDate(post.date_updated)}</span>
-							</div>
-						</article>
+						<a href={`/blog/${post.slug}`}>
+							<article
+								class="rounded-xl bg-white p-10 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+							>
+								<h3 class="font-body text-dark-brown mb-2 text-xl font-semibold md:text-2xl">
+									{post.title}
+								</h3>
+								{#if post.description}
+									<p class="font-body text-dark-brown mb-4 text-lg font-light">
+										{post.description}
+									</p>
+								{/if}
+								<div class="text-light-brown mt-2 flex items-center justify-between text-xs">
+									<span>By {post.author.name}</span>
+									<span>{formatDate(post.date_updated)}</span>
+								</div>
+							</article>
+						</a>
 					{/each}
 				</div>
 			{:else}
