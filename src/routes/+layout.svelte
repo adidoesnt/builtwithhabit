@@ -52,6 +52,7 @@
 	<Sidebar bgColor={'beige'} textColor={'dark-brown'} />
 {/if}
 
+<!-- TODO: Add a separate sidebar for the blog page -->
 {#if isLandingPage || isBlogPage}
 	<div class="md:hidden block">
 		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile />
