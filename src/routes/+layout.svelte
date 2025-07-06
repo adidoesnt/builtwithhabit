@@ -17,6 +17,7 @@
 
 	const isAuthenticated = $derived($user);
 	const isLandingPage = $derived(page.url.pathname === '/');
+	const isBlogPage = $derived(page.url.pathname === '/blog');
 
 	const showFooter = $derived(isLandingPage || !isAuthenticated);
 
@@ -47,11 +48,11 @@
 	</div>
 {/if}
 
-{#if isAuthenticated && !isLandingPage}
+{#if isAuthenticated && !isLandingPage && !isBlogPage}
 	<Sidebar bgColor={'beige'} textColor={'dark-brown'} />
 {/if}
 
-{#if isLandingPage}
+{#if isLandingPage || isBlogPage}
 	<div class="md:hidden block">
 		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile />
 	</div>
