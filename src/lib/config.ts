@@ -31,6 +31,10 @@ const config = {
 				{
 					label: 'Bookings',
 					href: '/bookings'
+				},
+				{
+					label: 'Blog',
+					href: '/blog'
 				}
 			],
 			landingPageLinks: {
@@ -60,6 +64,10 @@ const config = {
 					{
 						label: 'Home',
 						href: '#'
+					},
+					{
+						label: 'Blog',
+						href: '/blog'
 					},
 					{
 						label: 'Sign Up',
@@ -222,6 +230,18 @@ const config = {
 				color: 'bg-green-500'
 			}
 		]
+	},
+	blog: {
+		viewPostsButtonText: 'View Posts',
+		description:
+			'Insights, stories, and practical tips on fitness, wellness, and building sustainable habits.',
+		postsHeading: 'Latest Posts',
+		noPosts: {
+			heading: 'No Posts Yet',
+			description:
+				'Check back soon for articles on fitness, wellness, and building sustainable habits!',
+			buttonText: 'Back to Home'
+		}
 	}
 };
 
