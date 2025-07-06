@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user } from '$lib/stores/auth';
+	import { clearUser, user } from '$lib/stores/auth';
 	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
@@ -33,6 +33,7 @@
 			await fetch('/logout', {
 				method: 'POST'
 			});
+			clearUser();
 			goto('/login');
 		} catch (error) {
 			console.error('Logout failed:', error);
