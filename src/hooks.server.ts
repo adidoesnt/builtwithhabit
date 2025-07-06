@@ -5,6 +5,10 @@ const isLandingPageRoute = (pathname: string) => {
 	return pathname === '/';
 };
 
+const isBlogRoute = (pathname: string) => {
+	return pathname.includes('/blog');
+};
+
 const getIsAuthenticatedRoute = (pathname: string) => {
 	return ![
 		'/login',
@@ -14,7 +18,8 @@ const getIsAuthenticatedRoute = (pathname: string) => {
 		'/reset-password',
 		'/forgot-password',
 		'/packages/learn-more',
-		'/about-me'
+		'/about-me',
+		'/blog'
 	].includes(pathname);
 };
 
@@ -22,14 +27,21 @@ const getIsPackageBookingRoute = (pathname: string) => {
 	return pathname.includes('/packages/');
 };
 
+const isChromeDevToolsRoute = (pathname: string) => {
+	return pathname.includes('/.well-known/appspecific/com.chrome.devtools.json');
+};
+
 export const handle: Handle = async ({ event, resolve }) => {
 	const accessToken = event.cookies.get('access_token');
 	const isAuthenticatedRoute = getIsAuthenticatedRoute(event.url.pathname);
 	const isLandingPage = isLandingPageRoute(event.url.pathname);
+	const isBlogPage = isBlogRoute(event.url.pathname);
+	const isChromeDevTools = isChromeDevToolsRoute(event.url.pathname);
+
 	const isPackageBookingRoute = getIsPackageBookingRoute(event.url.pathname);
 	const isPaymentIntentWebhookRoute = event.url.pathname.includes('/payment-intent/webhook');
 
-	if (isPaymentIntentWebhookRoute) {
+	if (isPaymentIntentWebhookRoute || isBlogPage || isChromeDevTools) {
 		return resolve(event);
 	}
 
