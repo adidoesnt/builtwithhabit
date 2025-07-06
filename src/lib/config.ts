@@ -44,6 +44,10 @@ const config = {
 						href: '#'
 					},
 					{
+						label: 'Blog',
+						href: '/blog'
+					},
+					{
 						label: 'Sign Up',
 						href: '/signup'
 					},
