@@ -53,12 +53,21 @@
 {/if}
 
 <!-- TODO: Add a separate sidebar for the blog page -->
-{#if isLandingPage || isBlogPage}
+{#if isLandingPage}
 	<div class="md:hidden block">
 		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile />
 	</div>
 	<div class="md:block hidden">
 		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage />
+	</div>
+{/if}
+
+{#if isBlogPage}
+	<div class="md:hidden block">
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage isMobile />
+	</div>
+	<div class="md:block hidden">
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage />
 	</div>
 {/if}
 

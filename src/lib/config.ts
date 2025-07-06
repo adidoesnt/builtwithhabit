@@ -37,6 +37,24 @@ const config = {
 					href: '/blog'
 				}
 			],
+			blogLinks: [
+				{
+					label: 'Home',
+					href: '/'
+				},
+				{
+					label: 'Blog',
+					href: '/blog'
+				},
+				{
+					label: 'Sign Up',
+					href: '/signup'
+				},
+				{
+					label: 'Log In',
+					href: '/login'
+				}
+			],
 			landingPageLinks: {
 				desktop: [
 					{

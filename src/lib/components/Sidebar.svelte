@@ -5,10 +5,13 @@
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
 
+	const isAuthenticated = $derived(!!$user);
+
 	const {
 		bgColor = 'light-green',
 		textColor = 'dark-brown',
 		isLandingPage = false,
+		isBlogPage = false,
 		isMobile = false
 	} = $props();
 	const { navBar, logo } = config.site;
@@ -43,6 +46,8 @@
 			? isMobile
 				? navBar.landingPageLinks.mobile
 				: navBar.landingPageLinks.desktop
+			: isBlogPage
+				? navBar.blogLinks
 			: isTrainer
 				? navBar.links.filter((link) => link.href !== '/packages')
 				: navBar.links
@@ -132,7 +137,7 @@
 					</nav>
 				</div>
 
-				{#if !isLandingPage}
+				{#if isAuthenticated}
 					<div class="mt-auto w-full">
 						<button
 							class="font-body flex w-full cursor-pointer items-center justify-center rounded-sm bg-[#E57373] px-6 py-2 text-white transition-all duration-300 hover:bg-[#EF5350] disabled:cursor-not-allowed disabled:opacity-70"
