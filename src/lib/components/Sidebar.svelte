@@ -43,15 +43,29 @@
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
 	let links = $derived(
-		isLandingPage
-			? isMobile
-				? navBar.landingPageLinks.mobile
-				: navBar.landingPageLinks.desktop
-			: isBlogPage
-				? navBar.blogLinks
-			: isTrainer
-				? navBar.links.filter((link) => link.href !== '/packages')
-				: navBar.links
+		(() => {
+			if (isLandingPage) {
+				if (isMobile) {
+					return isAuthenticated
+						? navBar.links
+						: navBar.landingPageLinks.mobile;
+				} else {
+					return isAuthenticated
+						? navBar.links
+						: navBar.landingPageLinks.desktop;
+				}
+			}
+
+			if (isBlogPage) {
+				return navBar.blogLinks;
+			}
+
+			if (isTrainer) {
+				return navBar.links.filter((link) => link.href !== '/packages');
+			}
+
+			return navBar.links;
+		})()
 	);
 
 	const trainerLinks = $derived([
