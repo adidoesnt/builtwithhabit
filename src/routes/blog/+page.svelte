@@ -36,18 +36,18 @@
 		<div class="absolute inset-0 backdrop-blur-sm"></div>
 		<div class="relative z-10 flex w-full max-w-lg flex-col items-center gap-8">
 			<div class="bg-beige flex w-full flex-col items-center rounded-xl p-12 shadow-lg">
-				<div class="mb-6 flex w-full flex-col items-center justify-center gap-6 md:flex-row">
+				<div class="mb-6 flex w-full flex-col items-center justify-center gap-6">
 					<a href="/">
 						<img
 							src={logo}
 							alt="logo"
-							class="mx-auto h-24 object-contain mix-blend-multiply md:mx-0 md:h-32"
+							class="mx-auto h-24 object-contain mix-blend-multiply md:h-32"
 							style="max-width: 80%; width: auto;"
 						/>
 					</a>
-					<h1 class="font-headings text-3xl font-bold md:text-5xl">Blog</h1>
+					<h1 class="font-headings text-3xl font-bold md:text-4xl">Read our blog!</h1>
 				</div>
-				<p class="font-body text-dark-brown text-center text-lg font-light md:text-xl">
+				<p class="font-body text-dark-brown text-center text-md font-light md:text-lg">
 					{description}
 				</p>
 			</div>
@@ -95,8 +95,8 @@
 					{/each}
 				</div>
 			{:else}
-				<div class="border-light-green rounded-sm border bg-white p-8 text-center">
-					<h3 class="font-headings text-dark-brown mb-4 text-2xl font-semibold">
+				<div class="rounded-xl bg-white p-10 shadow-lg">
+					<h3 class="font-body text-dark-brown mb-4 text-2xl font-semibold">
 						{noPosts.heading}
 					</h3>
 					<p class="font-body text-dark-brown mb-6 text-lg">
@@ -104,7 +104,7 @@
 					</p>
 					<a
 						href="/"
-						class="font-body bg-dark-brown text-beige inline-block rounded-sm p-3 px-6 transition-all duration-300 hover:scale-110 hover:opacity-80"
+						class="font-body text-dark-brown inline-block rounded-sm transition-all duration-300 hover:underline hover:opacity-80"
 					>
 						{noPosts.buttonText}
 					</a>
