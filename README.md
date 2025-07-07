@@ -1,16 +1,12 @@
 # Built with Habit
 
-_A **beingsofhabit** venture_.
-
-![Built with Habit](./static/bwh-logo.svg)
+![Built with Habit](./static/bwh-logo.png)
 
 ## Overview
 
 This project is a booking portal for **builtwithhabit**, a platform that provides fitness and nutrition coaching. You can find the live site [here](https://build.beingsofhabit.com).
 
 The platform aims to feature user authentication, a user and admin dashboards and a bookings page complete with payment integration.
-
-_This project is currently under development._
 
 ## Tech Stack
 
@@ -24,6 +20,8 @@ _This project is currently under development._
 - AWS Lambda
 - AWS SQS
 - Vercel
+- Nginx
+- Directus
 
 ## Development
 
