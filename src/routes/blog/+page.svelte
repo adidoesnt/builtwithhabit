@@ -41,7 +41,7 @@
 						<img
 							src={logo}
 							alt="logo"
-							class="mx-auto h-24 object-contain mix-blend-multiply md:h-32"
+							class="mx-auto h-16 object-contain mix-blend-multiply md:h-24"
 							style="max-width: 80%; width: auto;"
 						/>
 					</a>

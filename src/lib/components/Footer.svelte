@@ -27,7 +27,7 @@
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
 			<div id="footer-logo" class="flex flex-col items-start">
 				<a href="/" class="mb-4 inline-block">
-					<img src="/bwh-logo.svg" alt="Built with Habit Logo" class="h-30 w-auto rounded-sm" />
+					<img src="/bwh-logo.png" alt="Built with Habit Logo" class="h-30 w-auto rounded-sm" />
 				</a>
 				<p class="font-body text-beige text-sm md:max-w-1/2">
 					{description}
