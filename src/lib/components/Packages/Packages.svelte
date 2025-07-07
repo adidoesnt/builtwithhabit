@@ -43,7 +43,14 @@
 	};
 
 	const preventScroll = (event: WheelEvent | TouchEvent) => {
-		event.preventDefault();
+		// Only prevent horizontal scrolling
+		if (event instanceof WheelEvent) {
+			if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+				event.preventDefault();
+			}
+		} else if (event instanceof TouchEvent) {
+			// Handled by touch handlers
+		}
 	};
 
 	const handleTouchStart = (event: TouchEvent) => {
