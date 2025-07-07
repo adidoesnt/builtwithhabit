@@ -2,8 +2,7 @@ const config = {
 	site: {
 		name: 'builtwithhabit',
 		logo: '/bwh-logo-cropped.png',
-		// TODO: Change slogan
-		caption: 'a placeholder slogan',
+		caption: 'build slow. build brave. build with habit.',
 		splitName: ['built', 'with', 'habit'],
 		description: 'Embark on a personalised fitness journey that works for you.',
 		splitDescription: [
