@@ -57,7 +57,9 @@
 			}
 
 			if (isBlogPage) {
-				return navBar.blogLinks;
+				return isAuthenticated
+					? navBar.links
+					: navBar.blogLinks;
 			}
 
 			if (isTrainer) {
@@ -112,7 +114,7 @@
 			>
 				<div>
 					<div class="m-8 flex self-center">
-						<img src={logo} alt="logo" class="h-auto w-24 mix-blend-multiply md:w-40" />
+						<img src={logo} alt="logo" class="h-auto w-12 mix-blend-multiply md:w-16" />
 					</div>
 					<h2 class="font-headings mb-4 text-4xl font-bold">{navBar.title}</h2>
 					<nav class="font-body flex flex-col">
