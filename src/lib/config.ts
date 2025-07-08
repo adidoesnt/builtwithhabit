@@ -20,19 +20,19 @@ const config = {
 			links: [
 				{
 					label: 'Dashboard',
-					href: '/dashboard'
+					href: '/training/dashboard'
 				},
 				{
 					label: 'Profile',
-					href: '/profile'
+					href: '/training/profile'
 				},
 				{
 					label: 'Packages',
-					href: '/packages'
+					href: '/training/packages'
 				},
 				{
 					label: 'Bookings',
-					href: '/bookings'
+					href: '/training/bookings'
 				},
 				{
 					label: 'Blog',
@@ -50,11 +50,11 @@ const config = {
 				},
 				{
 					label: 'Sign Up',
-					href: '/signup'
+					href: '/training/signup'
 				},
 				{
 					label: 'Log In',
-					href: '/login'
+					href: '/training/login'
 				}
 			],
 			landingPageLinks: {
@@ -69,11 +69,11 @@ const config = {
 					},
 					{
 						label: 'Sign Up',
-						href: '/signup'
+						href: '/training/signup'
 					},
 					{
 						label: 'Log In',
-						href: '/login'
+						href: '/training/login'
 					},
 					{
 						label: 'About',
@@ -95,11 +95,11 @@ const config = {
 					},
 					{
 						label: 'Sign Up',
-						href: '/signup'
+						href: '/training/signup'
 					},
 					{
 						label: 'Login',
-						href: '/login'
+						href: '/training/login'
 					},
 					{
 						label: 'Contact',
@@ -118,7 +118,7 @@ const config = {
 			adminLinks: [
 				{
 					label: 'User Management',
-					href: '/admin/user-management'
+					href: '/training/admin/user-management'
 				}
 			]
 		},

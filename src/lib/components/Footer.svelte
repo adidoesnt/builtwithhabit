@@ -62,18 +62,18 @@
 					</li>
 					<li>
 						<a
-							href="/signup"
+							href="/training/signup"
 							class="hover:text-light-brown transition-colors"
-							class:text-light-brown={page.url.pathname === '/signup'}
+							class:text-light-brown={page.url.pathname === '/training/signup'}
 						>
 							Sign up
 						</a>
 					</li>
 					<li>
 						<a
-							href="/login"
+							href="/training/login"
 							class="hover:text-light-brown transition-colors"
-							class:text-light-brown={page.url.pathname === '/login'}
+							class:text-light-brown={page.url.pathname === '/training/login'}
 						>
 							Log in
 						</a>

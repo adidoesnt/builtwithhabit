@@ -1,10 +1,31 @@
 import { supabase } from '$lib/server/auth';
 import { getUserById } from '$lib/server/db/user';
 
-export const load = async ({ cookies }) => {
-	const accessToken = cookies.get('access_token');
+enum Router {
+	Training = 'training',
+	Blog = 'blog',
+	Root = ''
+}
 
-	if (accessToken) {
+const getParentRouter = (pathname: string) => {
+	const parentRoute = pathname.split('/')[1];
+
+	switch (parentRoute) {
+		case Router.Training:
+			return Router.Training;
+		case Router.Blog:
+			return Router.Blog;
+		default:
+			return Router.Root;
+	}
+};
+
+export const load = async ({ cookies, url }) => {
+	const accessToken = cookies.get('access_token');
+	const pathname = url.pathname;
+	const parentRouter = getParentRouter(pathname);
+
+	if (parentRouter === Router.Training && accessToken) {
 		const { data, error } = await supabase.auth.getUser(accessToken);
 
 		if (error) {

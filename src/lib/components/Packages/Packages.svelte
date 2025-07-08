@@ -158,7 +158,7 @@
 				</div>
 				<button
 					class="bg-dark-brown text-beige font-body mt-auto rounded-sm p-2 transition-all duration-300 hover:scale-110"
-					onclick={() => goto(`/packages/${plan.id}/book`)}
+					onclick={() => goto(`/training/packages/${plan.id}/book`)}
 				>
 					{pricing.plans.buttonText}
 				</button>
@@ -181,7 +181,7 @@
 	{#if showLearnMoreLink}
 		<div class="mt-4">
 			<a
-				href="/packages/learn-more"
+				href="/training/packages/learn-more"
 				class="font-body bg-dark-brown text-beige inline-block rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
 				>Learn More</a
 			>

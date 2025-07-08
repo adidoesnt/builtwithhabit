@@ -16,7 +16,7 @@
 	});
 
 	const isAuthenticated = $derived($user);
-	const isLandingPage = $derived(page.url.pathname === '/');
+	const isLandingPage = $derived(['/', '/training'].includes(page.url.pathname));
 	const isBlogPage = $derived(page.url.pathname.includes('/blog'));
 
 	const showFooter = $derived(isLandingPage || !isAuthenticated);

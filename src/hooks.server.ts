@@ -1,8 +1,14 @@
 import { redirect, type Handle } from '@sveltejs/kit';
 import { supabase } from '$lib/server/auth';
 
+enum Router {
+	Training = 'training',
+	Blog = 'blog',
+	Root = ''
+}
+
 const isLandingPageRoute = (pathname: string) => {
-	return pathname === '/';
+	return ['/', '/training'].includes(pathname);
 };
 
 const isBlogRoute = (pathname: string) => {
@@ -11,24 +17,37 @@ const isBlogRoute = (pathname: string) => {
 
 const getIsAuthenticatedRoute = (pathname: string) => {
 	return ![
-		'/login',
-		'/signup',
-		'/signup/verify-email',
-		'/',
-		'/reset-password',
-		'/forgot-password',
-		'/packages/learn-more',
+		'/training/login',
+		'/training/signup',
+		'/training/signup/verify-email',
+		'/training',
+		'/training/reset-password',
+		'/training/forgot-password',
+		'/training/packages/learn-more',
 		'/about-me',
 		'/blog'
 	].includes(pathname);
 };
 
 const getIsPackageBookingRoute = (pathname: string) => {
-	return pathname.includes('/packages/');
+	return pathname.includes('/training/packages/');
 };
 
 const isChromeDevToolsRoute = (pathname: string) => {
 	return pathname.includes('/.well-known/appspecific/com.chrome.devtools.json');
+};
+
+const getParentRouter = (pathname: string) => {
+	const parentRoute = pathname.split('/')[1];
+
+	switch (parentRoute) {
+		case Router.Training:
+			return Router.Training;
+		case Router.Blog:
+			return Router.Blog;
+		default:
+			return Router.Root;
+	}
 };
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -39,37 +58,49 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const isChromeDevTools = isChromeDevToolsRoute(event.url.pathname);
 
 	const isPackageBookingRoute = getIsPackageBookingRoute(event.url.pathname);
-	const isPaymentIntentWebhookRoute = event.url.pathname.includes('/payment-intent/webhook');
+
+	// TODO: Update the webhook in the Stripe dashboard to use this route
+	const isPaymentIntentWebhookRoute = event.url.pathname.includes(
+		'/training/payment-intent/webhook'
+	);
 
 	if (isPaymentIntentWebhookRoute || isBlogPage || isChromeDevTools) {
 		return resolve(event);
 	}
 
-	try {
-		if (accessToken) {
-			const { data, error } = await supabase.auth.getUser(accessToken);
+	const parentRouter = getParentRouter(event.url.pathname);
 
-			if (error) {
-				event.cookies.delete('access_token', { path: '/' });
-				if (isAuthenticatedRoute) {
-					redirect(303, '/login');
+	if (parentRouter === Router.Training) {
+		try {
+			if (accessToken) {
+				const { data, error } = await supabase.auth.getUser(accessToken);
+
+				if (error) {
+					event.cookies.delete('access_token', { path: '/' });
+					if (isAuthenticatedRoute) {
+						redirect(303, '/training/login');
+					}
+					return resolve(event);
 				}
-				return resolve(event);
-			}
 
-			if (data.user && !isAuthenticatedRoute && !isLandingPage) {
-				redirect(303, '/dashboard');
+				if (data.user && !isAuthenticatedRoute && !isLandingPage) {
+					redirect(303, '/training/dashboard');
+				}
+			} else if (isPackageBookingRoute) {
+				redirect(303, '/training/signup');
+			} else if (isAuthenticatedRoute) {
+				redirect(303, '/training/login');
 			}
-		} else if (isPackageBookingRoute) {
-			redirect(303, '/signup');
-		} else if (isAuthenticatedRoute) {
-			redirect(303, '/login');
+		} catch (error) {
+			console.error('Auth error:', error);
+			if (isAuthenticatedRoute) {
+				redirect(303, '/training/login');
+			}
 		}
-	} catch (error) {
-		console.error('Auth error:', error);
-		if (isAuthenticatedRoute) {
-			redirect(303, '/login');
-		}
+	} else if (parentRouter === Router.Blog) {
+		return resolve(event);
+	} else {
+		return resolve(event);
 	}
 
 	return resolve(event);

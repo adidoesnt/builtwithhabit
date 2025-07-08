@@ -27,11 +27,11 @@
 	async function handleLogout() {
 		isLoggingOut = true;
 		try {
-			await fetch('/logout', {
+			await fetch('/training/logout', {
 				method: 'POST'
 			});
 			clearUser();
-			goto('/login');
+			goto('/training/login');
 		} catch (error) {
 			console.error('Logout failed:', error);
 		} finally {
@@ -46,20 +46,14 @@
 		(() => {
 			if (isLandingPage) {
 				if (isMobile) {
-					return isAuthenticated
-						? navBar.links
-						: navBar.landingPageLinks.mobile;
+					return isAuthenticated ? navBar.links : navBar.landingPageLinks.mobile;
 				} else {
-					return isAuthenticated
-						? navBar.links
-						: navBar.landingPageLinks.desktop;
+					return isAuthenticated ? navBar.links : navBar.landingPageLinks.desktop;
 				}
 			}
 
 			if (isBlogPage) {
-				return isAuthenticated
-					? navBar.links
-					: navBar.blogLinks;
+				return isAuthenticated ? navBar.links : navBar.blogLinks;
 			}
 
 			if (isTrainer) {
@@ -82,9 +76,9 @@
 	]);
 
 	const noSidebarPages = [
-		'/login',
-		'/signup',
-		'/signup/verify-email',
+		'/training/login',
+		'/training/signup',
+		'/training/signup/verify-email',
 		'/reset-password',
 		'/forgot-password'
 	];
