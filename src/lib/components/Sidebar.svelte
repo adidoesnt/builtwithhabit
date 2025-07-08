@@ -10,11 +10,9 @@
 	const {
 		bgColor = 'light-green',
 		textColor = 'dark-brown',
-		isLandingPage = false,
-		isBlogPage = false,
-		isMobile = false
+		routes
 	} = $props();
-	const { navBar, logo } = config.site;
+	const { logo } = config.site;
 	const currentPath = $derived(page.url.pathname);
 
 	let isOpen = $state(false);
@@ -42,38 +40,15 @@
 
 	let isTrainer = $derived($user?.roles?.includes(Role.TRAINER));
 
+	// Convert routes object to array format and filter for trainers
 	let links = $derived(
-		(() => {
-			if (isLandingPage) {
-				if (isMobile) {
-					return isAuthenticated ? navBar.links : navBar.landingPageLinks.mobile;
-				} else {
-					return isAuthenticated ? navBar.links : navBar.landingPageLinks.desktop;
-				}
-			}
-
-			if (isBlogPage) {
-				return isAuthenticated ? navBar.links : navBar.blogLinks;
-			}
-
-			if (isTrainer) {
-				return navBar.links.filter((link) => link.href !== '/packages');
-			}
-
-			return navBar.links;
-		})()
+		Object.values(routes || {})
+			.map((route: any) => ({
+				label: route.label,
+				href: route.href
+			}))
+			.filter((link) => !isTrainer || link.href !== '/packages')
 	);
-
-	const trainerLinks = $derived([
-		{
-			label: 'Availability',
-			href: `/trainers/${$user?.id}/availability`
-		},
-		{
-			label: 'Clients',
-			href: `/trainers/${$user?.id}/clients`
-		}
-	]);
 
 	const noSidebarPages = [
 		'/training/login',
@@ -110,7 +85,7 @@
 					<div class="m-8 flex self-center">
 						<img src={logo} alt="logo" class="h-auto w-12 mix-blend-multiply md:w-16" />
 					</div>
-					<h2 class="font-headings mb-4 text-4xl font-bold">{navBar.title}</h2>
+					<h2 class="font-headings mb-4 text-4xl font-bold">Menu</h2>
 					<nav class="font-body flex flex-col">
 						{#each links as link}
 							<a
@@ -121,30 +96,6 @@
 								{link.label}
 							</a>
 						{/each}
-						{#if $user?.roles?.includes(Role.TRAINER)}
-							{#each trainerLinks as link}
-								<a
-									href={link.href}
-									onclick={toggleSidebar}
-									class="py-2 transition-colors hover:opacity-80"
-								>
-									{link.label}
-								</a>
-							{/each}
-						{/if}
-						{#if $user?.roles?.includes(Role.ADMIN)}
-							<hr class="my-4" />
-							<h3 class="text-lg font-bold">Admin</h3>
-							{#each navBar.adminLinks as link}
-								<a
-									href={link.href}
-									onclick={toggleSidebar}
-									class="py-2 transition-colors hover:opacity-80"
-								>
-									{link.label}
-								</a>
-							{/each}
-						{/if}
 					</nav>
 				</div>
 

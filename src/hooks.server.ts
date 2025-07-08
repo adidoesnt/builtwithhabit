@@ -71,31 +71,24 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const parentRouter = getParentRouter(event.url.pathname);
 
 	if (parentRouter === Router.Training) {
-		try {
-			if (accessToken) {
-				const { data, error } = await supabase.auth.getUser(accessToken);
+		if (accessToken) {
+			const { data, error } = await supabase.auth.getUser(accessToken);
 
-				if (error) {
-					event.cookies.delete('access_token', { path: '/' });
-					if (isAuthenticatedRoute) {
-						redirect(303, '/training/login');
-					}
-					return resolve(event);
+			if (error) {
+				event.cookies.delete('access_token', { path: '/' });
+				if (isAuthenticatedRoute) {
+					redirect(303, '/training/login');
 				}
+				return resolve(event);
+			}
 
-				if (data.user && !isAuthenticatedRoute && !isLandingPage) {
-					redirect(303, '/training/dashboard');
-				}
-			} else if (isPackageBookingRoute) {
-				redirect(303, '/training/signup');
-			} else if (isAuthenticatedRoute) {
-				redirect(303, '/training/login');
+			if (data.user && !isAuthenticatedRoute && !isLandingPage) {
+				redirect(303, '/training/dashboard');
 			}
-		} catch (error) {
-			console.error('Auth error:', error);
-			if (isAuthenticatedRoute) {
-				redirect(303, '/training/login');
-			}
+		} else if (isPackageBookingRoute) {
+			redirect(303, '/training/signup');
+		} else if (isAuthenticatedRoute) {
+			redirect(303, '/training/login');
 		}
 	} else if (parentRouter === Router.Blog) {
 		return resolve(event);

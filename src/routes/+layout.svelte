@@ -49,25 +49,25 @@
 {/if}
 
 {#if isAuthenticated && !isLandingPage && !isBlogPage}
-	<Sidebar bgColor={'beige'} textColor={'dark-brown'} />
+	<Sidebar bgColor={'beige'} textColor={'dark-brown'} routes={data.sidebarRoutes} />
 {/if}
 
 <!-- TODO: Add a separate sidebar for the blog page -->
 {#if isLandingPage}
 	<div class="md:hidden block">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile />
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile routes={data.sidebarRoutes} />
 	</div>
 	<div class="md:block hidden">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage />
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage routes={data.sidebarRoutes} />
 	</div>
 {/if}
 
 {#if isBlogPage}
 	<div class="md:hidden block">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage isMobile />
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage isMobile routes={data.sidebarRoutes} />
 	</div>
 	<div class="md:block hidden">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage />
+		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage routes={data.sidebarRoutes} />
 	</div>
 {/if}
 

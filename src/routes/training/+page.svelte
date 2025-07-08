@@ -7,13 +7,21 @@
 	import EmailIcon from '$lib/icons/Email.svelte';
 	import Packages from '$lib/components/Packages/Packages.svelte';
 	import type { PageServerData } from './$types';
+	import { user } from '$lib/stores/auth';
 	// import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
 
 	const { splitDescription, mission, contact, pricing } = config.site;
 	const { data }: { data: PageServerData } = $props();
 	const { packages } = data;
+	const isAuthenticated = $derived(!!user);
 
-	const onclick = () => goto('/training/login');
+	const onclick = () => {
+		if (isAuthenticated) {
+			goto('/training/dashboard');
+		} else {
+			goto('/training/login');
+		}
+	};
 	const scrollToPricing = () => {
 		document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
 	};
