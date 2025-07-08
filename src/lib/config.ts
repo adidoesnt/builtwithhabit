@@ -229,28 +229,28 @@ const config = {
 				name: 'Packages',
 				description: 'Browse available packages',
 				icon: 'package',
-				href: '/packages',
+				href: '/training/packages',
 				color: 'bg-blue-500'
 			},
 			{
 				name: 'Profile',
 				description: 'Manage your account',
 				icon: 'user',
-				href: '/profile',
+				href: '/training/profile',
 				color: 'bg-orange-500'
 			},
 			{
 				name: 'Purchases',
 				description: 'View your past purchases',
 				icon: 'receipt',
-				href: '/purchases',
+				href: '/training/purchases',
 				color: 'bg-purple-500'
 			},
 			{
 				name: 'Bookings',
 				description: 'View your scheduled sessions',
 				icon: 'calendar',
-				href: '/bookings',
+				href: '/training/bookings',
 				color: 'bg-green-500'
 			}
 		]

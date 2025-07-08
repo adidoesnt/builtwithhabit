@@ -94,11 +94,11 @@ const sidebarRoutes = {
 			},
 			signup: {
 				label: 'Sign Up',
-				href: '/signup'
+				href: '/training/signup'
 			},
 			login: {
 				label: 'Login',
-				href: '/login'
+				href: '/training/login'
 			},
 			about: {
 				label: 'About',
@@ -106,7 +106,7 @@ const sidebarRoutes = {
 			},
 			packages: {
 				label: 'Packages',
-				href: '/packages'
+				href: '#pricing'
 			}
 		}
 	},

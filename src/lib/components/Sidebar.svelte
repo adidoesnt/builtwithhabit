@@ -7,11 +7,7 @@
 
 	const isAuthenticated = $derived(!!$user);
 
-	const {
-		bgColor = 'light-green',
-		textColor = 'dark-brown',
-		routes
-	} = $props();
+	const { bgColor = 'light-green', textColor = 'dark-brown', routes } = $props();
 	const { logo } = config.site;
 	const currentPath = $derived(page.url.pathname);
 
@@ -42,12 +38,10 @@
 
 	// Convert routes object to array format and filter for trainers
 	let links = $derived(
-		Object.values(routes || {})
-			.map((route: any) => ({
-				label: route.label,
-				href: route.href
-			}))
-			.filter((link) => !isTrainer || link.href !== '/packages')
+		Object.values(routes || {}).map((route: any) => ({
+			label: route.label,
+			href: route.href
+		}))
 	);
 
 	const noSidebarPages = [
