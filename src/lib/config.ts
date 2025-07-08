@@ -2,7 +2,9 @@ const config = {
 	site: {
 		name: 'builtwithhabit',
 		logo: '/bwh-logo-cropped.png',
-		caption: 'build slow. build brave. build with habit.',
+		caption: {
+			parts: ['Sweat Smarter.', 'Live Stronger.']
+		},
 		splitName: ['built', 'with', 'habit'],
 		description: 'Embark on a personalised fitness journey that works for you.',
 		splitDescription: [
