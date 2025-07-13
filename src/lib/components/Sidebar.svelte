@@ -55,7 +55,7 @@
 </script>
 
 {#if shouldShowSidebar}
-	<div class="relative text-${textColor} z-50">
+	<div class="block md:hidden relative text-${textColor} z-50">
 		{#if isOpen}
 			<div
 				class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity duration-300"
