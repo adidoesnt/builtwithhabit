@@ -4,7 +4,7 @@
 	import type { LayoutData } from './$types';
 	import { setUser, user } from '$lib/stores/auth';
 	import { page } from '$app/state';
-	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { navigating } from '$app/state';
 	let { children, data }: { children: any; data: LayoutData } = $props();
@@ -48,35 +48,14 @@
 	</div>
 {/if}
 
-{#if isAuthenticated && !isLandingPage && !isBlogPage}
-	<Sidebar bgColor={'beige'} textColor={'dark-brown'} routes={data.sidebarRoutes} />
-{/if}
+<div class="bg-dark-brown font-old-standard min-h-[100dvh grid grid-rows-[auto_1fr]">
+	<Header routes={data.sidebarRoutes} />
 
-<!-- TODO: Add a separate sidebar for the blog page -->
-{#if isLandingPage}
-	<div class="md:hidden block">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage isMobile routes={data.sidebarRoutes} />
-	</div>
-	<div class="md:block hidden">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isLandingPage routes={data.sidebarRoutes} />
-	</div>
-{/if}
-
-{#if isBlogPage}
-	<div class="md:hidden block">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage isMobile routes={data.sidebarRoutes} />
-	</div>
-	<div class="md:block hidden">
-		<Sidebar bgColor={'beige'} textColor={'dark-brown'} isBlogPage routes={data.sidebarRoutes} />
-	</div>
-{/if}
-
-<div class="bg-dark-brown font-old-standard flex min-h-[100dvh] w-full flex-col">
 	<main class="flex-grow">
 		{@render children()}
-	</main>
 
-	{#if showFooter}
-		<Footer />
-	{/if}
+		{#if showFooter}
+			<Footer />
+		{/if}
+	</main>
 </div>

@@ -116,6 +116,10 @@ const sidebarRoutes = {
 				label: 'Home',
 				href: '/'
 			},
+			about: {
+				label: 'About',
+				href: '/about'
+			},
 			blog: {
 				label: 'Blog',
 				href: '/blog'
@@ -123,6 +127,14 @@ const sidebarRoutes = {
 			training: {
 				label: 'Training',
 				href: '/training'
+			},
+			activewear: {
+				label: 'Activewear',
+				href: '/activewear'
+			},
+			contact: {
+				label: 'Contact Us',
+				href: '/contact'
 			}
 		},
 		authenticated: {
@@ -130,6 +142,10 @@ const sidebarRoutes = {
 				label: 'Home',
 				href: '/'
 			},
+			about: {
+				label: 'About',
+				href: '/about'
+			},
 			blog: {
 				label: 'Blog',
 				href: '/blog'
@@ -137,6 +153,14 @@ const sidebarRoutes = {
 			training: {
 				label: 'Training',
 				href: '/training'
+			},
+			activewear: {
+				label: 'Activewear',
+				href: '/activewear'
+			},
+			contact: {
+				label: 'Contact Us',
+				href: '/contact'
 			}
 		}
 	},
