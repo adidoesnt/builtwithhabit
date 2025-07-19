@@ -1,5 +1,15 @@
 <script lang="ts">
-	const { width = '24', height = '24', fill = 'currentColor', href = '/' } = $props();
+	const {
+		width = '24',
+		height = '24',
+		fill = 'currentColor',
+		href = '/'
+	} = $props<{
+		width?: string | number;
+		height?: string | number;
+		fill?: string;
+		href?: string;
+	}>();
 </script>
 
 <a aria-label="Instagram" {href} target="_blank" rel="noopener noreferrer">
