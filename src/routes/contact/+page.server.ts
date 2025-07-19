@@ -9,7 +9,10 @@ const schema = z.object({
 	lastName: z.string().min(1, 'Last name is required'),
 	email: z.string().email('Invalid email address'),
 	subject: z.string().min(1, 'Subject is required'),
-	message: z.string().min(1, 'Message is required')
+	message: z.string().min(1, 'Message is required'),
+	isHuman: z.boolean({ coerce: true }).refine((value) => value, {
+		message: 'Please verify that you are human'
+	})
 });
 
 export const actions: Actions = {
@@ -34,7 +37,8 @@ export const actions: Actions = {
 					lastName: data.lastName,
 					email: data.email,
 					subject: data.subject,
-					message: data.message
+					message: data.message,
+					isHuman: data.isHuman
 				}
 			});
 		}

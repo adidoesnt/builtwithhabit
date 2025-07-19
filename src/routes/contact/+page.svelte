@@ -10,6 +10,7 @@
 		email: string;
 		subject: string;
 		message: string;
+		isHuman: boolean;
 	};
 
 	type FormErrors = {
@@ -18,6 +19,7 @@
 		email?: string[];
 		subject?: string[];
 		message?: string[];
+		isHuman?: string[];
 	};
 
 	let formValues = $state({
@@ -25,9 +27,10 @@
 		lastName: '',
 		email: '',
 		subject: '',
-		message: ''
+		message: '',
+		isHuman: false
 	});
-    
+
 	let isLoading = $state(false);
 	let showSuccessMessage = $state(false);
 
@@ -184,6 +187,25 @@
 						></textarea>
 						{#if errors?.message}
 							<p class="font-body text-sm text-red-500">{errors.message}</p>
+						{/if}
+					</div>
+					<div id="is-human-field" class="flex flex-col gap-2">
+						<div class="flex flex-col gap-2">
+							<div class="flex items-center gap-2">
+								<input
+									type="checkbox"
+									id="isHuman"
+									name="isHuman"
+									class="font-body text-dark-brown border-dark-brown focus:ring-dark-brown rounded-sm border-[1px] p-2 focus:ring-2 focus:outline-none"
+									bind:checked={formValues.isHuman}
+								/>
+								<label for="isHuman" class="font-body text-dark-brown text-lg font-bold"
+									>I am a human.</label
+								>
+							</div>
+						</div>
+						{#if errors?.isHuman}
+							<p class="font-body text-sm text-red-500">{errors.isHuman}</p>
 						{/if}
 					</div>
 					<button
