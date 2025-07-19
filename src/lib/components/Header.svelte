@@ -29,24 +29,44 @@
 	const currentPath = $derived(page.url.pathname);
 </script>
 
-<header class="bg-beige text-dark-brown sticky top-0 z-50 flex w-full flex-col p-4 shadow-md h-36">
+<!-- Promotional banner -->
+<div class="bg-light-brown text-dark-brown z-50 p-2 shadow-md">
+	<div class="flex items-center justify-center gap-4">
+		<div class="flex justify-end">
+			<p class="font-body text-center text-sm">free shipping on eligible orders</p>
+		</div>
+		<div class="flex justify-center">
+			<span class="text-dark-brown/50">|</span>
+		</div>
+		<div class="flex justify-start">
+			<p class="font-body text-center text-sm">
+				<a href="/signup" class="underline hover:opacity-50 transition-opacity duration-300"
+					>join our community</a
+				>
+				and enjoy 15% off your first order
+			</p>
+		</div>
+	</div>
+</div>
+
+<header class="bg-beige text-dark-brown sticky top-0 z-50 flex h-36 w-full flex-col p-4 shadow-md">
 	<!-- Top: Search, logo, cart, profile -->
 	<div class="grid grid-cols-3 items-center">
 		<div id="search-container" class="flex w-full items-center justify-start gap-2">
 			<input
 				type="text"
 				placeholder="Search"
-				class="border-light-brown/25 focus:ring-light-brown/50 font-body placeholder:text-light-brown/75 text-light-brown/75 w-1/2 rounded-sm border-[1px] bg-white focus:ring-1"
+				class="border-light-brown/25 focus:ring-light-brown/50 font-body placeholder:text-dark-brown/75 text-dark-brown/75 w-1/2 rounded-sm border-[1px] bg-white focus:ring-1"
 			/>
 			<button
 				class="hover:bg-light-brown/10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300"
 				aria-label="search"
 			>
-				<Search width={24} height={24} color="#a99b9a" />
+				<Search width={24} height={24} color="#262626" />
 			</button>
 		</div>
 		<div id="logo-container" class="flex w-full justify-center">
-			<p class="font-headings text-light-brown text-4xl font-bold tracking-widest">
+			<p class="font-headings text-dark-brown text-4xl font-bold tracking-widest">
 				built<span class="font-normal">with</span>habit
 			</p>
 		</div>
@@ -55,13 +75,13 @@
 				class="hover:bg-light-brown/10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300"
 				aria-label="Cart"
 			>
-				<Cart width={28} height={28} color="#a99b9a" />
+				<Cart width={28} height={28} color="#262626" />
 			</button>
 			<button
 				class="hover:bg-light-brown/10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300"
 				aria-label="Profile"
 			>
-				<Profile width={28} height={28} color="#a99b9a" />
+				<Profile width={28} height={28} color="#262626" />
 			</button>
 		</div>
 	</div>
@@ -71,7 +91,7 @@
 		{#each links as link}
 			<a
 				href={link.href}
-				class={`font-body text-light-brown cursor-pointer py-2 text-lg transition-colors ${currentPath === link.href ? 'underline hover:opacity-100' : ''} lowercase transition-opacity duration-300 hover:opacity-80`}
+				class={`font-body text-dark-brown cursor-pointer py-2 text-lg transition-colors ${currentPath === link.href ? 'underline hover:opacity-100' : ''} lowercase transition-opacity duration-300 hover:opacity-80`}
 			>
 				{link.label}
 			</a>
