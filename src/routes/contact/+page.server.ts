@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { createContactFormSubmission } from '$lib/server/db/contactFormSubmissions';
+import { sendContactFormEmail } from '$lib/server/email';
 
 const schema = z.object({
 	firstName: z.string().min(1, 'First name is required'),
@@ -49,8 +50,7 @@ export const actions: Actions = {
 			message
 		});
 
-		// TODO: send email with nodemailer, use SMTP credentials from Supabase
-		await createContactFormSubmission({
+		const { success: emailSuccess, error: emailError } = await sendContactFormEmail({
 			firstName,
 			lastName,
 			email,
@@ -58,8 +58,21 @@ export const actions: Actions = {
 			message
 		});
 
+		const submission = await createContactFormSubmission({
+			firstName,
+			lastName,
+			email,
+			subject,
+			message
+		});
+		const submissionSuccess = !!submission;
+
+		const success = emailSuccess || submissionSuccess;
+		const error = success ? null : emailError || 'Failed to create submission';
+
 		return {
-			success: true
+			success,
+			error
 		};
 	}
 };
