@@ -7,7 +7,8 @@ import {
 	uuid,
 	integer,
 	pgEnum,
-	primaryKey
+	primaryKey,
+	boolean
 } from 'drizzle-orm/pg-core';
 
 export type UserCreateAttributes = typeof users.$inferInsert;
@@ -195,4 +196,5 @@ export const contactFormSubmissions = pgTable('contact_form_submissions', {
 	email: text('email').notNull(),
 	subject: text('subject').notNull(),
 	message: text('message').notNull(),
+	emailSent: boolean('email_sent').notNull().default(false)
 });

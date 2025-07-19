@@ -58,12 +58,14 @@ export const actions: Actions = {
 			message
 		});
 
+		// TODO: Discuss the SOP for handling failed emails
 		const submission = await createContactFormSubmission({
 			firstName,
 			lastName,
 			email,
 			subject,
-			message
+			message,
+			emailSent: emailSuccess
 		});
 		const submissionSuccess = !!submission;
 

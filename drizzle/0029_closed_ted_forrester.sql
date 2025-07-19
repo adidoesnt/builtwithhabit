@@ -1,0 +1,1 @@
+ALTER TABLE "contact_form_submissions" ADD COLUMN "email_sent" boolean DEFAULT false NOT NULL;
