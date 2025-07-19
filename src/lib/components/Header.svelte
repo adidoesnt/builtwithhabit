@@ -30,7 +30,7 @@
 </script>
 
 <!-- Promotional banner -->
-<div class="bg-light-brown text-dark-brown z-50 p-2 shadow-md">
+<div class="bg-light-brown text-dark-brown z-50 p-2 shadow-md h-12 flex items-center justify-center">
 	<div class="flex items-center justify-center gap-4">
 		<div class="flex justify-end">
 			<p class="font-body text-center text-sm">free shipping on eligible orders</p>

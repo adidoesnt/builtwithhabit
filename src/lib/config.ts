@@ -7,6 +7,7 @@ const config = {
 		},
 		splitName: ['built', 'with', 'habit'],
 		description: 'Embark on a personalised fitness journey that works for you.',
+		contactCta: 'Contact us for inquiries and partnerships!',
 		splitDescription: [
 			'Click here',
 			'to embark on a personalised fitness journey that works',
@@ -137,9 +138,22 @@ const config = {
 			viewMission: 'View Mission',
 			email: 'ishita@boh-services.com',
 			phone: '+65 9233 4061',
+			address: '75 Meyer Road, Singapore 437901',
 			instagram: {
 				handle: '@builtwithhabit',
 				link: 'https://www.instagram.com/builtwithhabit/'
+			},
+			linkedin: {
+				handle: '@builtwithhabit',
+				link: 'https://www.linkedin.com/company/builtwithhabit/'
+			},
+			pinterest: {
+				handle: '@builtwithhabit',
+				link: 'https://www.pinterest.com/builtwithhabit/'
+			},
+			tiktok: {
+				handle: '@builtwithhabit',
+				link: 'https://www.tiktok.com/@builtwithhabit'
 			}
 		},
 		support: {
@@ -266,7 +280,40 @@ const config = {
 				'Check back soon for articles on fitness, wellness, and building sustainable habits!',
 			buttonText: 'Back to Home'
 		}
-	}
+	},
+	pillars: [
+		{
+			title: 'learn',
+			subtitle: 'blog',
+			href: '/blog',
+			img: {
+				src: '/pillars-learn.png',
+				alt: 'learn'
+			},
+			description: 'learn about all things wellness, sustainability, and entrepreneurship!'
+		},
+		{
+			title: 'train',
+			subtitle: 'training',
+			href: '/training',
+			img: {
+				src: '/pillars-training.png',
+				alt: 'training'
+			},
+			description:
+				'explore our personal training packages to improve strength, conditioning, and mobility!'
+		},
+		{
+			title: 'shop',
+			subtitle: 'activewear',
+			href: '/shop',
+			img: {
+				src: '/pillars-shop.png',
+				alt: 'activewear'
+			},
+			description: 'join our waitlist for updates on our upcoming skin-safe activewear launch!'
+		}
+	]
 };
 
 export default config;

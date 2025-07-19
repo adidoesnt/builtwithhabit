@@ -55,7 +55,7 @@
 		{@render children()}
 
 		{#if showFooter}
-			<Footer />
+			<Footer routes={data.sidebarRoutes} />
 		{/if}
 	</main>
 </div>

@@ -1,4 +1,12 @@
 export { default as Cart } from './Cart.svelte';
+export { default as Down } from './Down.svelte';
+export { default as House } from './House.svelte';
+export { default as Instagram } from './Instagram.svelte';
+export { default as Email } from './Email.svelte';
+export { default as Mobile } from './Mobile.svelte';
 export { default as Profile } from './Profile.svelte';
 export { default as Search } from './Search.svelte';
 export { default as Logo } from './Logo.svelte';
+export { default as Linkedin } from './Linkedin.svelte';
+export { default as Pinterest } from './Pinterest.svelte';
+export { default as Tiktok } from './Tiktok.svelte';

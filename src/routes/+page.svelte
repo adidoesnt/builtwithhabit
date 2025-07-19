@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { Logo } from '$lib/icons';
+	import config from '$lib/config';
 </script>
 
 <div class="flex h-fit w-full flex-col">
 	<!-- Hero Section -->
 	<section
-		class="flex h-[calc(100dvh-9rem)] w-full flex-col bg-[url(/landing-page-hero.png)] bg-cover bg-center"
+		id="hero-section"
+		class="flex h-[calc(100dvh-12rem)] w-full flex-col bg-[url(/landing-page-hero.png)] bg-cover bg-center"
 	>
 		<div class="absolute inset-0 bg-white/70"></div>
 		<div class="z-30 flex h-full w-full flex-col">
@@ -28,12 +30,106 @@
 	</section>
 
 	<!-- Slogan section -->
-	<section class="bg-beige grid place-items-center p-8 min-h-[50dvh]">
+	<section id="slogan-section" class="bg-beige grid min-h-[50dvh] place-items-center p-8">
 		<p class="font-body text-dark-brown text-center text-2xl">
 			at <span class="font-bold">builtwithhabit,</span><br />our
 			<span class="font-bold">personal training programs</span> and
 			<span class="font-bold">sustainable high-performance activewear</span><br />
 			meet your body where it’s at and supports where it’s going.
 		</p>
+	</section>
+
+	<!-- Mission section -->
+	<section
+		id="mission-section"
+		class="text-dark-brown flex min-h-[calc(100dvh-9rem)] flex-col place-items-center gap-8 bg-white p-16"
+	>
+		<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">
+			our brand mission
+		</h1>
+		<div class="grid grid-cols-[2fr_1fr] gap-8 text-left">
+			<div id="mission-text" class="flex flex-col justify-center gap-4">
+				<p class="font-body text-dark-brown text-2xl">
+					sweat smarter. <span class="font-bold">live stronger.</span>
+				</p>
+				<p class="font-body text-dark-brown text-2xl">
+					at builtwithhabit, we blend science-backed coaching and skin-safe activewear to help you
+					train smarter, feel stronger, and build habits that last.
+				</p>
+				<p class="font-body text-dark-brown text-2xl">
+					on the coaching side, we root things in the basics: resistance training, whole-food
+					nutrition, and sustainable structure, personalised to you. smart, science-backed progress.
+				</p>
+				<p class="font-body text-dark-brown text-2xl">
+					on the activewear front, we’re rethinking apparel from the fiber up. no polyester, no
+					plastic-based coatings, no harmful dyes, no greenwashed gimmicks - just skin-safe fabrics
+					engineered for real performance. from glute-sculpting leggings to high-support bras, our
+					pieces are seamless, sweat-wicking, and intentionally-built for intense motion.
+				</p>
+			</div>
+			<div id="mission-image" class="flex items-center justify-center overflow-hidden rounded-sm">
+				<img
+					src="/headshot.jpg"
+					alt="Headshot of the founder"
+					class="h-full w-full rounded-sm object-cover"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- Pillars section -->
+	<section
+		id="pillars-section"
+		class="text-dark-brown bg-beige flex min-h-[calc(100dvh-9rem)] flex-col place-items-center gap-8 p-16"
+	>
+		<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">our pillars</h1>
+		<div class="grid grid-cols-3 gap-8">
+			{#each config.pillars as pillar}
+				<a href={pillar.href}>
+					<div class="flex flex-col gap-4 rounded-sm bg-white p-4 shadow-md transition-all duration-300 hover:scale-105">
+						<h2 class="font-headings text-dark-brown text-4xl font-bold tracking-wide">
+							{pillar.title}
+						</h2>
+						<div class="flex aspect-video items-center justify-center overflow-hidden rounded-sm">
+							<img src={pillar.img.src} alt={pillar.img.alt} class="h-full w-full object-cover" />
+						</div>
+						<h3 class="font-body text-dark-brown text-2xl font-bold tracking-wide">
+							{pillar.subtitle}
+						</h3>
+						<hr class="border-dark-brown" />
+						<p class="font-body text-dark-brown text-md">{pillar.description}</p>
+					</div>
+				</a>
+			{/each}
+		</div>
+	</section>
+
+	<!-- Waitlist section -->
+	<section
+		id="waitlist-section"
+		class="relative flex min-h-[calc(100dvh-9rem)] w-full flex-col items-center justify-center bg-[url(/activewear-athlete.jpg)] bg-cover bg-center"
+	>
+		<div class="absolute inset-0 bg-white/70"></div>
+		<div class="relative z-10 flex flex-col items-center justify-center gap-8 p-8">
+			<div class="text-center">
+				<p class="font-headings text-dark-brown text-2xl font-bold tracking-wide italic">
+					join our waitlist
+				</p>
+			</div>
+			<div class="text-center">
+				<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">
+					launching soon
+				</h1>
+			</div>
+			<div class="max-w-4xl text-center">
+				<p class="font-body text-dark-brown text-xl font-medium tracking-wide">
+					high-performance, seamless activewear made from natural, skin-safe fibers
+				</p>
+				<p class="font-body text-dark-brown text-xl font-medium tracking-wide">
+					read our <a href="/blog" class="font-bold underline">blog</a> to learn more about our approach
+					to sustainability
+				</p>
+			</div>
+		</div>
 	</section>
 </div>
