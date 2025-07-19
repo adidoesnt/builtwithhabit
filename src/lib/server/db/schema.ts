@@ -185,3 +185,14 @@ export const availabilityOverrides = pgTable(
 		})
 	]
 );
+
+export type ContactFormSubmission = typeof contactFormSubmissions.$inferInsert;
+
+export const contactFormSubmissions = pgTable('contact_form_submissions', {
+	id: serial('id').primaryKey(),
+	firstName: text('first_name').notNull(),
+	lastName: text('last_name').notNull(),
+	email: text('email').notNull(),
+	subject: text('subject').notNull(),
+	message: text('message').notNull(),
+});
