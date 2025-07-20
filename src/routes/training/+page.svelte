@@ -3,7 +3,7 @@
 	import type { PageServerData } from './$types';
 
 	const { data }: { data: PageServerData } = $props();
-	const { packages } = data;
+	const { packages, testimonials } = data;
 </script>
 
 <div class="flex h-fit w-full flex-col">
@@ -23,7 +23,7 @@
 				</p>
 				<p class="font-body text-dark-brown text-lg">
 					our approach blends science-backed training, whole-food nutrition, and mindful living.
-					with a background in life sciences, i’m personally passionate about cutting through
+					with a background in life sciences, i'm personally passionate about cutting through
 					misinformation and using evidence-based practices to create personalised, sustainable
 					fitness plans. at builtwithhabit, we believe that food should be both nourishing and
 					enjoyable, and we love helping clients discover high-protein, nutrient-dense meals that
@@ -98,7 +98,7 @@
 					session.
 				</p>
 				<p class="font-body text-dark-brown text-lg">
-					training isn’t just about what you do in the gym. that’s why we integrate nutritional
+					training isn't just about what you do in the gym. that's why we integrate nutritional
 					guidance (focused on whole foods, high-protein, non-restrictive eating), sleep hygiene
 					tips, and recovery practices.
 				</p>
@@ -117,7 +117,7 @@
 	<!-- Packages Section -->
 	<section
 		id="packages-section"
-		class="flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 bg-white p-16"
+		class="flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 bg-beige-50 p-16"
 	>
 		<h1 class="font-headings text-dark-brown text-center text-5xl font-bold tracking-wide">
 			our packages
@@ -125,7 +125,7 @@
 		<div id="packages-grid" class="grid grid-cols-2 gap-8">
 			<div id="packages-grid-left" class="flex flex-col justify-center gap-4">
 				<p class="font-body text-dark-brown text-lg">
-					whether you’re new to strength training or looking to level up your current routine, we
+					whether you're new to strength training or looking to level up your current routine, we
 					offer a range of personal training options that are individualised, holistic, and grounded
 					in science.
 				</p>
@@ -137,12 +137,137 @@
 		</div>
 	</section>
 
-	<!-- TODO: Add testimonials section -->
+	<!-- Testimonials Section -->
+	<section
+		id="testimonials-section"
+		class="bg-beige flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 p-16"
+	>
+		<div class="mb-8 text-center">
+			<h2 class="font-headings text-dark-brown mb-4 text-3xl font-bold md:text-5xl">
+				what our clients say
+			</h2>
+			<p class="font-body text-light-brown mx-auto max-w-3xl">
+				real stories from women who have transformed their relationship with fitness through our
+				personalised approach.
+			</p>
+		</div>
+
+		<!-- Mobile Testimonials -->
+		<div class="flex flex-col gap-4 md:hidden">
+			{#each testimonials as testimonial}
+				<div class="flex h-auto w-full">
+					<div class="flex h-full w-96 flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
+						<div class="flex items-center">
+							<div
+								class="bg-light-green mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+							>
+								<div
+									class="text-dark-brown bg-beige font-body flex aspect-square h-full w-full items-center justify-center rounded-full font-bold shadow-md"
+								>
+									{(testimonial.name as string)
+										.split(' ')
+										.map((name: string) => name[0])
+										.join('')}
+								</div>
+							</div>
+							<div class="overflow-hidden">
+								<h3 class="font-body text-dark-brown truncate font-semibold">{testimonial.name}</h3>
+								<p class="font-body text-light-brown truncate text-sm">{testimonial.role}</p>
+							</div>
+						</div>
+
+						<div class="mt-2 flex">
+							{#each Array(5) as _, i}
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-5 w-5 {i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}"
+									viewBox="0 0 20 20"
+									fill="currentColor"
+								>
+									<path
+										d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+									/>
+								</svg>
+							{/each}
+						</div>
+
+						<p class="font-body text-dark-brown mb-4 italic">
+							"{testimonial.content}"
+						</p>
+					</div>
+				</div>
+			{/each}
+		</div>
+
+		<!-- Desktop Testimonials -->
+		<div class="hidden md:flex md:flex-1 md:flex-col md:justify-center">
+			<div class="relative mb-8">
+				<div
+					class="from-beige absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r to-transparent"
+				></div>
+				<div
+					class="from-beige absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l to-transparent"
+				></div>
+
+				<div class="overflow-hidden">
+					<div class="flex w-full items-stretch justify-center overflow-x-auto">
+						{#each testimonials as testimonial}
+							<div class="mx-4 flex min-h-[300px] flex-none">
+								<div class="flex h-full w-96 flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
+									<div class="flex items-center">
+										<div
+											class="bg-light-green mr-4 flex h-12 w-12 items-center justify-center rounded-full"
+										>
+											<div
+												class="text-dark-brown bg-beige font-body flex aspect-square h-full w-full items-center justify-center rounded-full font-bold shadow-md"
+											>
+												{(testimonial.name as string)
+													.split(' ')
+													.map((name: string) => name[0])
+													.join('')}
+											</div>
+										</div>
+										<div class="overflow-hidden">
+											<h3 class="font-body text-dark-brown truncate font-semibold">
+												{testimonial.name}
+											</h3>
+											<p class="font-body text-light-brown truncate text-sm">{testimonial.role}</p>
+										</div>
+									</div>
+
+									<div class="mt-2 flex">
+										{#each Array(5) as _, i}
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="h-5 w-5 {i < testimonial.rating
+													? 'text-yellow-400'
+													: 'text-gray-300'}"
+												viewBox="0 0 20 20"
+												fill="currentColor"
+											>
+												<path
+													d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+												/>
+											</svg>
+										{/each}
+									</div>
+
+									<p class="font-body text-dark-brown mb-4 italic">
+										"{testimonial.content}"
+									</p>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<!-- Bookings Section -->
 	<section
 		id="bookings-section"
-		class="bg-beige flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 p-16"
+		class="flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 bg-beige-50 p-16"
 	>
 		<h1 class="font-headings text-dark-brown text-center text-5xl font-bold tracking-wide">
 			our bookings

@@ -127,7 +127,7 @@
 		{#each packages as plan, index}
 			<div
 				id={`plan-${index}`}
-				class={`${altColors ? 'bg-beige' : 'bg-gray-100'} relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-xl transition-transform duration-300 ${
+				class={`${altColors ? 'bg-beige' : 'bg-white'} relative flex w-full flex-shrink-0 flex-col items-center gap-8 rounded-lg p-6 pt-8 shadow-xl transition-transform duration-300 ${
 					index === activeIndex ? 'opacity-100' : 'opacity-70'
 				} md:opacity-100 md:hover:scale-105`}
 			>
