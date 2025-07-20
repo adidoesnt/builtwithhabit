@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PackagesTable } from '$lib/components';
+	import { Packages, PackagesTable } from '$lib/components';
 	import type { PageServerData } from './$types';
 
 	const { data }: { data: PageServerData } = $props();
@@ -134,6 +134,29 @@
 				</p>
 			</div>
 			<PackagesTable {packages} />
+		</div>
+	</section>
+
+	<!-- TODO: Add testimonials section -->
+
+	<!-- Bookings Section -->
+	<section
+		id="bookings-section"
+		class="bg-beige flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 p-16"
+	>
+		<h1 class="font-headings text-dark-brown text-center text-5xl font-bold tracking-wide">
+			our bookings
+		</h1>
+		<Packages {packages} />
+		<!-- TODO: pre-fill contact form -->
+		<div class="flex flex-col items-center justify-center gap-4">
+			<p class="font-body text-dark-brown text-lg">have questions?</p>
+			<a
+				href="/contact"
+				class="font-body bg-dark-brown text-beige hover:bg-dark-brown/80 flex w-fit self-center rounded-md px-4 py-2 text-center text-lg transition-all duration-300 hover:scale-105"
+			>
+				book a free consultation call
+			</a>
 		</div>
 	</section>
 </div>

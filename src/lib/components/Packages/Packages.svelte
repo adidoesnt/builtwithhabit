@@ -107,13 +107,7 @@
 	};
 </script>
 
-<section
-	id="pricing"
-	class={`${altColors ? 'bg-light-brown' : 'bg-beige'} flex min-h-[100dvh] flex-col items-center justify-center gap-4 px-8 py-16 md:gap-8`}
->
-	<h2 class="font-headings text-dark-brown text-center text-3xl font-bold md:text-5xl">
-		{pricing.title}
-	</h2>
+<div>
 	{#if description}
 		<div class="flex flex-col items-center justify-center gap-2 md:gap-0">
 			{#each description.split('.') as sentence, index}
@@ -202,4 +196,4 @@
 			>
 		</div>
 	{/if}
-</section>
+</div>
