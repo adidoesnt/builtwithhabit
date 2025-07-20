@@ -88,25 +88,25 @@ const sidebarRoutes = {
 				label: 'Home',
 				href: '/'
 			},
-			blog: {
-				label: 'Blog',
-				href: '/blog'
-			},
-			signup: {
-				label: 'Sign Up',
-				href: '/training/signup'
-			},
-			login: {
-				label: 'Login',
-				href: '/training/login'
-			},
 			about: {
 				label: 'About',
 				href: '/about'
 			},
-			packages: {
-				label: 'Packages',
-				href: '#pricing'
+			blog: {
+				label: 'Blog',
+				href: '/blog'
+			},
+			training: {
+				label: 'Training',
+				href: '/training'
+			},
+			activewear: {
+				label: 'Activewear',
+				href: '/activewear'
+			},
+			contact: {
+				label: 'Contact Us',
+				href: '/contact'
 			}
 		}
 	},

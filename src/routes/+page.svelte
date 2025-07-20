@@ -78,9 +78,10 @@
 		<div class="absolute inset-0 bg-white/70"></div>
 		<div class="relative z-10 flex flex-col items-center justify-center gap-8 p-8">
 			<div class="text-center">
-				<p class="font-headings text-dark-brown text-2xl font-bold tracking-wide italic">
+				<!-- TODO: pre-fill contact form -->
+				<a href="/contact" class="font-headings text-dark-brown text-2xl font-bold tracking-wide italic">
 					join our waitlist
-				</p>
+				</a>
 			</div>
 			<div class="text-center">
 				<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">

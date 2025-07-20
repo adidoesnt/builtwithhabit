@@ -3,22 +3,25 @@
 </script>
 
 <div class="flex h-fit w-full flex-col">
-	<section id="hero-section" class="bg-white flex min-h-[calc(100dvh-12rem)] w-full flex-col">
-		<div class="flex w-full flex-col items-center justify-center p-8 gap-8">
-			<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">
-                our why
-            </h1>
+	<section id="hero-section" class="flex min-h-[calc(100dvh-12rem)] w-full flex-col bg-white">
+		<div class="flex w-full flex-col items-center justify-center gap-8 p-8">
+			<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">our why</h1>
 			<div class="grid grid-cols-[1fr_2fr] gap-8 text-left">
-				<div id="why-image" class="flex items-center justify-center overflow-hidden rounded-sm flex-col gap-4">
+				<div
+					id="why-image"
+					class="flex flex-col items-center justify-center gap-4 overflow-hidden rounded-sm"
+				>
 					<img
 						src="/training-image-1.jpg"
 						alt="Founder at the beach"
-						class="h-full w-full rounded-sm object-cover aspect-[8/9]"
+						class="aspect-[8/9] h-full w-full rounded-sm object-cover"
 					/>
-                    <!-- TODO: Find the correct HREF -->
-                    <a href="/" class="font-body bg-light-brown text-beige p-2 px-4 rounded-md text-lg hover:opacity-70 transition-all duration-300">
-                        learn more about my journey!
-                    </a>
+					<a
+						href="/blog"
+						class="font-body bg-dark-brown text-beige hover:bg-dark-brown/80 flex w-fit self-center rounded-md px-4 py-2 text-center text-xl transition-all duration-300 hover:scale-105"
+					>
+						learn more about my journey!
+					</a>
 				</div>
 				<div id="why-text" class="flex flex-col justify-center gap-4">
 					<p class="font-body text-dark-brown text-2xl">
@@ -46,6 +49,6 @@
 		</div>
 	</section>
 
-    <!-- Mission section -->
-    <Mission background="bg-beige" />
+	<!-- Mission section -->
+	<Mission background="bg-beige" />
 </div>
