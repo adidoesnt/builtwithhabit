@@ -1,142 +1,45 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import LogoHeader from '$lib/components/LogoHeader.svelte';
+	import { Logo } from '$lib/icons';
 	import config from '$lib/config';
-	import InstagramIcon from '$lib/icons/Instagram.svelte';
-	import MobileIcon from '$lib/icons/Mobile.svelte';
-	import EmailIcon from '$lib/icons/Email.svelte';
-	import Packages from '$lib/components/Packages/Packages.svelte';
-	import type { PageServerData } from './$types';
-	import { user } from '$lib/stores/auth';
-	// import Testimonials from '$lib/components/Testimonials/Testimonials.svelte';
-
-	const { splitDescription, mission, contact, pricing } = config.site;
-	const { data }: { data: PageServerData } = $props();
-	const { packages } = data;
-	const isAuthenticated = $derived(!!user);
-
-	const onclick = () => {
-		if (isAuthenticated) {
-			goto('/training/dashboard');
-		} else {
-			goto('/training/login');
-		}
-	};
-	const scrollToPricing = () => {
-		document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-	};
-
-	const scrollToAbout = () => {
-		document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-	};
-
-	const scrollToMission = () => {
-		document.getElementById('mission')?.scrollIntoView({ behavior: 'smooth' });
-	};
+	import { Mission } from '$lib/components';
 </script>
 
-<section
-	class="relative flex h-[100dvh] min-h-fit w-full flex-col items-center justify-center bg-[url(/hut-with-mountains-3.jpg)] bg-cover bg-center backdrop-blur-sm"
->
-	<div class="absolute inset-0 backdrop-blur-sm"></div>
-	<button
-		{onclick}
-		id="container"
-		class="bg-beige relative z-20 m-4 flex cursor-pointer flex-col items-center justify-center gap-4 rounded-sm p-8 shadow-2xl transition-all duration-300 hover:scale-110 hover:animate-[pulse_3s_ease-in-out_infinite]"
+<div class="flex h-fit w-full flex-col">
+	<!-- Training Philosophy Section -->
+	<section
+		id="training-philosophy-section"
+		class="flex min-h-[calc(100dvh-12rem)] w-full flex-col bg-white p-16 gap-8 justify-center"
 	>
-		<LogoHeader />
-		<p class="font-body text-dark-brown text-lg">
-			<span class="text-dark-brown">{splitDescription[0]}</span>
-			<span class="text-light-brown">{splitDescription[1]}</span>
-			<span class="text-dark-brown">{splitDescription[2]}</span>
-		</p>
-	</button>
-	<button
-		class="font-body bg-dark-brown text-beige relative z-10 mt-4 rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80"
-		onclick={scrollToAbout}
-	>
-		Learn More
-	</button>
-</section>
-
-<section id="about" class="min-h-fit w-full md:h-[100dvh]">
-	<div id="contact" class="h-fit min-h-[100dvh] w-full md:grid md:grid-cols-2 md:grid-rows-1">
-		<div
-			class="bg-light-green flex h-full min-h-[100dvh] w-full flex-col items-center justify-center gap-6 p-8 md:gap-10"
-		>
-			<img
-				src={contact.image}
-				alt={contact.name}
-				class="h-60 w-60 rounded-sm shadow-xl md:h-72 md:w-72"
-			/>
-			<div class="flex flex-col text-center">
-				<h2 class="font-headings text-dark-brown text-4xl font-semibold">{contact.name}</h2>
-				<p class="font-body text-dark-brown">{contact.tagline}</p>
+		<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide text-center">
+			our training philosophy
+		</h1>
+		<div id="training-grid" class="grid grid-cols-[2fr_1fr] gap-8 text-left">
+			<div id="training-grid-left" class="flex flex-col justify-center gap-4">
+				<p class="font-body text-dark-brown text-2xl">
+					we truly believe strength training is one of the most powerful tools for women of all ages
+					to build confidence, longevity, and resilience.
+				</p>
+				<p class="font-body text-dark-brown text-2xl">
+					our approach blends science-backed training, whole-food nutrition, and mindful living.
+					with a background in life sciences, i’m personally passionate about cutting through
+					misinformation and using evidence-based practices to create personalised, sustainable
+					fitness plans. at builtwithhabit, we believe that food should be both nourishing and
+					enjoyable, and we love helping clients discover high-protein, nutrient-dense meals that
+					fuel their goals without restriction.
+				</p>
+				<p class="font-body text-dark-brown text-2xl">
+					most importantly, we work closely with each client to understand what feels right for
+					their body. this enables us to create tailored programs that empower you to feel strong,
+					healthy, and capable - at any stage of life.
+				</p>
 			</div>
-			<div class="bg-beige flex flex-col gap-6 rounded-sm p-4 px-12 shadow-2xl">
-				<h1 class="font-headings text-dark-brown flex self-center text-xl font-semibold">
-					Contact
-				</h1>
-				<div class="flex flex-col gap-2">
-					<div class="flex items-center gap-2">
-						<MobileIcon width="24" height="24" href={`tel:${contact.phone}`} />
-						<p class="font-body text-dark-brown">{contact.phone}</p>
-					</div>
-					<div class="flex items-center gap-2">
-						<EmailIcon width="24" height="24" href={`mailto:${contact.email}`} />
-						<p class="font-body text-dark-brown">{contact.email}</p>
-					</div>
-					<div class="flex items-center gap-2">
-						<InstagramIcon width="24" height="24" href={contact.instagram.link} />
-						<p class="font-body text-dark-brown">{contact.instagram.handle}</p>
-					</div>
-				</div>
-				<button
-					class="font-body bg-dark-brown text-beige hidden w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:flex"
-					onclick={scrollToPricing}>{contact.callToAction}</button
-				>
-				<button
-					class="font-body bg-dark-brown text-beige flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
-					onclick={scrollToMission}>{contact.viewMission}</button
-				>
+			<div id="training-image" class="flex items-center justify-center overflow-hidden rounded-sm">
+				<img
+					src="/training-image-2.png"
+					alt="Founder in the gym"
+					class="h-full w-full rounded-sm aspect-[7/8] object-cover"
+				/>
 			</div>
 		</div>
-		<div
-			id="mission"
-			class="bg-beige flex h-fit min-h-[100dvh] w-full flex-col justify-center gap-6 p-8 md:h-auto md:gap-8 md:p-24"
-		>
-			<div class="flex flex-col">
-				{#each mission.title as title}
-					<h2 class="font-headings text-dark-brown text-3xl font-semibold md:text-5xl">{title}</h2>
-				{/each}
-			</div>
-			{#each mission.content as content}
-				<p class="font-body text-dark-brown text-md md:text-xl">{content}</p>
-			{/each}
-			<p class="font-body text-dark-brown text-md md:text-xl">
-				<a class="underline transition-all duration-300 hover:opacity-50" href="/about-me"
-					>Click here</a
-				> to learn more about me, my mission, and what to expect from my training sessions.
-			</p>
-			<p class="font-body text-dark-brown text-md md:text-xl">
-				Alternatively,
-				<a
-					class="underline transition-all duration-300 hover:opacity-50"
-					target="_blank"
-					rel="noopener noreferrer"
-					href={config.site.flyer.url}>click here</a
-				> to view my flyer that summarises my services and offerings.
-			</p>
-			<button
-				class="font-body bg-dark-brown text-beige mt-8 flex w-fit self-center rounded-sm p-2 px-4 transition-all duration-300 hover:scale-110 hover:opacity-80 md:hidden"
-				onclick={scrollToPricing}>{contact.callToAction}</button
-			>
-		</div>
-	</div>
-</section>
-
-<!-- TODO: Add back after getting testimonial content -->
-<!-- <Packages {packages} showTestimonialsButton /> -->
-<Packages {packages} altColors showLearnMoreLink />
-
-<!-- <Testimonials /> -->
+	</section>
+</div>
