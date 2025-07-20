@@ -12,9 +12,7 @@
 </script>
 
 <div class="bg-beige min-h-[100dvh] p-8">
-	<div class="mx-auto max-w-4xl">
-		<LogoHeader />
-
+	<div class="mx-auto max-w-5xl">
 		<div class="mt-8 rounded-lg bg-white p-8 shadow-md">
 			<div class="flex flex-col">
 				<h1 class="font-headings text-dark-brown text-3xl font-bold md:text-5xl">

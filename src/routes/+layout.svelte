@@ -33,29 +33,29 @@
 	});
 </script>
 
-{#if navigating.complete}
-	<div
-		class="bg-opacity-30 bg-background fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
-	>
-		<div class="rounded-lg bg-white p-6 shadow-xl">
-			<div class="flex flex-col items-center">
-				<div
-					class="border-light-green border-t-dark-brown h-12 w-12 animate-spin rounded-full border-4"
-				></div>
-				<p class="font-body text-dark-brown mt-4 text-lg">Loading...</p>
-			</div>
-		</div>
-	</div>
-{/if}
-
 <div class="bg-dark-brown font-old-standard min-h-[100dvh grid grid-rows-[auto_1fr]">
 	<Header routes={data.sidebarRoutes} />
 
-	<main class="flex-grow">
-		{@render children()}
+	{#if navigating.complete}
+		<div
+			class="bg-opacity-30 bg-background fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+		>
+			<div class="rounded-lg bg-white p-6 shadow-xl">
+				<div class="flex flex-col items-center">
+					<div
+						class="border-light-green border-t-dark-brown h-12 w-12 animate-spin rounded-full border-4"
+					></div>
+					<p class="font-body text-dark-brown mt-4 text-lg">Loading...</p>
+				</div>
+			</div>
+		</div>
+	{:else}
+		<main class="flex-grow">
+			{@render children()}
 
-		{#if showFooter}
-			<Footer routes={data.sidebarRoutes} />
-		{/if}
-	</main>
+			{#if showFooter}
+				<Footer routes={data.sidebarRoutes} />
+			{/if}
+		</main>
+	{/if}
 </div>

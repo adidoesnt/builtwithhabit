@@ -5,6 +5,7 @@ export type Post = {
     description?: string;
     content?: string;
     keywords?: string[];
+    thumbnail?: string;
     author: {
         name: string;
     };
