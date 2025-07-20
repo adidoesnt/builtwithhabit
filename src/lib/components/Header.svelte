@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Cart, Profile, Search } from '$lib/icons';
 	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 
 	let search = $state('');
 	function handleSearch(e: Event) {
@@ -77,9 +78,14 @@
 			>
 				<Cart width={28} height={28} color="#262626" />
 			</button>
+			<!-- TODO: Fix profile icon implementation -->
 			<button
 				class="hover:bg-light-brown/10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300"
 				aria-label="Profile"
+				onclick={async () => {
+					await fetch('/training/logout');
+					goto('/');
+				}}
 			>
 				<Profile width={28} height={28} color="#262626" />
 			</button>

@@ -5,7 +5,7 @@
 	import Back from '$lib/icons/Back.svelte';
 	import type { PageServerData } from './$types';
 	import PackagesAccordion from './components/PackagesAccordion.svelte';
-	import PackagesTable from './components/PackagesTable.svelte';
+	import PackagesTable from '../../../../lib/components/Packages/PackagesTable.svelte';
 
 	const {
 		packages: { learnMore }
