@@ -200,7 +200,7 @@
 	<div
 		id="hamburger-menu-container"
 		use:portal={'body'}
-		class="bg-beige fixed top-0 right-0 z-50 flex h-[100dvh] w-[100dvw] items-center justify-center"
+		class="bg-beige fixed top-0 right-0 z-50 flex h-[100dvh] w-full items-center justify-center"
 		class:hidden={!isHamburgerMenuOpen}
 	>
 		<div class="absolute top-0 right-0 left-0 flex justify-between p-4 items-center">

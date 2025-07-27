@@ -9,6 +9,6 @@
 	const { packages } = data;
 </script>
 
-<div class="flex bg-beige min-h-[calc(100dvh-8rem)] md:min-h-[calc(100dvh-12rem)] w-[100dvw] flex-col items-center justify-center md:p-4">
+<div class="flex bg-beige min-h-[calc(100dvh-8rem)] md:min-h-[calc(100dvh-12rem)] w-full flex-col items-center justify-center md:p-4">
 	<Packages {description} {packages} showReschedulingInfo />
 </div>

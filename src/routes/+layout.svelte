@@ -33,7 +33,7 @@
 	});
 </script>
 
-<div class="bg-dark-brown font-old-standard min-h-[100dvh] w-[100dvw] grid grid-rows-[auto_1fr]">
+<div class="bg-dark-brown font-old-standard min-h-[100dvh] w-full grid grid-rows-[auto_1fr]">
 	<Header routes={data.sidebarRoutes} />
 
 	{#if navigating.complete}

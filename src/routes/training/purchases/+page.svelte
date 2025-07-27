@@ -20,7 +20,7 @@
 	};
 </script>
 
-<div class="bg-beige font-body text-dark-brown min-h-[100dvh] p-4 md:p-8 w-[100dvw]">
+<div class="bg-beige font-body text-dark-brown min-h-[100dvh] p-4 md:p-8 w-full">
 	<div class="mx-auto max-w-6xl">
 		<div class="mt-6 mb-8">
 			<h1 class="text-dark-brown text-2xl font-bold">Your Purchases</h1>
