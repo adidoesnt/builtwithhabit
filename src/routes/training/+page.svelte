@@ -51,11 +51,11 @@
 		<!-- Desktop layout: original side-by-side grid -->
 		<div id="training-grid" class="hidden grid-cols-[2fr_1fr] gap-8 text-left md:grid">
 			<div id="training-grid-left" class="flex flex-col justify-center gap-4">
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					we truly believe strength training is one of the most powerful tools for women of all ages
 					to build confidence, longevity, and resilience.
 				</p>
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					our approach blends science-backed training, whole-food nutrition, and mindful living.
 					with a background in life sciences, i'm personally passionate about cutting through
 					misinformation and using evidence-based practices to create personalised, sustainable
@@ -63,7 +63,7 @@
 					enjoyable, and we love helping clients discover high-protein, nutrient-dense meals that
 					fuel their goals without restriction.
 				</p>
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					most importantly, we work closely with each client to understand what feels right for
 					their body. this enables us to create tailored programs that empower you to feel strong,
 					healthy, and capable - at any stage of life.
@@ -155,7 +155,7 @@
 		<!-- Desktop layout: original side-by-side grid -->
 		<div id="approach-grid" class="hidden grid-cols-2 gap-16 text-left md:grid">
 			<div id="approach-grid-left" class="flex flex-col justify-center gap-8">
-				<p class="font-body text-dark-brown text-center text-lg">
+				<p class="font-body text-dark-brown text-center text-2xl">
 					our training sessions are structured around <span class="font-bold">three pillars</span>:
 				</p>
 				<ul class="flex list-inside list-none flex-col gap-2">
@@ -163,7 +163,7 @@
 						<p class="font-body text-dark-brown text-center text-xl font-bold">
 							flexibility & mobility
 						</p>
-						<p class="font-body text-dark-brown text-lg">
+						<p class="font-body text-dark-brown text-xl">
 							improving joint health and range of motion
 						</p>
 					</li>
@@ -171,7 +171,7 @@
 						<p class="font-body text-dark-brown text-center text-xl font-bold">
 							muscular conditioning
 						</p>
-						<p class="font-body text-dark-brown text-lg">
+						<p class="font-body text-dark-brown text-xl">
 							building functional strength and endurance
 						</p>
 					</li>
@@ -179,7 +179,7 @@
 						<p class="font-body text-dark-brown text-center text-xl font-bold">
 							cardiovascular capacity
 						</p>
-						<p class="font-body text-dark-brown text-lg">enhancing stamina and aerobic health</p>
+						<p class="font-body text-dark-brown text-xl">enhancing stamina and aerobic health</p>
 					</li>
 				</ul>
 				<!-- TODO: pre-fill contact form -->
@@ -191,22 +191,22 @@
 				</a>
 			</div>
 			<div id="approach-grid-right" class="flex flex-col justify-center gap-4">
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					before we add intensity, we lay the groundwork: teaching form, correcting posture, and
 					making you feel confident in how you move. we take a very hands-on approach - offering
 					real-time demonstrations, verbal cues, and consistent encouragement throughout our
 					session.
 				</p>
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					training isn't just about what you do in the gym. that's why we integrate nutritional
 					guidance (focused on whole foods, high-protein, non-restrictive eating), sleep hygiene
 					tips, and recovery practices.
 				</p>
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					whether your goal is hypertrophy, fat loss, or overall wellness, we work together to
 					create a routine that aligns with your lifestyle - not against it.
 				</p>
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					our aim is to equip you with the knowledge and tools to feel empowered in your own skin -
 					at every age and stage.
 				</p>
@@ -249,12 +249,12 @@
 		<!-- Desktop layout: original side-by-side grid -->
 		<div id="packages-grid" class="hidden grid-cols-2 gap-8 md:grid">
 			<div id="packages-grid-left" class="flex flex-col justify-center gap-4">
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					whether you're new to strength training or looking to level up your current routine, we
 					offer a range of personal training options that are individualised, holistic, and grounded
 					in science.
 				</p>
-				<p class="font-body text-dark-brown text-lg">
+				<p class="font-body text-dark-brown text-2xl">
 					the table outlines the <span class="font-bold">key details of each package</span>.
 				</p>
 			</div>
@@ -271,7 +271,7 @@
 			<h2 class="font-headings text-dark-brown mb-4 text-3xl font-bold md:text-5xl">
 				what our clients say
 			</h2>
-			<p class="font-body text-light-brown mx-auto max-w-3xl">
+			<p class="font-body text-light-brown mx-auto max-w-3xl text-lg md:text-2xl">
 				real stories from women who have transformed their relationship with fitness through our
 				personalised approach.
 			</p>
@@ -353,10 +353,12 @@
 											</div>
 										</div>
 										<div class="overflow-hidden">
-											<h3 class="font-body text-dark-brown truncate font-semibold">
+											<h3 class="font-body text-dark-brown truncate font-semibold text-md md:text-xl">
 												{testimonial.name}
 											</h3>
-											<p class="font-body text-light-brown truncate text-sm">{testimonial.role}</p>
+											<p class="font-body text-light-brown truncate text-md md:text-xl">
+												{testimonial.role}
+											</p>
 										</div>
 									</div>
 
@@ -377,7 +379,7 @@
 										{/each}
 									</div>
 
-									<p class="font-body text-dark-brown mb-4 italic">
+									<p class="font-body text-dark-brown mb-4 italic text-md md:text-xl">
 										"{testimonial.content}"
 									</p>
 								</div>
