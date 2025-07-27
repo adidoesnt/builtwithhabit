@@ -53,6 +53,7 @@
 		"nodemailer": "^7.0.5",
 		"postgres": "^3.4.5",
 		"stripe": "^18.0.0",
+		"svelte-portal": "^2.2.1",
 		"zod": "^3.24.2"
 	}
 }
