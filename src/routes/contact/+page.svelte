@@ -75,8 +75,29 @@
 </script>
 
 <div class="flex h-fit w-full flex-col">
-	<section class="bg-beige grid min-h-[calc(100dvh-12rem)] w-full grid-cols-2 flex-col p-8">
-		<div id="contact-grid-left" class="flex flex-col items-start justify-center gap-16 p-8">
+	<section
+		class="bg-beige grid min-h-[calc(100dvh-12rem)] w-full flex-col p-4 md:grid-cols-2 md:p-8"
+	>
+		<!-- Mobile layout: vertical stack -->
+		<div class="flex flex-col gap-8 p-4 md:hidden">
+			<div class="flex flex-col gap-4">
+				<h1 class="font-headings text-dark-brown text-3xl font-bold tracking-wide md:text-5xl">
+					contact us
+				</h1>
+				<p class="font-body text-dark-brown text-lg md:text-2xl">we'd love to hear from you!</p>
+				<p class="font-body text-dark-brown text-lg md:text-2xl">
+					whether you have any questions about our blog, personal training services, upcoming
+					activewear collection, or brand collaborations and partnerships, or just want to say hello
+					and share any feedback, please feel free to reach out.
+				</p>
+			</div>
+		</div>
+
+		<!-- Desktop layout: left side -->
+		<div
+			id="contact-grid-left"
+			class="hidden flex-col items-start justify-center gap-16 p-8 md:flex"
+		>
 			<div class="flex flex-col gap-2">
 				<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">contact us</h1>
 				<p class="font-body text-dark-brown text-2xl">we'd love to hear from you!</p>
@@ -88,7 +109,7 @@
 			</div>
 			<div class="flex flex-col gap-4">
 				<h1 class="font-headings text-dark-brown text-5xl font-bold tracking-wide">
-					let’s connect on socials
+					let's connect on socials
 				</h1>
 				<div class="flex gap-8">
 					<Instagram width={40} height={40} />
@@ -98,10 +119,12 @@
 				</div>
 			</div>
 		</div>
-		<div id="contact-grid-right" class="flex flex-col items-center justify-center">
+
+		<!-- Form section - mobile and desktop -->
+		<div id="contact-grid-right" class="flex flex-col items-center justify-center p-4 md:p-0">
 			<form
 				id="contact-form-card"
-				class="flex flex-col gap-4 rounded-sm bg-white p-8 shadow-md"
+				class="flex w-full max-w-md flex-col gap-4 rounded-sm bg-white p-4 shadow-md md:max-w-none md:p-8"
 				method="POST"
 				use:enhance={({ formData }) => {
 					isLoading = true;
@@ -113,7 +136,7 @@
 				}}
 			>
 				<div id="contact-form-body" class="flex flex-col gap-4">
-					<div id="name-fields" class="flex gap-4">
+					<div id="name-fields" class="flex flex-col gap-4 md:flex-row">
 						<div class="flex flex-col gap-2">
 							<label for="firstName" class="font-body text-dark-brown text-lg font-bold"
 								>first name</label
@@ -181,7 +204,7 @@
 							id="message"
 							name="message"
 							class="font-body text-dark-brown border-dark-brown focus:ring-dark-brown rounded-sm border-[1px] p-2 text-lg focus:ring-2 focus:outline-none"
-							rows={10}
+							rows={8}
 							placeholder="type your message here..."
 							bind:value={formValues.message}
 						></textarea>
@@ -227,6 +250,19 @@
 					{/if}
 				</div>
 			</form>
+		</div>
+
+		<!-- Mobile social section - at the bottom -->
+		<div class="flex flex-col gap-4 p-4 md:hidden">
+			<h1 class="font-headings text-dark-brown text-center text-3xl font-bold tracking-wide">
+				let's connect on socials
+			</h1>
+			<div class="flex justify-center gap-6">
+				<Instagram width={32} height={32} />
+				<Linkedin width={32} height={32} />
+				<Pinterest width={32} height={32} />
+				<Tiktok width={32} height={32} />
+			</div>
 		</div>
 	</section>
 </div>
