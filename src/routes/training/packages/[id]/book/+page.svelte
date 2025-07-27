@@ -96,8 +96,6 @@
 
 <div class="bg-beige min-h-[100dvh] p-4 md:p-8">
 	<div class="mx-auto max-w-4xl">
-		<LogoHeader />
-
 		<div class="mt-8 mb-8 text-center md:text-start">
 			<div class="flex flex-col md:flex-row md:items-center md:justify-between">
 				<div>

@@ -86,7 +86,7 @@
 	};
 </script>
 
-<div class="bg-beige min-h-[100dvh] p-8 w-full">
+<div class="bg-beige min-h-[100dvh] max-w-[100dvw] p-8 w-full">
 	<div class="mx-auto max-w-4xl">
 		<div class="mt-8 mb-12 text-center md:text-start">
 			<h1 class="font-body text-dark-brown text-3xl font-bold">

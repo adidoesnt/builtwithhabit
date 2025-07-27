@@ -222,7 +222,7 @@
 						goto(link.href);
 						toggleHamburgerMenu();
 					}}
-					class="font-body text-dark-brown cursor-pointer py-2 text-center text-lg transition-colors"
+					class="font-body text-dark-brown cursor-pointer py-2 text-center text-lg transition-colors lowercase"
 				>
 					{link.label}
 				</button>
