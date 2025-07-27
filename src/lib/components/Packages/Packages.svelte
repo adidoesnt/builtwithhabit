@@ -160,7 +160,7 @@
 		{/each}
 	</div>
 
-	<div class="flex justify-center md:hidden">
+	<div class="flex justify-center md:hidden mt-8">
 		{#each packages as _, index}
 			<button
 				aria-label={`Plan ${index + 1}`}
