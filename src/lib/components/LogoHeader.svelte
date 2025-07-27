@@ -10,7 +10,7 @@
 	const secondaryTextColor = altColors ? 'text-light-olive' : 'text-light-brown';
 </script>
 
-<div class="flex w-full items-center justify-center gap-4 md:w-fit md:gap-8">
+<div class="flex w-fit items-center justify-start gap-4 md:w-fit md:gap-8">
 	{#if linkToHome}
 		<a href="/">
 			<img src={logo} alt="logo" class="h-auto w-16 mix-blend-multiply md:w-20" />

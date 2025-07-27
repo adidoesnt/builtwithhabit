@@ -2,7 +2,6 @@
 	import { Role, user } from '$lib/stores/auth';
 	import config from '$lib/config';
 	import DashboardIcon from '$lib/components/DashboardIcon.svelte';
-	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import type { PageServerData } from './$types';
 	import { formatDate } from '$lib/utils/date';
 	import { formatTime } from '$lib/utils/time';
@@ -87,10 +86,8 @@
 	};
 </script>
 
-<div class="bg-beige min-h-[100dvh] p-8">
+<div class="bg-beige min-h-[100dvh] p-8 w-[100dvw]">
 	<div class="mx-auto max-w-4xl">
-		<LogoHeader />
-
 		<div class="mt-8 mb-12 text-center md:text-start">
 			<h1 class="font-body text-dark-brown text-3xl font-bold">
 				{dashboard.greeting}, {$user?.firstName || 'there'}!

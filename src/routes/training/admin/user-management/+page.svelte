@@ -7,10 +7,8 @@
 	let users = $derived(data.users ?? []);
 </script>
 
-<div class="bg-beige min-h-[100dvh] p-4 md:p-8">
+<div class="bg-beige min-h-[100dvh] p-4 md:p-8 w-[100dvw]">
 	<div class="mx-auto max-w-6xl">
-		<LogoHeader />
-
 		<div class="mt-8 mb-6">
 			<h1 class="font-body text-dark-brown text-2xl font-bold md:text-3xl">User Management</h1>
 			<p class="font-body text-light-brown mt-1">View and manage user accounts</p>

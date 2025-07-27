@@ -8,7 +8,7 @@
 	<!-- Hero Section -->
 	<section
 		id="hero-section"
-		class="flex h-[calc(100dvh-8rem)] md:h-[calc(100dvh-12rem)] w-full flex-col bg-[url(/landing-page-hero.png)] bg-cover bg-center"
+		class="flex h-[calc(100dvh-8rem)] md:h-[calc(100dvh-13rem)] w-full flex-col bg-[url(/landing-page-hero.png)] bg-cover bg-center"
 	>
 		<div class="absolute inset-0 bg-white/70"></div>
 		<div class="z-30 flex h-full w-full flex-col">

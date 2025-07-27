@@ -3,7 +3,6 @@
 	import { PurchaseStatus } from '../payment-intent/types';
 	import { formatDate } from '$lib/utils/date';
 	import { formatTime } from '$lib/utils/time';
-	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import { capitalise } from '$lib/utils/text';
 
 	const { data }: { data: PageData } = $props();
@@ -21,10 +20,8 @@
 	};
 </script>
 
-<div class="bg-beige font-body text-dark-brown min-h-[100dvh] p-4 md:p-8">
+<div class="bg-beige font-body text-dark-brown min-h-[100dvh] p-4 md:p-8 w-[100dvw]">
 	<div class="mx-auto max-w-6xl">
-		<LogoHeader />
-
 		<div class="mt-6 mb-8">
 			<h1 class="text-dark-brown text-2xl font-bold">Your Purchases</h1>
 			<p class="text-light-brown mt-2 text-sm">View and manage your package purchases.</p>

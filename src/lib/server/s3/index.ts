@@ -80,33 +80,35 @@ export const listFilesInDir = async (userId: string, dir?: UserDir) => {
 		response.Contents?.filter((file) => {
 			if (!file.Key) return false;
 			return file.Key !== prefix && file.Key !== `${prefix}/`;
-		}).sort((a, b) => {
-			return (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0);
-		}).map(async (file) => {
-			const fileName = file.Key?.split('/').pop() || '';
-			const isDir = file.Key?.endsWith('/');
+		})
+			.sort((a, b) => {
+				return (b.LastModified?.getTime() ?? 0) - (a.LastModified?.getTime() ?? 0);
+			})
+			.map(async (file) => {
+				const fileName = file.Key?.split('/').pop() || '';
+				const isDir = file.Key?.endsWith('/');
 
-			let url = file.Key ?? null;
-			let deleteUrl = null;
-			if (!isDir && file.Key) {
-				const command = new GetObjectCommand({
-					Bucket: S3_BUCKET_NAME,
-					Key: file.Key
-				});
-				url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-				const deleteCommand = new DeleteObjectCommand({
-					Bucket: S3_BUCKET_NAME,
-					Key: file.Key
-				});
-				deleteUrl = await getSignedUrl(s3Client, deleteCommand, { expiresIn: 3600 });
-			}
+				let url = file.Key ?? null;
+				let deleteUrl = null;
+				if (!isDir && file.Key) {
+					const command = new GetObjectCommand({
+						Bucket: S3_BUCKET_NAME,
+						Key: file.Key
+					});
+					url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+					const deleteCommand = new DeleteObjectCommand({
+						Bucket: S3_BUCKET_NAME,
+						Key: file.Key
+					});
+					deleteUrl = await getSignedUrl(s3Client, deleteCommand, { expiresIn: 3600 });
+				}
 
-			return {
-				name: fileName,
-				url,
-				deleteUrl
-			};
-		}) || []
+				return {
+					name: fileName,
+					url,
+					deleteUrl
+				};
+			}) || []
 	);
 
 	return files;

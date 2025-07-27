@@ -5,7 +5,7 @@
 	import { portal } from 'svelte-portal';
 	import { onMount } from 'svelte';
 	import { user } from '$lib/stores/auth';
-
+	import LogoHeader from './LogoHeader.svelte';
 	let isLoggedIn = $derived(!!$user);
 
 	let search = $state('');
@@ -203,13 +203,16 @@
 		class="bg-beige fixed top-0 right-0 z-50 flex h-[100dvh] w-[100dvw] items-center justify-center"
 		class:hidden={!isHamburgerMenuOpen}
 	>
-		<button
-			class="absolute top-0 right-0 m-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl"
-			aria-label="Close"
-			onclick={toggleHamburgerMenu}
-		>
-			<HamburgerMenuIcon />
-		</button>
+		<div class="absolute top-0 right-0 left-0 flex justify-between p-4 items-center">
+			<LogoHeader />
+			<button
+				class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl"
+				aria-label="Close"
+				onclick={toggleHamburgerMenu}
+			>
+				<HamburgerMenuIcon />
+			</button>
+		</div>
 		<div class="flex flex-col gap-4">
 			{#each links as link}
 				<button

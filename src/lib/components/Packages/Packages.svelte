@@ -107,9 +107,9 @@
 	};
 </script>
 
-<div>
+<div class="flex flex-col items-center justify-center w-full p-4">
 	{#if description}
-		<div class="flex flex-col items-center justify-center gap-2 md:gap-0">
+		<div class="flex flex-col items-center justify-center gap-2 md:gap-0 mb-4">
 			{#each description.split('.') as sentence, index}
 				<p class="font-body text-dark-brown text-md text-left md:text-center md:text-xl">
 					{sentence}{#if index < description.split('.').length - 1}

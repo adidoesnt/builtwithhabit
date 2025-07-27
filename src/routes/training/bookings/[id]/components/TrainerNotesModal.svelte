@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
+
 	const { isOpen, setIsOpen, getPresignedUrlForSave, bookingNotesFileText, isTrainerForBooking } =
 		$props();
 
@@ -13,6 +15,22 @@
 	function handleClose() {
 		setIsOpen(false);
 	}
+
+
+	$effect(() => {
+		if (isOpen) {
+			// disable scroll
+			document.body.style.overflow = 'hidden';
+		} else {
+			// enable scroll
+			document.body.style.overflow = '';
+		}
+	});
+
+	onDestroy(() => {
+		// Clean up
+		document.body.style.overflow = '';
+	});
 
 	async function handleSave() {
 		isLoading = true;

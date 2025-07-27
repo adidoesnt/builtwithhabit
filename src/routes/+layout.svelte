@@ -33,7 +33,7 @@
 	});
 </script>
 
-<div class="bg-dark-brown font-old-standard grid min-h-[100dvh] grid-rows-[auto_1fr]">
+<div class="bg-dark-brown font-old-standard min-h-[100dvh] w-[100dvw] grid grid-rows-[auto_1fr]">
 	<Header routes={data.sidebarRoutes} />
 
 	{#if navigating.complete}
@@ -50,10 +50,12 @@
 			</div>
 		</div>
 	{:else}
-		{@render children()}
+		<main class="flex flex-col w-full">
+			{@render children()}
 
-		{#if showFooter}
-			<Footer routes={data.sidebarRoutes} />
-		{/if}
+			{#if showFooter}
+				<Footer routes={data.sidebarRoutes} />
+			{/if}
+		</main>
 	{/if}
 </div>

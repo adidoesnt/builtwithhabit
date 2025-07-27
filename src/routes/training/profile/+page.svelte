@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { clearUser, user } from '$lib/stores/auth';
-	import LogoHeader from '$lib/components/LogoHeader.svelte';
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
@@ -74,8 +73,6 @@
 
 <div class="bg-beige min-h-[100dvh] p-8">
 	<div class="mx-auto max-w-4xl">
-		<LogoHeader />
-
 		<div class="mt-8 mb-12 text-center md:text-start">
 			<h1 class="font-body text-dark-brown text-3xl font-bold md:text-4xl">Profile</h1>
 			<p class="font-body text-light-brown mt-2">Manage your account details</p>
