@@ -163,7 +163,9 @@
 				onclick={async () => {
 					if (isLoggedIn) {
 						// TODO: Change to a hover menu later
-						await fetch('/training/logout');
+						await fetch('/training/logout', {
+							method: 'POST'
+						});
 						goto('/');
 					} else {
 						goto('/training/login');

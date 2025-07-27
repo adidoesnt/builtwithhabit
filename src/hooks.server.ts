@@ -15,6 +15,10 @@ const isBlogRoute = (pathname: string) => {
 	return pathname.includes('/blog');
 };
 
+const isLogoutRoute = (pathname: string) => {
+	return pathname.includes('/training/logout');
+};
+
 const getIsAuthenticatedRoute = (pathname: string) => {
 	return ![
 		'/training/login',
@@ -56,6 +60,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const isLandingPage = isLandingPageRoute(event.url.pathname);
 	const isBlogPage = isBlogRoute(event.url.pathname);
 	const isChromeDevTools = isChromeDevToolsRoute(event.url.pathname);
+	const isLogoutRequest = isLogoutRoute(event.url.pathname);
 
 	const isPackageBookingRoute = getIsPackageBookingRoute(event.url.pathname);
 
@@ -64,7 +69,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		'/training/payment-intent/webhook'
 	);
 
-	if (isPaymentIntentWebhookRoute || isBlogPage || isChromeDevTools) {
+	if (isPaymentIntentWebhookRoute || isBlogPage || isChromeDevTools || isLogoutRequest) {
 		return resolve(event);
 	}
 
