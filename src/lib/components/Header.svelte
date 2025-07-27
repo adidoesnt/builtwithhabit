@@ -4,6 +4,9 @@
 	import { goto } from '$app/navigation';
 	import { portal } from 'svelte-portal';
 	import { onMount } from 'svelte';
+	import { user } from '$lib/stores/auth';
+
+	let isLoggedIn = $derived(!!$user);
 
 	let search = $state('');
 	function handleSearch(e: Event) {
@@ -158,8 +161,13 @@
 				class="hover:bg-light-brown/10 hidden h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 md:flex"
 				aria-label="Profile"
 				onclick={async () => {
-					await fetch('/training/logout');
-					goto('/');
+					if (isLoggedIn) {
+						// TODO: Change to a hover menu later
+						await fetch('/training/logout');
+						goto('/');
+					} else {
+						goto('/training/login');
+					}
 				}}
 			>
 				<Profile width={28} height={28} color="#262626" />
