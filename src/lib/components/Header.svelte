@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { portal } from 'svelte-portal';
+	import { onMount } from 'svelte';
 
 	let search = $state('');
 	function handleSearch(e: Event) {
@@ -12,9 +13,24 @@
 
 	const { routes } = $props();
 	let isHamburgerMenuOpen = $state(false);
+
 	function toggleHamburgerMenu() {
 		isHamburgerMenuOpen = !isHamburgerMenuOpen;
+
+		// Prevent scrolling when hamburger menu is open
+		if (isHamburgerMenuOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = '';
+		}
 	}
+
+	// Clean up scroll behavior when component is destroyed
+	onMount(() => {
+		return () => {
+			document.body.style.overflow = '';
+		};
+	});
 
 	// Convert routes object to array format and filter for trainers
 	let links = $derived(
@@ -68,7 +84,7 @@
 
 <!-- Promotional banner -->
 <div
-	class="bg-light-brown text-dark-brown z-50 flex items-center justify-center p-2 shadow-md md:h-12 h-16"
+	class="bg-light-brown text-dark-brown z-50 flex h-16 items-center justify-center p-2 shadow-md md:h-12"
 >
 	<!-- Mobile layout: two rows -->
 	<div class="flex flex-col items-center justify-center gap-1 md:hidden">
@@ -101,7 +117,7 @@
 </div>
 
 <header
-	class="bg-beige text-dark-brown sticky top-0 z-50 flex w-full flex-col p-4 shadow-md md:h-36 h-16 justify-center"
+	class="bg-beige text-dark-brown sticky top-0 z-50 flex h-16 w-full flex-col justify-center p-4 shadow-md md:h-36"
 >
 	<!-- Top: Search, logo, cart, profile -->
 	<div class="grid grid-cols-2 items-center md:grid-cols-3">
@@ -180,7 +196,7 @@
 		class:hidden={!isHamburgerMenuOpen}
 	>
 		<button
-			class="absolute top-0 right-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl m-4"
+			class="absolute top-0 right-0 m-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl"
 			aria-label="Close"
 			onclick={toggleHamburgerMenu}
 		>
