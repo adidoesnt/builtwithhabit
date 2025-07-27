@@ -11,9 +11,9 @@
 	};
 </script>
 
-<div class="bg-beige min-h-[100dvh] p-8">
-	<div class="mx-auto max-w-5xl">
-		<div class="mt-8 rounded-lg bg-white p-8 shadow-md">
+<div class="bg-beige flex min-h-[100dvh] flex-col md:p-8">
+	<div class="mx-auto flex max-w-5xl flex-col">
+		<div class="bg-white p-8 shadow-md md:mt-8 md:rounded-lg">
 			<div class="flex flex-col">
 				<h1 class="font-headings text-dark-brown text-3xl font-bold md:text-5xl">
 					{post.title}
@@ -34,6 +34,19 @@
 					{@html post.content}
 				</div>
 			{/if}
+
+			<!-- Back to top link -->
+			<div class="border-light-brown mt-8 flex flex-col gap-2 border-t pt-6">
+				<a
+					href="#top"
+					class="font-body text-dark-brown text-lg underline transition-opacity duration-300 hover:opacity-50"
+				>
+					back to top
+				</a>
+				<a href="/blog" class="font-body text-dark-brown text-lg underline transition-opacity duration-300 hover:opacity-50">
+					back to all posts
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
