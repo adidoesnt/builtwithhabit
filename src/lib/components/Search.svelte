@@ -46,7 +46,7 @@
 <div id="search-container" class="hidden w-full items-center justify-start gap-2 md:flex">
 	<input
 		type="text"
-		placeholder="Search"
+		placeholder="search"
 		class="border-light-brown/25 focus:ring-light-brown/50 font-body placeholder:text-dark-brown/75 text-dark-brown/75 w-1/2 rounded-sm border-[1px] bg-white focus:ring-1"
 		bind:value={
 			() => searchTerm,
