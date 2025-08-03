@@ -90,7 +90,7 @@
 			<a href="/signup" class="underline transition-opacity duration-300 hover:opacity-50"
 				>join our community</a
 			>
-			and enjoy 15% off your first order
+			to stay in the loop
 		</p>
 	</div>
 

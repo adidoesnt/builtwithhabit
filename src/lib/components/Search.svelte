@@ -73,7 +73,7 @@
 {#if debouncedSearchTerm.length > 2}
 	<div
 		id="search-results"
-		class="absolute top-16 left-0 z-50 m-4 max-h-[75dvh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg"
+		class="absolute top-16 left-0 z-50 m-4 max-h-[75dvh] overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg lowercase"
 	>
 		{#await searchResults}
 			<div class="p-6">
