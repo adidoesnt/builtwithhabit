@@ -32,6 +32,10 @@ const sidebarRoutes = {
 				blog: {
 					label: 'Blog',
 					href: '/training/blog'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
 				}
 			},
 			[Role.TRAINER]: {
@@ -54,6 +58,14 @@ const sidebarRoutes = {
 				clients: {
 					label: 'Clients',
 					href: '/training/trainers/[id]/clients'
+				},
+				blog: {
+					label: 'Blog',
+					href: '/blog'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
 				}
 			},
 			[Role.ADMIN]: {
@@ -76,6 +88,10 @@ const sidebarRoutes = {
 				blog: {
 					label: 'Blog',
 					href: '/blog'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
 				},
 				userManagement: {
 					label: 'User Management',
@@ -111,33 +127,91 @@ const sidebarRoutes = {
 		}
 	},
 	[Router.Root]: {
-		unauthenticated: {
-			home: {
-				label: 'Home',
-				href: '/'
+		authenticated: {
+			[Role.USER]: {
+				dashboard: {
+					label: 'Dashboard',
+					href: '/training/dashboard'
+				},
+				profile: {
+					label: 'Profile',
+					href: '/training/profile'
+				},
+				packages: {
+					label: 'Packages',
+					href: '/training/packages'
+				},
+				bookings: {
+					label: 'Bookings',
+					href: '/training/bookings'
+				},
+				blog: {
+					label: 'Blog',
+					href: '/training/blog'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
+				}
 			},
-			about: {
-				label: 'About',
-				href: '/about'
+			[Role.TRAINER]: {
+				dashboard: {
+					label: 'Dashboard',
+					href: '/training/dashboard'
+				},
+				profile: {
+					label: 'Profile',
+					href: '/training/profile'
+				},
+				bookings: {
+					label: 'Bookings',
+					href: '/training/bookings'
+				},
+				availability: {
+					label: 'Availability',
+					href: '/training/trainers/[id]/availability'
+				},
+				clients: {
+					label: 'Clients',
+					href: '/training/trainers/[id]/clients'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
+				}
 			},
-			blog: {
-				label: 'Blog',
-				href: '/blog'
-			},
-			training: {
-				label: 'Training',
-				href: '/training'
-			},
-			activewear: {
-				label: 'Activewear',
-				href: '/activewear'
-			},
-			contact: {
-				label: 'Contact Us',
-				href: '/contact'
+			[Role.ADMIN]: {
+				dashboard: {
+					label: 'Dashboard',
+					href: '/training/dashboard'
+				},
+				profile: {
+					label: 'Profile',
+					href: '/training/profile'
+				},
+				packages: {
+					label: 'Packages',
+					href: '/training/packages'
+				},
+				bookings: {
+					label: 'Bookings',
+					href: '/training/bookings'
+				},
+				blog: {
+					label: 'Blog',
+					href: '/blog'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
+				},
+				userManagement: {
+					label: 'User Management',
+					href: '/training/admin/user-management'
+				}
 			}
 		},
-		authenticated: {
+		unauthenticated: {
 			home: {
 				label: 'Home',
 				href: '/'
@@ -165,24 +239,98 @@ const sidebarRoutes = {
 		}
 	},
 	[Router.Blog]: {
+		authenticated: {
+			[Role.USER]: {
+				dashboard: {
+					label: 'Dashboard',
+					href: '/training/dashboard'
+				},
+				profile: {
+					label: 'Profile',
+					href: '/training/profile'
+				},
+				packages: {
+					label: 'Packages',
+					href: '/training/packages'
+				},
+				bookings: {
+					label: 'Bookings',
+					href: '/training/bookings'
+				},
+				blog: {
+					label: 'Blog',
+					href: '/training/blog'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
+				}
+			},
+			[Role.TRAINER]: {
+				dashboard: {
+					label: 'Dashboard',
+					href: '/training/dashboard'
+				},
+				profile: {
+					label: 'Profile',
+					href: '/training/profile'
+				},
+				bookings: {
+					label: 'Bookings',
+					href: '/training/bookings'
+				},
+				availability: {
+					label: 'Availability',
+					href: '/training/trainers/[id]/availability'
+				},
+				clients: {
+					label: 'Clients',
+					href: '/training/trainers/[id]/clients'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
+				}
+			},
+			[Role.ADMIN]: {
+				dashboard: {
+					label: 'Dashboard',
+					href: '/training/dashboard'
+				},
+				profile: {
+					label: 'Profile',
+					href: '/training/profile'
+				},
+				packages: {
+					label: 'Packages',
+					href: '/training/packages'
+				},
+				bookings: {
+					label: 'Bookings',
+					href: '/training/bookings'
+				},
+				blog: {
+					label: 'Blog',
+					href: '/blog'
+				},
+				userManagement: {
+					label: 'User Management',
+					href: '/training/admin/user-management'
+				},
+				activewear: {
+					label: 'Activewear',
+					href: '/activewear'
+				}
+			}
+		},
 		unauthenticated: {
 			home: {
 				label: 'Home',
 				href: '/'
 			},
-			blog: {
-				label: 'Blog',
-				href: '/blog'
-			},
-			training: {
-				label: 'Training',
-				href: '/training'
-			}
-		},
-		authenticated: {
-			home: {
-				label: 'Home',
-				href: '/'
+			about: {
+				label: 'About',
+				href: '/about'
 			},
 			blog: {
 				label: 'Blog',
@@ -191,6 +339,14 @@ const sidebarRoutes = {
 			training: {
 				label: 'Training',
 				href: '/training'
+			},
+			activewear: {
+				label: 'Activewear',
+				href: '/activewear'
+			},
+			contact: {
+				label: 'Contact Us',
+				href: '/contact'
 			}
 		}
 	}
@@ -219,12 +375,28 @@ const getSidebarRoutes = (user: User | null, pathname: string) => {
 			return sidebarRoutes[Router.Training].authenticated[Role.USER];
 		}
 	} else if (parentRouter === Router.Blog) {
-		return sidebarRoutes[Router.Blog].authenticated;
+		if (isAdmin) {
+			return sidebarRoutes[Router.Blog].authenticated[Role.ADMIN];
+		}
+		if (isTrainer) {
+			return sidebarRoutes[Router.Blog].authenticated[Role.TRAINER];
+		}
+		if (isUser) {
+			return sidebarRoutes[Router.Blog].authenticated[Role.USER];
+		}
 	} else {
-		return sidebarRoutes[Router.Root].authenticated;
+		if (isAdmin) {
+			return sidebarRoutes[Router.Root].authenticated[Role.ADMIN];
+		}
+		if (isTrainer) {
+			return sidebarRoutes[Router.Root].authenticated[Role.TRAINER];
+		}
+		if (isUser) {
+			return sidebarRoutes[Router.Root].authenticated[Role.USER];
+		}
 	}
 
-	return sidebarRoutes[parentRouter].authenticated;
+	return sidebarRoutes[parentRouter].unauthenticated;
 };
 
 export type SidebarRoutes = Record<string, unknown>;
@@ -245,9 +417,8 @@ const getParentRouter = (pathname: string) => {
 export const load = async ({ cookies, url }) => {
 	const accessToken = cookies.get('access_token');
 	const pathname = url.pathname;
-	const parentRouter = getParentRouter(pathname);
 
-	if (parentRouter === Router.Training && accessToken) {
+	if (accessToken) {
 		const { data, error } = await supabase.auth.getUser(accessToken);
 
 		if (error) {
