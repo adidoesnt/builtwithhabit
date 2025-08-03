@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Cart, Profile } from '$lib/icons';
+	import { Cart } from '$lib/icons';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { portal } from 'svelte-portal';
@@ -7,6 +7,7 @@
 	import { user } from '$lib/stores/auth';
 	import LogoHeader from './LogoHeader.svelte';
 	import Search from './Search.svelte';
+	import ProfileDropdown from './ProfileDropdown.svelte';
 
 	let isLoggedIn = $derived(!!$user);
 
@@ -139,30 +140,13 @@
 		<!-- Cart and Profile - right aligned on mobile, right aligned on desktop -->
 		<div id="cart-and-profile-container" class="flex w-full items-center justify-end gap-2">
 			<!-- Cart - hidden on mobile, visible on desktop -->
+			<!-- Todo add cart functionality when shop is added -->
 			<button
 				class="hover:bg-light-brown/10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 md:flex md:h-10 md:w-10"
 				aria-label="Cart"
+				disabled={true}
 			>
 				<Cart width={28} height={28} color="#262626" />
-			</button>
-
-			<!-- Profile - hidden on mobile, visible on desktop -->
-			<button
-				class="hover:bg-light-brown/10 hidden h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 md:flex"
-				aria-label="Profile"
-				onclick={async () => {
-					if (isLoggedIn) {
-						// TODO: Change to a hover menu later
-						await fetch('/training/logout', {
-							method: 'POST'
-						});
-						goto('/');
-					} else {
-						goto('/training/login');
-					}
-				}}
-			>
-				<Profile width={28} height={28} color="#262626" />
 			</button>
 
 			<!-- Hamburger Menu - visible on mobile only -->
@@ -173,6 +157,9 @@
 			>
 				<HamburgerMenuIcon />
 			</button>
+
+			<!-- Profile - hidden on mobile, visible on desktop -->
+			<ProfileDropdown />
 		</div>
 	</div>
 
@@ -195,7 +182,7 @@
 		class="bg-beige fixed top-0 right-0 z-50 flex h-[100dvh] w-full items-center justify-center"
 		class:hidden={!isHamburgerMenuOpen}
 	>
-		<div class="absolute top-0 right-0 left-0 flex justify-between p-4 items-center">
+		<div class="absolute top-0 right-0 left-0 flex items-center justify-between p-4">
 			<LogoHeader />
 			<button
 				class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl"
@@ -212,7 +199,7 @@
 						goto(link.href);
 						toggleHamburgerMenu();
 					}}
-					class="font-body text-dark-brown cursor-pointer py-2 text-center text-lg transition-colors lowercase"
+					class="font-body text-dark-brown cursor-pointer py-2 text-center text-lg lowercase transition-colors"
 				>
 					{link.label}
 				</button>
