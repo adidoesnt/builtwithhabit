@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { Cart, Profile, Search } from '$lib/icons';
+	import { Cart, Profile } from '$lib/icons';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { portal } from 'svelte-portal';
 	import { onMount } from 'svelte';
 	import { user } from '$lib/stores/auth';
 	import LogoHeader from './LogoHeader.svelte';
+	import Search from './Search.svelte';
+
 	let isLoggedIn = $derived(!!$user);
 
 	let search = $state('');
@@ -125,19 +127,7 @@
 	<!-- Top: Search, logo, cart, profile -->
 	<div class="grid grid-cols-2 items-center md:grid-cols-3">
 		<!-- Search - hidden on mobile -->
-		<div id="search-container" class="hidden w-full items-center justify-start gap-2 md:flex">
-			<input
-				type="text"
-				placeholder="Search"
-				class="border-light-brown/25 focus:ring-light-brown/50 font-body placeholder:text-dark-brown/75 text-dark-brown/75 w-1/2 rounded-sm border-[1px] bg-white focus:ring-1"
-			/>
-			<button
-				class="hover:bg-light-brown/10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300"
-				aria-label="search"
-			>
-				<Search width={24} height={24} color="#262626" />
-			</button>
-		</div>
+		<Search />
 
 		<!-- Logo - left aligned on mobile, centered on desktop -->
 		<div id="logo-container" class="flex w-full justify-start md:justify-center">

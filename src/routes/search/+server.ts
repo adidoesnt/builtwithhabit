@@ -1,6 +1,11 @@
 import { json } from '@sveltejs/kit';
 import { getClient, type Post } from '$lib/server/directus';
 import { readItems } from '@directus/sdk';
+import { DIRECTUS_BASE_URL } from '$env/static/private';
+
+const getThumbnailUrl = (uuid: string) => {
+	return `${DIRECTUS_BASE_URL}/assets/${uuid}`;
+};
 
 export const GET = async ({ url, fetch }) => {
 	const searchTerm = url.searchParams.get('searchTerm');
@@ -26,20 +31,33 @@ export const GET = async ({ url, fetch }) => {
 			sort: '-date_updated',
 			filter: {
 				status: 'published',
-				title: {
-					_contains: searchTerm
-				},
-				description: {
-					_contains: searchTerm
-				},
-				keywords: {
-					_contains: searchTerm
-				}
+				_or: [
+					{
+						title: {
+							_contains: searchTerm
+						}
+					},
+					{
+						description: {
+							_contains: searchTerm
+						}
+					},
+					{
+						keywords: {
+							_contains: searchTerm
+						}
+					}
+				]
 			}
 		})
 	)) as Post[];
+	const postsWithThumbnails = posts.map((post) => ({
+		...post,
+		thumbnail: post.thumbnail ? getThumbnailUrl(post.thumbnail) : null
+	}));
 
-    // TODO: Add shop results when the shop is ready
 
-    return json({ posts });
+	// TODO: Add shop results when the shop is ready
+
+	return json({ posts: postsWithThumbnails });
 };
