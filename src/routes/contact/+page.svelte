@@ -128,10 +128,10 @@
 					let's connect on socials
 				</h1>
 				<div class="flex gap-8">
-					<Instagram width={40} height={40} />
-					<Linkedin width={40} height={40} />
-					<Pinterest width={40} height={40} />
-					<Tiktok width={40} height={40} />
+					<Instagram width={40} height={40} href={socials.instagram} />
+					<Linkedin width={40} height={40} href={socials.linkedin} />
+					<Pinterest width={40} height={40} href={socials.pinterest} />
+					<Tiktok width={40} height={40} href={socials.tiktok} />
 				</div>
 			</div>
 		</div>
