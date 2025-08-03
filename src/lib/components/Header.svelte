@@ -4,12 +4,9 @@
 	import { goto } from '$app/navigation';
 	import { portal } from 'svelte-portal';
 	import { onMount } from 'svelte';
-	import { user } from '$lib/stores/auth';
 	import LogoHeader from './LogoHeader.svelte';
 	import Search from './Search.svelte';
 	import ProfileDropdown from './ProfileDropdown.svelte';
-
-	let isLoggedIn = $derived(!!$user);
 
 	let search = $state('');
 	function handleSearch(e: Event) {
@@ -142,7 +139,7 @@
 			<!-- Cart - hidden on mobile, visible on desktop -->
 			<!-- Todo add cart functionality when shop is added -->
 			<button
-				class="hover:bg-light-brown/10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 md:flex md:h-10 md:w-10"
+				class="hover:bg-light-brown/10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 md:flex md:h-10 md:w-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
 				aria-label="Cart"
 				disabled={true}
 			>
