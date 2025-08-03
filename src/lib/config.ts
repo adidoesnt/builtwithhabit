@@ -287,7 +287,7 @@ const config = {
 			subtitle: 'blog',
 			href: '/blog',
 			img: {
-				src: '/pillars-learn.png',
+				src: '/pillars-learn.jpg',
 				alt: 'learn'
 			},
 			description: 'learn about all things wellness, sustainability, and entrepreneurship!'
@@ -297,7 +297,7 @@ const config = {
 			subtitle: 'training',
 			href: '/training',
 			img: {
-				src: '/pillars-training.png',
+				src: '/pillars-training.jpeg',
 				alt: 'training'
 			},
 			description:
@@ -308,7 +308,7 @@ const config = {
 			subtitle: 'activewear',
 			href: '/shop',
 			img: {
-				src: '/pillars-shop.png',
+				src: '/pillars-shop.jpg',
 				alt: 'activewear'
 			},
 			description: 'join our waitlist for updates on our upcoming skin-safe activewear launch!'
