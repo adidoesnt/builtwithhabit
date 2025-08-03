@@ -6,7 +6,7 @@
 	const { packages, testimonials } = data;
 </script>
 
-<div class="flex h-fit w-full flex-col max-w-[100dvw]">
+<div class="flex h-fit w-full max-w-[100dvw] flex-col">
 	<!-- Training Philosophy Section -->
 	<section
 		id="training-philosophy-section"
@@ -19,7 +19,7 @@
 		</h1>
 
 		<!-- Mobile layout: vertical with image between title and content -->
-		<div class="flex flex-col items-center gap-4 md:hidden w-full">
+		<div class="flex w-full flex-col items-center gap-4 md:hidden">
 			<div class="flex w-full max-w-md items-center justify-center overflow-hidden rounded-sm">
 				<img
 					src="/training-image-2.png"
@@ -91,7 +91,7 @@
 		</h1>
 
 		<!-- Mobile layout: two-row grid -->
-		<div class="flex flex-col gap-10 md:hidden w-full">
+		<div class="flex w-full flex-col gap-10 md:hidden">
 			<!-- Row 1: Three pillars -->
 			<div class="flex flex-col justify-center gap-6">
 				<p class="font-body text-dark-brown text-center text-lg">
@@ -228,7 +228,7 @@
 		</h1>
 
 		<!-- Mobile layout: flex column with graphic on top -->
-		<div class="flex flex-col gap-10 md:hidden w-full">
+		<div class="flex w-full flex-col gap-10 md:hidden">
 			<!-- Text content first -->
 			<div class="flex flex-col justify-center gap-4">
 				<p class="font-body text-dark-brown text-lg">
@@ -280,7 +280,7 @@
 		</div>
 
 		<!-- Mobile Testimonials -->
-		<div class="flex flex-col gap-4 md:hidden w-full">
+		<div class="flex w-full flex-col gap-4 md:hidden">
 			{#each testimonials as testimonial}
 				<div class="flex h-auto w-full">
 					<div class="flex h-full w-96 flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
@@ -318,8 +318,8 @@
 							{/each}
 						</div>
 
-						<p class="font-body text-dark-brown mb-4 italic">
-							"{testimonial.content}"
+						<p class="prose prose-lg prose-dark-brown font-body text-dark-brown max-w-none">
+							{@html testimonial.content}
 						</p>
 					</div>
 				</div>
@@ -340,7 +340,7 @@
 					<div class="flex w-full items-stretch justify-center overflow-x-auto">
 						{#each testimonials as testimonial}
 							<div class="mx-4 flex min-h-[300px] flex-none">
-								<div class="flex h-full w-96 flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
+								<div class="flex h-full max-w-[50dvw] flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
 									<div class="flex items-center">
 										<div
 											class="bg-light-green mr-4 flex h-12 w-12 items-center justify-center rounded-full"
@@ -355,10 +355,12 @@
 											</div>
 										</div>
 										<div class="overflow-hidden">
-											<h3 class="font-body text-dark-brown truncate font-semibold text-md md:text-xl">
+											<h3
+												class="font-body text-dark-brown text-md truncate font-semibold md:text-xl"
+											>
 												{testimonial.name}
 											</h3>
-											<p class="font-body text-light-brown truncate text-md md:text-xl">
+											<p class="font-body text-light-brown text-md truncate md:text-xl">
 												{testimonial.role}
 											</p>
 										</div>
@@ -381,8 +383,8 @@
 										{/each}
 									</div>
 
-									<p class="font-body text-dark-brown mb-4 italic text-md md:text-xl">
-										"{testimonial.content}"
+									<p class="font-body text-dark-brown text-md mb-4 md:text-xl">
+										{@html testimonial.content}
 									</p>
 								</div>
 							</div>
