@@ -8,12 +8,6 @@
 	import Search from './Search.svelte';
 	import ProfileDropdown from './ProfileDropdown.svelte';
 
-	let search = $state('');
-	function handleSearch(e: Event) {
-		e.preventDefault();
-		console.log('Search:', search);
-	}
-
 	const { routes } = $props();
 	let isHamburgerMenuOpen = $state(false);
 
