@@ -96,7 +96,7 @@
 			</div>
 			<div class="text-center">
 				<h1 class="font-headings text-dark-brown text-3xl font-bold tracking-wide md:text-5xl">
-					launching soon
+					activewear launching soon
 				</h1>
 			</div>
 			<div class="max-w-4xl text-center">
