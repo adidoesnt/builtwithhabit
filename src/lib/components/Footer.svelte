@@ -3,7 +3,7 @@
 	import config from '$lib/config';
 	import { Instagram, Email, Mobile, House, Linkedin, Pinterest, Tiktok } from '$lib/icons';
 
-	const { description, contact, contactCta } = config.site;
+	const { description, contact, contactCta, socials } = config.site;
 
 	const { routes } = $props();
 
@@ -90,10 +90,10 @@
 				<div class="mt-6">
 					<h3 class="font-headings mb-4 text-lg font-semibold">socials</h3>
 					<div class="flex space-x-4">
-						<Instagram />
-						<Linkedin />
-						<Pinterest />
-						<Tiktok />
+						<Instagram href={socials.instagram} />
+						<Linkedin href={socials.linkedin} />
+						<Pinterest href={socials.pinterest} />
+						<Tiktok href={socials.tiktok} />
 					</div>
 				</div>
 			</div>

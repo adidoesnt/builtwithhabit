@@ -116,7 +116,7 @@
 				<p class="font-body text-dark-brown text-2xl">we'd love to hear from you!</p>
 				<p class="font-body text-dark-brown text-2xl">
 					whether you have any questions about our blog, personal training services, upcoming
-					activewear collection, or brand collaborations and partnerships, or just want to say hello
+					activewear collection, brand collaborations and partnerships, or just want to say hello
 					and share any feedback, please feel free to reach out.
 				</p>
 			</div>

@@ -5,6 +5,12 @@ const config = {
 		caption: {
 			parts: ['Sweat Smarter.', 'Live Stronger.']
 		},
+		socials: {
+			instagram: 'https://www.instagram.com/builtwithishita/',
+			linkedin: 'https://www.linkedin.com/company/builtwithhabit/',
+			pinterest: 'https://www.pinterest.com/builtwithhabit/',
+			tiktok: 'https://www.tiktok.com/@builtwithhabit/'
+		},
 		splitName: ['built', 'with', 'habit'],
 		description: 'Embark on a personalised fitness journey that works for you.',
 		contactCta: 'Contact us for inquiries and partnerships!',
