@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import { setUser, user } from '$lib/stores/auth';
@@ -17,9 +18,12 @@
 
 	const isAuthenticated = $derived($user);
 	const isLandingPage = $derived(['/', '/training'].includes(page.url.pathname));
-	const isBlogPage = $derived(page.url.pathname.includes('/blog'));
 
 	const showFooter = $derived(isLandingPage || !isAuthenticated);
+
+	onMount(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	});
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -33,7 +37,7 @@
 	});
 </script>
 
-<div class="bg-dark-brown font-old-standard min-h-[100dvh] w-full grid grid-rows-[auto_1fr]">
+<div class="bg-dark-brown font-old-standard grid min-h-[100dvh] w-full grid-rows-[auto_1fr]">
 	<Header routes={data.sidebarRoutes} />
 
 	{#if navigating.complete}
@@ -50,7 +54,7 @@
 			</div>
 		</div>
 	{:else}
-		<main class="flex flex-col w-full">
+		<main class="flex w-full flex-col">
 			{@render children()}
 
 			{#if showFooter}
