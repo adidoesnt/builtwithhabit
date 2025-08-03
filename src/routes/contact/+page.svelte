@@ -5,6 +5,9 @@
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 	import { prefillTypeMap } from './prefillTypeMap';
+	import config from '$lib/config';
+
+	const { socials } = config.site;
 
 	type FormValues = {
 		firstName: string;
@@ -271,10 +274,10 @@
 				let's connect on socials
 			</h1>
 			<div class="flex justify-center gap-6">
-				<Instagram width={32} height={32} />
-				<Linkedin width={32} height={32} />
-				<Pinterest width={32} height={32} />
-				<Tiktok width={32} height={32} />
+				<Instagram width={32} height={32} href={socials.instagram} />
+				<Linkedin width={32} height={32} href={socials.linkedin} />
+				<Pinterest width={32} height={32} href={socials.pinterest} />
+				<Tiktok width={32} height={32} href={socials.tiktok} />
 			</div>
 		</div>
 	</section>
