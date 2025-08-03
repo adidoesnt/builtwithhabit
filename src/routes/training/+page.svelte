@@ -145,7 +145,10 @@
 					at every age and stage.
 				</p>
 				<p class="font-body text-dark-brown text-lg">
-					<a href="/contact" class="underline transition-opacity duration-300 hover:opacity-50">
+					<a
+						href="/contact?prefillType=training"
+						class="underline transition-opacity duration-300 hover:opacity-50"
+					>
 						book a free consultation call
 					</a>
 				</p>
@@ -182,9 +185,8 @@
 						<p class="font-body text-dark-brown text-xl">enhancing stamina and aerobic health</p>
 					</li>
 				</ul>
-				<!-- TODO: pre-fill contact form -->
 				<a
-					href="/contact"
+					href="/contact?prefillType=training"
 					class="font-body bg-dark-brown text-beige hover:bg-dark-brown/80 flex w-fit self-center rounded-md px-4 py-2 text-center text-xl transition-all duration-300 hover:scale-105"
 				>
 					book a free consultation call
@@ -402,11 +404,10 @@
 			our bookings
 		</h1>
 		<Packages {packages} />
-		<!-- TODO: pre-fill contact form -->
 		<div class="flex flex-col items-center justify-center gap-4">
 			<p class="font-body text-dark-brown text-lg">have questions?</p>
 			<a
-				href="/contact"
+				href="/contact?prefillType=training"
 				class="font-body bg-dark-brown text-beige hover:bg-dark-brown/80 flex w-fit self-center rounded-md px-4 py-2 text-center text-lg transition-all duration-300 hover:scale-105"
 			>
 				book a free consultation call

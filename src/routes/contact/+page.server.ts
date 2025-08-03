@@ -3,6 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { createContactFormSubmission } from '$lib/server/db/contactFormSubmissions';
 import { sendContactFormEmail } from '$lib/server/email';
+import { ContactPrefillType } from '$lib/types';
 
 const schema = z.object({
 	firstName: z.string().min(1, 'First name is required'),
@@ -14,6 +15,19 @@ const schema = z.object({
 		message: 'Please verify that you are human'
 	})
 });
+
+export const load = async ({ url }) => {
+	const prefillType = url.searchParams.get('prefillType');
+
+	switch (prefillType) {
+		case ContactPrefillType.ACTIVEWEAR:
+			return { prefillType: ContactPrefillType.ACTIVEWEAR };
+		case ContactPrefillType.TRAINING:
+			return { prefillType: ContactPrefillType.TRAINING };
+		default:
+			return { prefillType: null };
+	}
+};
 
 export const actions: Actions = {
 	default: async ({ request }) => {

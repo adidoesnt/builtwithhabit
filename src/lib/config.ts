@@ -51,7 +51,7 @@ const config = {
 				},
 				{
 					label: 'Sign Up',
-					href: '/signup'
+					href: '/training/signup'
 				},
 				{
 					label: 'Log In',
@@ -70,7 +70,7 @@ const config = {
 					},
 					{
 						label: 'Sign Up',
-						href: '/signup'
+						href: '/training/signup'
 					},
 					{
 						label: 'Log In',
@@ -96,7 +96,7 @@ const config = {
 					},
 					{
 						label: 'Sign Up',
-						href: '/signup'
+						href: '/training/signup'
 					},
 					{
 						label: 'Login',

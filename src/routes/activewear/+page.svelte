@@ -8,7 +8,7 @@
 		<div class="relative z-10 flex flex-col items-center justify-center gap-6 p-4 md:gap-8 md:p-8">
 			<div class="text-center">
 				<a
-					href="/contact"
+					href="/contact?prefillType=activewear"
 					class="font-headings text-dark-brown text-xl font-bold tracking-wide italic transition-opacity duration-300 hover:opacity-80 md:text-2xl"
 				>
 					join our waitlist

@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { Instagram, Linkedin, Pinterest, Tiktok } from '$lib/icons';
 	import { LoadingSpinner } from '$lib/components';
-	import type { ActionData } from './$types';
+	import type { ActionData, PageServerData } from './$types';
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
+	import { prefillTypeMap } from './prefillTypeMap';
 
 	type FormValues = {
 		firstName: string;
@@ -34,8 +36,19 @@
 	let isLoading = $state(false);
 	let showSuccessMessage = $state(false);
 
-	let { form }: { form: (ActionData & { errors?: FormErrors; error?: string }) | null } = $props();
+	let {
+		form,
+		data
+	}: { form: (ActionData & { errors?: FormErrors; error?: string }) | null; data: PageServerData } = $props();
 	let errors = $derived(form?.errors);
+	let prefillType = $derived(data.prefillType);
+
+	onMount(() => {
+		if (prefillType) {
+			formValues.subject = prefillTypeMap[prefillType].subject;
+			formValues.message = prefillTypeMap[prefillType].content;
+		}
+	});
 
 	$effect(() => {
 		if (form?.errors) {

@@ -86,10 +86,9 @@
 		<div class="absolute inset-0 bg-white/70"></div>
 		<div class="relative z-10 flex flex-col items-center justify-center gap-4 p-4 md:gap-8 md:p-8">
 			<div class="text-center">
-				<!-- TODO: pre-fill contact form -->
 				<a
-					href="/contact"
-					class="font-headings text-dark-brown text-xl font-bold tracking-wide italic md:text-2xl"
+					href="/contact?prefillType=activewear"
+					class="font-headings text-dark-brown text-xl font-bold tracking-wide italic hover:underline underline md:no-underline md:text-2xl"
 				>
 					join our waitlist
 				</a>
