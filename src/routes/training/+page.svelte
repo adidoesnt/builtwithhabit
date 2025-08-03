@@ -267,7 +267,7 @@
 	<!-- Testimonials Section -->
 	<section
 		id="testimonials-section"
-		class="bg-beige flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 p-16"
+		class="bg-beige flex min-h-[calc(100dvh-12rem)] w-full flex-col justify-center gap-8 p-4 md:p-16"
 	>
 		<div class="mb-8 text-center">
 			<h2 class="font-headings text-dark-brown mb-4 text-3xl font-bold md:text-5xl">
@@ -283,7 +283,7 @@
 		<div class="flex w-full flex-col gap-4 md:hidden">
 			{#each testimonials as testimonial}
 				<div class="flex h-auto w-full">
-					<div class="flex h-full w-96 flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
+					<div class="flex h-full w-full flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
 						<div class="flex items-center">
 							<div
 								class="bg-light-green mr-4 flex h-12 w-12 items-center justify-center rounded-full"
@@ -340,7 +340,9 @@
 					<div class="flex w-full items-stretch justify-center overflow-x-auto">
 						{#each testimonials as testimonial}
 							<div class="mx-4 flex min-h-[300px] flex-none">
-								<div class="flex h-full max-w-[50dvw] flex-col gap-4 rounded-sm bg-white p-6 shadow-md">
+								<div
+									class="flex h-full max-w-[50dvw] flex-col gap-4 rounded-sm bg-white p-6 shadow-md"
+								>
 									<div class="flex items-center">
 										<div
 											class="bg-light-green mr-4 flex h-12 w-12 items-center justify-center rounded-full"
