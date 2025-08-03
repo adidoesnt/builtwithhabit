@@ -306,7 +306,7 @@ const config = {
 		{
 			title: 'shop',
 			subtitle: 'activewear',
-			href: '/shop',
+			href: '/activewear',
 			img: {
 				src: '/pillars-shop.jpg',
 				alt: 'activewear'
