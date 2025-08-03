@@ -6,12 +6,12 @@ export const PUT = async ({ request, params, cookies }) => {
 	try {
 		const accessToken = cookies.get('access_token');
 		if (!accessToken) {
-			throw redirect(303, '/training/login');
+			throw redirect(303, '/login');
 		}
 
 		const authUser = await supabase.auth.getUser(accessToken);
 		if (!authUser.data.user) {
-			throw redirect(303, '/training/login');
+			throw redirect(303, '/login');
 		}
 
 		const { id } = params;

@@ -16,14 +16,14 @@ const isBlogRoute = (pathname: string) => {
 };
 
 const isLogoutRoute = (pathname: string) => {
-	return pathname.includes('/training/logout');
+	return pathname.includes('/logout');
 };
 
 const getIsAuthenticatedRoute = (pathname: string) => {
 	return ![
-		'/training/login',
-		'/training/signup',
-		'/training/signup/verify-email',
+		'/login',
+		'/signup',
+		'/signup/verify-email',
 		'/training',
 		'/training/reset-password',
 		'/training/forgot-password',
@@ -82,7 +82,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			if (error) {
 				event.cookies.delete('access_token', { path: '/' });
 				if (isAuthenticatedRoute) {
-					redirect(303, '/training/login');
+					redirect(303, '/login');
 				}
 				return resolve(event);
 			}
@@ -91,9 +91,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 				redirect(303, '/training/dashboard');
 			}
 		} else if (isPackageBookingRoute) {
-			redirect(303, '/training/signup');
+			redirect(303, '/signup');
 		} else if (isAuthenticatedRoute) {
-			redirect(303, '/training/login');
+			redirect(303, '/login');
 		}
 	} else if (parentRouter === Router.Blog) {
 		return resolve(event);

@@ -10,21 +10,21 @@ export const load = async ({ cookies, params }) => {
 
 	if (!accessToken) {
 		console.log('No access token');
-		throw redirect(303, '/training/login');
+		throw redirect(303, '/login');
 	}
 
 	const authUser = await supabase.auth.getUser(accessToken);
 
 	if (!authUser.data.user) {
 		console.log('User not found', authUser.data.user);
-		throw redirect(303, '/training/login');
+		throw redirect(303, '/login');
 	}
 
 	const trainer = await getUserById(authUser.data.user.id);
 
 	if (!trainer) {
 		console.log('Trainer not found', authUser.data.user.id);
-		throw redirect(303, '/training/login');
+		throw redirect(303, '/login');
 	}
 
 	if (!trainer.roles.includes(Role.TRAINER)) {

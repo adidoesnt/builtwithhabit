@@ -52,7 +52,7 @@ export const actions = {
 			return {
 				success: true,
 				message: 'Password reset successfully!',
-				location: '/training/login'
+				location: '/login'
 			};
 		} catch (error) {
 			console.error('Error resetting password:', error);

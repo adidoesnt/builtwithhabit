@@ -8,7 +8,7 @@ export const POST = async ({ cookies }) => {
 		await supabase.auth.signOut();
 		cookies.delete('access_token', { path: '/' });
 		cookies.delete('refresh_token', { path: '/' });
-		return redirect(303, '/training/login');
+		return redirect(303, '/login');
 	} else {
 		return error(401, 'Unauthorized');
 	}

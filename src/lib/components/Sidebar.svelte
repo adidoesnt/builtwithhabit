@@ -21,11 +21,11 @@
 	async function handleLogout() {
 		isLoggingOut = true;
 		try {
-			await fetch('/training/logout', {
+			await fetch('/logout', {
 				method: 'POST'
 			});
 			clearUser();
-			goto('/training/login');
+			goto('/login');
 		} catch (error) {
 			console.error('Logout failed:', error);
 		} finally {
@@ -45,9 +45,9 @@
 	);
 
 	const noSidebarPages = [
-		'/training/login',
-		'/training/signup',
-		'/training/signup/verify-email',
+		'/login',
+		'/signup',
+		'/signup/verify-email',
 		'/reset-password',
 		'/forgot-password'
 	];
@@ -55,7 +55,7 @@
 </script>
 
 {#if shouldShowSidebar}
-	<div class="block md:hidden relative text-${textColor} z-50">
+	<div class="relative block md:hidden text-${textColor} z-50">
 		{#if isOpen}
 			<div
 				class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity duration-300"

@@ -33,7 +33,7 @@ export const load = async ({ params, cookies, fetch }) => {
 	const authUser = await supabase.auth.getUser(accessToken);
 
 	if (!authUser.data.user) {
-		throw redirect(303, '/training/login');
+		throw redirect(303, '/login');
 	}
 
 	const user = await getUserById(authUser.data.user.id);

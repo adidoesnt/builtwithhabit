@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { getUserById } from '$lib/server/db/user';
 import { loginWithEmail } from '$lib/server/auth/email/login';
-import { setUser } from '../../../lib/stores/auth';
+import { setUser } from '$lib/stores/auth';
 
 const schema = z.object({
 	email: z.string().email('Invalid email address'),

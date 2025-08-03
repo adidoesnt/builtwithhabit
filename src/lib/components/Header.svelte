@@ -38,9 +38,9 @@
 	);
 
 	const noHeaderPages = [
-		'/training/login',
-		'/training/signup',
-		'/training/signup/verify-email',
+		'/login',
+		'/signup',
+		'/signup/verify-email',
 		'/reset-password',
 		'/forgot-password'
 	];
@@ -133,7 +133,7 @@
 			<!-- Cart - hidden on mobile, visible on desktop -->
 			<!-- Todo add cart functionality when shop is added -->
 			<button
-				class="hover:bg-light-brown/10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 md:flex md:h-10 md:w-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+				class="hover:bg-light-brown/10 hidden h-8 w-8 cursor-pointer items-center justify-center rounded-sm p-1 text-2xl transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent md:flex md:h-10 md:w-10"
 				aria-label="Cart"
 				disabled={true}
 			>

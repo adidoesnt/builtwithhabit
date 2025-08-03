@@ -25,11 +25,11 @@
 	async function handleLogout() {
 		isLoggingOut = true;
 		try {
-			await fetch('/training/logout', {
+			await fetch('/logout', {
 				method: 'POST'
 			});
 			clearUser();
-			goto('/training/login');
+			goto('/login');
 		} catch (error) {
 			console.error('Logout failed:', error);
 			isLoggingOut = false;

@@ -55,7 +55,7 @@
 </script>
 
 <div
-	class="flex min-h-[calc(100dvh-8rem)] md:min-h-[calc(100dvh-12rem)] w-full flex-col items-center justify-center bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
+	class="flex min-h-[calc(100dvh-8rem)] w-full flex-col items-center justify-center bg-cover bg-center md:min-h-[calc(100dvh-12rem)] md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
 >
 	<div
 		id="container"
@@ -64,7 +64,7 @@
 		<LogoHeader linkToHome />
 		<form
 			class="font-body flex w-full flex-col justify-start gap-2"
-			action="/training/login"
+			action="/login"
 			method="POST"
 			use:enhance={({ formData }) => {
 				isLoading = true;
@@ -154,7 +154,7 @@
 				<div class="flex flex-col justify-center gap-2">
 					<p class="text-light-brown text-sm">
 						Don't have an account? <a
-							href="/training/signup"
+							href="/signup"
 							class="text-light-brown hover:text-dark-brown text-sm transition-all duration-300"
 							>Sign up!</a
 						>

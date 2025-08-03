@@ -71,7 +71,7 @@
 </script>
 
 <div
-	class="flex min-h-[calc(100dvh-8rem)] md:min-h-[calc(100dvh-12rem)] w-full flex-col items-center justify-center bg-cover bg-center md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
+	class="flex min-h-[calc(100dvh-8rem)] w-full flex-col items-center justify-center bg-cover bg-center md:min-h-[calc(100dvh-12rem)] md:bg-[url(/hut-with-mountains-1.jpg)] md:p-4"
 >
 	<div
 		id="container"
@@ -82,7 +82,7 @@
 			class="font-body flex w-full flex-col justify-start gap-2 {DISABLE_SIGNUP
 				? 'pointer-events-none opacity-50'
 				: ''}"
-			action="/training/signup"
+			action="/signup"
 			method="POST"
 			use:enhance={() => {
 				isLoading = true;
@@ -205,7 +205,7 @@
 			>
 				<p class="text-light-brown text-sm">
 					Already have an account? <a
-						href="/training/login"
+						href="/login"
 						class="text-light-brown hover:text-dark-brown text-sm transition-all duration-300"
 						>Log in!</a
 					>

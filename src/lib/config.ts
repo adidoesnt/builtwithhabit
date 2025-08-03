@@ -51,11 +51,11 @@ const config = {
 				},
 				{
 					label: 'Sign Up',
-					href: '/training/signup'
+					href: '/signup'
 				},
 				{
 					label: 'Log In',
-					href: '/training/login'
+					href: '/login'
 				}
 			],
 			landingPageLinks: {
@@ -70,11 +70,11 @@ const config = {
 					},
 					{
 						label: 'Sign Up',
-						href: '/training/signup'
+						href: '/signup'
 					},
 					{
 						label: 'Log In',
-						href: '/training/login'
+						href: '/login'
 					},
 					{
 						label: 'About',
@@ -96,11 +96,11 @@ const config = {
 					},
 					{
 						label: 'Sign Up',
-						href: '/training/signup'
+						href: '/signup'
 					},
 					{
 						label: 'Login',
-						href: '/training/login'
+						href: '/login'
 					},
 					{
 						label: 'Contact',

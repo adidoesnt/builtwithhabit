@@ -44,11 +44,11 @@
 				console.log('Tokens found in URL hash');
 			} else {
 				console.log('Missing required tokens in URL hash');
-				goto('/training/login');
+				goto('/login');
 			}
 		} else {
 			console.log('No hash found in URL');
-			goto('/training/login');
+			goto('/login');
 		}
 	});
 
@@ -186,7 +186,7 @@
 					<div class="flex flex-col gap-2">
 						<p class="text-light-brown text-sm">
 							Remember your password? <a
-								href="/training/login"
+								href="/login"
 								class="text-dark-brown text-sm transition-all duration-300 hover:underline"
 								>Log in</a
 							>

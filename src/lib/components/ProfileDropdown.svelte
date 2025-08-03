@@ -11,7 +11,7 @@
 	}
 
 	function handleLogout() {
-		fetch('/training/logout', {
+		fetch('/logout', {
 			method: 'POST'
 		}).then(() => {
 			isDropdownOpen = false;
@@ -21,12 +21,12 @@
 	}
 
 	function handleLogin() {
-		goto('/training/login');
+		goto('/login');
 		isDropdownOpen = false;
 	}
 
 	function handleSignup() {
-		goto('/training/signup');
+		goto('/signup');
 		isDropdownOpen = false;
 	}
 
