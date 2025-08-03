@@ -123,9 +123,11 @@
 
 		<!-- Logo - left aligned on mobile, centered on desktop -->
 		<div id="logo-container" class="flex w-full justify-start md:justify-center">
-			<p class="font-headings text-dark-brown text-2xl font-bold tracking-widest md:text-4xl">
-				built<span class="font-normal">with</span>habit
-			</p>
+			<a href="/">
+				<p class="font-headings text-dark-brown text-2xl font-bold tracking-widest md:text-4xl">
+					built<span class="font-normal">with</span>habit
+				</p>
+			</a>
 		</div>
 
 		<!-- Cart and Profile - right aligned on mobile, right aligned on desktop -->
