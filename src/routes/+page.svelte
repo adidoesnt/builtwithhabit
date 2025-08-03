@@ -10,7 +10,6 @@
 		id="hero-section"
 		class="flex h-[calc(100dvh-8rem)] md:h-[calc(100dvh-12rem)] w-full flex-col bg-[url(/landing-page-hero.png)] bg-cover bg-center"
 	>
-		<div class="absolute inset-0 bg-white/70"></div>
 		<div class="z-30 flex h-full w-full flex-col">
 			<div
 				class="font-headings text-light-brown flex h-full w-full flex-col items-center justify-center px-4"
