@@ -64,7 +64,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const isPackageBookingRoute = getIsPackageBookingRoute(event.url.pathname);
 
-	// TODO: Update the webhook in the Stripe dashboard to use this route
 	const isPaymentIntentWebhookRoute = event.url.pathname.includes(
 		'/training/payment-intent/webhook'
 	);
