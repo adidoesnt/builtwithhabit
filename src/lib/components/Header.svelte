@@ -157,7 +157,7 @@
 	</div>
 
 	<!-- Bottom: Navbar - hidden on mobile -->
-	<nav class="border-light-brown hidden justify-center gap-8 border-b pt-2 pb-1 md:flex">
+	<nav class="border-light-brown hidden justify-center gap-12 border-b pt-2 pb-1 md:flex">
 		{#each links as link}
 			<a
 				href={link.href}
