@@ -1,13 +1,14 @@
 <script lang="ts">
+	import '../app.css';
+
 	import { onNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import '../app.css';
 	import type { LayoutData } from './$types';
 	import { setUser, user } from '$lib/stores/auth';
 	import { page } from '$app/state';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import { Header, Footer, Analytics } from '$lib/components';
 	import { navigating } from '$app/state';
+
 	let { children, data }: { children: any; data: LayoutData } = $props();
 
 	$effect(() => {
@@ -36,6 +37,8 @@
 		});
 	});
 </script>
+
+<Analytics />
 
 <div class="bg-dark-brown font-old-standard grid min-h-[100dvh] w-full grid-rows-[auto_1fr]">
 	<Header routes={data.sidebarRoutes} />
