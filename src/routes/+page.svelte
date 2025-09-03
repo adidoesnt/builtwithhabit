@@ -23,7 +23,7 @@
 							sweat smarter,
 						</h1>
 						<h1 class="text-dark-brown text-4xl font-bold tracking-wide drop-shadow-lg md:text-7xl">
-							live longer.
+							live stronger.
 						</h1>
 					</div>
 				</div>
