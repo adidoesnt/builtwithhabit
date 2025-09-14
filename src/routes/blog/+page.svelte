@@ -137,7 +137,7 @@
 										</span>
 									</div>
 									<time class="font-body text-xs text-gray-500">
-										{formatDate(post.date_created)}
+										{formatDate(post.display_date)}
 									</time>
 								</div>
 

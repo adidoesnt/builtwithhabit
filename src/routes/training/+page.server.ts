@@ -8,8 +8,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 
 	const testimonials = await client.request(
 		readItems('testimonials', {
-			fields: ['id', 'name', 'content', 'rating', 'date_created'],
-			sort: '-date_created'
+			fields: ['id', 'name', 'content', 'rating', 'display_date'],
+			sort: '-display_date'
 		})
 	);
 
