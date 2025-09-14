@@ -17,7 +17,7 @@ export const load = async ({ fetch }) => {
 				fields: [
 					'slug',
 					'title',
-					'date_updated',
+					'date_created',
 					'description',
 					'keywords',
 					'thumbnail',
@@ -25,7 +25,7 @@ export const load = async ({ fetch }) => {
 						author: ['name']
 					}
 				],
-				sort: '-date_updated',
+				sort: '-date_created',
 				filter: {
 					status: 'published'
 				}

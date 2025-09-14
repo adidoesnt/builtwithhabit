@@ -20,7 +20,7 @@ export const GET = async ({ url, fetch }) => {
 			fields: [
 				'slug',
 				'title',
-				'date_updated',
+				'date_created',
 				'description',
 				'keywords',
 				'thumbnail',
@@ -28,7 +28,7 @@ export const GET = async ({ url, fetch }) => {
 					author: ['name']
 				}
 			],
-			sort: '-date_updated',
+			sort: '-date_created',
 			filter: {
 				status: 'published',
 				_or: [

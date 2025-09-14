@@ -15,7 +15,7 @@ export const load = async ({ fetch, params }) => {
 			fields: [
 				'slug',
 				'title',
-				'date_updated',
+				'date_created',
 				'description',
 				'content',
 				{

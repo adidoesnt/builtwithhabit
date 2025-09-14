@@ -134,7 +134,7 @@
 													</span>
 												</div>
 												<time class="font-body text-xs text-gray-500">
-													{formatDate(result.date_updated)}
+													{formatDate(result.date_created)}
 												</time>
 											</div>
 										</div>
