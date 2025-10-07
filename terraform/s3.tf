@@ -29,7 +29,7 @@ resource "aws_s3_bucket_cors_configuration" "bwh_main_bucket_cors" {
 
   cors_rule {
     allowed_methods = ["GET", "PUT", "POST", "DELETE"]
-    allowed_origins = ["*.beingsofhabit.com", "*.boh-services.com"]
+    allowed_origins = ["*.builtwithhabit.com"]
     allowed_headers = ["Content-Type"]
     max_age_seconds = 3000
   }

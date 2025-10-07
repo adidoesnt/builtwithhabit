@@ -142,7 +142,7 @@ const config = {
 			tagline: 'NASM-Certified Personal Trainer',
 			callToAction: 'View packages',
 			viewMission: 'View Mission',
-			email: 'ishita@boh-services.com',
+			email: 'ishita@builtwithhabit.com',
 			phone: '+65 9233 4061',
 			address: '75 Meyer Road, Singapore 437901',
 			instagram: {
@@ -163,7 +163,7 @@ const config = {
 			}
 		},
 		support: {
-			email: 'admin@boh-services.com'
+			email: 'admin@builtwithhabit.com'
 		},
 		pricing: {
 			title: 'Packages',
